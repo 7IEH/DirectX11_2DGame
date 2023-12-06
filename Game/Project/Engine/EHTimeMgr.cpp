@@ -1,12 +1,13 @@
 #include "pch.h"
 #include "EHTimeMgr.h"
-
-float TimeMgr::m_fDeltaTime = 0.f;
+#include "EHEngine.h"
 
 TimeMgr::TimeMgr()
 	:m_prevCounter{}
 	,m_curCounter{}
 	,m_Frequency{}
+	,m_fDeltaTime(0.f)
+	,m_fTime(0.f)
 {
 
 }
@@ -26,9 +27,20 @@ void TimeMgr::Progress()
 {
 	QueryPerformanceCounter(&m_curCounter);
 
-	float diff = static_cast<float>(m_curCounter.QuadPart) - static_cast<float>(m_prevCounter.QuadPart);
-
-	m_fDeltaTime = diff / static_cast<float>(m_Frequency.QuadPart);
+	m_fDeltaTime = static_cast<float>(m_curCounter.QuadPart-m_prevCounter.QuadPart) / static_cast<float>(m_Frequency.QuadPart);
 
 	m_prevCounter = m_curCounter;
+
+	m_fTime += m_fDeltaTime;
+	if (1.f <= m_fTime)
+	{
+		wchar_t szText[50] = {};
+		swprintf_s(szText, 50, L"DeltaTime : %f, FPS : %d", m_fDeltaTime, m_iCall);
+		SetWindowText(Engine::GetInst()->GetMainWind(), szText);
+
+		m_iCall = 0;
+		m_fTime = 0.f;
+	}
+
+	++m_iCall;
 }

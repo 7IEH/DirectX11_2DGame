@@ -37,6 +37,18 @@
     <Filter Include="ShaderCode">
       <UniqueIdentifier>{b4be6c43-fdec-4925-8eeb-6862d8983d3b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="06. Object">
+      <UniqueIdentifier>{31f19ca3-4cd7-480d-9316-ffe9c5a3887b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Component">
+      <UniqueIdentifier>{4a21c217-9167-4199-82a4-65ab4686b88c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Asset">
+      <UniqueIdentifier>{21de5dcf-7edc-440b-b7b9-8a561b972f92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Asset\Mesh">
+      <UniqueIdentifier>{6a6a55e2-2ec6-49b9-b950-7f1e299c0f77}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -81,6 +93,12 @@
     <ClInclude Include="EHPathMgr.h">
       <Filter>04. Manager\PathMgr</Filter>
     </ClInclude>
+    <ClInclude Include="EHMesh.h">
+      <Filter>08. Asset\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="EHObject.h">
+      <Filter>06. Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -112,6 +130,12 @@
     </ClCompile>
     <ClCompile Include="global.cpp">
       <Filter>01. Header</Filter>
+    </ClCompile>
+    <ClCompile Include="EHMesh.cpp">
+      <Filter>08. Asset\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="EHObject.cpp">
+      <Filter>06. Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

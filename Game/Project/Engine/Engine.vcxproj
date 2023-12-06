@@ -160,6 +160,8 @@ call Copy.bat</Command>
     <ClInclude Include="EHEntity.h" />
     <ClInclude Include="EHKeyMgr.h" />
     <ClInclude Include="EHLevel.h" />
+    <ClInclude Include="EHMesh.h" />
+    <ClInclude Include="EHObject.h" />
     <ClInclude Include="EHPathMgr.h" />
     <ClInclude Include="EHTimeMgr.h" />
     <ClInclude Include="framework.h" />
@@ -175,6 +177,8 @@ call Copy.bat</Command>
     <ClCompile Include="EHEntity.cpp" />
     <ClCompile Include="EHKeyMgr.cpp" />
     <ClCompile Include="EHLevel.cpp" />
+    <ClCompile Include="EHMesh.cpp" />
+    <ClCompile Include="EHObject.cpp" />
     <ClCompile Include="EHPathMgr.cpp" />
     <ClCompile Include="EHTimeMgr.cpp" />
     <ClCompile Include="Engine.cpp" />
