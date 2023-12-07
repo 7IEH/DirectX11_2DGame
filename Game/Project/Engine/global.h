@@ -20,7 +20,6 @@ using std::wstring;
 using std::string;
 
 
-
 #include <wrl.h>
 using namespace Microsoft::WRL;
 
@@ -48,6 +47,7 @@ typedef Vector4 Vec4;
 // 엔진 헤더 참조
 #include "singleton.h"
 #include "define.h"
+#include "enum.h"
 #include "struct.h"
 
 // Error Function

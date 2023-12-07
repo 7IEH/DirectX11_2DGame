@@ -154,16 +154,22 @@ call Copy.bat</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="EHComponent.h" />
     <ClInclude Include="define.h" />
+    <ClInclude Include="EHAsset.h" />
+    <ClInclude Include="EHAssetMgr.h" />
     <ClInclude Include="EHDevice.h" />
     <ClInclude Include="EHEngine.h" />
     <ClInclude Include="EHEntity.h" />
     <ClInclude Include="EHKeyMgr.h" />
     <ClInclude Include="EHLevel.h" />
     <ClInclude Include="EHMesh.h" />
-    <ClInclude Include="EHObject.h" />
+    <ClInclude Include="EHGameObject.h" />
     <ClInclude Include="EHPathMgr.h" />
+    <ClInclude Include="EHShader.h" />
+    <ClInclude Include="EHTest.h" />
     <ClInclude Include="EHTimeMgr.h" />
+    <ClInclude Include="enum.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="global.h" />
     <ClInclude Include="pch.h" />
@@ -172,14 +178,19 @@ call Copy.bat</Command>
     <ClInclude Include="struct.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="EHComponent.cpp" />
+    <ClCompile Include="EHAsset.cpp" />
+    <ClCompile Include="EHAssetMgr.cpp" />
     <ClCompile Include="EHDevice.cpp" />
     <ClCompile Include="EHEngine.cpp" />
     <ClCompile Include="EHEntity.cpp" />
     <ClCompile Include="EHKeyMgr.cpp" />
     <ClCompile Include="EHLevel.cpp" />
     <ClCompile Include="EHMesh.cpp" />
-    <ClCompile Include="EHObject.cpp" />
+    <ClCompile Include="EHGameObject.cpp" />
     <ClCompile Include="EHPathMgr.cpp" />
+    <ClCompile Include="EHShader.cpp" />
+    <ClCompile Include="EHTest.cpp" />
     <ClCompile Include="EHTimeMgr.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="global.cpp" />

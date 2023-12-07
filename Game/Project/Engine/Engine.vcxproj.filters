@@ -37,9 +37,6 @@
     <Filter Include="ShaderCode">
       <UniqueIdentifier>{b4be6c43-fdec-4925-8eeb-6862d8983d3b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="06. Object">
-      <UniqueIdentifier>{31f19ca3-4cd7-480d-9316-ffe9c5a3887b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="07. Component">
       <UniqueIdentifier>{4a21c217-9167-4199-82a4-65ab4686b88c}</UniqueIdentifier>
     </Filter>
@@ -48,6 +45,18 @@
     </Filter>
     <Filter Include="08. Asset\Mesh">
       <UniqueIdentifier>{6a6a55e2-2ec6-49b9-b950-7f1e299c0f77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Asset\Shader">
+      <UniqueIdentifier>{2fe5bf4a-0d09-4546-8bfc-83e1ffd8bcc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\AssetMgr">
+      <UniqueIdentifier>{aa904495-fb04-4e5e-8485-d3d50bfe28eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TestScene">
+      <UniqueIdentifier>{69f1a2fc-f4b0-4f78-a580-4f9259e915b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. GameObject">
+      <UniqueIdentifier>{31f19ca3-4cd7-480d-9316-ffe9c5a3887b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -87,17 +96,35 @@
     <ClInclude Include="EHKeyMgr.h">
       <Filter>04. Manager\KeyMgr</Filter>
     </ClInclude>
-    <ClInclude Include="EHTimeMgr.h">
-      <Filter>04. Manager\TimeMgr</Filter>
-    </ClInclude>
     <ClInclude Include="EHPathMgr.h">
       <Filter>04. Manager\PathMgr</Filter>
     </ClInclude>
     <ClInclude Include="EHMesh.h">
       <Filter>08. Asset\Mesh</Filter>
     </ClInclude>
-    <ClInclude Include="EHObject.h">
-      <Filter>06. Object</Filter>
+    <ClInclude Include="EHGameObject.h">
+      <Filter>06. GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="EHShader.h">
+      <Filter>08. Asset\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="EHAsset.h">
+      <Filter>08. Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="EHAssetMgr.h">
+      <Filter>04. Manager\AssetMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="enum.h">
+      <Filter>01. Header</Filter>
+    </ClInclude>
+    <ClInclude Include="EHTest.h">
+      <Filter>TestScene</Filter>
+    </ClInclude>
+    <ClInclude Include="EHTimeMgr.h">
+      <Filter>04. Manager\TimeMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="EHComponent.h">
+      <Filter>07. Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -134,8 +161,23 @@
     <ClCompile Include="EHMesh.cpp">
       <Filter>08. Asset\Mesh</Filter>
     </ClCompile>
-    <ClCompile Include="EHObject.cpp">
-      <Filter>06. Object</Filter>
+    <ClCompile Include="EHGameObject.cpp">
+      <Filter>06. GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="EHShader.cpp">
+      <Filter>08. Asset\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="EHAsset.cpp">
+      <Filter>08. Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="EHAssetMgr.cpp">
+      <Filter>04. Manager\AssetMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="EHTest.cpp">
+      <Filter>TestScene</Filter>
+    </ClCompile>
+    <ClCompile Include="EHComponent.cpp">
+      <Filter>07. Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
