@@ -161,17 +161,21 @@ call Copy.bat</Command>
     <ClInclude Include="EHDevice.h" />
     <ClInclude Include="EHEngine.h" />
     <ClInclude Include="EHEntity.h" />
+    <ClInclude Include="EHGraphicShader.h" />
     <ClInclude Include="EHKeyMgr.h" />
     <ClInclude Include="EHLevel.h" />
     <ClInclude Include="EHMesh.h" />
     <ClInclude Include="EHGameObject.h" />
     <ClInclude Include="EHPathMgr.h" />
+    <ClInclude Include="EHPlayer.h" />
     <ClInclude Include="EHShader.h" />
     <ClInclude Include="EHTest.h" />
     <ClInclude Include="EHTimeMgr.h" />
+    <ClInclude Include="EHTransform.h" />
     <ClInclude Include="enum.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="global.h" />
+    <ClInclude Include="EHMeshRenderer.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="SimpleMath.h" />
     <ClInclude Include="singleton.h" />
@@ -184,16 +188,20 @@ call Copy.bat</Command>
     <ClCompile Include="EHDevice.cpp" />
     <ClCompile Include="EHEngine.cpp" />
     <ClCompile Include="EHEntity.cpp" />
+    <ClCompile Include="EHGraphicShader.cpp" />
     <ClCompile Include="EHKeyMgr.cpp" />
     <ClCompile Include="EHLevel.cpp" />
     <ClCompile Include="EHMesh.cpp" />
     <ClCompile Include="EHGameObject.cpp" />
     <ClCompile Include="EHPathMgr.cpp" />
+    <ClCompile Include="EHPlayer.cpp" />
     <ClCompile Include="EHShader.cpp" />
     <ClCompile Include="EHTest.cpp" />
     <ClCompile Include="EHTimeMgr.cpp" />
+    <ClCompile Include="EHTransform.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="global.cpp" />
+    <ClCompile Include="EHMeshRenderer.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

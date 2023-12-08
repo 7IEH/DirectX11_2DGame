@@ -58,6 +58,21 @@
     <Filter Include="06. GameObject">
       <UniqueIdentifier>{31f19ca3-4cd7-480d-9316-ffe9c5a3887b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="08. Asset\Shader\GraphicShader">
+      <UniqueIdentifier>{9e950d5e-a076-4e4a-ae8f-637b4277a4dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Asset\Shader\ComputeShader">
+      <UniqueIdentifier>{78311e68-82c8-4133-ba69-0862a8a5cd9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. GameObject\Player">
+      <UniqueIdentifier>{d2b93747-c962-40c6-b199-d5537fb26bc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Component\MeshRenderer">
+      <UniqueIdentifier>{2b2eaa56-575e-456f-9e2e-31cab67408cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Component\Transform">
+      <UniqueIdentifier>{39c1f033-7d14-4eb2-a457-6d0bdb8918df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -126,6 +141,18 @@
     <ClInclude Include="EHComponent.h">
       <Filter>07. Component</Filter>
     </ClInclude>
+    <ClInclude Include="EHTransform.h">
+      <Filter>07. Component\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="EHGraphicShader.h">
+      <Filter>08. Asset\Shader\GraphicShader</Filter>
+    </ClInclude>
+    <ClInclude Include="EHPlayer.h">
+      <Filter>06. GameObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="EHMeshRenderer.h">
+      <Filter>07. Component\MeshRenderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -178,6 +205,18 @@
     </ClCompile>
     <ClCompile Include="EHComponent.cpp">
       <Filter>07. Component</Filter>
+    </ClCompile>
+    <ClCompile Include="EHTransform.cpp">
+      <Filter>07. Component\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="EHGraphicShader.cpp">
+      <Filter>08. Asset\Shader\GraphicShader</Filter>
+    </ClCompile>
+    <ClCompile Include="EHPlayer.cpp">
+      <Filter>06. GameObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="EHMeshRenderer.cpp">
+      <Filter>07. Component\MeshRenderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

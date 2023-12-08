@@ -3,19 +3,31 @@
 
 #include "EHDevice.h"
 
+// Resource
 #include "EHMesh.h"
 #include "EHShader.h"
+#include "EHGraphicShader.h"
 
+// Component
+#include "EHTransform.h"
+#include "EHMeshRenderer.h"
+
+// Mgr
 #include "EHTimeMgr.h"
 #include "EHPathMgr.h"
 #include "EHKeyMgr.h"
 
+// Object
+#include "EHPlayer.h"
+
 Mesh* Nemo = new Mesh;
-Shader* NemoShader = new Shader;
+GraphicShader* NemoShader = new GraphicShader;
 
 // ConstantBuffer
 ComPtr<ID3D11Buffer> _constantBuffer;
-tTransform pos;
+
+// Test Player
+Player* _player = new Player;
 
 void Test::Init(HWND _hWnd)
 {
@@ -49,67 +61,31 @@ void Test::Init(HWND _hWnd)
 
 	Nemo->Create(triangle, 4, idx, 6);
 
-	// ConstantBuffer »ý¼º
-	D3D11_BUFFER_DESC bDesc = {};
-
-	bDesc.ByteWidth = sizeof(tTransform);
-	bDesc.StructureByteStride = sizeof(tTransform);
-	bDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-
-	bDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-	bDesc.Usage = D3D11_USAGE_DYNAMIC;
-
-	if (FAILED(DEVICE->CreateBuffer(&bDesc, nullptr, _constantBuffer.GetAddressOf())))
-	{
-		HandleError(_hWnd, L"Constant Create Error", 0);
-		return;
-	}
-
 	wstring _path = L"\\shader\\std2d.fx";
 	string _vsEntry = "VS_Std2D";
 	string _psEntry = "PS_Std2D";
 
 	NemoShader->Create(_path, _vsEntry, _psEntry);
+
+	_player->Init();
+	_player->AddComponent<Transform>();
+	MeshRenderer* _playerRenderer = _player->AddComponent<MeshRenderer>();
+	_playerRenderer->SetMesh(Nemo);
+	_playerRenderer->SetShader(NemoShader);
 }
 
 void Test::Tick()
 {
-	if (KEY_PRESSED(KEY::A))
-	{
-		pos._Position.x -= DT;
-	}
-
-	if (KEY_PRESSED(KEY::D))
-	{
-		pos._Position.x += DT;
-	}
-
-	if (KEY_PRESSED(KEY::W))
-	{
-		pos._Position.y += DT;
-	}
-
-	if (KEY_PRESSED(KEY::S))
-	{
-		pos._Position.y -= DT;
-	}
-
 	D3D11_MAPPED_SUBRESOURCE tSub = {};
 
-	CONTEXT->Map(_constantBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &tSub);
-	::memcpy(tSub.pData, &pos, sizeof(tTransform));
-	CONTEXT->Unmap(_constantBuffer.Get(), 0);
+	_player->Tick();
+}
 
-	Nemo->UpdateData();
-	CONTEXT->VSSetConstantBuffers(0, 1, _constantBuffer.GetAddressOf());
-
-	NemoShader->UpdateData();
-
-	Nemo->Render();
+void Test::Render()
+{
+	_player->Render();
 }
 
 void Test::Release()
 {
-
-
 }

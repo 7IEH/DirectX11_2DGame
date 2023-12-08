@@ -63,6 +63,7 @@ void Engine::Progress()
 	KeyMgr::GetInst()->Tick();
 
 	test->Tick();
+	test->Render();
 
 	Device::GetInst()->Present();
 }
