@@ -23,8 +23,15 @@ void GraphicShader::Create(wstring& _shaderPath, string& _vsEntry, string& _psEn
 	CreateShader(SHADER_TYPE::VERTEX);
 	CreateShader(SHADER_TYPE::PIXEL);
 
+	// Texture Create
+	CreateSamplerState();
+
 	// CreateLayOut
 	CreateLayOut();
+}
+
+void GraphicShader::CreateResourceView(wstring& _texturePath)
+{
 }
 
 void GraphicShader::UpdateData()
@@ -33,6 +40,8 @@ void GraphicShader::UpdateData()
 	CONTEXT->IASetInputLayout(m_LayOut.Get());
 	SetShader(SHADER_TYPE::VERTEX);
 	SetShader(SHADER_TYPE::PIXEL);
+	CONTEXT->PSSetShaderResources(0,1,m_ResourceView.GetAddressOf());
+	CONTEXT->PSSetSamplers(0,1,m_SamplerState.GetAddressOf());
 }
 
 void GraphicShader::Render()
@@ -106,6 +115,26 @@ void GraphicShader::CreateShader(SHADER_TYPE _type)
 	default:
 		break;
 	}
+}
+
+void GraphicShader::CreateSamplerState()
+{
+	D3D11_SAMPLER_DESC tDesc = {};
+	tDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+	tDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+	tDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+	tDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+	tDesc.MipLODBias = 0.0f;
+	tDesc.MaxAnisotropy = 1;
+	tDesc.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
+	tDesc.BorderColor[0] = 0;
+	tDesc.BorderColor[1] = 0;
+	tDesc.BorderColor[2] = 0;
+	tDesc.BorderColor[3] = 0;
+	tDesc.MinLOD = 0;
+	tDesc.MaxLOD = D3D11_FLOAT32_MAX;
+
+	DEVICE->CreateSamplerState(&tDesc, m_SamplerState.GetAddressOf());
 }
 
 void GraphicShader::CreateLayOut()

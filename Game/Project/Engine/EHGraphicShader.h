@@ -34,12 +34,15 @@ public:
 
 public:
     void Create(wstring& _shaderPath, string& _vsEntry, string& _psEntry);
+    void CreateResourceView(wstring& _texturePath);
+
     virtual void UpdateData()override;
     virtual void Render() override;
 
 private:
     void CreateBlobFile(SHADER_TYPE _type, wstring& _path, string& _entry);
     void CreateShader(SHADER_TYPE _type);
+    void CreateSamplerState();
     void CreateLayOut();
     void SetShader(SHADER_TYPE _type);
 };
