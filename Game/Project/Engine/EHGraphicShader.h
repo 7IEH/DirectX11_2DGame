@@ -22,6 +22,9 @@ private:
     ComPtr<ID3D11InputLayout>               m_LayOut;
     D3D_PRIMITIVE_TOPOLOGY                  m_Topology;
 
+    ComPtr<ID3D11SamplerState>              m_SamplerState;
+    ComPtr<ID3D11ShaderResourceView>        m_ResourceView;
+
 public:
     GraphicShader();
     virtual ~GraphicShader();
