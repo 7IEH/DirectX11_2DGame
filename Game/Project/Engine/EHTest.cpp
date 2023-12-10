@@ -40,15 +40,15 @@ void Test::Init(HWND _hWnd)
 
 	triangle[1]._Postion = Vec3(0.5f, 0.5f, 0.f);
 	triangle[1]._Color = Vec4(0.f, 1.f, 0.f, 1.f);
-	triangle[1]._UV = Vec2(0.f, 0.f);
+	triangle[1]._UV = Vec2(1.f, 0.f);
 
 	triangle[2]._Postion = Vec3(0.5f, -0.5f, 0.f);
 	triangle[2]._Color = Vec4(0.f, 0.f, 1.f, 1.f);
-	triangle[2]._UV = Vec2(0.f, 0.f);
+	triangle[2]._UV = Vec2(1.f, 1.f);
 
 	triangle[3]._Postion = Vec3(-0.5f, -0.5f, 0.f);
 	triangle[3]._Color = Vec4(0.f, 0.f, 1.f, 1.f);
-	triangle[3]._UV = Vec2(0.f, 0.f);
+	triangle[3]._UV = Vec2(0.f, 1.f);
 	// --------------------------------------------
 
 	idx[0] = 0;
@@ -66,6 +66,9 @@ void Test::Init(HWND _hWnd)
 	string _psEntry = "PS_Std2D";
 
 	NemoShader->Create(_path, _vsEntry, _psEntry);
+
+	_path = L"\\resource\\NPC_Commander0.png";
+	NemoShader->CreateResourceView(_path);
 
 	_player->Init();
 	_player->AddComponent<Transform>();

@@ -126,7 +126,7 @@ HRESULT Device::CreateDSView()
 	Desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
 	Desc.Width = (UINT)m_vRenderResolution.x;
 	Desc.Height = (UINT)m_vRenderResolution.y;
-	Desc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+	Desc.BindFlags = D3D11_BIND_DEPTH_STENCIL;	
 	Desc.CPUAccessFlags = 0;
 	Desc.Usage = D3D11_USAGE_DEFAULT;
 

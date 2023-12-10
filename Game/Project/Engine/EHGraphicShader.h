@@ -25,6 +25,8 @@ private:
     ComPtr<ID3D11SamplerState>              m_SamplerState;
     ComPtr<ID3D11ShaderResourceView>        m_ResourceView;
 
+    ComPtr<ID3D11BlendState>                m_BlendState;
+
 public:
     GraphicShader();
     virtual ~GraphicShader();
@@ -45,5 +47,6 @@ private:
     void CreateSamplerState();
     void CreateLayOut();
     void SetShader(SHADER_TYPE _type);
+    void CreateBlendState();
 };
 

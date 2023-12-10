@@ -26,14 +26,12 @@ using namespace Microsoft::WRL;
 // Directx 11 헤더 및 라이브러리 참조
 #include <d3d11.h>
 #include <d3dcompiler.h>
+#include <DirectXTex.h>
 #include <DirectXMath.h>
-
 using namespace DirectX;
 
 #pragma comment(lib, "d3d11")
 #pragma comment(lib, "d3dcompiler")
-
-
 
 // SimpleMath
 #include "SimpleMath.h"
@@ -43,7 +41,6 @@ typedef Vector2 Vec2;
 typedef Vector3 Vec3;
 typedef Vector4 Vec4;
 
-
 // 엔진 헤더 참조
 #include "singleton.h"
 #include "define.h"
@@ -51,5 +48,4 @@ typedef Vector4 Vec4;
 #include "struct.h"
 
 // Error Function
-
 void HandleError(HWND _hWnd, wstring _content, int flag);

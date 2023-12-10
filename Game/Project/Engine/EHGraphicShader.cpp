@@ -28,10 +28,39 @@ void GraphicShader::Create(wstring& _shaderPath, string& _vsEntry, string& _psEn
 
 	// CreateLayOut
 	CreateLayOut();
+
+	// Create BlendState
+	CreateBlendState();
 }
 
 void GraphicShader::CreateResourceView(wstring& _texturePath)
 {
+	wstring _path = PATH + _texturePath;
+	ScratchImage _Image;
+	LoadFromWICFile(_path.c_str(), WIC_FLAGS_NONE, NULL, _Image);
+	ComPtr<ID3D11Texture2D> _texture;
+	CreateTexture(DEVICE, _Image.GetImages(), _Image.GetImageCount(), _Image.GetMetadata(), (ID3D11Resource**)_texture.GetAddressOf());
+
+	// 溅捞歹 府家胶 轰 积己.
+	D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
+	::ZeroMemory(&srvDesc, sizeof(srvDesc));
+
+	srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+	srvDesc.Texture2D.MostDetailedMip = 0;
+	srvDesc.Texture2D.MipLevels = 1;
+
+	D3D11_TEXTURE2D_DESC textureDesc;
+	_texture->GetDesc(&textureDesc);
+
+	srvDesc.Format = textureDesc.Format;
+
+	ID3D11ShaderResourceView* shaderResourceView;
+	DEVICE->CreateShaderResourceView(
+		_texture.Get(),
+		&srvDesc,
+		m_ResourceView.GetAddressOf()
+	);
+
 }
 
 void GraphicShader::UpdateData()
@@ -40,8 +69,9 @@ void GraphicShader::UpdateData()
 	CONTEXT->IASetInputLayout(m_LayOut.Get());
 	SetShader(SHADER_TYPE::VERTEX);
 	SetShader(SHADER_TYPE::PIXEL);
-	CONTEXT->PSSetShaderResources(0,1,m_ResourceView.GetAddressOf());
-	CONTEXT->PSSetSamplers(0,1,m_SamplerState.GetAddressOf());
+	CONTEXT->PSSetShaderResources(0, 1, m_ResourceView.GetAddressOf());
+	CONTEXT->PSSetSamplers(0, 1, m_SamplerState.GetAddressOf());
+	CONTEXT->OMSetBlendState(m_BlendState.Get(), NULL, 0x3FF);
 }
 
 void GraphicShader::Render()
@@ -120,7 +150,7 @@ void GraphicShader::CreateShader(SHADER_TYPE _type)
 void GraphicShader::CreateSamplerState()
 {
 	D3D11_SAMPLER_DESC tDesc = {};
-	tDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+	tDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
 	tDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
 	tDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
 	tDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
@@ -193,4 +223,20 @@ void GraphicShader::SetShader(SHADER_TYPE _type)
 	default:
 		break;
 	}
+}
+
+void GraphicShader::CreateBlendState()
+{
+	D3D11_BLEND_DESC tDesc = {};
+	tDesc.RenderTarget[0].BlendEnable = true;
+	tDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+	tDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+	tDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ZERO;
+	tDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	tDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+
+	tDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+	tDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+
+	DEVICE->CreateBlendState(&tDesc, m_BlendState.GetAddressOf());
 }

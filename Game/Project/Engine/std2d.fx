@@ -1,6 +1,9 @@
 #ifndef _STD2D
 #define _STD2D
 
+SamplerState samplerType;
+Texture2D shaderTexture;
+
 cbuffer Worldspcae : register(b0)
 {
     float4 Position;
@@ -38,8 +41,8 @@ float4 PS_Std2D(VS_OUT _in) : SV_Target
 {
     //return float4(0.f, 0.f, 1.f, 1.f);
     
-    
-    return _in.vColor;
+    float4 color = shaderTexture.Sample(samplerType, _in.vUV);
+    return color;
 }
 
 #endif
