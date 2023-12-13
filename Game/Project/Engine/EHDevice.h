@@ -40,6 +40,9 @@ public:
 	ID3D11DeviceContext* GetContext() { return m_DeviceContext.Get(); }
 
 public:
+	Vec2 GetResolution() { return m_vRenderResolution; }
+
+public:
 	int Init(HWND _hWnd, Vec2 _vRenderResolution);
 };
 

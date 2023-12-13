@@ -12,8 +12,8 @@ Device::Device()
 	, m_DSView(nullptr)
 	, m_hWnd(nullptr)
 	, m_vRenderResolution{}
+	, m_4MSAAQuality(0)
 {
-	
 }
 
 Device::~Device()

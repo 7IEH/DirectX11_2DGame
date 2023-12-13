@@ -17,3 +17,5 @@
 #define KEY_PRESSED(Key) KEY_CHECK(Key, PRESSED)
 #define KEY_RELEASED(Key) KEY_CHECK(Key, RELEASED)
 #define KEY_NONE(Key) KEY_CHECK(Key, NONE)
+
+#define ASPECT_RATIO Device::GetInst()->GetResolution().x/ Device::GetInst()->GetResolution().y
