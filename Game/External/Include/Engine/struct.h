@@ -8,10 +8,20 @@ struct vtx
 	Vec2 _UV;
 };
 
+// SRT
 struct tTransform
 {
-	Vec4 _Position;
 	Vec4 _Scale;
+	Vec4 _Position;
+	float _Rotation;
+};
+
+// MVP
+struct transform
+{
+	XMMATRIX _world;
+	XMMATRIX _view;
+	XMMATRIX _projection;
 };
 
 struct FKeyData

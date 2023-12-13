@@ -8,14 +8,15 @@ class Transform
 private:
 	ComPtr<ID3D11Buffer> m_CB;
 
-	tTransform* m_Trasnform;
+	tTransform* m_Transform;
+	transform* m_Matrix;
 
 public:
 	Transform();
 	virtual ~Transform();
 
 public:
-	tTransform* GetTransform() { return m_Trasnform; }
+	tTransform* GetTransform() { return m_Transform; }
 
 public:
 	virtual void Create() override;

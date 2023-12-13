@@ -11,8 +11,12 @@ void Player::Tick()
 	GameObject::Tick();
 	
 	Transform* _transform = GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
-	tTransform* _transformInfo = _transform->GetTransform();
-
+	tTransform* _transformInfo = nullptr;
+	if (_transform == nullptr)
+	{
+		return;
+	}
+	_transformInfo = _transform->GetTransform();
 	if (KEY_PRESSED(A))
 	{
 		_transformInfo->_Position.x -= DT;

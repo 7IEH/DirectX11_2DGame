@@ -228,5 +228,8 @@
     <FxCompile Include="std2d.fx">
       <Filter>ShaderCode</Filter>
     </FxCompile>
+    <FxCompile Include="st2dbg.fx">
+      <Filter>ShaderCode</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

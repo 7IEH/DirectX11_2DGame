@@ -21,6 +21,8 @@ private:
 	HWND									m_hWnd;
 	Vec2									m_vRenderResolution;
 
+	UINT									m_4MSAAQuality;
+
 private:
 	HRESULT CreateDevice();
 	HRESULT CreateSwapChain();

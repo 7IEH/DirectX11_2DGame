@@ -6,6 +6,8 @@
 
 MeshRenderer::MeshRenderer()
 	:Component(COMPONENT_TYPE::MESHRENDERER)
+	,m_Mesh(nullptr)
+	,m_Shader(nullptr)
 {
 }
 
@@ -17,10 +19,11 @@ void MeshRenderer::Tick()
 {
 	m_Mesh->UpdateData();
 	m_Shader->UpdateData();
+
+	m_Mesh->Render();
 }
 
 void MeshRenderer::Render()
 {
-	m_Mesh->Render();
 	m_Shader->Render();
 }

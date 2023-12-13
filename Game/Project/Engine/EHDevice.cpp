@@ -13,7 +13,7 @@ Device::Device()
 	, m_hWnd(nullptr)
 	, m_vRenderResolution{}
 {
-
+	
 }
 
 Device::~Device()
@@ -31,6 +31,10 @@ int Device::Init(HWND _hWnd, Vec2 _vRenderResolution)
 	{
 		return E_FAIL;
 	}
+
+	// MultiSampling check
+	DEVICE->CheckMultisampleQualityLevels(DXGI_FORMAT_R8G8B8A8_UNORM, 4, &m_4MSAAQuality);
+	assert(m_4MSAAQuality > 0);
 
 	// SwapChain Create
 	if (FAILED(CreateSwapChain()))
@@ -89,8 +93,18 @@ HRESULT Device::CreateSwapChain()
 	tDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
 	tDesc.Flags = 0;
 
-	tDesc.SampleDesc.Count = 1;
-	tDesc.SampleDesc.Quality = 0;
+	// ÇöÀç´Â ²¨µÒ
+	// MultiSampling check
+	if (true)
+	{
+		tDesc.SampleDesc.Count = 1;
+		tDesc.SampleDesc.Quality = 0;
+	}
+	else
+	{
+		tDesc.SampleDesc.Count = 4;
+		tDesc.SampleDesc.Quality = m_4MSAAQuality - 1;
+	}
 
 	tDesc.Windowed = true;
 	tDesc.OutputWindow = m_hWnd;
@@ -150,6 +164,7 @@ HRESULT Device::CreateDSView()
 
 void Device::OMSetRT()
 {
+	// ÃÖ´ë 8°³ÀÇ ·»´õÅ¸ÄÏ °¡´É
 	m_DeviceContext->OMSetRenderTargets(1, m_RTView.GetAddressOf(), m_DSView.Get());
 }
 

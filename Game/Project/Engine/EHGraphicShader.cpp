@@ -38,9 +38,8 @@ void GraphicShader::CreateResourceView(wstring& _texturePath)
 	wstring _path = PATH + _texturePath;
 	ScratchImage _Image;
 	LoadFromWICFile(_path.c_str(), WIC_FLAGS_NONE, NULL, _Image);
-	ComPtr<ID3D11Texture2D> _texture;
-	CreateTexture(DEVICE, _Image.GetImages(), _Image.GetImageCount(), _Image.GetMetadata(), (ID3D11Resource**)_texture.GetAddressOf());
-
+	CreateTexture(DEVICE, _Image.GetImages(), _Image.GetImageCount(), _Image.GetMetadata(), (ID3D11Resource**)m_ResourceTexture.GetAddressOf());
+	
 	// 溅捞歹 府家胶 轰 积己.
 	D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
 	::ZeroMemory(&srvDesc, sizeof(srvDesc));
@@ -50,17 +49,15 @@ void GraphicShader::CreateResourceView(wstring& _texturePath)
 	srvDesc.Texture2D.MipLevels = 1;
 
 	D3D11_TEXTURE2D_DESC textureDesc;
-	_texture->GetDesc(&textureDesc);
+	m_ResourceTexture->GetDesc(&textureDesc);
 
 	srvDesc.Format = textureDesc.Format;
 
-	ID3D11ShaderResourceView* shaderResourceView;
 	DEVICE->CreateShaderResourceView(
-		_texture.Get(),
+		m_ResourceTexture.Get(),
 		&srvDesc,
 		m_ResourceView.GetAddressOf()
 	);
-
 }
 
 void GraphicShader::UpdateData()
@@ -69,9 +66,9 @@ void GraphicShader::UpdateData()
 	CONTEXT->IASetInputLayout(m_LayOut.Get());
 	SetShader(SHADER_TYPE::VERTEX);
 	SetShader(SHADER_TYPE::PIXEL);
-	CONTEXT->PSSetShaderResources(0, 1, m_ResourceView.GetAddressOf());
 	CONTEXT->PSSetSamplers(0, 1, m_SamplerState.GetAddressOf());
-	CONTEXT->OMSetBlendState(m_BlendState.Get(), NULL, 0x3FF);
+	CONTEXT->PSSetShaderResources(0, 1, m_ResourceView.GetAddressOf());
+	CONTEXT->OMSetBlendState(m_BlendState.Get(), NULL, 0xffffffff);
 }
 
 void GraphicShader::Render()
@@ -233,8 +230,8 @@ void GraphicShader::CreateBlendState()
 	tDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
 	tDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ZERO;
 	tDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
-	tDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
 
+	tDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
 	tDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
 	tDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
 
