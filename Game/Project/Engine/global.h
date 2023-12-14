@@ -46,6 +46,7 @@ typedef Vector4 Vec4;
 #include "define.h"
 #include "enum.h"
 #include "struct.h"
+#include "func.h"
 
 // Error Function
 void HandleError(HWND _hWnd, wstring _content, int flag);

@@ -3,6 +3,7 @@
 #include "EHComponent.h"
 #include "EHTransform.h"
 #include "EHMeshRenderer.h"
+#include "EHRenderer.h"
 
 class Component;
 
@@ -11,19 +12,30 @@ class GameObject
 {
 private:
 	Component* m_Component[(UINT)COMPONENT_TYPE::END];
+	Component* m_Renderer;
 
 public:
 	template<typename T>
 	T* AddComponent()
 	{
 		T* _comp = new T();
+		if (_comp->GetType() == COMPONENT_TYPE::RENDERER)
+		{
+			if (m_Renderer == nullptr)
+			{
+				m_Renderer = _comp;
+			}
+		}
+
 		if (m_Component[(UINT)_comp->GetType()] == nullptr)
 		{
-			_comp->Create();
 			m_Component[(UINT)_comp->GetType()] = _comp;
+			_comp->SetOwner(this);
 		}
 		else
 		{
+			delete _comp;
+			_comp = nullptr;
 			_comp = dynamic_cast<T*>(m_Component[(UINT)_comp->GetType()]);
 		}
 		return _comp;
@@ -41,5 +53,9 @@ public:
 	void Init();
 	virtual void Tick();
 	virtual void Render();
+
+public:
+	GameObject();
+	virtual ~GameObject();
 };
 

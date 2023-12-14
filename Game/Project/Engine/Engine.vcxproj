@@ -158,6 +158,7 @@ call Copy.bat</Command>
     <ClInclude Include="define.h" />
     <ClInclude Include="EHAsset.h" />
     <ClInclude Include="EHAssetMgr.h" />
+    <ClInclude Include="EHConstantBuffer.h" />
     <ClInclude Include="EHDevice.h" />
     <ClInclude Include="EHEngine.h" />
     <ClInclude Include="EHEntity.h" />
@@ -168,12 +169,14 @@ call Copy.bat</Command>
     <ClInclude Include="EHGameObject.h" />
     <ClInclude Include="EHPathMgr.h" />
     <ClInclude Include="EHPlayer.h" />
+    <ClInclude Include="EHRenderer.h" />
     <ClInclude Include="EHShader.h" />
     <ClInclude Include="EHTest.h" />
     <ClInclude Include="EHTimeMgr.h" />
     <ClInclude Include="EHTransform.h" />
     <ClInclude Include="enum.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="func.h" />
     <ClInclude Include="global.h" />
     <ClInclude Include="EHMeshRenderer.h" />
     <ClInclude Include="pch.h" />
@@ -185,6 +188,7 @@ call Copy.bat</Command>
     <ClCompile Include="EHComponent.cpp" />
     <ClCompile Include="EHAsset.cpp" />
     <ClCompile Include="EHAssetMgr.cpp" />
+    <ClCompile Include="EHConstantBuffer.cpp" />
     <ClCompile Include="EHDevice.cpp" />
     <ClCompile Include="EHEngine.cpp" />
     <ClCompile Include="EHEntity.cpp" />
@@ -195,6 +199,7 @@ call Copy.bat</Command>
     <ClCompile Include="EHGameObject.cpp" />
     <ClCompile Include="EHPathMgr.cpp" />
     <ClCompile Include="EHPlayer.cpp" />
+    <ClCompile Include="EHRenderer.cpp" />
     <ClCompile Include="EHShader.cpp" />
     <ClCompile Include="EHTest.cpp" />
     <ClCompile Include="EHTimeMgr.cpp" />

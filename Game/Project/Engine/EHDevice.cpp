@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "EHDevice.h"
 
+#include "EHConstantBuffer.h"
+
 Device::Device()
 	:
 	m_Device(nullptr)
@@ -13,12 +15,12 @@ Device::Device()
 	, m_hWnd(nullptr)
 	, m_vRenderResolution{}
 	, m_4MSAAQuality(0)
+	, m_ConstantBuffer{}
 {
 }
 
 Device::~Device()
 {
-
 }
 
 int Device::Init(HWND _hWnd, Vec2 _vRenderResolution)
@@ -119,9 +121,11 @@ HRESULT Device::CreateSwapChain()
 
 	if (FAILED(pFactory->CreateSwapChain(m_Device.Get(), &tDesc, m_SwapChain.GetAddressOf())))
 	{
-		HandleError(m_hWnd, L"SwapChain Create Failed!",1);
+		HandleError(m_hWnd, L"SwapChain Create Failed!", 1);
 		return E_FAIL;
 	}
+
+	CreateConstantBuffer(CONSTANT_TYPE::TRANSFORM, sizeof(transform), 1);
 
 	return S_OK;
 }
@@ -140,7 +144,7 @@ HRESULT Device::CreateDSView()
 	Desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
 	Desc.Width = (UINT)m_vRenderResolution.x;
 	Desc.Height = (UINT)m_vRenderResolution.y;
-	Desc.BindFlags = D3D11_BIND_DEPTH_STENCIL;	
+	Desc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
 	Desc.CPUAccessFlags = 0;
 	Desc.Usage = D3D11_USAGE_DEFAULT;
 
@@ -149,7 +153,7 @@ HRESULT Device::CreateDSView()
 
 	Desc.MipLevels = 1;
 	Desc.MiscFlags = 0;
-	
+
 	Desc.ArraySize = 1;
 
 	if (FAILED(m_Device->CreateTexture2D(&Desc, nullptr, m_DSTexture.GetAddressOf())))
@@ -166,6 +170,20 @@ void Device::OMSetRT()
 {
 	// 최대 8개의 렌더타켓 가능
 	m_DeviceContext->OMSetRenderTargets(1, m_RTView.GetAddressOf(), m_DSView.Get());
+}
+
+void Device::CreateConstantBuffer(CONSTANT_TYPE _type, int _size, int _sizeCount)
+{
+	D3D11_BUFFER_DESC tDesc = {};
+	tDesc.ByteWidth = _size * _sizeCount;
+	tDesc.StructureByteStride = _size;
+	tDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+
+	tDesc.Usage = D3D11_USAGE_DYNAMIC;
+	tDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	
+	m_ConstantBuffer[(UINT)_type] = new ConstantBuffer();
+	DEVICE->CreateBuffer(&tDesc, nullptr, m_ConstantBuffer[(UINT)_type]->GetBufferDP());
 }
 
 void Device::ClearRenderTarget(float(&Color)[4])

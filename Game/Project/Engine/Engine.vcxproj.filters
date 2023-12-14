@@ -67,11 +67,17 @@
     <Filter Include="06. GameObject\Player">
       <UniqueIdentifier>{d2b93747-c962-40c6-b199-d5537fb26bc2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="07. Component\MeshRenderer">
-      <UniqueIdentifier>{2b2eaa56-575e-456f-9e2e-31cab67408cd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="07. Component\Transform">
       <UniqueIdentifier>{39c1f033-7d14-4eb2-a457-6d0bdb8918df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Component\Renderer">
+      <UniqueIdentifier>{1fdd2e60-b96b-4c11-814e-78e3d59c664f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Component\Renderer\MeshRenderer">
+      <UniqueIdentifier>{2b2eaa56-575e-456f-9e2e-31cab67408cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Device\ConstantBuffer">
+      <UniqueIdentifier>{a6b761cd-9a51-4653-9ea9-8635e55bfade}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -151,7 +157,16 @@
       <Filter>06. GameObject\Player</Filter>
     </ClInclude>
     <ClInclude Include="EHMeshRenderer.h">
-      <Filter>07. Component\MeshRenderer</Filter>
+      <Filter>07. Component\Renderer\MeshRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="func.h">
+      <Filter>01. Header</Filter>
+    </ClInclude>
+    <ClInclude Include="EHRenderer.h">
+      <Filter>07. Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="EHConstantBuffer.h">
+      <Filter>03. Device\ConstantBuffer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -216,7 +231,13 @@
       <Filter>06. GameObject\Player</Filter>
     </ClCompile>
     <ClCompile Include="EHMeshRenderer.cpp">
-      <Filter>07. Component\MeshRenderer</Filter>
+      <Filter>07. Component\Renderer\MeshRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="EHRenderer.cpp">
+      <Filter>07. Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="EHConstantBuffer.cpp">
+      <Filter>03. Device\ConstantBuffer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

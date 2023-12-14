@@ -1,5 +1,7 @@
 #pragma once
 
+class ConstantBuffer;
+
 class Device
 	: public Singleton<Device>
 {
@@ -23,26 +25,32 @@ private:
 
 	UINT									m_4MSAAQuality;
 
+	ConstantBuffer*							m_ConstantBuffer[(UINT)CONSTANT_TYPE::END];
+
+public:
+	void						ClearRenderTarget(float(&Color)[4]);
+	void						Present();
+
+	ID3D11Device*				GetDevice() { return m_Device.Get(); }
+	ID3D11DeviceContext*		GetContext() { return m_DeviceContext.Get(); }
+
+	Vec2						GetResolution() { return m_vRenderResolution; }
+	HWND						GetHwnd() { return m_hWnd; }
+
+	ConstantBuffer*				GetConstantBuffer(CONSTANT_TYPE _type) { return m_ConstantBuffer[(UINT)(CONSTANT_TYPE)_type]; }
+
+public:
+	int							Init(HWND _hWnd, Vec2 _vRenderResolution);
+
 private:
-	HRESULT CreateDevice();
-	HRESULT CreateSwapChain();
-	HRESULT CreateRTView();
-	HRESULT CreateDSView();
-	void CreateViewPort();
-	
-	void OMSetRT();
+	HRESULT						CreateDevice();
+	HRESULT						CreateSwapChain();
+	HRESULT						CreateRTView();
+	HRESULT						CreateDSView();
 
-public:
-	void ClearRenderTarget(float(&Color)[4]);
-	void Present();
+	void						CreateViewPort();
+	void						OMSetRT();
 
-	ID3D11Device* GetDevice() { return m_Device.Get(); }
-	ID3D11DeviceContext* GetContext() { return m_DeviceContext.Get(); }
-
-public:
-	Vec2 GetResolution() { return m_vRenderResolution; }
-
-public:
-	int Init(HWND _hWnd, Vec2 _vRenderResolution);
+	void						CreateConstantBuffer(CONSTANT_TYPE _type, int _size, int _sizeCount);
 };
 

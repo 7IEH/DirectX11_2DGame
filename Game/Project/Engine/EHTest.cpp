@@ -27,7 +27,7 @@ Mesh* texture = new Mesh;
 GraphicShader* textureShader = new GraphicShader;
 
 // Test Player
-Player* _player = new Player;
+GameObject* _player = new GameObject;
 Player* _pla2 = new Player;
 
 void Test::Init(HWND _hWnd)
@@ -62,7 +62,7 @@ void Test::Init(HWND _hWnd)
 
 	Nemo->Create(triangle, 4, idx, 6);
 
-	wstring _path = L"\\shader\\st2dbg.fx";
+	wstring _path = L"\\shader\\std2d.fx";
 	string _vsEntry = "VS_Std2D";
 	string _psEntry = "PS_Std2D";
 
@@ -72,7 +72,7 @@ void Test::Init(HWND _hWnd)
 	NemoShader->CreateResourceView(_path);
 
 	_player->Init();
-	//_player->AddComponent<Transform>();
+	_player->AddComponent<Transform>();
 	MeshRenderer* _playerRenderer = _player->AddComponent<MeshRenderer>();
 	_playerRenderer->SetMesh(Nemo);
 	_playerRenderer->SetShader(NemoShader);
@@ -118,6 +118,7 @@ void Test::Init(HWND _hWnd)
 
 	_pla2->Init();
 	Transform* _tr = _pla2->AddComponent<Transform>();
+	_playerRenderer = _pla2->AddComponent<MeshRenderer>();
 	_playerRenderer->SetMesh(texture);
 	_playerRenderer->SetShader(textureShader);
 }
@@ -130,10 +131,12 @@ void Test::Tick()
 
 void Test::Render()
 {
-	//_player->Render();
-	//_pla2->Render();
+	_player->Render();
+	_pla2->Render();
 }
 
 void Test::Release()
 {
+	delete _player;
+	delete _pla2;
 }

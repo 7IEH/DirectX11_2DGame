@@ -3,6 +3,17 @@
 
 #include "EHComponent.h"
 
+GameObject::GameObject()
+	:m_Component{}
+	,m_Renderer(nullptr)
+{
+}
+
+GameObject::~GameObject()
+{
+	ReleaseArray<Component, (int)COMPONENT_TYPE::END>(m_Component);
+}
+
 void GameObject::Init()
 {
 	for (UINT _comp = 0;_comp < (UINT)COMPONENT_TYPE::END;_comp++)
@@ -24,11 +35,6 @@ void GameObject::Tick()
 
 void GameObject::Render()
 {
-	for (UINT _comp = 0;_comp < (UINT)COMPONENT_TYPE::END;_comp++)
-	{
-		if (m_Component[_comp] != nullptr)
-		{
-			m_Component[_comp]->Render();
-		}
-	}
+	Renderer* _renderer = dynamic_cast<Renderer*>(m_Renderer);
+	_renderer->Render();
 }

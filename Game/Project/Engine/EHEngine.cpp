@@ -20,7 +20,7 @@ Engine::Engine()
 
 Engine::~Engine()
 {
-
+	test->Release();
 }
 
 int Engine::Init(Vec2 _vResolution, HWND _hWnd)
@@ -32,7 +32,7 @@ int Engine::Init(Vec2 _vResolution, HWND _hWnd)
 	RECT rt = { 0,0,(int)m_vResolution.x,(int)m_vResolution.y };
 
 	AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, false);
-	SetWindowPos(m_hWnd, nullptr, 10.f, 10.f, rt.right - rt.left, rt.bottom - rt.top, 0);
+	SetWindowPos(m_hWnd, nullptr, 10, 10, rt.right - rt.left, rt.bottom - rt.top, 0);
 	
 	// Manger Initialize
 	TimeMgr::GetInst()->Init();

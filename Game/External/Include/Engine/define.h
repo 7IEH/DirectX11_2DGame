@@ -5,6 +5,8 @@
 							~classtype();\
 							friend class Singleton<classtype>;
 
+#define MAIN_HWND Device::GetInst()->GetHwnd()
+
 #define DEVICE Device::GetInst()->GetDevice()
 #define CONTEXT Device::GetInst()->GetContext()
 

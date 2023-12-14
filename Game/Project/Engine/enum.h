@@ -86,7 +86,13 @@ enum class COMPONENT_TYPE
 	TRANSFORM,
 	COLLIDER2D,
 	ANIMATOR2D,
+	RENDERER,
+	END
+};
 
+// Renderer Type
+enum class RENDERER_TYPE
+{
 	MESHRENDERER,
 	END
 };
@@ -117,5 +123,15 @@ enum class SHADER_TYPE
 	HULL,
 	DOMAlN,
 	GEOMETRY,
+	END,
+};
+
+// Constant Buffer Type
+enum class CONSTANT_TYPE
+{
+	TRANSFORM,
+	MATERIAL,
+	LIGHT,
+	ANIMATION,
 	END,
 };
