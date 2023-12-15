@@ -67,13 +67,12 @@ void GraphicShader::UpdateData()
 	SetShader(SHADER_TYPE::VERTEX);
 	SetShader(SHADER_TYPE::PIXEL);
 	CONTEXT->PSSetSamplers(0, 1, m_SamplerState.GetAddressOf());
-	CONTEXT->PSSetShaderResources(0, 1, m_ResourceView.GetAddressOf());
-	CONTEXT->OMSetBlendState(m_BlendState.Get(), NULL, 0xffffffff);
 }
-
+ 
 void GraphicShader::Render()
 {
-
+	CONTEXT->PSSetShaderResources(0, 1, m_ResourceView.GetAddressOf());
+	CONTEXT->OMSetBlendState(m_BlendState.Get(), NULL, 0xffffffff);
 }
 
 void GraphicShader::CreateBlobFile(SHADER_TYPE _type, wstring& _path, string& _entry)

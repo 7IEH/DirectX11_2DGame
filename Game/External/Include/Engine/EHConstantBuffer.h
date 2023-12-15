@@ -11,6 +11,7 @@ public:
 	CONSTANT_TYPE	GetCBType() { return m_Type; }
 
 public:
-	void			UpdateData(int _size, int _count, void* _data);
+	void			SetData(void* _data, int _size, int _count); 
+	void			UpdateData();
 };
 

@@ -79,6 +79,18 @@
     <Filter Include="03. Device\ConstantBuffer">
       <UniqueIdentifier>{a6b761cd-9a51-4653-9ea9-8635e55bfade}</UniqueIdentifier>
     </Filter>
+    <Filter Include="07. Component\Script">
+      <UniqueIdentifier>{143e6df6-3471-47cf-996a-289460aeb317}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Asset\MeshData">
+      <UniqueIdentifier>{27535a3c-73c6-4838-9b1e-90451d422821}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Asset\Material">
+      <UniqueIdentifier>{a24cf468-3265-4bb3-945c-b559274505b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Asset\Sound">
+      <UniqueIdentifier>{d86c5f8b-ebc2-4c7a-ac34-d8c13882b223}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -168,6 +180,9 @@
     <ClInclude Include="EHConstantBuffer.h">
       <Filter>03. Device\ConstantBuffer</Filter>
     </ClInclude>
+    <ClInclude Include="EHScript.h">
+      <Filter>07. Component\Script</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -238,6 +253,9 @@
     </ClCompile>
     <ClCompile Include="EHConstantBuffer.cpp">
       <Filter>03. Device\ConstantBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="EHScript.cpp">
+      <Filter>07. Component\Script</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

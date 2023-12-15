@@ -33,6 +33,10 @@ void GameObject::Tick()
 	}
 }
 
+void GameObject::FinalTick()
+{
+}
+
 void GameObject::Render()
 {
 	Renderer* _renderer = dynamic_cast<Renderer*>(m_Renderer);

@@ -170,6 +170,7 @@ call Copy.bat</Command>
     <ClInclude Include="EHPathMgr.h" />
     <ClInclude Include="EHPlayer.h" />
     <ClInclude Include="EHRenderer.h" />
+    <ClInclude Include="EHScript.h" />
     <ClInclude Include="EHShader.h" />
     <ClInclude Include="EHTest.h" />
     <ClInclude Include="EHTimeMgr.h" />
@@ -200,6 +201,7 @@ call Copy.bat</Command>
     <ClCompile Include="EHPathMgr.cpp" />
     <ClCompile Include="EHPlayer.cpp" />
     <ClCompile Include="EHRenderer.cpp" />
+    <ClCompile Include="EHScript.cpp" />
     <ClCompile Include="EHShader.cpp" />
     <ClCompile Include="EHTest.cpp" />
     <ClCompile Include="EHTimeMgr.cpp" />

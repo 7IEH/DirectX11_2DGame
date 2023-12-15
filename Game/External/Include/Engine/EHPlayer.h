@@ -5,6 +5,7 @@ class Player :
 {
 public:
     virtual void Tick()override;
+    virtual void FinalTick() override;
     virtual void Render()override;
 };
 

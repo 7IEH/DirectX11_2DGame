@@ -72,7 +72,11 @@ void Test::Init(HWND _hWnd)
 	NemoShader->CreateResourceView(_path);
 
 	_player->Init();
-	_player->AddComponent<Transform>();
+	Transform* tr = _player->AddComponent<Transform>();
+	tr->SetScale(Vec4(16.f, 9.f, 1.f, 1.f));
+	tr->SetPosition(Vec4(0.f, 0.f, 0.2f, 1.f));
+	tr->SetRotation(0.f);
+
 	MeshRenderer* _playerRenderer = _player->AddComponent<MeshRenderer>();
 	_playerRenderer->SetMesh(Nemo);
 	_playerRenderer->SetShader(NemoShader);
@@ -80,19 +84,19 @@ void Test::Init(HWND _hWnd)
 	vtx triangle2[4] = {};
 	UINT idx2[6] = {};
 	// Triangle Test------------------------------
-	triangle2[0]._Postion = Vec3(-0.1f, 0.1f, 0.f);
+	triangle2[0]._Postion = Vec3(-1.f, 1.f, 0.f);
 	triangle2[0]._Color = Vec4(1.f, 0.f, 0.f, 1.f);
 	triangle2[0]._UV = Vec2(0.f, 0.f);
 
-	triangle2[1]._Postion = Vec3(0.1f, 0.1f, 0.f);
+	triangle2[1]._Postion = Vec3(1.f, 1.f, 0.f);
 	triangle2[1]._Color = Vec4(0.f, 1.f, 0.f, 1.f);
 	triangle2[1]._UV = Vec2(1.f, 0.f);
 			
-	triangle2[2]._Postion = Vec3(0.1f, -0.1f, 0.f);
+	triangle2[2]._Postion = Vec3(1.f, -1.f, 0.f);
 	triangle2[2]._Color = Vec4(0.f, 0.f, 1.f, 1.f);
 	triangle2[2]._UV = Vec2(1.f, 1.f);
 			
-	triangle2[3]._Postion = Vec3(-0.1f, -0.1f, 0.f);
+	triangle2[3]._Postion = Vec3(-1.f, -1.f, 0.f);
 	triangle2[3]._Color = Vec4(0.f, 0.f, 1.f, 1.f);
 	triangle2[3]._UV = Vec2(0.f, 1.f);
 	// --------------------------------------------
@@ -117,7 +121,10 @@ void Test::Init(HWND _hWnd)
 	textureShader->CreateResourceView(_path);
 
 	_pla2->Init();
-	Transform* _tr = _pla2->AddComponent<Transform>();
+	tr = _pla2->AddComponent<Transform>();
+	tr->SetScale(Vec4(2.f, 2.f, 1.f, 1.f));
+	tr->SetPosition(Vec4(0.f, 0.f, 0.f, 1.f));
+	tr->SetRotation(0.f);
 	_playerRenderer = _pla2->AddComponent<MeshRenderer>();
 	_playerRenderer->SetMesh(texture);
 	_playerRenderer->SetShader(textureShader);

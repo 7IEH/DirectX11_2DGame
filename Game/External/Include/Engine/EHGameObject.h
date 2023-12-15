@@ -52,6 +52,7 @@ public:
 public:
 	void Init();
 	virtual void Tick();
+	virtual void FinalTick();
 	virtual void Render();
 
 public:

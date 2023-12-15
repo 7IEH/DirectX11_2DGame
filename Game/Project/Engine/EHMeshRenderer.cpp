@@ -41,9 +41,10 @@ void MeshRenderer::Render()
 	if (_tr != nullptr)
 	{
 		transform* _tData = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetMatrix();
-		Device::GetInst()->GetConstantBuffer(CONSTANT_TYPE::TRANSFORM)->UpdateData(sizeof(transform), 1, _tData);
+		Device::GetInst()->GetConstantBuffer(CONSTANT_TYPE::TRANSFORM)->SetData(_tData,sizeof(transform), 1);
+		Device::GetInst()->GetConstantBuffer(CONSTANT_TYPE::TRANSFORM)->UpdateData();
 	}
-
 	GetMesh()->UpdateData();
+	GetShader()->Render();
 	GetMesh()->Render();
 }

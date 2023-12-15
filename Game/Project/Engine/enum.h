@@ -87,7 +87,9 @@ enum class COMPONENT_TYPE
 	COLLIDER2D,
 	ANIMATOR2D,
 	RENDERER,
-	END
+	END,
+
+	SCRIPT
 };
 
 // Renderer Type
