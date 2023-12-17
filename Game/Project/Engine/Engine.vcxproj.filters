@@ -91,6 +91,15 @@
     <Filter Include="08. Asset\Sound">
       <UniqueIdentifier>{d86c5f8b-ebc2-4c7a-ac34-d8c13882b223}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Manager\LevelMgr">
+      <UniqueIdentifier>{8ae7a4da-55bc-4861-85ab-fbcd6c7a8c7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Level\TestLevel">
+      <UniqueIdentifier>{88be1daf-f4b3-457e-8c44-22962610a62f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="09. Layer">
+      <UniqueIdentifier>{84faa94b-6c19-4617-8932-2d64b2e79e8a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -183,6 +192,15 @@
     <ClInclude Include="EHScript.h">
       <Filter>07. Component\Script</Filter>
     </ClInclude>
+    <ClInclude Include="EHLevelMgr.h">
+      <Filter>04. Manager\LevelMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="EHTestLevel.h">
+      <Filter>05. Level\TestLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="EHLayer.h">
+      <Filter>09. Layer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -256,6 +274,15 @@
     </ClCompile>
     <ClCompile Include="EHScript.cpp">
       <Filter>07. Component\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="EHLevelMgr.cpp">
+      <Filter>04. Manager\LevelMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="EHTestLevel.cpp">
+      <Filter>05. Level\TestLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="EHLayer.cpp">
+      <Filter>09. Layer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

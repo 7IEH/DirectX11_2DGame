@@ -30,7 +30,7 @@ void Transform::Tick()
 	m_Matrix->_world = XMMatrixMultiply(_temp, _transformMatrix);
 
 	// View(Camera)
-	XMVECTOR pos = {0.f,0.f,-10.f,1.0f };
+	XMVECTOR pos = {0.f,0.f,-50.f,1.0f };
 	XMVECTOR target = XMVectorZero();
 	XMVECTOR up = { 0.0f,1.0f,0.0f,0.0f };
 	

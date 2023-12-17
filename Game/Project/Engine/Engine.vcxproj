@@ -164,7 +164,9 @@ call Copy.bat</Command>
     <ClInclude Include="EHEntity.h" />
     <ClInclude Include="EHGraphicShader.h" />
     <ClInclude Include="EHKeyMgr.h" />
+    <ClInclude Include="EHLayer.h" />
     <ClInclude Include="EHLevel.h" />
+    <ClInclude Include="EHLevelMgr.h" />
     <ClInclude Include="EHMesh.h" />
     <ClInclude Include="EHGameObject.h" />
     <ClInclude Include="EHPathMgr.h" />
@@ -173,6 +175,7 @@ call Copy.bat</Command>
     <ClInclude Include="EHScript.h" />
     <ClInclude Include="EHShader.h" />
     <ClInclude Include="EHTest.h" />
+    <ClInclude Include="EHTestLevel.h" />
     <ClInclude Include="EHTimeMgr.h" />
     <ClInclude Include="EHTransform.h" />
     <ClInclude Include="enum.h" />
@@ -195,7 +198,9 @@ call Copy.bat</Command>
     <ClCompile Include="EHEntity.cpp" />
     <ClCompile Include="EHGraphicShader.cpp" />
     <ClCompile Include="EHKeyMgr.cpp" />
+    <ClCompile Include="EHLayer.cpp" />
     <ClCompile Include="EHLevel.cpp" />
+    <ClCompile Include="EHLevelMgr.cpp" />
     <ClCompile Include="EHMesh.cpp" />
     <ClCompile Include="EHGameObject.cpp" />
     <ClCompile Include="EHPathMgr.cpp" />
@@ -204,6 +209,7 @@ call Copy.bat</Command>
     <ClCompile Include="EHScript.cpp" />
     <ClCompile Include="EHShader.cpp" />
     <ClCompile Include="EHTest.cpp" />
+    <ClCompile Include="EHTestLevel.cpp" />
     <ClCompile Include="EHTimeMgr.cpp" />
     <ClCompile Include="EHTransform.cpp" />
     <ClCompile Include="Engine.cpp" />

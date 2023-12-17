@@ -12,10 +12,10 @@ void ReleaseArray(T* (&arr)[SIZE])
 	}
 }
 
-template <typename T, int SIZE>
+template <typename T>
 void ReleaseVector(vector<T*>&vec)
 {
-	for (size_t _idx = 0;_idx < SIZE;_idx++)
+	for (size_t _idx = 0;_idx < vec.size();_idx++)
 	{
 		if (vec[_idx] != nullptr)
 		{

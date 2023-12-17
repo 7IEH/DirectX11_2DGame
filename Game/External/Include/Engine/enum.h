@@ -137,3 +137,10 @@ enum class CONSTANT_TYPE
 	ANIMATION,
 	END,
 };
+
+enum class LAYER_TYPE
+{
+	BACKGROUND,
+	PLAYER,
+	END
+};
