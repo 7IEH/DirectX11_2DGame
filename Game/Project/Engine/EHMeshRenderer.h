@@ -11,7 +11,7 @@ public:
 	virtual ~MeshRenderer();
 
 public:
-	virtual void Tick() override;
+	virtual void UpdateData() override;
+	virtual void FinalTick() override;
 	virtual void Render() override;
 };
-

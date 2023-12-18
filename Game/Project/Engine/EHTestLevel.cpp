@@ -1,17 +1,16 @@
 #include "pch.h"
 #include "EHTestLevel.h"
 
-#include "EHPlayer.h"
 #include "EHGameObject.h"
 
 #include "EHAssetMgr.h"
 
 #include "EHMesh.h"
 #include "EHGraphicShader.h"
-
 #include "EHCamera.h"
 
-extern Camera* MainCamera;
+#include "EHPlayerScript.h"
+#include "EHCameraScript.h"
 
 TestLevel::TestLevel()
 {
@@ -23,29 +22,43 @@ TestLevel::~TestLevel()
 
 void TestLevel::Init()
 {
-	GameObject* _player = new GameObject;
-	Transform* tr = _player->AddComponent<Transform>();
+	GameObject* _MainCamera = new GameObject;
+	Transform* tr = _MainCamera->AddComponent<Transform>();
+	Camera* _camera = _MainCamera->AddComponent<Camera>();
+	CameraScript* _cameraScript = _MainCamera->AddComponent<CameraScript>();
+	tr->SetScale(Vec4(1.f, 1.f, 1.f, 1.f));
+	tr->SetPosition(Vec4(0.f, 0.f, -20.f, 1.f));
+	tr->SetRotation(Vec3(0.f, 0.f, 0.f));
+
+	AddObject(_MainCamera, LAYER_TYPE::CAMERA);
+
+	GameObject* _backGround = new GameObject;
+	tr = _backGround->AddComponent<Transform>();
 	tr->SetScale(Vec4(16.f, 9.f, 1.f, 1.f));
 	tr->SetPosition(Vec4(0.f, 0.f, 0.2f, 1.f));
-	tr->SetRotation(0.f);
+	tr->SetRotation(Vec3(0.f, 0.f, 0.f));
 
-	MeshRenderer* _playerRenderer = _player->AddComponent<MeshRenderer>();
+	MeshRenderer* _playerRenderer = _backGround->AddComponent<MeshRenderer>();
 	_playerRenderer->SetMesh(dynamic_cast<Mesh*>(AssetMgr::GetInst()->FindAsset(L"BackGroundMesh")));
 	_playerRenderer->SetShader(dynamic_cast<GraphicShader*>(AssetMgr::GetInst()->FindAsset(L"BackGroundShader")));
 
-	AddObject(_player, LAYER_TYPE::BACKGROUND);
+	AddObject(_backGround, LAYER_TYPE::BACKGROUND);
 
-	Player* _pla2 = new Player();
-	tr = _pla2->AddComponent<Transform>();
+	GameObject* _player = new GameObject();
+	tr = _player->AddComponent<Transform>();
 	tr->SetScale(Vec4(2.f, 2.f, 1.f, 1.f));
 	tr->SetPosition(Vec4(0.f, 0.f, 0.f, 1.f));
-	tr->SetRotation(0.f);
-	_playerRenderer = _pla2->AddComponent<MeshRenderer>();
+	tr->SetRotation(Vec3(0.f, 0.f, 0.f));
+
+	_playerRenderer = _player->AddComponent<MeshRenderer>();
 	_playerRenderer->SetMesh(dynamic_cast<Mesh*>(AssetMgr::GetInst()->FindAsset(L"PlayerMesh")));
 	_playerRenderer->SetShader(dynamic_cast<GraphicShader*>(AssetMgr::GetInst()->FindAsset(L"PlayerShader")));
 
-	AddObject(_pla2, LAYER_TYPE::PLAYER);
-	MainCamera->SetTarget(_pla2);
+	PlayerScript* _playerScript = _player->AddComponent<PlayerScript>();
+
+	AddObject(_player, LAYER_TYPE::PLAYER);
+
+	_cameraScript->SetTarget(_player);
 	Level::Init();
 }
 

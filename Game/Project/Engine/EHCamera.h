@@ -23,13 +23,8 @@ private:
     XMMATRIX  m_matView;
     XMMATRIX  m_matProj;
 
-    GameObject* m_Target;
-
 public:
-    virtual void Tick()override;
-
-public:
-    void SetTarget(GameObject* _target) { m_Target = _target; }
+    virtual void FinalTick() override;
 
 public:
     XMMATRIX GetMatView() { return m_matView; }

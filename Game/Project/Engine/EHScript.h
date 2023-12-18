@@ -9,7 +9,8 @@ private:
 	UINT		m_iScriptType;
 
 public:
-	virtual void Tick();
+	virtual void Tick() override;
+	virtual void FinalTick() override {};
 
 public:
 	Script();

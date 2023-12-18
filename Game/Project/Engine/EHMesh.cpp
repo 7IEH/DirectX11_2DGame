@@ -40,6 +40,7 @@ void Mesh::UpdateData()
 
 void Mesh::Render()
 {
+	UpdateData();
 	DrawIndexed();
 }
 

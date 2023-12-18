@@ -52,9 +52,6 @@
     <Filter Include="04. Manager\AssetMgr">
       <UniqueIdentifier>{aa904495-fb04-4e5e-8485-d3d50bfe28eb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="TestScene">
-      <UniqueIdentifier>{69f1a2fc-f4b0-4f78-a580-4f9259e915b9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="06. GameObject">
       <UniqueIdentifier>{31f19ca3-4cd7-480d-9316-ffe9c5a3887b}</UniqueIdentifier>
     </Filter>
@@ -102,6 +99,12 @@
     </Filter>
     <Filter Include="07. Component\Camera">
       <UniqueIdentifier>{2cad6706-b321-4b30-ab7f-5d3e1de3ab7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Component\Script\2. Camera">
+      <UniqueIdentifier>{a7c4977d-e627-4d9e-9d7e-13a3e553764e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Component\Script\1. Player">
+      <UniqueIdentifier>{c8515a4e-46b5-47e9-9f22-f4b956fed706}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -162,9 +165,6 @@
     <ClInclude Include="enum.h">
       <Filter>01. Header</Filter>
     </ClInclude>
-    <ClInclude Include="EHTest.h">
-      <Filter>TestScene</Filter>
-    </ClInclude>
     <ClInclude Include="EHTimeMgr.h">
       <Filter>04. Manager\TimeMgr</Filter>
     </ClInclude>
@@ -206,6 +206,15 @@
     </ClInclude>
     <ClInclude Include="EHCamera.h">
       <Filter>07. Component\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Extern.h">
+      <Filter>01. Header</Filter>
+    </ClInclude>
+    <ClInclude Include="EHPlayerScript.h">
+      <Filter>07. Component\Script\1. Player</Filter>
+    </ClInclude>
+    <ClInclude Include="EHCameraScript.h">
+      <Filter>07. Component\Script\2. Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -254,9 +263,6 @@
     <ClCompile Include="EHAssetMgr.cpp">
       <Filter>04. Manager\AssetMgr</Filter>
     </ClCompile>
-    <ClCompile Include="EHTest.cpp">
-      <Filter>TestScene</Filter>
-    </ClCompile>
     <ClCompile Include="EHComponent.cpp">
       <Filter>07. Component</Filter>
     </ClCompile>
@@ -292,6 +298,15 @@
     </ClCompile>
     <ClCompile Include="EHCamera.cpp">
       <Filter>07. Component\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Extern.cpp">
+      <Filter>01. Header</Filter>
+    </ClCompile>
+    <ClCompile Include="EHPlayerScript.cpp">
+      <Filter>07. Component\Script\1. Player</Filter>
+    </ClCompile>
+    <ClCompile Include="EHCameraScript.cpp">
+      <Filter>07. Component\Script\2. Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

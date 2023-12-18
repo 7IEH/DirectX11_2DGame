@@ -141,6 +141,7 @@ enum class CONSTANT_TYPE
 
 enum class LAYER_TYPE
 {
+	CAMERA,
 	BACKGROUND,
 	PLAYER,
 	END
@@ -150,5 +151,13 @@ enum class PROJECTION_TYPE
 {
 	PERSPECTIVE,
 	ORTHOGRAPHIC,
+	END
+};
+
+enum class DIRECTION_TYPE
+{
+	RIGHT,
+	UP,
+	FRONT,
 	END
 };

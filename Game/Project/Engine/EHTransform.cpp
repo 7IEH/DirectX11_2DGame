@@ -8,6 +8,7 @@ Transform::Transform()
 	:Component(COMPONENT_TYPE::TRANSFORM)
 	, m_Transform{}
 	, m_matWorld{}
+	, m_Dir{}
 {
 	m_Transform = new tTransform();
 	m_Transform->_Scale = { 1.f,1.f,1.f,1.f };
@@ -17,15 +18,36 @@ Transform::~Transform()
 {
 }
 
-void Transform::Tick()
+void Transform::FinalTick()
 {
 	// world(SRT)
 	Vec4 _Scale = m_Transform->_Scale;
-	float _Rotation = m_Transform->_Rotation;
+	Vec3 _Rotation = m_Transform->_Rotation;
 	Vec4 _Position = m_Transform->_Position;
 	XMMATRIX _scaleMatrix = XMMatrixTranspose(XMMatrixScaling(_Scale.x, _Scale.y, _Scale.z));
-	XMMATRIX _rotateMatrix = XMMatrixTranspose(XMMatrixRotationZ(_Rotation * (3.141592f / 180.f)));
+	XMMATRIX _rotateMatrixX = XMMatrixTranspose(XMMatrixRotationZ(_Rotation.x * (3.141592f / 180.f)));
+	XMMATRIX _rotateMatrixY = XMMatrixTranspose(XMMatrixRotationZ(_Rotation.y * (3.141592f / 180.f)));
+	XMMATRIX _rotateMatrixZ = XMMatrixTranspose(XMMatrixRotationZ(_Rotation.z * (3.141592f / 180.f)));
 	XMMATRIX _transformMatrix = XMMatrixTranspose(XMMatrixTranslation(_Position.x, _Position.y, _Position.z));
-	XMMATRIX _temp = XMMatrixMultiply(_scaleMatrix, _rotateMatrix);
+	XMMATRIX _temp = XMMatrixMultiply(_scaleMatrix, _rotateMatrixX);
+	_temp = XMMatrixMultiply(_temp, _rotateMatrixY);
+	_temp = XMMatrixMultiply(_temp, _rotateMatrixZ);
 	m_matWorld = XMMatrixMultiply(_temp, _transformMatrix);
+
+	// 물체의 방향값을 다시 계산한다.
+	m_Dir[(UINT)DIRECTION_TYPE::RIGHT] = { 1.f,0.f,0.f,0.f };
+	m_Dir[(UINT)DIRECTION_TYPE::UP] = { 0.f,1.f,0.f,0.f };
+	m_Dir[(UINT)DIRECTION_TYPE::FRONT] = { 0.f,0.f,1.f,0.f };
+
+
+	// Vec3 를 vec4 타입으로 확장
+	//XMVector3TransformCoord w를 1로 확장
+	//XMVector3TransformNormal w를 0으로 확장
+
+	for (int i = 0;i < (UINT)DIRECTION_TYPE::END;i++)
+	{
+		m_Dir[i] = XMVector3TransformNormal(m_Dir[i], m_matWorld);
+		// NOrmalize;
+		m_Dir[i].Normalize();
+	}
 }

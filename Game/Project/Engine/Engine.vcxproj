@@ -155,6 +155,7 @@ call Copy.bat</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="EHCamera.h" />
+    <ClInclude Include="EHCameraScript.h" />
     <ClInclude Include="EHComponent.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="EHAsset.h" />
@@ -172,14 +173,15 @@ call Copy.bat</Command>
     <ClInclude Include="EHGameObject.h" />
     <ClInclude Include="EHPathMgr.h" />
     <ClInclude Include="EHPlayer.h" />
+    <ClInclude Include="EHPlayerScript.h" />
     <ClInclude Include="EHRenderer.h" />
     <ClInclude Include="EHScript.h" />
     <ClInclude Include="EHShader.h" />
-    <ClInclude Include="EHTest.h" />
     <ClInclude Include="EHTestLevel.h" />
     <ClInclude Include="EHTimeMgr.h" />
     <ClInclude Include="EHTransform.h" />
     <ClInclude Include="enum.h" />
+    <ClInclude Include="Extern.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="func.h" />
     <ClInclude Include="global.h" />
@@ -191,6 +193,7 @@ call Copy.bat</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EHCamera.cpp" />
+    <ClCompile Include="EHCameraScript.cpp" />
     <ClCompile Include="EHComponent.cpp" />
     <ClCompile Include="EHAsset.cpp" />
     <ClCompile Include="EHAssetMgr.cpp" />
@@ -207,14 +210,15 @@ call Copy.bat</Command>
     <ClCompile Include="EHGameObject.cpp" />
     <ClCompile Include="EHPathMgr.cpp" />
     <ClCompile Include="EHPlayer.cpp" />
+    <ClCompile Include="EHPlayerScript.cpp" />
     <ClCompile Include="EHRenderer.cpp" />
     <ClCompile Include="EHScript.cpp" />
     <ClCompile Include="EHShader.cpp" />
-    <ClCompile Include="EHTest.cpp" />
     <ClCompile Include="EHTestLevel.cpp" />
     <ClCompile Include="EHTimeMgr.cpp" />
     <ClCompile Include="EHTransform.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="Extern.cpp" />
     <ClCompile Include="global.cpp" />
     <ClCompile Include="EHMeshRenderer.cpp" />
     <ClCompile Include="pch.cpp">

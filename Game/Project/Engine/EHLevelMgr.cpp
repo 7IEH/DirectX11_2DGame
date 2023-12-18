@@ -26,10 +26,6 @@ void LevelMgr::Init()
 void LevelMgr::Tick()
 {
 	m_CurLevel->Tick();
-}
-
-void LevelMgr::FinalTick()
-{
 	m_CurLevel->FinalTick();
 }
 

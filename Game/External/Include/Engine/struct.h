@@ -13,7 +13,7 @@ struct tTransform
 {
 	Vec4 _Scale;
 	Vec4 _Position;
-	float _Rotation;
+	Vec3 _Rotation;
 };
 
 // MVP
