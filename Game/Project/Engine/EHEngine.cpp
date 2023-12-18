@@ -9,9 +9,9 @@
 #include "EHAssetMgr.h"
 #include "EHLevelMgr.h"
 
-#include "EHTest.h"
+#include "EHCamera.h"
 
-Test* test = new Test;
+extern Camera* MainCamera = new Camera();
 
 Engine::Engine()
 	:m_vResolution{}
@@ -22,7 +22,7 @@ Engine::Engine()
 
 Engine::~Engine()
 {
-	test->Release();
+
 }
 
 int Engine::Init(Vec2 _vResolution, HWND _hWnd)
@@ -64,6 +64,7 @@ void Engine::Progress()
 	KeyMgr::GetInst()->Tick();
 
 	LevelMgr::GetInst()->Tick();
+	MainCamera->Tick();
 	LevelMgr::GetInst()->Render();
 
 	Device::GetInst()->Present();

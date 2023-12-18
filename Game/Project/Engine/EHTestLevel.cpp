@@ -8,6 +8,11 @@
 
 #include "EHMesh.h"
 #include "EHGraphicShader.h"
+
+#include "EHCamera.h"
+
+extern Camera* MainCamera;
+
 TestLevel::TestLevel()
 {
 }
@@ -40,6 +45,7 @@ void TestLevel::Init()
 	_playerRenderer->SetShader(dynamic_cast<GraphicShader*>(AssetMgr::GetInst()->FindAsset(L"PlayerShader")));
 
 	AddObject(_pla2, LAYER_TYPE::PLAYER);
+	MainCamera->SetTarget(_pla2);
 	Level::Init();
 }
 

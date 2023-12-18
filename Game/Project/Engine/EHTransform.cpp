@@ -2,13 +2,13 @@
 #include "EHTransform.h"
 
 #include "EHDevice.h"
+#include "EHLevelMgr.h"
 
 Transform::Transform()
 	:Component(COMPONENT_TYPE::TRANSFORM)
 	, m_Transform{}
-	, m_Matrix{}
+	, m_matWorld{}
 {
-	m_Matrix = new transform();
 	m_Transform = new tTransform();
 	m_Transform->_Scale = { 1.f,1.f,1.f,1.f };
 }
@@ -27,15 +27,5 @@ void Transform::Tick()
 	XMMATRIX _rotateMatrix = XMMatrixTranspose(XMMatrixRotationZ(_Rotation * (3.141592f / 180.f)));
 	XMMATRIX _transformMatrix = XMMatrixTranspose(XMMatrixTranslation(_Position.x, _Position.y, _Position.z));
 	XMMATRIX _temp = XMMatrixMultiply(_scaleMatrix, _rotateMatrix);
-	m_Matrix->_world = XMMatrixMultiply(_temp, _transformMatrix);
-
-	// View(Camera)
-	XMVECTOR pos = {0.f,0.f,-50.f,1.0f };
-	XMVECTOR target = XMVectorZero();
-	XMVECTOR up = { 0.0f,1.0f,0.0f,0.0f };
-	
-	m_Matrix->_view = XMMatrixTranspose(XMMatrixLookAtLH(pos, target, up));
-
-	// Projection(Projection)
-	m_Matrix->_projection = XMMatrixTranspose(XMMatrixPerspectiveFovLH(45.f * (3.141592f / 180.f), ASPECT_RATIO, 1.f, 1000.0f));
+	m_matWorld = XMMatrixMultiply(_temp, _transformMatrix);
 }

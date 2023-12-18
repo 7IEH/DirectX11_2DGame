@@ -9,6 +9,10 @@
 #include "EHConstantBuffer.h"
 #include "EHGameObject.h"
 #include "EHTransform.h"
+#include "EHCamera.h"
+
+
+extern Camera* MainCamera;
 
 MeshRenderer::MeshRenderer()
 	:Renderer(RENDERER_TYPE::MESHRENDERER)
@@ -40,8 +44,12 @@ void MeshRenderer::Render()
 	Transform* _tr = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
 	if (_tr != nullptr)
 	{
-		transform* _tData = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetMatrix();
-		Device::GetInst()->GetConstantBuffer(CONSTANT_TYPE::TRANSFORM)->SetData(_tData,sizeof(transform), 1);
+		transform _tempData;
+		_tempData._world = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetMatWorld();
+		_tempData._view = MainCamera->GetMatView();
+		_tempData._projection = MainCamera->GetMatProj();
+
+		Device::GetInst()->GetConstantBuffer(CONSTANT_TYPE::TRANSFORM)->SetData(&_tempData,sizeof(transform), 1);
 		Device::GetInst()->GetConstantBuffer(CONSTANT_TYPE::TRANSFORM)->UpdateData();
 	}
 	GetMesh()->UpdateData();

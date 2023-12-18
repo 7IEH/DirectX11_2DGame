@@ -154,6 +154,7 @@ call Copy.bat</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="EHCamera.h" />
     <ClInclude Include="EHComponent.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="EHAsset.h" />
@@ -189,6 +190,7 @@ call Copy.bat</Command>
     <ClInclude Include="struct.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="EHCamera.cpp" />
     <ClCompile Include="EHComponent.cpp" />
     <ClCompile Include="EHAsset.cpp" />
     <ClCompile Include="EHAssetMgr.cpp" />
