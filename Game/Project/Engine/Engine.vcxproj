@@ -169,10 +169,11 @@ call Copy.bat</Command>
     <ClInclude Include="EHLayer.h" />
     <ClInclude Include="EHLevel.h" />
     <ClInclude Include="EHLevelMgr.h" />
+    <ClInclude Include="EHLIght2D.h" />
+    <ClInclude Include="EHMaterial.h" />
     <ClInclude Include="EHMesh.h" />
     <ClInclude Include="EHGameObject.h" />
     <ClInclude Include="EHPathMgr.h" />
-    <ClInclude Include="EHPlayer.h" />
     <ClInclude Include="EHPlayerScript.h" />
     <ClInclude Include="EHRenderer.h" />
     <ClInclude Include="EHScript.h" />
@@ -206,10 +207,11 @@ call Copy.bat</Command>
     <ClCompile Include="EHLayer.cpp" />
     <ClCompile Include="EHLevel.cpp" />
     <ClCompile Include="EHLevelMgr.cpp" />
+    <ClCompile Include="EHLIght2D.cpp" />
+    <ClCompile Include="EHMaterial.cpp" />
     <ClCompile Include="EHMesh.cpp" />
     <ClCompile Include="EHGameObject.cpp" />
     <ClCompile Include="EHPathMgr.cpp" />
-    <ClCompile Include="EHPlayer.cpp" />
     <ClCompile Include="EHPlayerScript.cpp" />
     <ClCompile Include="EHRenderer.cpp" />
     <ClCompile Include="EHScript.cpp" />

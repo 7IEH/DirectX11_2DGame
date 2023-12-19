@@ -126,6 +126,8 @@ HRESULT Device::CreateSwapChain()
 	}
 
 	CreateConstantBuffer(CONSTANT_TYPE::TRANSFORM, sizeof(transform), 1);
+	CreateConstantBuffer(CONSTANT_TYPE::MATERIAL, sizeof(material), 1);
+	CreateConstantBuffer(CONSTANT_TYPE::LIGHT, sizeof(DirectinalLight), 1);
 
 	return S_OK;
 }

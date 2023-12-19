@@ -6,6 +6,7 @@ Renderer::Renderer(RENDERER_TYPE _type)
 	,m_Type(_type)
 	,m_Mesh(nullptr)
 	,m_Shader(nullptr)
+	,m_Material(nullptr)
 {
 }
 

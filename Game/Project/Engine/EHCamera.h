@@ -19,16 +19,8 @@ private:
     float   m_AspectRatio;  // 종횡비, 투영 가로세로 비율
     float   m_Far;          // 투영 최대 거리
 
-    // 변환 행렬
-    XMMATRIX  m_matView;
-    XMMATRIX  m_matProj;
-
 public:
     virtual void FinalTick() override;
-
-public:
-    XMMATRIX GetMatView() { return m_matView; }
-    XMMATRIX GetMatProj() { return m_matProj; }
 
 private:
     void ProjectiveView();

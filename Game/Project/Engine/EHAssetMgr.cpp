@@ -3,6 +3,7 @@
 
 #include "EHMesh.h"
 #include "EHGraphicShader.h"
+#include "EHMaterial.h"
 
 AssetMgr::AssetMgr()
 	:m_Assets{}
@@ -23,22 +24,24 @@ void AssetMgr::Init()
 	Mesh* _texture_mesh = new Mesh;
 	GraphicShader* _texture_shader = new GraphicShader;
 
+	Material* _defaultMaterial = new Material;
+
 	vtx triangle[4] = {};
 	UINT idx[6] = {};
 	// Triangle Test------------------------------
-	triangle[0]._Postion = Vec3(-1.f, 1.f, 0.f);
+	triangle[0]._Postion = Vec3(-0.5f, 0.5f, 0.f);
 	triangle[0]._Color = Vec4(1.f, 0.f, 0.f, 1.f);
 	triangle[0]._UV = Vec2(0.f, 0.f);
 
-	triangle[1]._Postion = Vec3(1.f, 1.f, 0.f);
+	triangle[1]._Postion = Vec3(0.5f, 0.5f, 0.f);
 	triangle[1]._Color = Vec4(0.f, 1.f, 0.f, 1.f);
 	triangle[1]._UV = Vec2(1.f, 0.f);
 
-	triangle[2]._Postion = Vec3(1.f, -1.f, 0.f);
+	triangle[2]._Postion = Vec3(0.5f, -0.5f, 0.f);
 	triangle[2]._Color = Vec4(0.f, 0.f, 1.f, 1.f);
 	triangle[2]._UV = Vec2(1.f, 1.f);
 
-	triangle[3]._Postion = Vec3(-1.f, -1.f, 0.f);
+	triangle[3]._Postion = Vec3(-0.5f, -0.5f, 0.f);
 	triangle[3]._Color = Vec4(0.f, 0.f, 1.f, 1.f);
 	triangle[3]._UV = Vec2(0.f, 1.f);
 	// --------------------------------------------
@@ -68,19 +71,19 @@ void AssetMgr::Init()
 	vtx triangle2[4] = {};
 	UINT idx2[6] = {};
 	// Triangle Test------------------------------
-	triangle2[0]._Postion = Vec3(-1.f, 1.f, 0.f);
+	triangle2[0]._Postion = Vec3(-0.5f, 0.5f, 0.f);
 	triangle2[0]._Color = Vec4(1.f, 0.f, 0.f, 1.f);
 	triangle2[0]._UV = Vec2(0.f, 0.f);
 
-	triangle2[1]._Postion = Vec3(1.f, 1.f, 0.f);
+	triangle2[1]._Postion = Vec3(0.5f, 0.5f, 0.f);
 	triangle2[1]._Color = Vec4(0.f, 1.f, 0.f, 1.f);
 	triangle2[1]._UV = Vec2(1.f, 0.f);
 
-	triangle2[2]._Postion = Vec3(1.f, -1.f, 0.f);
+	triangle2[2]._Postion = Vec3(0.5f, -0.5f, 0.f);
 	triangle2[2]._Color = Vec4(0.f, 0.f, 1.f, 1.f);
 	triangle2[2]._UV = Vec2(1.f, 1.f);
 
-	triangle2[3]._Postion = Vec3(-1.f, -1.f, 0.f);
+	triangle2[3]._Postion = Vec3(-0.5f, -0.5f, 0.f);
 	triangle2[3]._Color = Vec4(0.f, 0.f, 1.f, 1.f);
 	triangle2[3]._UV = Vec2(0.f, 1.f);
 	// --------------------------------------------
@@ -106,4 +109,5 @@ void AssetMgr::Init()
 
 	AddAsset(_texture_mesh, L"PlayerMesh");
 	AddAsset(_texture_shader, L"PlayerShader");
+	AddAsset(_defaultMaterial, L"DefaultMat");
 }

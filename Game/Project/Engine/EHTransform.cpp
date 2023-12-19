@@ -25,8 +25,8 @@ void Transform::FinalTick()
 	Vec3 _Rotation = m_Transform->_Rotation;
 	Vec4 _Position = m_Transform->_Position;
 	XMMATRIX _scaleMatrix = XMMatrixTranspose(XMMatrixScaling(_Scale.x, _Scale.y, _Scale.z));
-	XMMATRIX _rotateMatrixX = XMMatrixTranspose(XMMatrixRotationZ(_Rotation.x * (3.141592f / 180.f)));
-	XMMATRIX _rotateMatrixY = XMMatrixTranspose(XMMatrixRotationZ(_Rotation.y * (3.141592f / 180.f)));
+	XMMATRIX _rotateMatrixX = XMMatrixTranspose(XMMatrixRotationX(_Rotation.x * (3.141592f / 180.f)));
+	XMMATRIX _rotateMatrixY = XMMatrixTranspose(XMMatrixRotationY(_Rotation.y * (3.141592f / 180.f)));
 	XMMATRIX _rotateMatrixZ = XMMatrixTranspose(XMMatrixRotationZ(_Rotation.z * (3.141592f / 180.f)));
 	XMMATRIX _transformMatrix = XMMatrixTranspose(XMMatrixTranslation(_Position.x, _Position.y, _Position.z));
 	XMMATRIX _temp = XMMatrixMultiply(_scaleMatrix, _rotateMatrixX);

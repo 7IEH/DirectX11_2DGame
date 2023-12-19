@@ -61,9 +61,6 @@
     <Filter Include="08. Asset\Shader\ComputeShader">
       <UniqueIdentifier>{78311e68-82c8-4133-ba69-0862a8a5cd9c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="06. GameObject\Player">
-      <UniqueIdentifier>{d2b93747-c962-40c6-b199-d5537fb26bc2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="07. Component\Transform">
       <UniqueIdentifier>{39c1f033-7d14-4eb2-a457-6d0bdb8918df}</UniqueIdentifier>
     </Filter>
@@ -105,6 +102,9 @@
     </Filter>
     <Filter Include="07. Component\Script\1. Player">
       <UniqueIdentifier>{c8515a4e-46b5-47e9-9f22-f4b956fed706}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Component\Light2D">
+      <UniqueIdentifier>{ae5f4f9f-9b03-440d-a999-8991054b773c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -177,9 +177,6 @@
     <ClInclude Include="EHGraphicShader.h">
       <Filter>08. Asset\Shader\GraphicShader</Filter>
     </ClInclude>
-    <ClInclude Include="EHPlayer.h">
-      <Filter>06. GameObject\Player</Filter>
-    </ClInclude>
     <ClInclude Include="EHMeshRenderer.h">
       <Filter>07. Component\Renderer\MeshRenderer</Filter>
     </ClInclude>
@@ -215,6 +212,12 @@
     </ClInclude>
     <ClInclude Include="EHCameraScript.h">
       <Filter>07. Component\Script\2. Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="EHMaterial.h">
+      <Filter>08. Asset\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="EHLIght2D.h">
+      <Filter>07. Component\Light2D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -272,9 +275,6 @@
     <ClCompile Include="EHGraphicShader.cpp">
       <Filter>08. Asset\Shader\GraphicShader</Filter>
     </ClCompile>
-    <ClCompile Include="EHPlayer.cpp">
-      <Filter>06. GameObject\Player</Filter>
-    </ClCompile>
     <ClCompile Include="EHMeshRenderer.cpp">
       <Filter>07. Component\Renderer\MeshRenderer</Filter>
     </ClCompile>
@@ -307,6 +307,12 @@
     </ClCompile>
     <ClCompile Include="EHCameraScript.cpp">
       <Filter>07. Component\Script\2. Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="EHMaterial.cpp">
+      <Filter>08. Asset\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="EHLIght2D.cpp">
+      <Filter>07. Component\Light2D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
