@@ -25,9 +25,9 @@ void Transform::FinalTick()
 	Vec3 _Rotation = m_Transform->_Rotation;
 	Vec4 _Position = m_Transform->_Position;
 	XMMATRIX _scaleMatrix = XMMatrixTranspose(XMMatrixScaling(_Scale.x, _Scale.y, _Scale.z));
-	XMMATRIX _rotateMatrixX = XMMatrixTranspose(XMMatrixRotationX(_Rotation.x * (3.141592f / 180.f)));
-	XMMATRIX _rotateMatrixY = XMMatrixTranspose(XMMatrixRotationY(_Rotation.y * (3.141592f / 180.f)));
-	XMMATRIX _rotateMatrixZ = XMMatrixTranspose(XMMatrixRotationZ(_Rotation.z * (3.141592f / 180.f)));
+	XMMATRIX _rotateMatrixX = XMMatrixTranspose(XMMatrixRotationX(_Rotation.x * (XM_PI / 180.f)));
+	XMMATRIX _rotateMatrixY = XMMatrixTranspose(XMMatrixRotationY(_Rotation.y * (XM_PI / 180.f)));
+	XMMATRIX _rotateMatrixZ = XMMatrixTranspose(XMMatrixRotationZ(_Rotation.z * (XM_PI / 180.f)));
 	XMMATRIX _transformMatrix = XMMatrixTranspose(XMMatrixTranslation(_Position.x, _Position.y, _Position.z));
 	XMMATRIX _temp = XMMatrixMultiply(_scaleMatrix, _rotateMatrixX);
 	_temp = XMMatrixMultiply(_temp, _rotateMatrixY);
@@ -50,4 +50,9 @@ void Transform::FinalTick()
 		// NOrmalize;
 		m_Dir[i].Normalize();
 	}
+}
+
+void Transform::InitializeDir()
+{
+	m_Transform->_Rotation = { 0.f,0.f,0.f };
 }

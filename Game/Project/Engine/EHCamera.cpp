@@ -27,18 +27,28 @@ Camera::~Camera()
 
 void Camera::FinalTick()
 {
-	XMVECTOR pos;
+	/*XMVECTOR pos;
 	XMVECTOR target;
 	XMVECTOR up;
+	e_MatrixData._view = XMMatrixTranspose(XMMatrixLookAtLH(pos, target, up));
+	*/
 
-	Transform* tr = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
+	Vec4 _pos = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetPosition();
+	// W = (RT)^-1 -> T^-1 * R^-1
+	Matrix _reverseTransform = XMMatrixTranspose(XMMatrixTranslation(-_pos.x, -_pos.y, -_pos.z));
 
-	pos = Vec4(tr->GetTransform()->_Position.x, tr->GetTransform()->_Position.y, -10.f, 1.f);
-	target = tr->GetTransform()->_Position;
-	up = Vec4(0.f, 1.f, 0.f, 0.f);
+	Vec3 _Right = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetDir(DIRECTION_TYPE::RIGHT);
+	Vec3 _UP = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetDir(DIRECTION_TYPE::UP);
+	Vec3 _Front = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetDir(DIRECTION_TYPE::FRONT);
+
+	Matrix _reverseRotation = { _Right.x,_Right.y,_Right.z,0,
+								_UP.x,_UP.y,_UP.z,0,
+								_Front.x,_Front.y,_Front.z,0,
+								0,0,0,1 };
 
 	// View Matrix
-	e_MatrixData._view = XMMatrixTranspose(XMMatrixLookAtLH(pos, target, up));
+	e_MatrixData._view = XMMatrixMultiply(_reverseTransform, _reverseRotation);
+	
 
 	switch (m_Projection)
 	{
@@ -57,6 +67,11 @@ void Camera::FinalTick()
 	default:
 		break;
 	}
+}
+
+void Camera::InitializeDir()
+{
+	GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->InitializeDir();
 }
 
 void Camera::ProjectiveView()

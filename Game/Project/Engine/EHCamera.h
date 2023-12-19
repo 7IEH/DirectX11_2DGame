@@ -22,6 +22,12 @@ private:
 public:
     virtual void FinalTick() override;
 
+public:
+    PROJECTION_TYPE GetProjectionType() { return m_Projection; }
+    void            SetPorjectionType(PROJECTION_TYPE _projection) { m_Projection = _projection; }
+
+    void            InitializeDir();
+
 private:
     void ProjectiveView();
     void OrthographicView();

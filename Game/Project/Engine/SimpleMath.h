@@ -247,6 +247,10 @@ namespace DirectX
             bool operator == (const Vector3& V) const noexcept;
             bool operator != (const Vector3& V) const noexcept;
 
+            // User operators
+            Vector3& operator+= (const float S){ x += S; y += S; z += S; return *this;}
+            Vector3& operator-= (const float S){ x -= S; y -= S; z -= S; return *this;}
+
             // Assignment operators
             Vector3& operator= (const XMVECTORF32& F) noexcept { x = F.f[0]; y = F.f[1]; z = F.f[2]; return *this; }
             Vector3& operator+= (const Vector3& V) noexcept;

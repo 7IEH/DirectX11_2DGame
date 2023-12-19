@@ -70,7 +70,7 @@ void TestLevel::Init()
 
 	AddObject(_player, LAYER_TYPE::PLAYER);
 
-	_cameraScript->SetTarget(_player);
+	//_cameraScript->SetTarget(_player);
 	Level::Init();
 }
 

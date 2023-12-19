@@ -72,6 +72,7 @@ int g_KeySync[KEY::KEY_END] =
 
 	VK_LBUTTON,
 	VK_RBUTTON,
+	VK_MBUTTON,
 };
 
 
@@ -155,5 +156,15 @@ void KeyMgr::Tick()
 				m_vecKeyData[i].bPressed = false;
 			}
 		}
+
+		// 마우스 좌표 계산
+		m_vPrevMouse = m_vCurMouse;
+		POINT pt = {};
+		GetCursorPos(&pt);
+		ScreenToClient(Engine::GetInst()->GetMainWind(), &pt);
+		m_vCurMouse = Vec2((float)pt.x, (float)pt.y);
+
+		m_vMouseDir = m_vCurMouse - m_vPrevMouse;
+		m_vMouseDir.Normalize();
 	}
 }

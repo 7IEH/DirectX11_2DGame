@@ -5,7 +5,8 @@ class CameraScript
 	:public Script
 {
 private:
-	GameObject* m_Target;
+	GameObject*		m_Target;
+	float			m_CamSpeed;
 
 public:
 	virtual void Tick() override;
@@ -13,6 +14,11 @@ public:
 
 public:
 	void SetTarget(GameObject* _target) { m_Target = _target; }
+
+private:
+	void PerpectiveMove();
+
+	void OrthoGraphicMove();
 
 public:
 	CameraScript();

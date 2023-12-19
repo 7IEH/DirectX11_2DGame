@@ -26,22 +26,22 @@ void PlayerScript::Tick()
 		return;
 	}
 	_transformInfo = _transform->GetTransform();
-	if (KEY_PRESSED(A))
+	if (KEY_PRESSED(LEFT))
 	{
 		_transformInfo->_Position.x -= m_Speed * DT;
 	}
 
-	if (KEY_PRESSED(D))
+	if (KEY_PRESSED(RIGHT))
 	{
 		_transformInfo->_Position.x += m_Speed * DT;
 	}
 
-	if (KEY_PRESSED(W))
+	if (KEY_PRESSED(UP))
 	{
 		_transformInfo->_Position.y += m_Speed * DT;
 	}
 
-	if (KEY_PRESSED(S))
+	if (KEY_PRESSED(DOWN))
 	{
 		_transformInfo->_Position.y -= m_Speed * DT;
 	}
