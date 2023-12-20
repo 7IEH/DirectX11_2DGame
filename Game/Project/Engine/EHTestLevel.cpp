@@ -11,6 +11,7 @@
 
 #include "EHPlayerScript.h"
 #include "EHCameraScript.h"
+#include "EHCameraTargetScript.h"
 
 #include "EHLIght2D.h"
 
@@ -28,7 +29,7 @@ void TestLevel::Init()
 	GameObject* _MainCamera = new GameObject;
 	Transform* tr = _MainCamera->AddComponent<Transform>();
 	Camera* _camera = _MainCamera->AddComponent<Camera>();
-	CameraScript* _cameraScript = _MainCamera->AddComponent<CameraScript>();
+	CameraTargetScript* _cameraScript = _MainCamera->AddComponent<CameraTargetScript>();
 	tr->SetScale(Vec4(1.f, 1.f, 1.f, 1.f));
 	tr->SetPosition(Vec4(0.f, 0.f, -10.f, 1.f));
 	tr->SetRotation(Vec3(0.f, 0.f, 0.f));
@@ -46,7 +47,7 @@ void TestLevel::Init()
 	GameObject* _backGround = new GameObject;
 	tr = _backGround->AddComponent<Transform>();
 	tr->SetScale(Vec4(1600.f, 900.f, 1.f, 1.f));
-	tr->SetPosition(Vec4(0.f, 0.f, 0.2f, 1.f));
+	tr->SetPosition(Vec4(0.f, 0.f, 50.f, 1.f));
 	tr->SetRotation(Vec3(0.f, 0.f, 0.f));
 
 	MeshRenderer* _playerRenderer = _backGround->AddComponent<MeshRenderer>();
@@ -70,7 +71,7 @@ void TestLevel::Init()
 
 	AddObject(_player, LAYER_TYPE::PLAYER);
 
-	//_cameraScript->SetTarget(_player);
+	_cameraScript->SetTarget(_player);
 	Level::Init();
 }
 

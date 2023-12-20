@@ -146,7 +146,7 @@ void GraphicShader::CreateShader(SHADER_TYPE _type)
 void GraphicShader::CreateSamplerState()
 {
 	D3D11_SAMPLER_DESC tDesc = {};
-	tDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
+	tDesc.Filter = D3D11_FILTER_MIN_MAG_POINT_MIP_LINEAR;
 	tDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
 	tDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
 	tDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;

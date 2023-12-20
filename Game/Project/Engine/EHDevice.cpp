@@ -63,6 +63,9 @@ int Device::Init(HWND _hWnd, Vec2 _vRenderResolution)
 	// ViewPort Create
 	CreateViewPort();
 
+	// RasterizeState Create
+	//CreateRasterizerState();
+
 	return S_OK;
 }
 
@@ -212,4 +215,12 @@ void Device::CreateViewPort()
 	vDesc.Height = m_vRenderResolution.y;
 
 	m_DeviceContext->RSSetViewports(1, &vDesc);
+}
+
+void Device::CreateRasterizerState()
+{
+	D3D11_RASTERIZER_DESC tDesc = {};
+
+	DEVICE->CreateRasterizerState(&tDesc, m_Rasterizer.GetAddressOf());
+	CONTEXT->RSSetState(m_Rasterizer.Get());
 }

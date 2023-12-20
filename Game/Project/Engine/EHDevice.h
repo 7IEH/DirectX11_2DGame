@@ -20,6 +20,8 @@ private:
 	ComPtr<ID3D11Texture2D>					m_DSTexture;
 	ComPtr<ID3D11DepthStencilView>			m_DSView;
 
+	ComPtr<ID3D11RasterizerState>			m_Rasterizer;
+
 	HWND									m_hWnd;
 	Vec2									m_vRenderResolution;
 
@@ -52,5 +54,7 @@ private:
 	void						OMSetRT();
 
 	void						CreateConstantBuffer(CONSTANT_TYPE _type, int _size, int _sizeCount);
+
+	void						CreateRasterizerState();
 };
 

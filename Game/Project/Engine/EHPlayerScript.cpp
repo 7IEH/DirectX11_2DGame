@@ -9,7 +9,7 @@
 #include "EHTimeMgr.h"
 
 PlayerScript::PlayerScript()
-	:m_Speed(2.f)
+	:m_Speed(200.f)
 {
 }
 
@@ -25,24 +25,25 @@ void PlayerScript::Tick()
 	{
 		return;
 	}
-	_transformInfo = _transform->GetTransform();
+	Vec4 _pos = _transform->GetPosition();
 	if (KEY_PRESSED(LEFT))
 	{
-		_transformInfo->_Position.x -= m_Speed * DT;
+		_pos.x -= m_Speed * DT;
 	}
 
 	if (KEY_PRESSED(RIGHT))
 	{
-		_transformInfo->_Position.x += m_Speed * DT;
+		_pos.x += m_Speed * DT;
 	}
 
 	if (KEY_PRESSED(UP))
 	{
-		_transformInfo->_Position.y += m_Speed * DT;
+		_pos.y += m_Speed * DT;
 	}
 
 	if (KEY_PRESSED(DOWN))
 	{
-		_transformInfo->_Position.y -= m_Speed * DT;
+		_pos.y -= m_Speed * DT;
 	}
+	_transform->SetPosition(_pos);
 }

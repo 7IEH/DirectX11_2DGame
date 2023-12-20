@@ -219,6 +219,9 @@
     <ClInclude Include="EHLIght2D.h">
       <Filter>07. Component\Light2D</Filter>
     </ClInclude>
+    <ClInclude Include="EHCameraTargetScript.h">
+      <Filter>07. Component\Script\2. Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -313,6 +316,9 @@
     </ClCompile>
     <ClCompile Include="EHLIght2D.cpp">
       <Filter>07. Component\Light2D</Filter>
+    </ClCompile>
+    <ClCompile Include="EHCameraTargetScript.cpp">
+      <Filter>07. Component\Script\2. Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

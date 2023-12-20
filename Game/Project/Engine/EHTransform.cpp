@@ -29,10 +29,20 @@ void Transform::FinalTick()
 	XMMATRIX _rotateMatrixY = XMMatrixTranspose(XMMatrixRotationY(_Rotation.y * (XM_PI / 180.f)));
 	XMMATRIX _rotateMatrixZ = XMMatrixTranspose(XMMatrixRotationZ(_Rotation.z * (XM_PI / 180.f)));
 	XMMATRIX _transformMatrix = XMMatrixTranspose(XMMatrixTranslation(_Position.x, _Position.y, _Position.z));
+	/*XMMATRIX _temp = XMMatrixMultiply(_scaleMatrix, _rotateMatrixX);
+	_temp = XMMatrixMultiply(_temp, _rotateMatrixY);
+	_temp = XMMatrixMultiply(_temp, _rotateMatrixZ);
+	m_matWorld = XMMatrixMultiply(_temp, _transformMatrix);*/
+
+	/*XMMATRIX _temp = (_transformMatrix, _rotateMatrixX);
+	_temp = (_temp, _rotateMatrixY);
+	_temp = (_temp, _rotateMatrixZ);
+	m_matWorld = (_temp, _scaleMatrix);*/
+
 	XMMATRIX _temp = XMMatrixMultiply(_scaleMatrix, _rotateMatrixX);
 	_temp = XMMatrixMultiply(_temp, _rotateMatrixY);
 	_temp = XMMatrixMultiply(_temp, _rotateMatrixZ);
-	m_matWorld = XMMatrixMultiply(_temp, _transformMatrix);
+	m_matWorld = XMMatrixMultiply(_transformMatrix, _temp);
 
 	// 물체의 방향값을 다시 계산한다.
 	m_Dir[(UINT)DIRECTION_TYPE::RIGHT] = { 1.f,0.f,0.f,0.f };

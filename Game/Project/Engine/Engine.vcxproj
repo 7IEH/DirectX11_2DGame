@@ -156,6 +156,7 @@ call Copy.bat</Command>
   <ItemGroup>
     <ClInclude Include="EHCamera.h" />
     <ClInclude Include="EHCameraScript.h" />
+    <ClInclude Include="EHCameraTargetScript.h" />
     <ClInclude Include="EHComponent.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="EHAsset.h" />
@@ -195,6 +196,7 @@ call Copy.bat</Command>
   <ItemGroup>
     <ClCompile Include="EHCamera.cpp" />
     <ClCompile Include="EHCameraScript.cpp" />
+    <ClCompile Include="EHCameraTargetScript.cpp" />
     <ClCompile Include="EHComponent.cpp" />
     <ClCompile Include="EHAsset.cpp" />
     <ClCompile Include="EHAssetMgr.cpp" />

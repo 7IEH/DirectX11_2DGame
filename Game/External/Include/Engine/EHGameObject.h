@@ -5,9 +5,11 @@
 #include "EHMeshRenderer.h"
 #include "EHRenderer.h"
 #include "EHCamera.h"
+
 #include "EHScript.h"
 #include "EHPlayerScript.h"
 #include "EHCameraScript.h"
+#include "EHCameraTargetScript.h"
 
 class Component;
 class Script;

@@ -54,11 +54,6 @@ void CameraScript::Tick()
 	default:
 		break;
 	}
-
-	// Target Camera
-	/*if (m_Target != nullptr)
-		GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)
-		->SetPosition(m_Target->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetTransform()->_Position);*/
 }
 
 
