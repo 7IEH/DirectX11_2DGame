@@ -179,7 +179,7 @@ enum class CULL_TYPE
 	END
 };
 
-//DepthStencil State Type
+// DepthStencil State Type
 enum class DS_TYPE
 {
 	LESS,					// 작은게 통과			깊이 기록 0
@@ -193,4 +193,21 @@ enum class DS_TYPE
 
 	NO_TEST_NO_WRITE,		// 깊이 테스트X			깊이 기록X
 	END
+};
+
+// BlendState Type
+enum class BLEND_TYPE
+{
+	DEFAULT,
+	ALPHABLENDING,
+	ONE_ONE,
+	END
+};
+
+// SamplerState Type
+enum class  SAMPLER_TYPE
+{
+	Default,
+	POINT,
+	END,
 };

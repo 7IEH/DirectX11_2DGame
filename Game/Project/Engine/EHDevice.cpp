@@ -64,7 +64,16 @@ int Device::Init(HWND _hWnd, Vec2 _vRenderResolution)
 	CreateViewPort();
 
 	// RasterizeState Create
-	//CreateRasterizerState();
+	CreateRasterizerState();
+
+	// DepthStencil
+	CreateDepthStencilState();
+
+	// BlendState
+	CreateBlendState();
+
+	// SamplerState
+	CreateSamplerState();
 
 	return S_OK;
 }
@@ -219,8 +228,146 @@ void Device::CreateViewPort()
 
 void Device::CreateRasterizerState()
 {
-	D3D11_RASTERIZER_DESC tDesc = {};
+	m_Rasterizer[(UINT)CULL_TYPE::BACK] = nullptr;
 
-	DEVICE->CreateRasterizerState(&tDesc, m_Rasterizer.GetAddressOf());
-	CONTEXT->RSSetState(m_Rasterizer.Get());
+	D3D11_RASTERIZER_DESC tDesc = {};
+	tDesc.FillMode = D3D11_FILL_SOLID;
+	tDesc.CullMode = D3D11_CULL_FRONT;
+
+	tDesc.FrontCounterClockwise = FALSE;
+	tDesc.DepthClipEnable = TRUE;
+	tDesc.ScissorEnable = FALSE;
+	tDesc.MultisampleEnable = FALSE;
+	tDesc.AntialiasedLineEnable = FALSE;
+
+	DEVICE->CreateRasterizerState(&tDesc, m_Rasterizer[(UINT)CULL_TYPE::FRONT].GetAddressOf());
+
+	tDesc = {};
+	tDesc.FillMode = D3D11_FILL_SOLID;
+	tDesc.CullMode = D3D11_CULL_NONE;
+
+	tDesc.FrontCounterClockwise = FALSE;
+	tDesc.DepthClipEnable = TRUE;
+	tDesc.ScissorEnable = FALSE;
+	tDesc.MultisampleEnable = FALSE;
+	tDesc.AntialiasedLineEnable = FALSE;
+
+	DEVICE->CreateRasterizerState(&tDesc, m_Rasterizer[(UINT)CULL_TYPE::NONE].GetAddressOf());
+
+	tDesc = {};
+	tDesc.FillMode = D3D11_FILL_WIREFRAME;
+	tDesc.CullMode = D3D11_CULL_NONE;
+
+	tDesc.FrontCounterClockwise = FALSE;
+	tDesc.DepthClipEnable = TRUE;
+	tDesc.ScissorEnable = FALSE;
+	tDesc.MultisampleEnable = FALSE;
+	tDesc.AntialiasedLineEnable = FALSE;
+
+	DEVICE->CreateRasterizerState(&tDesc, m_Rasterizer[(UINT)CULL_TYPE::NONE].GetAddressOf());
+}
+
+void Device::CreateDepthStencilState()
+{
+	m_DepthStencil[(UINT)DS_TYPE::LESS] = nullptr;
+
+	D3D11_DEPTH_STENCIL_DESC tDesc = {};
+
+	tDesc.DepthEnable = TRUE;
+	tDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+	tDesc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;
+	tDesc.StencilEnable = FALSE;
+
+	DEVICE->CreateDepthStencilState(&tDesc, m_DepthStencil[(UINT)DS_TYPE::LESS_EQUAL].GetAddressOf());
+
+
+	tDesc = {};
+
+	tDesc.DepthEnable = TRUE;
+	tDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+	tDesc.DepthFunc = D3D11_COMPARISON_GREATER;
+	tDesc.StencilEnable = FALSE;
+
+	DEVICE->CreateDepthStencilState(&tDesc, m_DepthStencil[(UINT)DS_TYPE::GREATER].GetAddressOf());
+
+
+	tDesc = {};
+
+	tDesc.DepthEnable = TRUE;
+	tDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+	tDesc.DepthFunc = D3D11_COMPARISON_GREATER_EQUAL;
+	tDesc.StencilEnable = FALSE;
+
+	DEVICE->CreateDepthStencilState(&tDesc, m_DepthStencil[(UINT)DS_TYPE::GREATER_EQUAL].GetAddressOf());
+
+	tDesc = {};
+
+	tDesc.DepthEnable = FALSE;
+	tDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+	tDesc.DepthFunc = D3D11_COMPARISON_NEVER;
+	tDesc.StencilEnable = FALSE;
+
+	DEVICE->CreateDepthStencilState(&tDesc, m_DepthStencil[(UINT)DS_TYPE::NO_TEST].GetAddressOf());
+
+	tDesc = {};
+
+	tDesc.DepthEnable = TRUE;
+	tDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
+	tDesc.DepthFunc = D3D11_COMPARISON_ALWAYS;
+	tDesc.StencilEnable = FALSE;
+
+	DEVICE->CreateDepthStencilState(&tDesc, m_DepthStencil[(UINT)DS_TYPE::N0_WRITE].GetAddressOf());
+
+	tDesc = {};
+
+	tDesc.DepthEnable = FALSE;
+	tDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
+	tDesc.DepthFunc = D3D11_COMPARISON_NEVER;
+	tDesc.StencilEnable = FALSE;
+
+	DEVICE->CreateDepthStencilState(&tDesc, m_DepthStencil[(UINT)DS_TYPE::NO_TEST_NO_WRITE].GetAddressOf());
+}
+
+void Device::CreateBlendState()
+{
+	m_Blend[(UINT)BLEND_TYPE::DEFAULT] = nullptr;
+
+	D3D11_BLEND_DESC tDesc = {};
+	tDesc.AlphaToCoverageEnable = FALSE;
+	tDesc.IndependentBlendEnable = TRUE;
+
+	tDesc.RenderTarget[0].BlendEnable = TRUE;
+	tDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+	tDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+	tDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+
+	tDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	tDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+	tDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ONE;
+
+	tDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+	DEVICE->CreateBlendState(&tDesc, m_Blend[(UINT)BLEND_TYPE::ALPHABLENDING].GetAddressOf());
+}
+
+void Device::CreateSamplerState()
+{
+	m_Sampler[(UINT)SAMPLER_TYPE::Default] = nullptr;
+
+	D3D11_SAMPLER_DESC tDesc = {};
+	tDesc.Filter = D3D11_FILTER_MIN_MAG_POINT_MIP_LINEAR;
+	tDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+	tDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+	tDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+	tDesc.MipLODBias = 0.0f;
+	tDesc.MaxAnisotropy = 1;
+	tDesc.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
+	tDesc.BorderColor[0] = 0;
+	tDesc.BorderColor[1] = 0;
+	tDesc.BorderColor[2] = 0;
+	tDesc.BorderColor[3] = 0;
+	tDesc.MinLOD = 0;
+	tDesc.MaxLOD = D3D11_FLOAT32_MAX;
+
+	DEVICE->CreateSamplerState(&tDesc, m_Sampler[(UINT)SAMPLER_TYPE::POINT].GetAddressOf());
 }

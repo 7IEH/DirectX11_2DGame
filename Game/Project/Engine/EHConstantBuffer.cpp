@@ -3,6 +3,16 @@
 
 #include"EHDevice.h"
 
+ConstantBuffer::ConstantBuffer()
+	:m_CB(nullptr)
+	,m_Type(CONSTANT_TYPE::TRANSFORM)
+{
+}
+
+ConstantBuffer::~ConstantBuffer()
+{
+}
+
 void ConstantBuffer::SetData(void* _data, int _size, int _count)
 {
 	if (_count == 0)

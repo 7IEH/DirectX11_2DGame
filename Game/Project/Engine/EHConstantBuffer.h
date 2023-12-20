@@ -13,4 +13,8 @@ public:
 public:
 	void			SetData(void* _data, int _size, int _count); 
 	void			UpdateData();
+
+public:
+	ConstantBuffer();
+	virtual ~ConstantBuffer();
 };

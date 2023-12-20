@@ -22,11 +22,13 @@ private:
     ComPtr<ID3D11InputLayout>               m_LayOut;
     D3D_PRIMITIVE_TOPOLOGY                  m_Topology;
 
-    ComPtr<ID3D11Texture2D>                 m_ResourceTexture;
-    ComPtr<ID3D11SamplerState>              m_SamplerState;
-    ComPtr<ID3D11ShaderResourceView>        m_ResourceView;
+    CULL_TYPE                               m_CullType;
+    DS_TYPE                                 m_DSType;
+    BLEND_TYPE                              m_BlendType;
+    SAMPLER_TYPE                            m_SamplerType;
 
-    ComPtr<ID3D11BlendState>                m_BlendState;
+    ComPtr<ID3D11Texture2D>                 m_ResourceTexture;
+    ComPtr<ID3D11ShaderResourceView>        m_ResourceView;
 
 public:
     GraphicShader();
@@ -34,6 +36,10 @@ public:
 
 public:
     void SetTopology(D3D_PRIMITIVE_TOPOLOGY _Topology) { m_Topology = _Topology; }
+
+    void SetCullType(CULL_TYPE _type) { m_CullType = _type; }
+    void SetDSType(DS_TYPE _type) { m_DSType = _type; }
+    void SetBlendType(BLEND_TYPE _type) { m_BlendType = _type; }
 
 public:
     void Create(wstring& _shaderPath, string& _vsEntry, string& _psEntry);
@@ -48,6 +54,5 @@ private:
     void CreateSamplerState();
     void CreateLayOut();
     void SetShader(SHADER_TYPE _type);
-    void CreateBlendState();
 };
 

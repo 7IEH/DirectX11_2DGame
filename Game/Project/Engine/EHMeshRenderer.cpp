@@ -24,10 +24,6 @@ MeshRenderer::~MeshRenderer()
 
 void MeshRenderer::UpdateData()
 {
-}
-
-void MeshRenderer::FinalTick()
-{
 	if (GetShader() == nullptr)
 	{
 		HandleError(MAIN_HWND, L"MeshRenderShader Shader is Nullptr Error!", 2);
@@ -52,6 +48,8 @@ void MeshRenderer::Render()
 		Device::GetInst()->GetConstantBuffer(CONSTANT_TYPE::TRANSFORM)->SetData(&e_MatrixData,sizeof(transform), 1);
 		Device::GetInst()->GetConstantBuffer(CONSTANT_TYPE::TRANSFORM)->UpdateData();
 	}
+	UpdateData();
+
 	GetShader()->Render();
 	GetMesh()->Render();
 }

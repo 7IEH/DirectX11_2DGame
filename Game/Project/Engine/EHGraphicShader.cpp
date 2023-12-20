@@ -6,6 +6,10 @@
 
 GraphicShader::GraphicShader()
 	: m_Topology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
+	,m_CullType(CULL_TYPE::BACK)
+	,m_DSType(DS_TYPE::LESS)
+	,m_BlendType(BLEND_TYPE::DEFAULT)
+	,m_SamplerType(SAMPLER_TYPE::POINT)
 {
 }
 
@@ -23,14 +27,8 @@ void GraphicShader::Create(wstring& _shaderPath, string& _vsEntry, string& _psEn
 	CreateShader(SHADER_TYPE::VERTEX);
 	CreateShader(SHADER_TYPE::PIXEL);
 
-	// Texture Create
-	CreateSamplerState();
-
 	// CreateLayOut
 	CreateLayOut();
-
-	// Create BlendState
-	CreateBlendState();
 }
 
 void GraphicShader::CreateResourceView(wstring& _texturePath)
@@ -62,17 +60,31 @@ void GraphicShader::CreateResourceView(wstring& _texturePath)
 
 void GraphicShader::UpdateData()
 {
+	/************************
+	Basic Rendering Pipeline
+	************************/
+	// Input Assembler Stage
 	CONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	CONTEXT->IASetInputLayout(m_LayOut.Get());
+	
+	// Vertex Shader Stage
 	SetShader(SHADER_TYPE::VERTEX);
+
+	// Rasterizer Stage
+	CONTEXT->RSSetState(Device::GetInst()->GetRSState(m_CullType).Get());
+
+	// Pixel Shader Stage
 	SetShader(SHADER_TYPE::PIXEL);
-	CONTEXT->PSSetSamplers(0, 1, m_SamplerState.GetAddressOf());
+	CONTEXT->PSSetSamplers(0, 1, Device::GetInst()->GetSamplerState(m_SamplerType).GetAddressOf());
+
+	// Output-Merger Stage
+	CONTEXT->OMSetDepthStencilState(Device::GetInst()->GetDSState(m_DSType).Get(),0);
+	CONTEXT->OMSetBlendState(Device::GetInst()->GetBSState(m_BlendType).Get(),nullptr,0xffffffff);
 }
  
 void GraphicShader::Render()
 {
 	CONTEXT->PSSetShaderResources(0, 1, m_ResourceView.GetAddressOf());
-	CONTEXT->OMSetBlendState(m_BlendState.Get(), NULL, 0xffffffff);
 }
 
 void GraphicShader::CreateBlobFile(SHADER_TYPE _type, wstring& _path, string& _entry)
@@ -143,26 +155,6 @@ void GraphicShader::CreateShader(SHADER_TYPE _type)
 	}
 }
 
-void GraphicShader::CreateSamplerState()
-{
-	D3D11_SAMPLER_DESC tDesc = {};
-	tDesc.Filter = D3D11_FILTER_MIN_MAG_POINT_MIP_LINEAR;
-	tDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
-	tDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
-	tDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
-	tDesc.MipLODBias = 0.0f;
-	tDesc.MaxAnisotropy = 1;
-	tDesc.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
-	tDesc.BorderColor[0] = 0;
-	tDesc.BorderColor[1] = 0;
-	tDesc.BorderColor[2] = 0;
-	tDesc.BorderColor[3] = 0;
-	tDesc.MinLOD = 0;
-	tDesc.MaxLOD = D3D11_FLOAT32_MAX;
-
-	DEVICE->CreateSamplerState(&tDesc, m_SamplerState.GetAddressOf());
-}
-
 void GraphicShader::CreateLayOut()
 {
 	D3D11_INPUT_ELEMENT_DESC arrElement[3] = {};
@@ -219,20 +211,4 @@ void GraphicShader::SetShader(SHADER_TYPE _type)
 	default:
 		break;
 	}
-}
-
-void GraphicShader::CreateBlendState()
-{
-	D3D11_BLEND_DESC tDesc = {};
-	tDesc.RenderTarget[0].BlendEnable = true;
-	tDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
-	tDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
-	tDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ZERO;
-	tDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
-
-	tDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
-	tDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
-	tDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
-
-	DEVICE->CreateBlendState(&tDesc, m_BlendState.GetAddressOf());
 }

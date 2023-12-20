@@ -64,6 +64,7 @@ void AssetMgr::Init()
 
 	_path = L"\\resource\\Example.png";
 	_shader->CreateResourceView(_path);
+	_shader->SetBlendType(BLEND_TYPE::ALPHABLENDING);
 
 	AddAsset(_mesh, L"BackGroundMesh");
 	AddAsset(_shader, L"BackGroundShader");
@@ -106,6 +107,8 @@ void AssetMgr::Init()
 
 	_path = L"\\resource\\NPC_Commander0.png";
 	_texture_shader->CreateResourceView(_path);
+
+	_texture_shader->SetBlendType(BLEND_TYPE::ALPHABLENDING);
 
 	AddAsset(_texture_mesh, L"PlayerMesh");
 	AddAsset(_texture_shader, L"PlayerShader");

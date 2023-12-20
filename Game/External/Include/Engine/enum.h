@@ -142,6 +142,7 @@ enum class CONSTANT_TYPE
 	END,
 };
 
+// Layer Type
 enum class LAYER_TYPE
 {
 	CAMERA,
@@ -151,6 +152,7 @@ enum class LAYER_TYPE
 	END
 };
 
+// Projection Type
 enum class PROJECTION_TYPE
 {
 	PERSPECTIVE,
@@ -158,10 +160,54 @@ enum class PROJECTION_TYPE
 	END
 };
 
+// Direction Type
 enum class DIRECTION_TYPE
 {
 	RIGHT,
 	UP,
 	FRONT,
 	END
+};
+
+// Culling Type
+enum class CULL_TYPE
+{
+	BACK,
+	FRONT,
+	NONE,
+	WIRE,
+	END
+};
+
+// DepthStencil State Type
+enum class DS_TYPE
+{
+	LESS,					// 작은게 통과			깊이 기록 0
+	LESS_EQUAL,				// 작거나 같으면 통과	깊이 기록 0
+
+	GREATER,				// 큰게 통과			깊이 기록 0
+	GREATER_EQUAL,			// 크거나 같으면 통과	깊이 기록 0
+
+	NO_TEST,				// 깊이 테스트X			깊이 기록 0
+	N0_WRITE,				// 깊이 테스트O			깊이 기록 X
+
+	NO_TEST_NO_WRITE,		// 깊이 테스트X			깊이 기록X
+	END
+};
+
+// BlendState Type
+enum class BLEND_TYPE
+{
+	DEFAULT,
+	ALPHABLENDING,
+	ONE_ONE,
+	END
+};
+
+// SamplerState Type
+enum class  SAMPLER_TYPE
+{
+	Default,
+	POINT,
+	END,
 };
