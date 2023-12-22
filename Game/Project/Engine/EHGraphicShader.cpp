@@ -84,7 +84,7 @@ void GraphicShader::UpdateData()
  
 void GraphicShader::Render()
 {
-	CONTEXT->PSSetShaderResources(0, 1, m_ResourceView.GetAddressOf());
+	//ONTEXT->PSSetShaderResources(0, 1, m_ResourceView.GetAddressOf());
 }
 
 void GraphicShader::CreateBlobFile(SHADER_TYPE _type, wstring& _path, string& _entry)

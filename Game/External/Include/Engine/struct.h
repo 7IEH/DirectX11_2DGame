@@ -19,9 +19,17 @@ struct tTransform
 // MVP
 struct transform
 {
-	XMMATRIX _world;
-	XMMATRIX _view;
-	XMMATRIX _projection;
+	Matrix	World;
+	Matrix	WorldInv;
+
+	Matrix	View;
+	Matrix	ViewInv;
+
+	Matrix	Projection;
+	Matrix	ProjInv;
+
+	Matrix	WV;
+	Matrix	WVP;
 };
 
 struct FKeyData

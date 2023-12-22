@@ -3,6 +3,7 @@
 
 #include "EHMesh.h"
 #include "EHGraphicShader.h"
+#include "EHSprite.h"
 #include "EHMaterial.h"
 
 AssetMgr::AssetMgr()
@@ -18,16 +19,15 @@ AssetMgr::~AssetMgr()
 
 void AssetMgr::Init()
 {
-	Mesh* _mesh = new Mesh;
-	GraphicShader* _shader = new GraphicShader;
-
-	Mesh* _texture_mesh = new Mesh;
-	GraphicShader* _texture_shader = new GraphicShader;
-
-	Material* _defaultMaterial = new Material;
-
+	#pragma region Basic Array
 	vtx triangle[4] = {};
 	UINT idx[6] = {};
+	#pragma endregion
+
+	#pragma region MeshSetting
+	Mesh* _mesh = new Mesh;
+	Mesh* _texture_mesh = new Mesh;
+
 	// Triangle Test------------------------------
 	triangle[0]._Postion = Vec3(-0.5f, 0.5f, 0.f);
 	triangle[0]._Color = Vec4(1.f, 0.f, 0.f, 1.f);
@@ -55,19 +55,6 @@ void AssetMgr::Init()
 	idx[5] = 3;
 
 	_mesh->Create(triangle, 4, idx, 6);
-
-	wstring _path = L"\\shader\\std2d.fx";
-	string _vsEntry = "VS_Std2D";
-	string _psEntry = "PS_Std2D";
-
-	_shader->Create(_path, _vsEntry, _psEntry);
-
-	_path = L"\\resource\\Example.png";
-	_shader->CreateResourceView(_path);
-	_shader->SetBlendType(BLEND_TYPE::ALPHABLENDING);
-
-	AddAsset(_mesh, L"BackGroundMesh");
-	AddAsset(_shader, L"BackGroundShader");
 
 	vtx triangle2[4] = {};
 	UINT idx2[6] = {};
@@ -99,18 +86,46 @@ void AssetMgr::Init()
 
 	_texture_mesh->Create(triangle2, 4, idx2, 6);
 
+	AddAsset(_mesh, L"BackGroundMesh");
+	AddAsset(_texture_mesh, L"PlayerMesh");
+	#pragma endregion
+
+	#pragma region ShaderSetting
+	GraphicShader* _shader = new GraphicShader;
+	GraphicShader* _texture_shader = new GraphicShader;
+
+	wstring _path = L"\\shader\\std2d.fx";
+	string _vsEntry = "VS_Std2D";
+	string _psEntry = "PS_Std2D";
+
+	_shader->Create(_path, _vsEntry, _psEntry);
+	_shader->SetBlendType(BLEND_TYPE::ALPHABLENDING);
+
 	_path = L"\\shader\\std2d.fx";
 	_vsEntry = "VS_Std2D";
 	_psEntry = "PS_Std2D";
 
 	_texture_shader->Create(_path, _vsEntry, _psEntry);
-
-	_path = L"\\resource\\NPC_Commander0.png";
-	_texture_shader->CreateResourceView(_path);
-
 	_texture_shader->SetBlendType(BLEND_TYPE::ALPHABLENDING);
 
-	AddAsset(_texture_mesh, L"PlayerMesh");
+	AddAsset(_shader, L"BackGroundShader");
 	AddAsset(_texture_shader, L"PlayerShader");
+	#pragma endregion
+	
+	#pragma region SpriteSetting
+	_path = L"\\resource\\Example.png";
+	Sprite* _BackGroundSprite = Load<Sprite>(_path,L"BackGroundSprite");
+
+	_path = L"\\resource\\NPC_Commander0.png";
+	Sprite* _PlayerSprite = Load<Sprite>(_path, L"PlayerSprite");
+
+	AddAsset(_BackGroundSprite, L"BackGroundSprite");
+	AddAsset(_PlayerSprite, L"PlayerSprite");
+	#pragma endregion
+
+	#pragma region Mateiral
+	Material* _defaultMaterial = new Material;
+	
 	AddAsset(_defaultMaterial, L"DefaultMat");
+	#pragma endregion	
 }

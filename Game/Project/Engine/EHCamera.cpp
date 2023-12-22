@@ -47,7 +47,7 @@ void Camera::FinalTick()
 								0,0,0,1 };
 
 	// View Matrix
-	e_MatrixData._view = XMMatrixMultiply(_reverseTransform, _reverseRotation);
+	e_MatrixData.View = XMMatrixMultiply(_reverseTransform, _reverseRotation);
 	
 
 	switch (m_Projection)
@@ -77,12 +77,12 @@ void Camera::InitializeDir()
 void Camera::ProjectiveView()
 {
 	// Projection(Projection)
-	e_MatrixData._projection = XMMatrixTranspose(XMMatrixPerspectiveFovLH(m_FOV, ASPECT_RATIO, 1.f, m_Far));
+	e_MatrixData.Projection = XMMatrixTranspose(XMMatrixPerspectiveFovLH(m_FOV, ASPECT_RATIO, 1.f, m_Far));
 }
 
 void Camera::OrthographicView()
 {
-	e_MatrixData._projection = XMMatrixTranspose(XMMatrixOrthographicLH(m_Width * m_Scale, 900.f * m_Scale, 1.f, m_Far));
+	e_MatrixData.Projection = XMMatrixTranspose(XMMatrixOrthographicLH(m_Width * m_Scale, 900.f * m_Scale, 1.f, m_Far));
 }
 
 

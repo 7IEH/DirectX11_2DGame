@@ -179,6 +179,7 @@ call Copy.bat</Command>
     <ClInclude Include="EHRenderer.h" />
     <ClInclude Include="EHScript.h" />
     <ClInclude Include="EHShader.h" />
+    <ClInclude Include="EHSprite.h" />
     <ClInclude Include="EHTestLevel.h" />
     <ClInclude Include="EHTimeMgr.h" />
     <ClInclude Include="EHTransform.h" />
@@ -218,6 +219,7 @@ call Copy.bat</Command>
     <ClCompile Include="EHRenderer.cpp" />
     <ClCompile Include="EHScript.cpp" />
     <ClCompile Include="EHShader.cpp" />
+    <ClCompile Include="EHSprite.cpp" />
     <ClCompile Include="EHTestLevel.cpp" />
     <ClCompile Include="EHTimeMgr.cpp" />
     <ClCompile Include="EHTransform.cpp" />

@@ -26,8 +26,16 @@ struct Material
 cbuffer Worldspcae : register(b0)
 {
     matrix World;
+    matrix matWorldInv;
+    
     matrix View;
+    matrix matViewInv;
+    
     matrix Projection;
+    matrix matProjInv;
+    
+    matrix WV;
+    matrix WVP;
 };
 
 cbuffer Material : register(b1)
@@ -38,9 +46,13 @@ cbuffer Material : register(b1)
 cbuffer Light : register(b2)
 {
     DirectionalLight gDirLight;
-    float3 gEyePosW;
-    float  pad;
 };
+
+cbuffer Normal : register(b3)
+{
+    float3 vNormal;
+    float pad1;
+}
 
 struct VS_IN
 {
@@ -53,7 +65,15 @@ struct VS_OUT
 {
     float4 vPosition : SV_Position;
     float4 vColor : COLOR;
+    float3 vNomral : NORMAL;
     float2 vUV : TEXCOORD;
+};
+
+struct VS_TEST
+{
+    float4 t_ambient;
+    float4 t_diffuse;
+    float4 t_spec;
 };
 
 // Luna Light Example
@@ -91,36 +111,43 @@ RasterizerState WireframeRS
     FrontCounterClockwise = false;
 };
 
-//technique11 ColorTech
-//{
-//    pass P0
-//    {
-//        SetVertexShader(CompileShader(vs_5_0, VS()));
-//        SetVertexShader(CompileShader(ps_5_0, PS()));
-
-//        setRasterizerstate(WireframeRS);
-//    }
-//};
-
 VS_OUT VS_Std2D(VS_IN _in)
 {
+    VS_TEST _v;
     VS_OUT output = (VS_OUT) 0.f;
     
-    float4 WorldPos = mul(float4(_in.vPos, 1.f), World);
-    float4 ViewPos = mul(WorldPos, View);
-    float4 ProjectionPos = mul(ViewPos, Projection);
-    
-    output.vPosition = ProjectionPos;
+    //float4 WorldPos = mul(float4(_in.vPos, 1.f), World);
+    //float4 ViewPos = mul(WorldPos, View);
+    //float4 ProjectionPos = mul(ViewPos, Projection);
+    output.vPosition = mul(float4(_in.vPos, 1.f), WVP);
     output.vColor = _in.vColor;
     output.vUV = _in.vUV;
-    
+    //output.vNomral = mul(vNormal, (float3x3)World);
+       
     return output;
 }
 
 float4 PS_Std2D(VS_OUT _in) : SV_Target
 {
-    float4 color = shaderTexture.Sample(samplerType, _in.vUV);
+    _in.vNomral = (0.f, 0.f, -1.f);
+    
+    float3 toEye = float3(0.f, 0.f, 1.f);
+    
+    float4 ambient = float4(0.f, 0.f, 0.f, 0.f);
+    float4 diffuse = float4(0.f, 0.f, 0.f, 0.f);
+    float4 spec = float4(0.f, 0.f, 0.f, 0.f);
+    
+    float4 A, D, S;
+    
+    ComputeDirectionalLight(gMatrial, gDirLight, _in.vNomral, toEye, A, D, S);
+    ambient += A;
+    diffuse += D;
+    spec += S;
+      
+    float4 lightColor = ambient + diffuse + spec;
+    
+    float4 color = shaderTexture.Sample(samplerType, _in.vUV) + lightColor;
+    //color.a = diffuse.a;
     return color;
 }
-
 #endif

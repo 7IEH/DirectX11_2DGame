@@ -106,6 +106,12 @@
     <Filter Include="07. Component\Light2D">
       <UniqueIdentifier>{ae5f4f9f-9b03-440d-a999-8991054b773c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="07. Component\Renderer\SpriteRenderer">
+      <UniqueIdentifier>{08d3b0a6-b410-4864-b9e3-77cdf1058ec5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Asset\Sprite">
+      <UniqueIdentifier>{802d27d2-17f6-4d08-9e95-387e19cea718}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -222,6 +228,9 @@
     <ClInclude Include="EHCameraTargetScript.h">
       <Filter>07. Component\Script\2. Camera</Filter>
     </ClInclude>
+    <ClInclude Include="EHSprite.h">
+      <Filter>08. Asset\Sprite</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -319,6 +328,9 @@
     </ClCompile>
     <ClCompile Include="EHCameraTargetScript.cpp">
       <Filter>07. Component\Script\2. Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="EHSprite.cpp">
+      <Filter>08. Asset\Sprite</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -117,6 +117,8 @@ enum class ASSET_TYPE
 	MESH,
 	SHADER,
 	MATERIAL,
+	TEXTURE,
+	SPRITE,
 	SOUND,
 	END,
 };

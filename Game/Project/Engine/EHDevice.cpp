@@ -197,6 +197,7 @@ void Device::CreateConstantBuffer(CONSTANT_TYPE _type, int _size, int _sizeCount
 	tDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	
 	m_ConstantBuffer[(UINT)_type] = new ConstantBuffer();
+	m_ConstantBuffer[(UINT)_type]->SetCBType(_type);
 	DEVICE->CreateBuffer(&tDesc, nullptr, m_ConstantBuffer[(UINT)_type]->GetBufferDP());
 }
 

@@ -12,6 +12,7 @@ Transform::Transform()
 {
 	m_Transform = new tTransform();
 	m_Transform->_Scale = { 1.f,1.f,1.f,1.f };
+	m_Transform->_Rotation = { 0.f,0.f,0.f };
 }
 
 Transform::~Transform()
@@ -24,26 +25,18 @@ void Transform::FinalTick()
 	Vec4 _Scale = m_Transform->_Scale;
 	Vec3 _Rotation = m_Transform->_Rotation;
 	Vec4 _Position = m_Transform->_Position;
-	XMMATRIX _scaleMatrix = XMMatrixTranspose(XMMatrixScaling(_Scale.x, _Scale.y, _Scale.z));
-	XMMATRIX _rotateMatrixX = XMMatrixTranspose(XMMatrixRotationX(_Rotation.x * (XM_PI / 180.f)));
-	XMMATRIX _rotateMatrixY = XMMatrixTranspose(XMMatrixRotationY(_Rotation.y * (XM_PI / 180.f)));
-	XMMATRIX _rotateMatrixZ = XMMatrixTranspose(XMMatrixRotationZ(_Rotation.z * (XM_PI / 180.f)));
-	XMMATRIX _transformMatrix = XMMatrixTranspose(XMMatrixTranslation(_Position.x, _Position.y, _Position.z));
-	/*XMMATRIX _temp = XMMatrixMultiply(_scaleMatrix, _rotateMatrixX);
-	_temp = XMMatrixMultiply(_temp, _rotateMatrixY);
-	_temp = XMMatrixMultiply(_temp, _rotateMatrixZ);
-	m_matWorld = XMMatrixMultiply(_temp, _transformMatrix);*/
-
-	/*XMMATRIX _temp = (_transformMatrix, _rotateMatrixX);
-	_temp = (_temp, _rotateMatrixY);
-	_temp = (_temp, _rotateMatrixZ);
-	m_matWorld = (_temp, _scaleMatrix);*/
+	
+	XMMATRIX _scaleMatrix = XMMatrixScaling(_Scale.x, _Scale.y, _Scale.z);
+	XMMATRIX _rotateMatrixX = XMMatrixRotationX(_Rotation.x * (XM_PI / 180.f));
+	XMMATRIX _rotateMatrixY = XMMatrixRotationY(_Rotation.y * (XM_PI / 180.f));
+	XMMATRIX _rotateMatrixZ = XMMatrixRotationZ(_Rotation.z * (XM_PI / 180.f));
+	XMMATRIX _transformMatrix = XMMatrixTranslation(_Position.x, _Position.y, _Position.z);
 
 	XMMATRIX _temp = XMMatrixMultiply(_scaleMatrix, _rotateMatrixX);
 	_temp = XMMatrixMultiply(_temp, _rotateMatrixY);
 	_temp = XMMatrixMultiply(_temp, _rotateMatrixZ);
-	m_matWorld = XMMatrixMultiply(_transformMatrix, _temp);
-
+	m_matWorld = XMMatrixTranspose(XMMatrixMultiply(_temp, _transformMatrix));
+	
 	// 물체의 방향값을 다시 계산한다.
 	m_Dir[(UINT)DIRECTION_TYPE::RIGHT] = { 1.f,0.f,0.f,0.f };
 	m_Dir[(UINT)DIRECTION_TYPE::UP] = { 0.f,1.f,0.f,0.f };

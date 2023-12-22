@@ -8,6 +8,7 @@ Material::Material()
 	:Asset(ASSET_TYPE::MATERIAL)
 	,m_tMaterial(nullptr)
 {
+	m_tMaterial = new material();
 }
 
 Material::~Material()

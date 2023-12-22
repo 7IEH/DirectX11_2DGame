@@ -10,6 +10,8 @@ public:
 	ID3D11Buffer**	GetBufferDP() { return m_CB.GetAddressOf(); }
 	CONSTANT_TYPE	GetCBType() { return m_Type; }
 
+	void			SetCBType(CONSTANT_TYPE _type) { m_Type = _type; }
+
 public:
 	void			SetData(void* _data, int _size, int _count); 
 	void			UpdateData();
