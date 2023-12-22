@@ -61,12 +61,12 @@ void CameraScript::PerpectiveMove()
 {
 	Transform* _tr = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
 
-	Vec4 _pos = _tr->GetPosition();
-	Vec3 _rotation = _tr->GetRotation();
+	Vec4 _pos = _tr->GetRelativePosition();
+	Vec3 _rotation = _tr->GetRelativeRotation();
 
-	Vec3 _Right = _tr->GetDir(DIRECTION_TYPE::RIGHT);
-	Vec3 _UP = _tr->GetDir(DIRECTION_TYPE::UP);
-	Vec3 _Front = _tr->GetDir(DIRECTION_TYPE::FRONT);
+	Vec3 _Right = _tr->GetWorldDir(DIRECTION_TYPE::RIGHT);
+	Vec3 _UP = _tr->GetWorldDir(DIRECTION_TYPE::UP);
+	Vec3 _Front = _tr->GetWorldDir(DIRECTION_TYPE::FRONT);
 
 	if (KEY_PRESSED(A))
 	{
@@ -100,16 +100,16 @@ void CameraScript::PerpectiveMove()
 		_pos.y += KeyMgr::GetInst()->GetMouseDir().y * DT * m_CamSpeed;
 	}
 
-	_tr->SetDir(DIRECTION_TYPE::RIGHT, _Right);
-	_tr->SetDir(DIRECTION_TYPE::UP, _UP);
-	_tr->SetDir(DIRECTION_TYPE::FRONT, _Front);
-	_tr->SetRotation(_rotation);
-	_tr->SetPosition(_pos);
+	_tr->SetWorldDir(DIRECTION_TYPE::RIGHT, _Right);
+	_tr->SetWorldDir(DIRECTION_TYPE::UP, _UP);
+	_tr->SetWorldDir(DIRECTION_TYPE::FRONT, _Front);
+	_tr->SetRelativeRotation(_rotation);
+	_tr->SetRelativePosition(_pos);
 }
 
 void CameraScript::OrthoGraphicMove()
 {
-	Vec4 _pos = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetPosition();
+	Vec4 _pos = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativePosition();
 	if (KEY_PRESSED(A))
 	{
 		_pos.x -= DT * m_CamSpeed;
@@ -129,5 +129,5 @@ void CameraScript::OrthoGraphicMove()
 	{
 		_pos.y -= DT * m_CamSpeed;
 	}
-	GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->SetPosition(_pos);
+	GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->SetRelativePosition(_pos);
 }

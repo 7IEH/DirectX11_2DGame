@@ -48,6 +48,11 @@ struct material
 	Vec4	Reflect;
 };
 
+struct NomralVector
+{
+	Vec3 Nomral;
+	float pad;
+};
 
 // DX11 Light ¿¹Á¦
 struct DirectinalLight
@@ -83,3 +88,9 @@ struct SpotLight
 	float	pad;
 };
 
+struct tLight
+{
+	DirectinalLight _DL;
+	PointLight _PL;
+	SpotLight _SL;
+};

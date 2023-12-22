@@ -67,6 +67,12 @@ void MeshRenderer::Render()
 
 		Device::GetInst()->GetConstantBuffer(CONSTANT_TYPE::TRANSFORM)->SetData(&e_MatrixData, sizeof(transform), 1);
 		Device::GetInst()->GetConstantBuffer(CONSTANT_TYPE::TRANSFORM)->UpdateData();
+
+		NomralVector* temp = new NomralVector();
+		temp->Nomral = _tr->GetWorldDir(DIRECTION_TYPE::FRONT);
+
+		Device::GetInst()->GetConstantBuffer(CONSTANT_TYPE::NORMANL)->SetData(&temp, sizeof(NomralVector), 1);
+		Device::GetInst()->GetConstantBuffer(CONSTANT_TYPE::NORMANL)->UpdateData();
 	}
 
 	UpdateData();

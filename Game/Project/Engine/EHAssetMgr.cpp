@@ -127,5 +127,5 @@ void AssetMgr::Init()
 	Material* _defaultMaterial = new Material;
 	
 	AddAsset(_defaultMaterial, L"DefaultMat");
-	#pragma endregion	
+	#pragma endregion
 }

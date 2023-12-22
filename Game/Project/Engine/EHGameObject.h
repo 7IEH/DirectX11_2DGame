@@ -18,10 +18,13 @@ class GameObject
 	: public Entity
 {
 private:
-	Component*		m_Component[(UINT)COMPONENT_TYPE::END];
-	Component*		m_Renderer;
+	Component* m_Component[(UINT)COMPONENT_TYPE::END];
+	Component* m_Renderer;
 
 	vector<Script*> m_vScripts;
+
+	vector<GameObject*> m_Childs[(UINT)LAYER_TYPE::END];
+	GameObject*			m_Parent;
 
 public:
 	template<typename T>
@@ -69,6 +72,30 @@ public:
 	vector<Script*>& GetScript()
 	{
 		return m_vScripts;
+	}
+
+	GameObject* GetParent() { return m_Parent; }
+
+	void AddChild(GameObject* _child, LAYER_TYPE _type)
+	{
+		if (_child->m_Parent != nullptr)
+		{
+			_child->m_Parent = nullptr;
+			vector<GameObject*>::iterator iter = m_Parent->m_Childs[(UINT)_type].begin();
+			for (;iter != m_Parent->m_Childs[(UINT)_type].end();)
+			{
+				if ((*iter) == _child)
+				{
+					m_Parent->m_Childs[(UINT)_type].erase(iter);
+				}
+				else
+				{
+					iter++;
+				}
+			}
+		}
+		m_Childs[(UINT)_type].push_back(_child);
+		_child->m_Parent = this;
 	}
 
 public:

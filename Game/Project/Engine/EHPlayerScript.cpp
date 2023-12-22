@@ -25,7 +25,7 @@ void PlayerScript::Tick()
 	{
 		return;
 	}
-	Vec4 _pos = _transform->GetPosition();
+	Vec4 _pos = _transform->GetRelativePosition();
 	if (KEY_PRESSED(LEFT))
 	{
 		_pos.x -= m_Speed * DT;
@@ -45,5 +45,5 @@ void PlayerScript::Tick()
 	{
 		_pos.y -= m_Speed * DT;
 	}
-	_transform->SetPosition(_pos);
+	_transform->SetRelativePosition(_pos);
 }

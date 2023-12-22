@@ -33,13 +33,13 @@ void Camera::FinalTick()
 	e_MatrixData._view = XMMatrixTranspose(XMMatrixLookAtLH(pos, target, up));
 	*/
 
-	Vec4 _pos = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetPosition();
+	Vec4 _pos = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativePosition();
 	// W = (RT)^-1 -> T^-1 * R^-1
 	Matrix _reverseTransform = XMMatrixTranspose(XMMatrixTranslation(-_pos.x, -_pos.y, -_pos.z));
 
-	Vec3 _Right = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetDir(DIRECTION_TYPE::RIGHT);
-	Vec3 _UP = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetDir(DIRECTION_TYPE::UP);
-	Vec3 _Front = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetDir(DIRECTION_TYPE::FRONT);
+	Vec3 _Right = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetWorldDir(DIRECTION_TYPE::RIGHT);
+	Vec3 _UP = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetWorldDir(DIRECTION_TYPE::UP);
+	Vec3 _Front = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetWorldDir(DIRECTION_TYPE::FRONT);
 
 	Matrix _reverseRotation = { _Right.x,_Right.y,_Right.z,0,
 								_UP.x,_UP.y,_UP.z,0,

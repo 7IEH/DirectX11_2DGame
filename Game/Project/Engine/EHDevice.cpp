@@ -75,6 +75,11 @@ int Device::Init(HWND _hWnd, Vec2 _vRenderResolution)
 	// SamplerState
 	CreateSamplerState();
 
+	CreateConstantBuffer(CONSTANT_TYPE::TRANSFORM, sizeof(transform), 1);
+	CreateConstantBuffer(CONSTANT_TYPE::MATERIAL, sizeof(material), 1);
+	CreateConstantBuffer(CONSTANT_TYPE::LIGHT, sizeof(tLight), 1);
+	CreateConstantBuffer(CONSTANT_TYPE::NORMANL, sizeof(NomralVector), 1);
+
 	return S_OK;
 }
 
@@ -136,10 +141,6 @@ HRESULT Device::CreateSwapChain()
 		HandleError(m_hWnd, L"SwapChain Create Failed!", 1);
 		return E_FAIL;
 	}
-
-	CreateConstantBuffer(CONSTANT_TYPE::TRANSFORM, sizeof(transform), 1);
-	CreateConstantBuffer(CONSTANT_TYPE::MATERIAL, sizeof(material), 1);
-	CreateConstantBuffer(CONSTANT_TYPE::LIGHT, sizeof(DirectinalLight), 1);
 
 	return S_OK;
 }

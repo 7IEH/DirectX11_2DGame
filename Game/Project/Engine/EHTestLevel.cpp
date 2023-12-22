@@ -32,10 +32,10 @@ void TestLevel::Init()
 	GameObject* _MainCamera = new GameObject;
 	Transform* tr = _MainCamera->AddComponent<Transform>();
 	Camera* _camera = _MainCamera->AddComponent<Camera>();
-	CameraTargetScript* _cameraScript = _MainCamera->AddComponent<CameraTargetScript>();
-	tr->SetScale(Vec4(1.f, 1.f, 1.f, 1.f));
-	tr->SetPosition(Vec4(0.f, 0.f, -10.f, 1.f));
-	tr->SetRotation(Vec3(0.f, 0.f, 0.f));
+	CameraScript* _cameraScript = _MainCamera->AddComponent<CameraScript>();
+	tr->SetRelativeScale(Vec4(1.f, 1.f, 1.f, 1.f));
+	tr->SetRelativePosition(Vec4(0.f, 0.f, -10.f, 1.f));
+	tr->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
 
 	// Light
 	GameObject* _Light = new GameObject();
@@ -50,9 +50,9 @@ void TestLevel::Init()
 	// Background
 	GameObject* _backGround = new GameObject;
 	tr = _backGround->AddComponent<Transform>();
-	tr->SetScale(Vec4(1600.f, 900.f, 1.f, 1.f));
-	tr->SetPosition(Vec4(0.f, 0.f, 50.f, 1.f));
-	tr->SetRotation(Vec3(0.f, 0.f, 0.f));
+	tr->SetRelativeScale(Vec4(1600.f, 900.f, 1.f, 1.f));
+	tr->SetRelativePosition(Vec4(0.f, 0.f, 50.f, 1.f));
+	tr->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
 
 	MeshRenderer* _playerRenderer = _backGround->AddComponent<MeshRenderer>();
 	_playerRenderer->SetMesh(dynamic_cast<Mesh*>(AssetMgr::GetInst()->FindAsset(L"BackGroundMesh")));
@@ -66,9 +66,9 @@ void TestLevel::Init()
 	// Player
 	GameObject* _player = new GameObject();
 	tr = _player->AddComponent<Transform>();
-	tr->SetScale(Vec4(100.f, 92.f, 1.f, 1.f));
-	tr->SetPosition(Vec4(0.f, 0.f, 0.f, 1.f));
-	tr->SetRotation(Vec3(0.f, 0.f, 0.f));
+	tr->SetRelativeScale(Vec4(100.f, 92.f, 1.f, 1.f));
+	tr->SetRelativePosition(Vec4(0.f, 0.f, 0.f, 1.f));
+	tr->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
 
 	_playerRenderer = _player->AddComponent<MeshRenderer>();
 	_playerRenderer->SetMesh(dynamic_cast<Mesh*>(AssetMgr::GetInst()->FindAsset(L"PlayerMesh")));

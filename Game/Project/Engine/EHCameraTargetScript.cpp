@@ -26,6 +26,6 @@ void CameraTargetScript::Tick()
 	if (_targettr == nullptr)
 		return;
 
-	Vec4 _temp = Vec4(_targettr->GetPosition().x, _targettr->GetPosition().y, -10.f, 0.f);
-	_tr->SetPosition(_temp);
+	Vec4 _temp = Vec4(_targettr->GetRelativePosition().x, _targettr->GetRelativePosition().y, -10.f, 0.f);
+	_tr->SetRelativePosition(_temp);
 }

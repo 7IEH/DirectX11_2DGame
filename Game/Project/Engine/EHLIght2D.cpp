@@ -6,14 +6,25 @@
 
 LIght2D::LIght2D()
 	:Component(COMPONENT_TYPE::LIGHT2D)
-	,m_PL(nullptr)
-	,m_SL(nullptr)
+	,m_DL{}
+	,m_PL{}
+	,m_SL{}
 {
-	m_DL = new DirectinalLight;
-	m_DL->Ambient = Vec4(0.0f, 0.0f, 0.1f, 1.0f);
-	m_DL->Diffuse = Vec4(0.0f, 0.0f, 0.1f, 1.0f);
-	m_DL->Specular = Vec4(0.0f, 0.0f, 0.1f, 1.0f);
-	m_DL->Direction = Vec3(0.f, 0.f, 0.57735f);
+	/*m_PL.Ambient = XMFLOAT4(0.3f, 0.3f, 0.3f, 1.0f);
+	m_PL.Diffuse = XMFLOAT4(0.7f, 0.7f, 0.7f, 1.0f);
+	m_PL.Specular = XMFLOAT4(0.7f, 0.7f, 0.7f, 1.0f);
+	m_PL.Att = Vec3(0.f, 0.1f, 0.f);
+	m_PL.Range = 500.f;
+	m_PL.Position = Vec3(0.f, 450.f, -10.f);*/
+
+	m_SL.Ambient = XMFLOAT4(1.f, 0.3f, 0.3f, 1.0f);
+	m_SL.Diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+	m_SL.Specular = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+	m_SL.Att = Vec3(1.f, 0.0f, 0.f);
+	m_SL.Spot = 4.f;
+	m_SL.Range = 10000.f;
+	m_SL.Position = Vec3(0.f, 0.f, 500.f);
+	m_SL.Direction = Vec3(0.f, 0.f, -0.5f);
 }
 
 LIght2D::~LIght2D()
@@ -25,6 +36,10 @@ void LIght2D::FinalTick()
 	// Light 값 셋팅
 	// 근데 2D는 global illumination Light setting 해줘야함 ㅋㅋ;
 	// DirectionLight
-	Device::GetInst()->GetConstantBuffer(CONSTANT_TYPE::LIGHT)->SetData(m_DL, sizeof(DirectinalLight), 1);
+	m_Light._DL = m_DL;
+	m_Light._PL = m_PL;
+	m_Light._SL = m_SL;
+
+	Device::GetInst()->GetConstantBuffer(CONSTANT_TYPE::LIGHT)->SetData(&m_Light, sizeof(tLight), 1);
 	Device::GetInst()->GetConstantBuffer(CONSTANT_TYPE::LIGHT)->UpdateData();
 }

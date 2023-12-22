@@ -8,6 +8,7 @@ GameObject::GameObject()
 	:m_Component{}
 	,m_Renderer(nullptr)
 	,m_vScripts{}
+	,m_Parent(nullptr)
 {
 }
 
@@ -42,6 +43,17 @@ void GameObject::Tick()
 			_script->Tick();
 		}
 	}
+
+	for (UINT _type = 0;_type < (UINT)LAYER_TYPE::END;_type++)
+	{
+		if (!m_Childs[_type].empty())
+		{
+			for (GameObject* _child : m_Childs[_type])
+			{
+				_child->Tick();
+			}
+		}
+	}
 }
 
 void GameObject::FinalTick()
@@ -53,6 +65,17 @@ void GameObject::FinalTick()
 			m_Component[_comp]->FinalTick();
 		}
 	}
+
+	for (UINT _type = 0;_type < (UINT)LAYER_TYPE::END;_type++)
+	{
+		if (!m_Childs[_type].empty())
+		{
+			for (GameObject* _child : m_Childs[_type])
+			{
+				_child->FinalTick();
+			}
+		}
+	}
 }
 
 void GameObject::Render()
@@ -60,4 +83,15 @@ void GameObject::Render()
 	Renderer* _renderer = dynamic_cast<Renderer*>(m_Renderer);
 	if(_renderer!=nullptr)
 		_renderer->Render();
+
+	for (UINT _type = 0;_type < (UINT)LAYER_TYPE::END;_type++)
+	{
+		if (!m_Childs[_type].empty())
+		{
+			for (GameObject* _child : m_Childs[_type])
+			{
+				_child->Render();
+			}
+		}
+	}
 }
