@@ -7,22 +7,31 @@ class Layer
 	:public Entity
 {
 private:
-	vector<GameObject*> m_GameObjects;
+	vector<GameObject*>			m_Parent;
+	vector<GameObject*>			m_GameObjects;
+
+	LAYER_TYPE					m_Type;
 
 public:
-	void AddObject(GameObject* _obj)
-	{
-		m_GameObjects.push_back(_obj);
-	}
+	void AddObject(GameObject* _obj, bool _bMove);
+	void DetachGameObject(GameObject* _obj);
+	void RegisterGameObject(GameObject* _obj) { m_GameObjects.push_back(_obj); }
 
 public:
-	void Init();
-	void Tick();
-	void FinalTick();
+	void Awake();
+	void Start();
+	void Update();
+	void FixedUpdate();
+	void LateUpdate();
 	void Render();
+	
+public:
+	vector<GameObject*>& GetLayerObject() { return m_GameObjects; }
 
 public:
 	Layer();
 	virtual ~Layer();
+
+	friend class Level;
 };
 

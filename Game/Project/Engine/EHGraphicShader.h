@@ -51,7 +51,6 @@ public:
 private:
     void CreateBlobFile(SHADER_TYPE _type, wstring& _path, string& _entry);
     void CreateShader(SHADER_TYPE _type);
-    void CreateSamplerState();
     void CreateLayOut();
     void SetShader(SHADER_TYPE _type);
 };

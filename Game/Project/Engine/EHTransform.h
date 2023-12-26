@@ -38,7 +38,8 @@ public:
 	void SetAbsolute(bool _Absolute) { m_Absolute = _Absolute; }
 
 public:
-	virtual void FinalTick() override;
+	virtual void LateUpdate() override;
+	virtual void UpdateData() override;
 
 public:
 	Transform();

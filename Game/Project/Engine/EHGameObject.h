@@ -18,13 +18,15 @@ class GameObject
 	: public Entity
 {
 private:
-	Component* m_Component[(UINT)COMPONENT_TYPE::END];
-	Component* m_Renderer;
+	LAYER_TYPE					m_LayerType;
 
-	vector<Script*> m_vScripts;
+	Component*					m_Component[(UINT)COMPONENT_TYPE::END];
+	Component*					m_Renderer;
 
-	vector<GameObject*> m_Childs[(UINT)LAYER_TYPE::END];
-	GameObject*			m_Parent;
+	vector<Script*>				m_vScripts;
+	vector<GameObject*>			m_Childs;
+
+	GameObject*					m_Parent;
 
 public:
 	template<typename T>
@@ -61,6 +63,9 @@ public:
 		return _comp;
 	}
 
+public:
+	LAYER_TYPE		GetLayerType() { return m_LayerType; }
+
 	template<typename T>
 	T* GetComponent(COMPONENT_TYPE _type)
 	{
@@ -75,37 +80,22 @@ public:
 	}
 
 	GameObject* GetParent() { return m_Parent; }
-
-	void AddChild(GameObject* _child, LAYER_TYPE _type)
-	{
-		if (_child->m_Parent != nullptr)
-		{
-			_child->m_Parent = nullptr;
-			vector<GameObject*>::iterator iter = m_Parent->m_Childs[(UINT)_type].begin();
-			for (;iter != m_Parent->m_Childs[(UINT)_type].end();)
-			{
-				if ((*iter) == _child)
-				{
-					m_Parent->m_Childs[(UINT)_type].erase(iter);
-				}
-				else
-				{
-					iter++;
-				}
-			}
-		}
-		m_Childs[(UINT)_type].push_back(_child);
-		_child->m_Parent = this;
-	}
+	void AddChild(GameObject* _child);
+	void DisconnectWithParent();
+	void DisconnectWithLayer();
 
 public:
-	virtual void Init();
-	virtual void Tick();
-	virtual void FinalTick();
+	virtual void Awake();
+	virtual void Start();
+	virtual void Update();
+	virtual void FixedUpdate();
+	virtual void LateUpdate();
 	virtual void Render();
 
 public:
 	GameObject();
 	virtual ~GameObject();
+
+	friend class Layer;
 };
 

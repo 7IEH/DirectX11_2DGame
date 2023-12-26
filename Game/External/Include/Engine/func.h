@@ -1,7 +1,14 @@
 /******************
 universal function
 ******************/
-#include "pch.h"
+
+class GameObject;
+
+namespace Object
+{
+	void Instantiate(GameObject* _target, int _LayerIdx);
+	void Destroy(GameObject* _target);
+}
 
 // 메모리 해제 ( 배열용 )
 template <typename T, int SIZE>
@@ -32,11 +39,11 @@ void ReleaseVector(vector<T*>& vec)
 }
 
 // 한면의 법선 벡터 구하기
-void ComputeNomral(const XMVECTOR& p0, const XMVECTOR& p1, const XMVECTOR& p2, OUT XMVECTOR& out)
-{
-	XMVECTOR u = p1 - p0;
-	XMVECTOR v = p2 - p0;
-
-	out = DirectX::XMVector3Cross(u, v);
-	out = DirectX::XMVector3Normalize(out);
-}
+//void ComputeNormal(const XMVECTOR& p0, const XMVECTOR& p1, const XMVECTOR& p2, OUT XMVECTOR& out)
+//{
+//	XMVECTOR u = p1 - p0;
+//	XMVECTOR v = p2 - p0;
+//
+//	out = DirectX::XMVector3Cross(u, v);
+//	out = DirectX::XMVector3Normalize(out);
+//}

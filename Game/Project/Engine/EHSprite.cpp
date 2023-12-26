@@ -36,6 +36,7 @@ HRESULT Sprite::Load(const wstring& _strFilePath)
 	else
 	{
 		// png, bmp, jpg, jpeg
+		TexMetadata* temp = nullptr;
 		hr = LoadFromWICFile(_FinalPath.c_str(), WIC_FLAGS_NONE, nullptr, m_Image);
 	}
 
@@ -43,7 +44,7 @@ HRESULT Sprite::Load(const wstring& _strFilePath)
 	{
 		return E_FAIL;
 	}
-
+	
 	CreateShaderResourceView(DEVICE, m_Image.GetImages(), m_Image.GetImageCount(), m_Image.GetMetadata(), m_ShaderResourceView.GetAddressOf());
 	m_ShaderResourceView.Get()->GetResource((ID3D11Resource**)m_SpriteTexture.GetAddressOf());
 	m_SpriteTexture.Get()->GetDesc(&m_DESC);

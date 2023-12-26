@@ -8,10 +8,9 @@
 #include "EHKeyMgr.h"
 #include "EHAssetMgr.h"
 #include "EHLevelMgr.h"
+#include "EHTaskMgr.h"
 
 #include "EHCamera.h"
-
-extern Camera* MainCamera = new Camera();
 
 Engine::Engine()
 	:m_vResolution{}
@@ -25,7 +24,7 @@ Engine::~Engine()
 
 }
 
-int Engine::Init(Vec2 _vResolution, HWND _hWnd)
+int Engine::Awake(Vec2 _vResolution, HWND _hWnd)
 {
 	// Window Setting
 	m_hWnd = _hWnd;
@@ -37,37 +36,52 @@ int Engine::Init(Vec2 _vResolution, HWND _hWnd)
 	SetWindowPos(m_hWnd, nullptr, 10, 10, rt.right - rt.left, rt.bottom - rt.top, 0);
 
 	// Device Initialize
-	if (FAILED(Device::GetInst()->Init(m_hWnd, m_vResolution)))
+	if (FAILED(Device::GetInst()->Awake(m_hWnd, m_vResolution)))
 	{
 		HandleError(m_hWnd, L"Device Initialize Failed!", 1);
 		return E_FAIL;
 	}
 
 	// Manger Initialize
-	TimeMgr::GetInst()->Init();
-	PathMgr::GetInst()->Init();
-	KeyMgr::GetInst()->Init();
-	AssetMgr::GetInst()->Init();
-	LevelMgr::GetInst()->Init();
+	AwakeManager();
+
+	Start();
 
 	return S_OK;
 }
 
-void Engine::Progress()
+void Engine::AwakeManager()
+{
+	TimeMgr::GetInst()->Awake();
+	PathMgr::GetInst()->Awake();
+	KeyMgr::GetInst()->Awake();
+	AssetMgr::GetInst()->Awake();
+	LevelMgr::GetInst()->Awake();
+}
+
+void Engine::Start()
+{
+	// Script 초기화 후 Start 시작
+}
+
+void Engine::Update()
 {
 	// RenderTarget, DepthStencil 초기화
 	float ClearColor[4] = { 1.f,1.f,1.f,1.f };
 	Device::GetInst()->ClearRenderTarget(ClearColor);
 
-	//Manger Progress
-	TimeMgr::GetInst()->Progress();
-	KeyMgr::GetInst()->Tick();
+	//	Manger Progress
+	TimeMgr::GetInst()->Update();
+	KeyMgr::GetInst()->Update();
 
-	LevelMgr::GetInst()->Tick();
-	MainCamera->Tick();
+	// Level Update
+	LevelMgr::GetInst()->Update();
 	LevelMgr::GetInst()->Render();
 
 	Device::GetInst()->Present();
+
+	// Task Update
+	TaskMgr::GetInst()->Update();
 
 	Vec3 toEye = Vec3(0.f, 0.f, -10.f);
 	material mat;

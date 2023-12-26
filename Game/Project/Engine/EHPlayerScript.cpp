@@ -17,7 +17,7 @@ PlayerScript::~PlayerScript()
 {
 }
 
-void PlayerScript::Tick()
+void PlayerScript::Update()
 {
 	Transform* _transform = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
 	tTransform* _transformInfo = nullptr;

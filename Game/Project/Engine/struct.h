@@ -1,6 +1,18 @@
 #pragma once
 
+/******************
+Struct Type
+******************/
 
+// Task Sturct
+struct EHTask
+{
+	TASK_TYPE _Type;
+	UINT_PTR  Param_1;
+	UINT_PTR  Param_2;
+};
+
+// Vertex Struct
 struct vtx
 {
 	Vec3 _Postion;
@@ -8,7 +20,7 @@ struct vtx
 	Vec2 _UV;
 };
 
-// SRT
+// SRT Struct
 struct tTransform
 {
 	Vec4 _Scale;
@@ -16,7 +28,7 @@ struct tTransform
 	Vec3 _Rotation;
 };
 
-// MVP
+// MVP Struct
 struct transform
 {
 	Matrix	World;
@@ -32,6 +44,7 @@ struct transform
 	Matrix	WVP;
 };
 
+// Key Struct
 struct FKeyData
 {
 	KEY			eKey;

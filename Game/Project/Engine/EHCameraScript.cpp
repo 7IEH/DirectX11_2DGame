@@ -19,7 +19,7 @@ CameraScript::~CameraScript()
 {
 }
 
-void CameraScript::Tick()
+void CameraScript::Update()
 {
 	Camera* _camera = GetOwner()->GetComponent<Camera>(COMPONENT_TYPE::CAMERA);
 	PROJECTION_TYPE _type = _camera->GetProjectionType();

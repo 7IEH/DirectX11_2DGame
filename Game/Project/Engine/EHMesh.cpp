@@ -15,6 +15,11 @@ Mesh::Mesh()
 
 Mesh::~Mesh()
 {
+	if (nullptr != m_VertexInfo)
+		delete m_VertexInfo;
+
+	if (nullptr != m_IndexInfo)
+		delete m_IndexInfo;
 }
 
 void Mesh::Create(void* _VBData, UINT _VertexCount, void* _IBData, UINT _IndexCount)

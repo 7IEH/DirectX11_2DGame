@@ -17,13 +17,13 @@ TimeMgr::~TimeMgr()
 
 }
 
-void TimeMgr::Init()
+void TimeMgr::Awake()
 {
 	QueryPerformanceFrequency(&m_Frequency);
 	QueryPerformanceCounter(&m_prevCounter);
 }
 
-void TimeMgr::Progress()
+void TimeMgr::Update()
 {
 	QueryPerformanceCounter(&m_curCounter);
 

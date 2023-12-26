@@ -13,7 +13,7 @@ PathMgr::~PathMgr()
 
 }
 
-void PathMgr::Init()
+void PathMgr::Awake()
 {
 	GetCurrentDirectory(255, m_wstrPath);
 

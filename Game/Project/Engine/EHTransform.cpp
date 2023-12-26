@@ -4,7 +4,12 @@
 #include "EHDevice.h"
 #include "EHLevelMgr.h"
 
-#include"EHGameObject.h"
+#include "EHDevice.h"
+
+#include "EHConstantBuffer.h"
+#include "EHGameObject.h"
+
+extern transform e_MatrixData;
 
 Transform::Transform()
 	:Component(COMPONENT_TYPE::TRANSFORM)
@@ -19,15 +24,16 @@ Transform::Transform()
 
 Transform::~Transform()
 {
+	delete m_RelativeTransform;
 }
 
-void Transform::FinalTick()
+void Transform::LateUpdate()
 {
 	// world(SRT)
 	Vec4 _Scale = m_RelativeTransform->_Scale;
 	Vec3 _Rotation = m_RelativeTransform->_Rotation;
 	Vec4 _Position = m_RelativeTransform->_Position;
-	
+
 	XMMATRIX _scaleMatrix = XMMatrixScaling(_Scale.x, _Scale.y, _Scale.z);
 	XMMATRIX _rotateMatrixX = XMMatrixRotationX(_Rotation.x * (XM_PI / 180.f));
 	XMMATRIX _rotateMatrixY = XMMatrixRotationY(_Rotation.y * (XM_PI / 180.f));
@@ -44,7 +50,7 @@ void Transform::FinalTick()
 	m_WorldDir[(UINT)DIRECTION_TYPE::RIGHT] = m_LocalDir[(UINT)DIRECTION_TYPE::RIGHT] = { 1.f,0.f,0.f,0.f };
 	m_WorldDir[(UINT)DIRECTION_TYPE::UP] = m_LocalDir[(UINT)DIRECTION_TYPE::UP] = { 0.f,1.f,0.f,0.f };
 	m_WorldDir[(UINT)DIRECTION_TYPE::FRONT] = m_LocalDir[(UINT)DIRECTION_TYPE::FRONT] = { 0.f,0.f,1.f,0.f };
-	
+
 	// Vec3 를 vec4 타입으로 확장
 	//XMVector3TransformCoord w를 1로 확장
 	//XMVector3TransformNormal w를 0으로 확장
@@ -84,6 +90,39 @@ void Transform::FinalTick()
 		// NOrmalize;
 		m_WorldDir[i].Normalize();
 	}
+}
+
+void Transform::UpdateData()
+{
+	e_MatrixData.World = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetMatWorld();
+	e_MatrixData.WorldInv = XMMatrixInverse(nullptr, e_MatrixData.World);
+
+	e_MatrixData.ViewInv = XMMatrixInverse(nullptr, e_MatrixData.View);
+
+	e_MatrixData.ProjInv = XMMatrixInverse(nullptr, e_MatrixData.Projection);
+
+	XMMATRIX _worldtemp = XMMatrixTranspose(e_MatrixData.World);
+	XMMATRIX _viewtemp = XMMatrixTranspose(e_MatrixData.View);
+	XMMATRIX _projectiontemp = XMMatrixTranspose(e_MatrixData.Projection);
+
+	// WV
+	e_MatrixData.WV = XMMatrixMultiply(_worldtemp, _viewtemp);
+
+	// WVP
+	e_MatrixData.WVP = XMMatrixTranspose(XMMatrixMultiply(e_MatrixData.WV, _projectiontemp));
+
+	e_MatrixData.WV = XMMatrixTranspose(e_MatrixData.WV);
+
+	Device::GetInst()->GetConstantBuffer(CONSTANT_TYPE::TRANSFORM)->SetData(&e_MatrixData, sizeof(transform), 1);
+	Device::GetInst()->GetConstantBuffer(CONSTANT_TYPE::TRANSFORM)->UpdateData();
+
+	NomralVector* temp = new NomralVector();
+	temp->Nomral = GetWorldDir(DIRECTION_TYPE::FRONT);
+
+	Device::GetInst()->GetConstantBuffer(CONSTANT_TYPE::NORMANL)->SetData(&temp, sizeof(NomralVector), 1);
+	Device::GetInst()->GetConstantBuffer(CONSTANT_TYPE::NORMANL)->UpdateData();
+
+	delete temp;
 }
 
 void Transform::InitializeDir()

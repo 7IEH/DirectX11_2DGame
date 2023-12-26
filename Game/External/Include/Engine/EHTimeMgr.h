@@ -17,7 +17,7 @@ public:
 	float				GetDeltaTime() { return m_fDeltaTime; }
 
 public:
-	void				Init();
-	void				Progress();
+	void				Awake();
+	void				Update();
 };
 

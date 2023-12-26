@@ -25,7 +25,7 @@ TestLevel::~TestLevel()
 {
 }
 
-void TestLevel::Init()
+void TestLevel::Awake()
 {
 	#pragma region Essential Object
 	// Camera
@@ -42,8 +42,8 @@ void TestLevel::Init()
 	tr = _Light->AddComponent<Transform>();
 	LIght2D* _light = _Light->AddComponent<LIght2D>();
 
-	AddObject(_MainCamera, LAYER_TYPE::CAMERA);
-	AddObject(_Light, LAYER_TYPE::LIGHT2D);
+	Object::Instantiate(_MainCamera, (UINT)LAYER_TYPE::CAMERA);
+	Object::Instantiate(_Light, (UINT)LAYER_TYPE::LIGHT2D);
 	#pragma endregion
 
 	#pragma region BackGround
@@ -55,11 +55,10 @@ void TestLevel::Init()
 	tr->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
 
 	MeshRenderer* _playerRenderer = _backGround->AddComponent<MeshRenderer>();
-	_playerRenderer->SetMesh(dynamic_cast<Mesh*>(AssetMgr::GetInst()->FindAsset(L"BackGroundMesh")));
-	_playerRenderer->SetShader(dynamic_cast<GraphicShader*>(AssetMgr::GetInst()->FindAsset(L"BackGroundShader")));
-	_playerRenderer->SetSprite(dynamic_cast<Sprite*>(AssetMgr::GetInst()->FindAsset(L"BackGroundSprite")));
-	AddObject(_backGround, LAYER_TYPE::BACKGROUND);
-
+	_playerRenderer->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"BackGroundMesh"));
+	_playerRenderer->SetShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"BackGroundShader"));
+	_playerRenderer->SetSprite(AssetMgr::GetInst()->FindAsset<Sprite>(L"BackGroundSprite"));
+	Object::Instantiate(_backGround, (UINT)LAYER_TYPE::BACKGROUND);
 	#pragma endregion
 
 	#pragma region GameObject
@@ -71,31 +70,41 @@ void TestLevel::Init()
 	tr->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
 
 	_playerRenderer = _player->AddComponent<MeshRenderer>();
-	_playerRenderer->SetMesh(dynamic_cast<Mesh*>(AssetMgr::GetInst()->FindAsset(L"PlayerMesh")));
-	_playerRenderer->SetShader(dynamic_cast<GraphicShader*>(AssetMgr::GetInst()->FindAsset(L"PlayerShader")));
-	_playerRenderer->SetMaterial(dynamic_cast<Material*>(AssetMgr::GetInst()->FindAsset(L"DefaultMat")));
-	_playerRenderer->SetSprite(dynamic_cast<Sprite*>(AssetMgr::GetInst()->FindAsset(L"PlayerSprite")));
+	_playerRenderer->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"PlayerMesh"));
+	_playerRenderer->SetShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"PlayerShader"));
+	_playerRenderer->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"DefaultMat"));
+	_playerRenderer->SetSprite(AssetMgr::GetInst()->FindAsset<Sprite>(L"PlayerSprite"));
 
 	PlayerScript* _playerScript = _player->AddComponent<PlayerScript>();
 
-	AddObject(_player, LAYER_TYPE::PLAYER);
+	Object::Instantiate(_player, (UINT)LAYER_TYPE::PLAYER);
 	#pragma endregion
 
 	#pragma region Script Option
 	_cameraScript->SetTarget(_player);
 	#pragma endregion
 
-	Level::Init();
+	Level::Awake();
 }
 
-void TestLevel::Tick()
+void TestLevel::Start()
 {
-	Level::Tick();
+	Level::Start();
 }
 
-void TestLevel::FinalTick()
+void TestLevel::Update()
 {
-	Level::FinalTick();
+	Level::Update();
+}
+
+void TestLevel::FixedUpdate()
+{
+	Level::FixedUpdate();
+}
+
+void TestLevel::LateUpdate()
+{
+	Level::LateUpdate();
 }
 
 void TestLevel::Render()

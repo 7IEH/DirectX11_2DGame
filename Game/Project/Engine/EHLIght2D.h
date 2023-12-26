@@ -12,7 +12,7 @@ private:
 	SpotLight				m_SL;
 
 public:
-	virtual void FinalTick() override;
+	virtual void LateUpdate() override;
 	
 	void SetDirectionLight(DirectinalLight _dl) { m_DL = _dl; }
 	void SetPointLight(PointLight _pl) { m_PL = _pl; }

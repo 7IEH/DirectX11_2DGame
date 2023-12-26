@@ -12,6 +12,6 @@ public:
 
 public:
 	virtual void UpdateData() override;
-	virtual void FinalTick() override {};
+	virtual void LateUpdate() override {};
 	virtual void Render() override;
 };

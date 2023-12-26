@@ -21,9 +21,10 @@ Device::Device()
 
 Device::~Device()
 {
+	ReleaseArray(m_ConstantBuffer);
 }
 
-int Device::Init(HWND _hWnd, Vec2 _vRenderResolution)
+int Device::Awake(HWND _hWnd, Vec2 _vRenderResolution)
 {
 	m_hWnd = _hWnd;
 	m_vRenderResolution = _vRenderResolution;
@@ -64,22 +65,35 @@ int Device::Init(HWND _hWnd, Vec2 _vRenderResolution)
 	CreateViewPort();
 
 	// RasterizeState Create
-	CreateRasterizerState();
+	if (FAILED(CreateRasterizerState()))
+	{
+		return E_FAIL;
+	}
 
 	// DepthStencil
-	CreateDepthStencilState();
+	if (FAILED(CreateDepthStencilState()))
+	{
+		return E_FAIL;
+	}
 
 	// BlendState
-	CreateBlendState();
+	if (FAILED(CreateBlendState()))
+	{
+		return E_FAIL;
+	}
 
 	// SamplerState
-	CreateSamplerState();
-
-	CreateConstantBuffer(CONSTANT_TYPE::TRANSFORM, sizeof(transform), 1);
-	CreateConstantBuffer(CONSTANT_TYPE::MATERIAL, sizeof(material), 1);
-	CreateConstantBuffer(CONSTANT_TYPE::LIGHT, sizeof(tLight), 1);
-	CreateConstantBuffer(CONSTANT_TYPE::NORMANL, sizeof(NomralVector), 1);
-
+	if (FAILED(CreateSamplerState()))
+	{
+		return E_FAIL;
+	}
+	
+	// Create Transform, Material, Light, Normal Vector
+	if (FAILED(CreateConstantBuffer()))
+	{
+		return E_FAIL;
+	}
+	
 	return S_OK;
 }
 
@@ -187,19 +201,50 @@ void Device::OMSetRT()
 	m_DeviceContext->OMSetRenderTargets(1, m_RTView.GetAddressOf(), m_DSView.Get());
 }
 
-void Device::CreateConstantBuffer(CONSTANT_TYPE _type, int _size, int _sizeCount)
+HRESULT Device::CreateConstantBuffer()
 {
-	D3D11_BUFFER_DESC tDesc = {};
-	tDesc.ByteWidth = _size * _sizeCount;
-	tDesc.StructureByteStride = _size;
-	tDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	HRESULT _hr = CreateConstantBufferIndividual(CONSTANT_TYPE::TRANSFORM, sizeof(transform), 1);
+	if (FAILED(_hr))
+	{
+		HandleError(MAIN_HWND, L"Device Class Transform ConstantBuffer Initialize Failed!", 0);
+		return E_FAIL;
+	}
 
-	tDesc.Usage = D3D11_USAGE_DYNAMIC;
-	tDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-	
-	m_ConstantBuffer[(UINT)_type] = new ConstantBuffer();
-	m_ConstantBuffer[(UINT)_type]->SetCBType(_type);
-	DEVICE->CreateBuffer(&tDesc, nullptr, m_ConstantBuffer[(UINT)_type]->GetBufferDP());
+	_hr = CreateConstantBufferIndividual(CONSTANT_TYPE::MATERIAL, sizeof(material), 1);
+	if (FAILED(_hr))
+	{
+		HandleError(MAIN_HWND, L"Device Class Material ConstantBuffer Initialize Failed!", 0);
+		return E_FAIL;
+	}
+
+	_hr = CreateConstantBufferIndividual(CONSTANT_TYPE::LIGHT, sizeof(tLight), 1);
+	if (FAILED(_hr))
+	{
+		HandleError(MAIN_HWND, L"Device Class Light ConstantBuffer Initialize Failed!", 0);
+		return E_FAIL;
+	}
+
+	_hr = CreateConstantBufferIndividual(CONSTANT_TYPE::NORMANL, sizeof(NomralVector), 1);
+	if (FAILED(_hr))
+	{
+		HandleError(MAIN_HWND, L"Device Class Normal ConstantBuffer Initialize Failed!", 0);
+		return E_FAIL;
+	}
+
+	return S_OK;
+}
+
+HRESULT Device::CreateConstantBufferIndividual(CONSTANT_TYPE _type,UINT _elementSize, UINT _elementCount)
+{
+	m_ConstantBuffer[(UINT)_type] = new ConstantBuffer;
+	HRESULT _hr = m_ConstantBuffer[(UINT)_type]->Create(_elementSize, _elementCount, _type);
+
+	if (FAILED(_hr))
+	{
+		HandleError(MAIN_HWND, L"Device Class ConstantBuffer Initialize Failed!", 0);
+		return E_FAIL;
+	}
+	return S_OK;
 }
 
 void Device::ClearRenderTarget(float(&Color)[4])
@@ -228,7 +273,7 @@ void Device::CreateViewPort()
 	m_DeviceContext->RSSetViewports(1, &vDesc);
 }
 
-void Device::CreateRasterizerState()
+HRESULT Device::CreateRasterizerState()
 {
 	m_Rasterizer[(UINT)CULL_TYPE::BACK] = nullptr;
 
@@ -242,7 +287,13 @@ void Device::CreateRasterizerState()
 	tDesc.MultisampleEnable = FALSE;
 	tDesc.AntialiasedLineEnable = FALSE;
 
-	DEVICE->CreateRasterizerState(&tDesc, m_Rasterizer[(UINT)CULL_TYPE::FRONT].GetAddressOf());
+	HRESULT _hr = DEVICE->CreateRasterizerState(&tDesc, m_Rasterizer[(UINT)CULL_TYPE::FRONT].GetAddressOf());
+
+	if (FAILED(_hr))
+	{
+		HandleError(MAIN_HWND, L"Rasterizer Initialized Failed!", 0);
+		return E_FAIL;
+	}
 
 	tDesc = {};
 	tDesc.FillMode = D3D11_FILL_SOLID;
@@ -254,7 +305,13 @@ void Device::CreateRasterizerState()
 	tDesc.MultisampleEnable = FALSE;
 	tDesc.AntialiasedLineEnable = FALSE;
 
-	DEVICE->CreateRasterizerState(&tDesc, m_Rasterizer[(UINT)CULL_TYPE::NONE].GetAddressOf());
+	_hr = DEVICE->CreateRasterizerState(&tDesc, m_Rasterizer[(UINT)CULL_TYPE::NONE].GetAddressOf());
+
+	if (FAILED(_hr))
+	{
+		HandleError(MAIN_HWND, L"Rasterizer Initialized Failed!", 0);
+		return E_FAIL;
+	}
 
 	tDesc = {};
 	tDesc.FillMode = D3D11_FILL_WIREFRAME;
@@ -266,10 +323,18 @@ void Device::CreateRasterizerState()
 	tDesc.MultisampleEnable = FALSE;
 	tDesc.AntialiasedLineEnable = FALSE;
 
-	DEVICE->CreateRasterizerState(&tDesc, m_Rasterizer[(UINT)CULL_TYPE::NONE].GetAddressOf());
+	_hr = DEVICE->CreateRasterizerState(&tDesc, m_Rasterizer[(UINT)CULL_TYPE::NONE].GetAddressOf());
+
+	if (FAILED(_hr))
+	{
+		HandleError(MAIN_HWND, L"Rasterizer Initialized Failed!", 0);
+		return E_FAIL;
+	}
+
+	return S_OK;
 }
 
-void Device::CreateDepthStencilState()
+HRESULT Device::CreateDepthStencilState()
 {
 	m_DepthStencil[(UINT)DS_TYPE::LESS] = nullptr;
 
@@ -280,8 +345,13 @@ void Device::CreateDepthStencilState()
 	tDesc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;
 	tDesc.StencilEnable = FALSE;
 
-	DEVICE->CreateDepthStencilState(&tDesc, m_DepthStencil[(UINT)DS_TYPE::LESS_EQUAL].GetAddressOf());
+	HRESULT _hr = DEVICE->CreateDepthStencilState(&tDesc, m_DepthStencil[(UINT)DS_TYPE::LESS_EQUAL].GetAddressOf());
 
+	if (FAILED(_hr))
+	{
+		HandleError(MAIN_HWND, L"DepthStencilState Initialized Failed!", 0);
+		return E_FAIL;
+	}
 
 	tDesc = {};
 
@@ -290,8 +360,13 @@ void Device::CreateDepthStencilState()
 	tDesc.DepthFunc = D3D11_COMPARISON_GREATER;
 	tDesc.StencilEnable = FALSE;
 
-	DEVICE->CreateDepthStencilState(&tDesc, m_DepthStencil[(UINT)DS_TYPE::GREATER].GetAddressOf());
+	_hr = DEVICE->CreateDepthStencilState(&tDesc, m_DepthStencil[(UINT)DS_TYPE::GREATER].GetAddressOf());
 
+	if (FAILED(_hr))
+	{
+		HandleError(MAIN_HWND, L"DepthStencilState Initialized Failed!", 0);
+		return E_FAIL;
+	}
 
 	tDesc = {};
 
@@ -300,7 +375,13 @@ void Device::CreateDepthStencilState()
 	tDesc.DepthFunc = D3D11_COMPARISON_GREATER_EQUAL;
 	tDesc.StencilEnable = FALSE;
 
-	DEVICE->CreateDepthStencilState(&tDesc, m_DepthStencil[(UINT)DS_TYPE::GREATER_EQUAL].GetAddressOf());
+	_hr = DEVICE->CreateDepthStencilState(&tDesc, m_DepthStencil[(UINT)DS_TYPE::GREATER_EQUAL].GetAddressOf());
+
+	if (FAILED(_hr))
+	{
+		HandleError(MAIN_HWND, L"DepthStencilState Initialized Failed!", 0);
+		return E_FAIL;
+	}
 
 	tDesc = {};
 
@@ -309,7 +390,13 @@ void Device::CreateDepthStencilState()
 	tDesc.DepthFunc = D3D11_COMPARISON_NEVER;
 	tDesc.StencilEnable = FALSE;
 
-	DEVICE->CreateDepthStencilState(&tDesc, m_DepthStencil[(UINT)DS_TYPE::NO_TEST].GetAddressOf());
+	_hr = DEVICE->CreateDepthStencilState(&tDesc, m_DepthStencil[(UINT)DS_TYPE::NO_TEST].GetAddressOf());
+
+	if (FAILED(_hr))
+	{
+		HandleError(MAIN_HWND, L"DepthStencilState Initialized Failed!", 0);
+		return E_FAIL;
+	}
 
 	tDesc = {};
 
@@ -318,7 +405,13 @@ void Device::CreateDepthStencilState()
 	tDesc.DepthFunc = D3D11_COMPARISON_ALWAYS;
 	tDesc.StencilEnable = FALSE;
 
-	DEVICE->CreateDepthStencilState(&tDesc, m_DepthStencil[(UINT)DS_TYPE::N0_WRITE].GetAddressOf());
+	_hr = DEVICE->CreateDepthStencilState(&tDesc, m_DepthStencil[(UINT)DS_TYPE::N0_WRITE].GetAddressOf());
+
+	if (FAILED(_hr))
+	{
+		HandleError(MAIN_HWND, L"DepthStencilState Initialized Failed!", 0);
+		return E_FAIL;
+	}
 
 	tDesc = {};
 
@@ -327,10 +420,18 @@ void Device::CreateDepthStencilState()
 	tDesc.DepthFunc = D3D11_COMPARISON_NEVER;
 	tDesc.StencilEnable = FALSE;
 
-	DEVICE->CreateDepthStencilState(&tDesc, m_DepthStencil[(UINT)DS_TYPE::NO_TEST_NO_WRITE].GetAddressOf());
+	_hr = DEVICE->CreateDepthStencilState(&tDesc, m_DepthStencil[(UINT)DS_TYPE::NO_TEST_NO_WRITE].GetAddressOf());
+
+	if (FAILED(_hr))
+	{
+		HandleError(MAIN_HWND, L"DepthStencilState Initialized Failed!", 0);
+		return E_FAIL;
+	}
+
+	return S_OK;
 }
 
-void Device::CreateBlendState()
+HRESULT Device::CreateBlendState()
 {
 	m_Blend[(UINT)BLEND_TYPE::DEFAULT] = nullptr;
 
@@ -349,10 +450,18 @@ void Device::CreateBlendState()
 
 	tDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 
-	DEVICE->CreateBlendState(&tDesc, m_Blend[(UINT)BLEND_TYPE::ALPHABLENDING].GetAddressOf());
+	HRESULT _hr = DEVICE->CreateBlendState(&tDesc, m_Blend[(UINT)BLEND_TYPE::ALPHABLENDING].GetAddressOf());
+
+	if (FAILED(_hr))
+	{
+		HandleError(MAIN_HWND, L"BlendState Initialized Failed!", 0);
+		return E_FAIL;
+	}
+
+	return S_OK;
 }
 
-void Device::CreateSamplerState()
+HRESULT Device::CreateSamplerState()
 {
 	m_Sampler[(UINT)SAMPLER_TYPE::Default] = nullptr;
 
@@ -371,5 +480,13 @@ void Device::CreateSamplerState()
 	tDesc.MinLOD = 0;
 	tDesc.MaxLOD = D3D11_FLOAT32_MAX;
 
-	DEVICE->CreateSamplerState(&tDesc, m_Sampler[(UINT)SAMPLER_TYPE::POINT].GetAddressOf());
+	HRESULT _hr = DEVICE->CreateSamplerState(&tDesc, m_Sampler[(UINT)SAMPLER_TYPE::POINT].GetAddressOf());
+
+	if (FAILED(_hr))
+	{
+		HandleError(MAIN_HWND, L"SamplerState Initialized Failed!", 0);
+		return E_FAIL;
+	}
+
+	return S_OK;
 }

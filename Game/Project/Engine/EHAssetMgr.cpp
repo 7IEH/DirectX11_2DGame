@@ -14,10 +14,20 @@ AssetMgr::AssetMgr()
 
 AssetMgr::~AssetMgr()
 {
-
+	for (UINT i = 0;i < (UINT)ASSET_TYPE::END;i++)
+	{
+		for (auto pair : m_Assets[i])
+		{
+			if (pair.second != nullptr)
+			{
+				delete pair.second;
+			}
+		}
+		m_Assets[i].clear();
+	}
 }
 
-void AssetMgr::Init()
+void AssetMgr::Awake()
 {
 	#pragma region Basic Array
 	vtx triangle[4] = {};
@@ -118,9 +128,6 @@ void AssetMgr::Init()
 
 	_path = L"\\resource\\NPC_Commander0.png";
 	Sprite* _PlayerSprite = Load<Sprite>(_path, L"PlayerSprite");
-
-	AddAsset(_BackGroundSprite, L"BackGroundSprite");
-	AddAsset(_PlayerSprite, L"PlayerSprite");
 	#pragma endregion
 
 	#pragma region Mateiral

@@ -15,7 +15,7 @@ CameraTargetScript::~CameraTargetScript()
 }
 
 
-void CameraTargetScript::Tick()
+void CameraTargetScript::Update()
 {
 	GameObject* _owner = GetOwner();
 	Transform* _tr = _owner->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);

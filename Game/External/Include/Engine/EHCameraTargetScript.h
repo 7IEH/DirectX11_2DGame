@@ -13,7 +13,7 @@ public:
 	void SetTarget(GameObject* _target) { m_Target = _target; }
 
 public:
-	virtual void Tick()override;
+	virtual void Update()override;
 
 public:
 	CameraTargetScript();

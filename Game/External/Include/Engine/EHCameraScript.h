@@ -9,8 +9,8 @@ private:
 	float			m_CamSpeed;
 
 public:
-	virtual void Tick() override;
-	virtual void FinalTick() override {};
+	virtual void Update() override;
+	virtual void LateUpdate() override {};
 
 public:
 	void SetTarget(GameObject* _target) { m_Target = _target; }

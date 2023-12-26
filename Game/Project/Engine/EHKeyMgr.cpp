@@ -86,7 +86,7 @@ KeyMgr::~KeyMgr()
 
 }
 
-void KeyMgr::Init()
+void KeyMgr::Awake()
 {
 	// Capaticy 를 미리 확보
 	m_vecKeyData.reserve(KEY::KEY_END);
@@ -100,7 +100,7 @@ void KeyMgr::Init()
 	}
 }
 
-void KeyMgr::Tick()
+void KeyMgr::Update()
 {
 	if (nullptr == GetFocus())
 	{

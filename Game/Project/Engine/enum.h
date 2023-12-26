@@ -1,3 +1,27 @@
+/******************
+enum class Type
+******************/
+
+// Task Type
+enum class TASK_TYPE
+{
+	// Param1 : Layer Index, Param2 : Object Adress
+	CREATE_OBJECT,
+
+	// Param1 : Object Adress
+	DELETE_OBJECT,
+
+	// Param1 : LEVEL_TYPE
+	LEVEL_CHANGE,
+
+	// Param1 : Parent Object, Param2 : Child Object
+	ADD_CHILD,
+
+	// Param1 : Parent Object, Param2 : Child Object
+	DISCONNECT_PARENT,
+};
+
+// Key Type
 enum KEY
 {
 	_0,
@@ -73,6 +97,7 @@ enum KEY
 	KEY_END,
 };
 
+// Key State Type
 enum KEY_STATE
 {
 	NONE,
@@ -116,6 +141,8 @@ enum class ASSET_TYPE
 {
 	MESH,
 	SHADER,
+	GRAPHIC_SHADER,
+	COMPUTE_SHADER,
 	MATERIAL,
 	TEXTURE,
 	SPRITE,
@@ -152,7 +179,8 @@ enum class LAYER_TYPE
 	LIGHT2D,
 	BACKGROUND,
 	PLAYER,
-	END
+	END,
+	NON_SELECT
 };
 
 // Projection Type

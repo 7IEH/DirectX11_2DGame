@@ -10,6 +10,7 @@ Level::Level()
 	for (UINT _type = 0;_type < (UINT)LAYER_TYPE::END;_type++)
 	{
 		m_Layers[_type] = new Layer;
+		m_Layers[_type]->m_Type = LAYER_TYPE(_type);
 	}
 }
 
@@ -18,27 +19,37 @@ Level::~Level()
 	ReleaseArray(m_Layers);
 }
 
-void Level::Init()
+void Level::Awake()
 {
 	for (UINT _type = 0;_type < (UINT)LAYER_TYPE::END;_type++)
 	{
-		m_Layers[_type]->Init();
+		m_Layers[_type]->Awake();
 	}
 }
 
-void Level::Tick()
+void Level::Start()
+{
+
+}
+
+void Level::Update()
 {
 	for (UINT _type = 0;_type < (UINT)LAYER_TYPE::END;_type++)
 	{
-		m_Layers[_type]->Tick();
+		m_Layers[_type]->Update();
 	}
 }
 
-void Level::FinalTick()
+void Level::FixedUpdate()
+{
+
+}
+
+void Level::LateUpdate()
 {
 	for (UINT _type = 0;_type < (UINT)LAYER_TYPE::END;_type++)
 	{
-		m_Layers[_type]->FinalTick();
+		m_Layers[_type]->LateUpdate();
 	}
 }
 
@@ -47,6 +58,14 @@ void Level::Render()
 	for (int _type = 0;_type < (UINT)LAYER_TYPE::END;_type++)
 	{
 		m_Layers[_type]->Render();
+	}
+}
+
+void Level::Clear()
+{
+	for (UINT i = 0;i < (UINT)LAYER_TYPE::END;i++)
+	{
+		m_Layers[i]->m_GameObjects.clear();
 	}
 }
 

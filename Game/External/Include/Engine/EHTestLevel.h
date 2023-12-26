@@ -8,9 +8,11 @@ class TestLevel
 private:
 
 public:
-	virtual void Init()override;
-	virtual void Tick()override;
-	virtual void FinalTick()override;
+	virtual void Awake()override;
+	virtual void Start() override;
+	virtual void Update()override;
+	virtual void FixedUpdate()override;
+	virtual void LateUpdate()override;
 	virtual void Render()override;
 
 public:

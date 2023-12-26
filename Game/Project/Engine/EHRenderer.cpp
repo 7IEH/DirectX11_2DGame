@@ -12,15 +12,4 @@ Renderer::Renderer(RENDERER_TYPE _type)
 
 Renderer::~Renderer()
 {
-	if (m_Mesh != nullptr)
-	{
-		delete m_Mesh;
-		m_Mesh = nullptr;
-	}
-
-	if (m_Shader != nullptr)
-	{
-		delete m_Shader;
-		m_Shader = nullptr;
-	}
 }

@@ -17,7 +17,7 @@ public:
 	Vec2 GetMouseDir() { return m_vMouseDir; }
 
 public:
-	void Init();
-	void Tick();
+	void Awake();
+	void Update();
 };
 

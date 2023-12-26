@@ -5,12 +5,40 @@
 
 ConstantBuffer::ConstantBuffer()
 	:m_CB(nullptr)
-	,m_Type(CONSTANT_TYPE::TRANSFORM)
+	, m_Desc{}
+	, m_Type(CONSTANT_TYPE::TRANSFORM)
+	, m_ElementSize(0)
+	, m_ElementCount(0)
 {
 }
 
 ConstantBuffer::~ConstantBuffer()
 {
+}
+
+HRESULT ConstantBuffer::Create(UINT _elementSize, UINT _elementCount, CONSTANT_TYPE _type)
+{
+	m_ElementSize = _elementSize;
+	m_ElementCount = _elementCount;
+	m_Type = _type;
+
+	m_Desc.ByteWidth = m_ElementSize * m_ElementCount;
+	m_Desc.StructureByteStride = m_ElementSize;
+	m_Desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+
+	m_Desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	m_Desc.Usage = D3D11_USAGE_DYNAMIC;
+
+
+	HRESULT _hr = DEVICE->CreateBuffer(&m_Desc, nullptr, m_CB.GetAddressOf());
+
+	if (FAILED(_hr))
+	{
+		HandleError(MAIN_HWND, L"ConstantBuffer Create Failed!", 0);
+		return E_FAIL;
+	}
+
+	return S_OK;
 }
 
 void ConstantBuffer::SetData(void* _data, int _size, int _count)

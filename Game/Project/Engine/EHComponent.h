@@ -15,8 +15,11 @@ public:
     void            SetOwner(GameObject* _owner) { m_Owner = _owner; }
     
 public:
-    virtual void Tick() {};
-    virtual void FinalTick() = 0;
+    virtual void Awake() {};
+    virtual void Start() {};
+    virtual void Update() {};
+    virtual void FixedUpdate() {};
+    virtual void LateUpdate() = 0;
     virtual void UpdateData() {};
 
 public:

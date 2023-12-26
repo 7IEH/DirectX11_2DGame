@@ -13,23 +13,47 @@ LevelMgr::LevelMgr()
 
 LevelMgr::~LevelMgr()
 {
-
+	for (auto nxt : m_Levels)
+	{
+		if(nxt.second!=nullptr)
+			delete nxt.second;
+	}
 }
 
-void LevelMgr::Init()
+void LevelMgr::Awake()
 {
 	AddLevel<TestLevel>(L"TestLevel");
 	SelectLevel(L"TestLevel");
-	m_CurLevel->Init();
+
+	if (m_CurLevel == nullptr)
+		return;
+
+	m_CurLevel->Awake();
 }
 
-void LevelMgr::Tick()
+void LevelMgr::Start()
 {
-	m_CurLevel->Tick();
-	m_CurLevel->FinalTick();
+	if (m_CurLevel == nullptr)
+		return;
+
+	m_CurLevel->Start();
+}
+
+void LevelMgr::Update()
+{
+	if (m_CurLevel == nullptr)
+		return;
+
+	m_CurLevel->Clear();
+
+	m_CurLevel->Update();
+	m_CurLevel->LateUpdate();
 }
 
 void LevelMgr::Render()
 {
+	if (m_CurLevel == nullptr)
+		return;
+
 	m_CurLevel->Render();
 }

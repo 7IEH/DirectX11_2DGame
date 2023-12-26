@@ -9,6 +9,7 @@
 #include <typeinfo>
 
 #include <vector>
+#include <queue>
 #include <list>
 #include <map>
 
@@ -19,7 +20,6 @@ using std::make_pair;
 
 using std::wstring;
 using std::string;
-
 
 #include <wrl.h>
 using namespace Microsoft::WRL;

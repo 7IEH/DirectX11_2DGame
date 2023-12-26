@@ -11,6 +11,6 @@ public:
 	wchar_t*				GetPath() { return m_wstrPath; }
 
 public:
-	void					Init();
+	void					Awake();
 };
 

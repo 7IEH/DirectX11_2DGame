@@ -38,7 +38,11 @@ public:
 	}
 
 public:
-	void Init();
-	void Tick();
+	Level* GetCurLevel(){ return m_CurLevel; }
+
+public:
+	void Awake();
+	void Start();
+	void Update();
 	void Render();
 };

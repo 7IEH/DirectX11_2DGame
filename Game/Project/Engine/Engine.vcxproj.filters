@@ -112,6 +112,9 @@
     <Filter Include="08. Asset\Sprite">
       <UniqueIdentifier>{802d27d2-17f6-4d08-9e95-387e19cea718}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Manager\TaskMgr">
+      <UniqueIdentifier>{9bfeab16-3ccd-4fba-9da8-ac1ac53ca026}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -155,9 +158,6 @@
     </ClInclude>
     <ClInclude Include="EHMesh.h">
       <Filter>08. Asset\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="EHGameObject.h">
-      <Filter>06. GameObject</Filter>
     </ClInclude>
     <ClInclude Include="EHShader.h">
       <Filter>08. Asset\Shader</Filter>
@@ -230,6 +230,12 @@
     </ClInclude>
     <ClInclude Include="EHSprite.h">
       <Filter>08. Asset\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="EHGameObject.h">
+      <Filter>06. GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="EHTaskMgr.h">
+      <Filter>04. Manager\TaskMgr</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -331,6 +337,12 @@
     </ClCompile>
     <ClCompile Include="EHSprite.cpp">
       <Filter>08. Asset\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="EHTaskMgr.cpp">
+      <Filter>04. Manager\TaskMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="func.cpp">
+      <Filter>01. Header</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

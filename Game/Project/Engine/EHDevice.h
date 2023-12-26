@@ -50,7 +50,7 @@ public:
 	ComPtr<ID3D11SamplerState> GetSamplerState(SAMPLER_TYPE _Type) { return m_Sampler[(UINT)_Type]; }
 
 public:
-	int							Init(HWND _hWnd, Vec2 _vRenderResolution);
+	int							Awake(HWND _hWnd, Vec2 _vRenderResolution);
 
 private:
 	HRESULT						CreateDevice();
@@ -61,11 +61,12 @@ private:
 	void						CreateViewPort();
 	void						OMSetRT();
 
-	void						CreateConstantBuffer(CONSTANT_TYPE _type, int _size, int _sizeCount);
+	HRESULT						CreateConstantBuffer();
+	HRESULT						CreateConstantBufferIndividual(CONSTANT_TYPE _type, UINT _elementSize, UINT _elementCount);
 
-	void						CreateRasterizerState();
-	void						CreateDepthStencilState();
-	void						CreateBlendState();
-	void						CreateSamplerState();
+	HRESULT						CreateRasterizerState();
+	HRESULT						CreateDepthStencilState();
+	HRESULT						CreateBlendState();
+	HRESULT						CreateSamplerState();
 };
 

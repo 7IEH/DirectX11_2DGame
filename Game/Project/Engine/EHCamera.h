@@ -20,7 +20,7 @@ private:
     float   m_Far;          // 투영 최대 거리
 
 public:
-    virtual void FinalTick() override;
+    virtual void LateUpdate() override;
 
 public:
     PROJECTION_TYPE GetProjectionType() { return m_Projection; }

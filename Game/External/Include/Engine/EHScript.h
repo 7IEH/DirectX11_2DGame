@@ -9,8 +9,11 @@ private:
 	UINT		m_iScriptType;
 
 public:
-	virtual void Tick() override;
-	virtual void FinalTick() override {};
+	virtual void Awake() override {};
+	virtual void Start()override {};
+	virtual void Update() override {};
+	virtual void FixedUpdate() override {};
+	virtual void LateUpdate() override {};
 
 public:
 	Script();

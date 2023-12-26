@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "global.h"
 
+// HandleError Initailze Failed 1, Error Failed 2
 void HandleError(HWND _hWnd, wstring _content, int flag)
 {
 	if (flag == 1)

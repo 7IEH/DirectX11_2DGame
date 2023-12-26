@@ -11,8 +11,12 @@ private:
 public:
 	HWND		GetMainWind() { return m_hWnd; }
 
+private:
+	void		AwakeManager();
+
 public:
-	int			Init(Vec2 _vResolution, HWND _hWnd);
-	void		Progress();
+	int			Awake(Vec2 _vResolution, HWND _hWnd);
+	void		Start();
+	void		Update();
 };
 

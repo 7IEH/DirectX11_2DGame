@@ -25,14 +25,8 @@ Camera::~Camera()
 {
 }
 
-void Camera::FinalTick()
+void Camera::LateUpdate()
 {
-	/*XMVECTOR pos;
-	XMVECTOR target;
-	XMVECTOR up;
-	e_MatrixData._view = XMMatrixTranspose(XMMatrixLookAtLH(pos, target, up));
-	*/
-
 	Vec4 _pos = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativePosition();
 	// W = (RT)^-1 -> T^-1 * R^-1
 	Matrix _reverseTransform = XMMatrixTranspose(XMMatrixTranslation(-_pos.x, -_pos.y, -_pos.z));
@@ -82,6 +76,7 @@ void Camera::ProjectiveView()
 
 void Camera::OrthographicView()
 {
+	// Projection(Orthographic)
 	e_MatrixData.Projection = XMMatrixTranspose(XMMatrixOrthographicLH(m_Width * m_Scale, 900.f * m_Scale, 1.f, m_Far));
 }
 
