@@ -227,24 +227,7 @@ VS_OUT VS_Std2D(VS_IN _in)
     output.vWorld = mul(float4(_in.vPos, 1.f), World).xyz;
     output.vColor = _in.vColor;
     output.vUV = _in.vUV;
-      
-    float3 toEye = float3(0.f, 0.5f, 0.4f);
-    
-    float4 ambient = float4(0.f, 0.f, 0.f, 0.f);
-    float4 diffuse = float4(0.f, 0.f, 0.f, 0.f);
-    float4 spec = float4(0.f, 0.f, 0.f, 0.f);
-    
-    float4 A, D, S;
-    
-    ComputePointLight(gMatrial, gLight._PL, output.vWorld, vNormal, toEye, A, D, S);
-    ambient += A;
-    diffuse += D;
-    spec += S;
-      
-    float4 lightColor = ambient + diffuse + spec;
-    
-    output.vColor = lightColor;
-    
+         
     return output;
 }
 

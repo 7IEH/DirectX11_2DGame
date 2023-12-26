@@ -171,6 +171,7 @@ call Copy.bat</Command>
     <ClInclude Include="EHLevel.h" />
     <ClInclude Include="EHLevelMgr.h" />
     <ClInclude Include="EHLIght2D.h" />
+    <ClInclude Include="EHMapGenerator.h" />
     <ClInclude Include="EHMaterial.h" />
     <ClInclude Include="EHMesh.h" />
     <ClInclude Include="EHGameObject.h" />
@@ -182,6 +183,8 @@ call Copy.bat</Command>
     <ClInclude Include="EHSprite.h" />
     <ClInclude Include="EHTaskMgr.h" />
     <ClInclude Include="EHTestLevel.h" />
+    <ClInclude Include="EHThreadMgr.h" />
+    <ClInclude Include="EHThreadTask.h" />
     <ClInclude Include="EHTimeMgr.h" />
     <ClInclude Include="EHTransform.h" />
     <ClInclude Include="enum.h" />
@@ -212,6 +215,7 @@ call Copy.bat</Command>
     <ClCompile Include="EHLevel.cpp" />
     <ClCompile Include="EHLevelMgr.cpp" />
     <ClCompile Include="EHLIght2D.cpp" />
+    <ClCompile Include="EHMapGenerator.cpp" />
     <ClCompile Include="EHMaterial.cpp" />
     <ClCompile Include="EHMesh.cpp" />
     <ClCompile Include="EHGameObject.cpp" />
@@ -223,6 +227,8 @@ call Copy.bat</Command>
     <ClCompile Include="EHSprite.cpp" />
     <ClCompile Include="EHTaskMgr.cpp" />
     <ClCompile Include="EHTestLevel.cpp" />
+    <ClCompile Include="EHThreadMgr.cpp" />
+    <ClCompile Include="EHThreadTask.cpp" />
     <ClCompile Include="EHTimeMgr.cpp" />
     <ClCompile Include="EHTransform.cpp" />
     <ClCompile Include="Engine.cpp" />

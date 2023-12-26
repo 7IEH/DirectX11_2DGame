@@ -115,6 +115,15 @@
     <Filter Include="04. Manager\TaskMgr">
       <UniqueIdentifier>{9bfeab16-3ccd-4fba-9da8-ac1ac53ca026}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Manager\ThreadMgr">
+      <UniqueIdentifier>{ad96b235-33bc-49a1-aeec-b455feb4a7df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThreadTask">
+      <UniqueIdentifier>{09c869c4-b80f-4ad1-af7f-d14583fa8d3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThreadTask\MapGenerator">
+      <UniqueIdentifier>{73689df0-4fa7-4c41-9772-dab173a5abb2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -237,6 +246,15 @@
     <ClInclude Include="EHTaskMgr.h">
       <Filter>04. Manager\TaskMgr</Filter>
     </ClInclude>
+    <ClInclude Include="EHThreadMgr.h">
+      <Filter>04. Manager\ThreadMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="EHThreadTask.h">
+      <Filter>ThreadTask</Filter>
+    </ClInclude>
+    <ClInclude Include="EHMapGenerator.h">
+      <Filter>ThreadTask\MapGenerator</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -343,6 +361,15 @@
     </ClCompile>
     <ClCompile Include="func.cpp">
       <Filter>01. Header</Filter>
+    </ClCompile>
+    <ClCompile Include="EHThreadMgr.cpp">
+      <Filter>04. Manager\ThreadMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="EHThreadTask.cpp">
+      <Filter>ThreadTask</Filter>
+    </ClCompile>
+    <ClCompile Include="EHMapGenerator.cpp">
+      <Filter>ThreadTask\MapGenerator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

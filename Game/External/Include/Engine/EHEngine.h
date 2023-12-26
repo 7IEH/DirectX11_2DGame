@@ -7,7 +7,7 @@ class Engine
 private:
 	Vec2		m_vResolution;
 	HWND		m_hWnd;
-	
+
 public:
 	HWND		GetMainWind() { return m_hWnd; }
 

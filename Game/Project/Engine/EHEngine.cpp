@@ -9,6 +9,7 @@
 #include "EHAssetMgr.h"
 #include "EHLevelMgr.h"
 #include "EHTaskMgr.h"
+#include "EHThreadMgr.h"
 
 #include "EHCamera.h"
 
@@ -26,6 +27,9 @@ Engine::~Engine()
 
 int Engine::Awake(Vec2 _vResolution, HWND _hWnd)
 {
+	// Thread Start
+	
+
 	// Window Setting
 	m_hWnd = _hWnd;
 	m_vResolution = _vResolution;
@@ -57,11 +61,13 @@ void Engine::AwakeManager()
 	KeyMgr::GetInst()->Awake();
 	AssetMgr::GetInst()->Awake();
 	LevelMgr::GetInst()->Awake();
+	ThreadMgr::GetInst()->Awake();
 }
 
 void Engine::Start()
 {
 	// Script 초기화 후 Start 시작
+	ThreadMgr::GetInst()->StartThread(L"MapGenerator1");
 }
 
 void Engine::Update()

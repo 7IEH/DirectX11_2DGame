@@ -49,5 +49,8 @@ typedef Vector4 Vec4;
 #include "struct.h"
 #include "func.h"
 
+#include <thread>
+#include <condition_variable>
+
 // Error Function
 void HandleError(HWND _hWnd, wstring _content, int flag);

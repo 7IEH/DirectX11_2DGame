@@ -4,6 +4,7 @@
 #include "EHGameObject.h"
 
 #include "EHAssetMgr.h"
+#include "EHThreadMgr.h"
 
 #include "EHMesh.h"
 #include "EHGraphicShader.h"
