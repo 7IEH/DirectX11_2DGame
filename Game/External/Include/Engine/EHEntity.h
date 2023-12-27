@@ -16,5 +16,5 @@ public:
 
 public:
 	Entity();
-	~Entity();
+	virtual ~Entity();
 };

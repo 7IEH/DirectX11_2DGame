@@ -165,6 +165,7 @@ call Copy.bat</Command>
     <ClInclude Include="EHDevice.h" />
     <ClInclude Include="EHEngine.h" />
     <ClInclude Include="EHEntity.h" />
+    <ClInclude Include="EHGarbageCollector.h" />
     <ClInclude Include="EHGraphicShader.h" />
     <ClInclude Include="EHKeyMgr.h" />
     <ClInclude Include="EHLayer.h" />
@@ -209,6 +210,7 @@ call Copy.bat</Command>
     <ClCompile Include="EHDevice.cpp" />
     <ClCompile Include="EHEngine.cpp" />
     <ClCompile Include="EHEntity.cpp" />
+    <ClCompile Include="EHGarbageCollector.cpp" />
     <ClCompile Include="EHGraphicShader.cpp" />
     <ClCompile Include="EHKeyMgr.cpp" />
     <ClCompile Include="EHLayer.cpp" />

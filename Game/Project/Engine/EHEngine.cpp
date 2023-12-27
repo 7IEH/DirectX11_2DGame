@@ -10,6 +10,7 @@
 #include "EHLevelMgr.h"
 #include "EHTaskMgr.h"
 #include "EHThreadMgr.h"
+#include "EHGarbageCollector.h"
 
 #include "EHCamera.h"
 
@@ -27,9 +28,6 @@ Engine::~Engine()
 
 int Engine::Awake(Vec2 _vResolution, HWND _hWnd)
 {
-	// Thread Start
-	
-
 	// Window Setting
 	m_hWnd = _hWnd;
 	m_vResolution = _vResolution;
@@ -67,7 +65,7 @@ void Engine::AwakeManager()
 void Engine::Start()
 {
 	// Script 초기화 후 Start 시작
-	ThreadMgr::GetInst()->StartThread(L"MapGenerator1");
+	//ThreadMgr::GetInst()->StartThread(L"MapGenerator1");
 }
 
 void Engine::Update()
@@ -85,6 +83,10 @@ void Engine::Update()
 	LevelMgr::GetInst()->Render();
 
 	Device::GetInst()->Present();
+
+	// GarbageCollector
+	// GameObject -> Memory Release
+	GarbageCollector::GetInst()->Update();
 
 	// Task Update
 	TaskMgr::GetInst()->Update();

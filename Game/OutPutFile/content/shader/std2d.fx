@@ -1,9 +1,10 @@
 #ifndef _STD2D
 #define _STD2D
 
-SamplerState samplerType : register(s0);
-
 Texture2D shaderTexture : register(t0);
+
+SamplerState samplerType : register(s0);
+SamplerState samplerType2 : register(s1);
 
 // Luna Light Example
 struct DirectionalLight
@@ -258,7 +259,7 @@ float4 PS_Std2D(VS_OUT _in) : SV_Target
     
     float4 lightColor = ambient + diffuse + spec;
     
-    float4 color = shaderTexture.Sample(samplerType, _in.vUV) + lightColor;
+    float4 color = shaderTexture.Sample(samplerType2, _in.vUV) + lightColor;
     //color.a = diffuse.a;
     return color;
 }

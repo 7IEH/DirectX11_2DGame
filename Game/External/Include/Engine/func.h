@@ -36,6 +36,8 @@ void ReleaseVector(vector<T*>& vec)
 			vec[_idx] = nullptr;
 		}
 	}
+
+	vec.clear();
 }
 
 // 한면의 법선 벡터 구하기

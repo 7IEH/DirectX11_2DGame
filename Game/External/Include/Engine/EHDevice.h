@@ -68,5 +68,6 @@ private:
 	HRESULT						CreateDepthStencilState();
 	HRESULT						CreateBlendState();
 	HRESULT						CreateSamplerState();
+	void						SetSamplerState();
 };
 

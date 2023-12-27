@@ -124,6 +124,9 @@
     <Filter Include="ThreadTask\MapGenerator">
       <UniqueIdentifier>{73689df0-4fa7-4c41-9772-dab173a5abb2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Manager\GCMgr">
+      <UniqueIdentifier>{268c0b88-2703-4002-b9a0-878514960477}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -255,6 +258,9 @@
     <ClInclude Include="EHMapGenerator.h">
       <Filter>ThreadTask\MapGenerator</Filter>
     </ClInclude>
+    <ClInclude Include="EHGarbageCollector.h">
+      <Filter>04. Manager\GCMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -370,6 +376,9 @@
     </ClCompile>
     <ClCompile Include="EHMapGenerator.cpp">
       <Filter>ThreadTask\MapGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="EHGarbageCollector.cpp">
+      <Filter>04. Manager\GCMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

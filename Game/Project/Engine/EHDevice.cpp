@@ -488,5 +488,19 @@ HRESULT Device::CreateSamplerState()
 		return E_FAIL;
 	}
 
+	SetSamplerState();
+
 	return S_OK;
+}
+
+void Device::SetSamplerState()
+{
+	for (UINT i = 0;i < (UINT)SAMPLER_TYPE::END;i++)
+	{
+		CONTEXT->VSSetSamplers(i,1,m_Sampler[i].GetAddressOf());
+		CONTEXT->PSSetSamplers(i, 1, m_Sampler[i].GetAddressOf());
+		CONTEXT->HSSetSamplers(i, 1, m_Sampler[i].GetAddressOf());
+		CONTEXT->DSSetSamplers(i, 1, m_Sampler[i].GetAddressOf());
+		CONTEXT->GSSetSamplers(i, 1, m_Sampler[i].GetAddressOf());
+	}
 }

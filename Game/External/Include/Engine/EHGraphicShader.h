@@ -26,10 +26,6 @@ private:
     DS_TYPE                                 m_DSType;
     BLEND_TYPE                              m_BlendType;
     SAMPLER_TYPE                            m_SamplerType;
-
-    ComPtr<ID3D11Texture2D>                 m_ResourceTexture;
-    ComPtr<ID3D11ShaderResourceView>        m_ResourceView;
-
 public:
     GraphicShader();
     virtual ~GraphicShader();

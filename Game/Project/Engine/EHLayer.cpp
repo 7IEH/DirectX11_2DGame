@@ -2,6 +2,7 @@
 #include "EHLayer.h"
 
 #include "EHGameObject.h"
+#include "EHGarbageCollector.h"
 
 Layer::Layer()
 	: m_Parent{}
@@ -49,15 +50,26 @@ void Layer::FixedUpdate()
 
 void Layer::LateUpdate()
 {
-	for (size_t i = 0;i < m_Parent.size();i++)
+	vector<GameObject*>::iterator iter = m_Parent.begin();
+	for (;iter != m_Parent.end();)
 	{
-		m_Parent[i]->LateUpdate();
+		(*iter)->LateUpdate();
+
+		if ((*iter)->m_Dead)
+		{
+			GarbageCollector::GetInst()->AddExitObject((*iter));
+			iter = m_Parent.erase(iter);
+		}
+		else
+		{
+			++iter;
+		}
 	}
 }
 
 void Layer::Render()
 {
-	for (size_t i = 0;i < m_GameObjects.size();i++)
+	for (size_t i = 0;i < m_Parent.size();i++)
 	{
 		m_Parent[i]->Render();
 	}

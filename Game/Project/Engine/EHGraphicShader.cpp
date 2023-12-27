@@ -31,33 +31,6 @@ void GraphicShader::Create(wstring& _shaderPath, string& _vsEntry, string& _psEn
 	CreateLayOut();
 }
 
-void GraphicShader::CreateResourceView(wstring& _texturePath)
-{
-	wstring _path = PATH + _texturePath;
-	ScratchImage _Image;
-	LoadFromWICFile(_path.c_str(), WIC_FLAGS_NONE, NULL, _Image);
-	CreateTexture(DEVICE, _Image.GetImages(), _Image.GetImageCount(), _Image.GetMetadata(), (ID3D11Resource**)m_ResourceTexture.GetAddressOf());
-	
-	// 溅捞歹 府家胶 轰 积己.
-	D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
-	::ZeroMemory(&srvDesc, sizeof(srvDesc));
-
-	srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
-	srvDesc.Texture2D.MostDetailedMip = 0;
-	srvDesc.Texture2D.MipLevels = 1;
-
-	D3D11_TEXTURE2D_DESC textureDesc;
-	m_ResourceTexture->GetDesc(&textureDesc);
-
-	srvDesc.Format = textureDesc.Format;
-
-	DEVICE->CreateShaderResourceView(
-		m_ResourceTexture.Get(),
-		&srvDesc,
-		m_ResourceView.GetAddressOf()
-	);
-}
-
 void GraphicShader::UpdateData()
 {
 	/************************
@@ -75,7 +48,6 @@ void GraphicShader::UpdateData()
 
 	// Pixel Shader Stage
 	SetShader(SHADER_TYPE::PIXEL);
-	CONTEXT->PSSetSamplers(0, 1, Device::GetInst()->GetSamplerState(m_SamplerType).GetAddressOf());
 
 	// Output-Merger Stage
 	CONTEXT->OMSetDepthStencilState(Device::GetInst()->GetDSState(m_DSType).Get(),0);
@@ -84,7 +56,7 @@ void GraphicShader::UpdateData()
  
 void GraphicShader::Render()
 {
-	//ONTEXT->PSSetShaderResources(0, 1, m_ResourceView.GetAddressOf());
+	
 }
 
 void GraphicShader::CreateBlobFile(SHADER_TYPE _type, wstring& _path, string& _entry)

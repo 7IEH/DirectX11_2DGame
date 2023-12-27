@@ -10,14 +10,20 @@ ThreadMgr::ThreadMgr()
 
 ThreadMgr::~ThreadMgr()
 {
-	for (auto _task : m_EventPoint)
+	vector<std::thread>::iterator iter = m_ThreadTask.begin();
+	map<wstring, HANDLE>::iterator iter2 = m_EventPoint.begin();
+
+	for (;iter2 != m_EventPoint.end();iter2++)
 	{
-		if (_task.second != nullptr)
-		{
-			delete _task.second;
-			_task.second = nullptr;
-		}
+		::SetEvent((*iter2).second);
 	}
+
+	for (;iter != m_ThreadTask.end();iter++)
+	{
+		(*iter).join();
+	}
+
+	ReleaseVector(m_Release);
 }
 
 void ThreadMgr::Awake()
@@ -27,17 +33,17 @@ void ThreadMgr::Awake()
 	HANDLE _handle = ::CreateEvent(NULL, FALSE, FALSE, NULL);
 	m_ThreadTask.push_back(std::thread(&MapGenerator::Awake,_gen));
 	_gen->SetTrigger(_handle);
-
+	
 	m_EventPoint.insert({ L"MapGenerator1",_handle });
+	m_Release.push_back(_gen);
 }
-
 
 void ThreadMgr::StartThread(const wstring& _name)
 {
 	HANDLE _handle = FindThread(_name);
 	if (_handle == nullptr)
 		return;
-
+	
 	::SetEvent(_handle);
 }
 

@@ -4,6 +4,7 @@
 #include "EHComponent.h"
 #include "EHScript.h"
 
+#include "EHGarbageCollector.h"
 #include "EHLevelMgr.h"
 #include "EHLevel.h"
 
@@ -13,6 +14,7 @@ GameObject::GameObject()
 	, m_Renderer(nullptr)
 	, m_vScripts{}
 	, m_Parent(nullptr)
+	, m_Dead(true)
 {
 }
 
@@ -87,9 +89,21 @@ void GameObject::LateUpdate()
 	Layer* pCurLayer = LevelMgr::GetInst()->GetCurLevel()->GetLayer(m_LayerType);
 	pCurLayer->RegisterGameObject(this);
 
-	for (size_t i = 0; i < m_Childs.size();i++)
+	vector<GameObject*>::iterator iter = m_Childs.begin();
+
+	for (;iter != m_Childs.end();)
 	{
-		m_Childs[i]->LateUpdate();
+		(*iter)->LateUpdate();
+
+		if ((*iter)->m_Dead)
+		{
+			GarbageCollector::GetInst()->AddExitObject((*iter));
+			iter = m_Childs.erase(iter);
+		}
+		else
+		{
+			++iter;
+		}
 	}
 }
 
@@ -129,7 +143,7 @@ void GameObject::DisconnectWithParent()
 			return;
 		}
 	}
-
+	
 	assert(nullptr);
 }
 

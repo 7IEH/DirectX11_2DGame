@@ -36,6 +36,25 @@ void TaskMgr::Update()
 		}
 			break;
 		case TASK_TYPE::DELETE_OBJECT:
+		{
+			GameObject* _obj = (GameObject*)m_Tasks[i].Param_1;
+
+
+			queue<GameObject*>_q;
+			_q.push(_obj);
+
+			while (!_q.empty())
+			{
+				GameObject* _temp = _q.front(); _q.pop();
+
+				_temp->SetDead(true);
+
+				for (size_t i = 0;i < _temp->m_Childs.size();i++)
+				{
+					_q.push(_temp->m_Childs[i]);
+				}
+			}
+		}
 			break;
 		case TASK_TYPE::LEVEL_CHANGE:
 			break;
@@ -47,4 +66,5 @@ void TaskMgr::Update()
 			break;
 		}
 	}
+	m_Tasks.clear();
 }

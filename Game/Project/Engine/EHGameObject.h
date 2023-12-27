@@ -27,6 +27,7 @@ private:
 	vector<GameObject*>			m_Childs;
 
 	GameObject*					m_Parent;
+	bool						m_Dead;
 
 public:
 	template<typename T>
@@ -84,6 +85,9 @@ public:
 	void DisconnectWithParent();
 	void DisconnectWithLayer();
 
+	void		SetDead(bool _dead) { m_Dead = _dead; }
+	bool		GetDead() { return m_Dead; }
+
 public:
 	virtual void Awake();
 	virtual void Start();
@@ -97,5 +101,6 @@ public:
 	virtual ~GameObject();
 
 	friend class Layer;
+	friend class TaskMgr;
 };
 

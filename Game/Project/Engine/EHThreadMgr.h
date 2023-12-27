@@ -1,5 +1,7 @@
 #pragma once
 
+class ThreadTask;
+
 class ThreadMgr
 	:public Singleton<ThreadMgr>
 {
@@ -7,6 +9,8 @@ class ThreadMgr
 private:
 	vector<std::thread> m_ThreadTask;
 	map<wstring, HANDLE> m_EventPoint;
+
+	vector<ThreadTask*>	m_Release;
 
 public:
 	void Awake();
