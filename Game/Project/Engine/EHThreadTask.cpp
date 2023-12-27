@@ -12,5 +12,4 @@ ThreadTask::~ThreadTask()
 void ThreadTask::Awake()
 {
 	::WaitForSingleObject(m_Trigger, INFINITE);
-	Update();
 }

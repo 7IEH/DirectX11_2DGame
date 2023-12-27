@@ -14,7 +14,7 @@ GameObject::GameObject()
 	, m_Renderer(nullptr)
 	, m_vScripts{}
 	, m_Parent(nullptr)
-	, m_Dead(true)
+	, m_Dead(false)
 {
 }
 

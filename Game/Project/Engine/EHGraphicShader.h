@@ -39,7 +39,6 @@ public:
 
 public:
     void Create(wstring& _shaderPath, string& _vsEntry, string& _psEntry);
-    void CreateResourceView(wstring& _texturePath);
 
     virtual void UpdateData()override;
     virtual void Render() override;

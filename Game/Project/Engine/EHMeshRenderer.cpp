@@ -24,13 +24,6 @@ MeshRenderer::~MeshRenderer()
 
 void MeshRenderer::UpdateData()
 {
-	if (GetShader() == nullptr)
-	{
-		HandleError(MAIN_HWND, L"MeshRenderShader Shader is Nullptr Error!", 2);
-		return;
-	}
-
-	GetShader()->UpdateData();
 }
 
 void MeshRenderer::Render()
@@ -57,7 +50,5 @@ void MeshRenderer::Render()
 	if (GetSprite() != nullptr)
 		GetSprite()->UpdateData(0);
 
-
-	GetShader()->Render();
 	GetMesh()->Render();
 }

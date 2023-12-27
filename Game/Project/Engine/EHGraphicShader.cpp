@@ -37,7 +37,7 @@ void GraphicShader::UpdateData()
 	Basic Rendering Pipeline
 	************************/
 	// Input Assembler Stage
-	CONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	CONTEXT->IASetPrimitiveTopology(m_Topology);
 	CONTEXT->IASetInputLayout(m_LayOut.Get());
 	
 	// Vertex Shader Stage

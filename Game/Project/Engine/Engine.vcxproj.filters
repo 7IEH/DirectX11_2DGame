@@ -127,6 +127,12 @@
     <Filter Include="04. Manager\GCMgr">
       <UniqueIdentifier>{268c0b88-2703-4002-b9a0-878514960477}</UniqueIdentifier>
     </Filter>
+    <Filter Include="05. Level\LoadingLevel">
+      <UniqueIdentifier>{2ed4eca1-9cad-4469-bea6-9f91d7c53d9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Level\DungeonLevel">
+      <UniqueIdentifier>{e40d4b5d-1ab4-4fbc-baea-7d2946678337}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">

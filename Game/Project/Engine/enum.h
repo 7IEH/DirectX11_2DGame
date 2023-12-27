@@ -242,3 +242,22 @@ enum class  SAMPLER_TYPE
 	POINT,
 	END,
 };
+
+
+enum TEX_PARAM
+{
+	TEX_0,
+	TEX_1,
+	TEX_2,
+	TEX_3,
+	TEX_4,
+	TEX_5,
+
+	TEXCUBE_0,
+	TEXCUBE_1,
+
+	TEXARR_0,
+	TEXARR_1,
+
+	END,
+};

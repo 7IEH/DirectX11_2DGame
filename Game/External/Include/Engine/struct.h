@@ -52,13 +52,23 @@ struct FKeyData
 	bool		bPressed;
 };
 
-// 주변광(global illmination을 표현하기 위해 일정한 값으로 표현), 표면의 거침(난반사), 반사율
-struct material
+
+struct LightMateiral
 {
 	Vec4	Ambient;
 	Vec4	Diffuse;
 	Vec4	Specular;
 	Vec4	Reflect;
+};
+
+// 주변광(global illmination을 표현하기 위해 일정한 값으로 표현), 표면의 거침(난반사), 반사율
+struct material
+{
+	int iArr[4];
+	float fArr[4];
+	Vec2 v2Arr[4];
+	LightMateiral vLightMat;
+	Matrix matArr[4];
 };
 
 struct NomralVector

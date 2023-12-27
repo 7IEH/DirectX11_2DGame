@@ -131,8 +131,63 @@ void AssetMgr::Awake()
 	#pragma endregion
 
 	#pragma region Mateiral
-	Material* _defaultMaterial = new Material;
-	
-	AddAsset(_defaultMaterial, L"DefaultMat");
+	Material* _backgroundMaterial = new Material;
+	_backgroundMaterial->SetGraphicShader(_shader);
+
+	Material* _playerMaterial = new Material;
+	_playerMaterial->SetGraphicShader(_shader);
+
+	AddAsset(_backgroundMaterial, L"BackGroundMaterial");
+	AddAsset(_playerMaterial, L"PlayerMaterial");
+	#pragma endregion
+
+
+	#pragma region RandMapTest
+	Mesh* _test_mesh = new Mesh;
+
+	vtx triangle3[4] = {};
+	UINT idx3[5] = {};
+	// Triangle Test------------------------------
+	triangle3[0]._Postion = Vec3(-0.5f, 0.5f, 0.f);
+	triangle3[0]._Color = Vec4(1.f, 0.f, 0.f, 1.f);
+	triangle3[0]._UV = Vec2(0.f, 0.f);
+
+	triangle3[1]._Postion = Vec3(0.5f, 0.5f, 0.f);
+	triangle3[1]._Color = Vec4(0.f, 1.f, 0.f, 1.f);
+	triangle3[1]._UV = Vec2(1.f, 0.f);
+
+	triangle3[2]._Postion = Vec3(0.5f, -0.5f, 0.f);
+	triangle3[2]._Color = Vec4(0.f, 0.f, 1.f, 1.f);
+	triangle3[2]._UV = Vec2(1.f, 1.f);
+
+	triangle3[3]._Postion = Vec3(-0.5f, -0.5f, 0.f);
+	triangle3[3]._Color = Vec4(0.f, 0.f, 1.f, 1.f);
+	triangle3[3]._UV = Vec2(0.f, 1.f);
+	// --------------------------------------------
+
+	idx3[0] = 0;
+	idx3[1] = 1;
+	idx3[2] = 2;
+	idx3[3] = 3;
+	idx3[4] = 0;
+
+	_test_mesh->Create(triangle3, 4, idx3, 5);
+
+	AddAsset(_test_mesh, L"randMesh");
+
+	// RandomMap Test
+	GraphicShader* _ranshader = new GraphicShader;
+
+	_path = L"\\shader\\st2dbg.fx";
+	_vsEntry = "VS_Std2D";
+	_psEntry = "PS_Std2D";
+
+	_ranshader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
+	_ranshader->Create(_path, _vsEntry, _psEntry);
+	AddAsset(_ranshader, L"randShader");
+
+	Material* _randMaterial = new Material;
+	_randMaterial->SetGraphicShader(_ranshader);
+	AddAsset(_randMaterial, L"randMat");
 	#pragma endregion
 }

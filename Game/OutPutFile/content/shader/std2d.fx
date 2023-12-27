@@ -47,12 +47,37 @@ struct tLight
     SpotLight _SL;
 };
 
-struct Material
+struct LightMaterial
 {
     float4 Ambient;
     float4 Diffuse;
     float4 Specular;
     float4 Reflect;
+};
+
+struct Material
+{
+    int _int0;
+    int _int1;
+    int _int2;
+    int _int3;
+    
+    float _float0;
+    float _float1;
+    float _float2;
+    float _float3;
+    
+    float2 _vec0;
+    float2 _vec1;
+    float2 _vec2;
+    float2 _vec3;
+   
+    LightMaterial _LightMat;
+    
+    matrix _matrix0;
+    matrix _matrix1;
+    matrix _matrix2;
+    matrix _matrix3;
 };
 
 cbuffer Worldspcae : register(b0)
@@ -110,7 +135,7 @@ struct VS_TEST
 };
 
 // Luna Light Example
-void ComputeDirectionalLight(Material mat, DirectionalLight L,
+void ComputeDirectionalLight(LightMaterial mat, DirectionalLight L,
                              float3 normal, float3 toEye,
                              out float4 ambient,
                              out float4 diffuse,
@@ -137,7 +162,7 @@ void ComputeDirectionalLight(Material mat, DirectionalLight L,
     }
 }
 
-void ComputePointLight(Material mat, PointLight L,float3 pos,float3 normal,float3 toEye,
+void ComputePointLight(LightMaterial mat, PointLight L, float3 pos, float3 normal, float3 toEye,
 out float4 ambient, out float4 diffuse, out float4 spec)
 {
     ambient = float4(0.0f, 0.0f, 0.0f, 0.0f);
@@ -173,7 +198,7 @@ out float4 ambient, out float4 diffuse, out float4 spec)
     spec *= att;
 }
 
-void ComputeSpotLight(Material mat, SpotLight L, float3 pos, float3 normal, float3 toEye,
+void ComputeSpotLight(LightMaterial mat, SpotLight L, float3 pos, float3 normal, float3 toEye,
 out float4 ambient, out float4 diffuse, out float4 spec)
 {
     ambient = float4(0.0f, 0.0f, 0.0f, 0.0f);
@@ -252,7 +277,7 @@ float4 PS_Std2D(VS_OUT _in) : SV_Target
     //diffuse += D;
     //spec += S;
       
-    ComputeSpotLight(gMatrial, gLight._SL, _in.vWorld, vNormal, toEye, A, D, S);
+    ComputeSpotLight(gMatrial._LightMat, gLight._SL, _in.vWorld, vNormal, toEye, A, D, S);
     ambient += A;
     diffuse += D;
     spec += S;
