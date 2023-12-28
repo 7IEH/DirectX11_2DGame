@@ -4,8 +4,7 @@
 #include"EHDevice.h"
 
 ConstantBuffer::ConstantBuffer()
-	:m_CB(nullptr)
-	, m_Desc{}
+	:m_Desc{}
 	, m_Type(CONSTANT_TYPE::TRANSFORM)
 	, m_ElementSize(0)
 	, m_ElementCount(0)

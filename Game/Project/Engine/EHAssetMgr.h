@@ -1,6 +1,5 @@
 #pragma once
 
-class Asset;
 #include "EHDevice.h"
 
 #include "EHMesh.h"
@@ -14,17 +13,17 @@ class AssetMgr
 {
 	Single(AssetMgr);
 private:
-	map<wstring, Asset*>m_Assets[(UINT)ASSET_TYPE::END];
+	map<wstring, Ptr<Asset>>	m_Assets[(UINT)ASSET_TYPE::END];
 
 public:
 	template <typename T>
 	void AddAsset(T* _asset, const wstring& _name);
 
 	template<typename T>
-	T* FindAsset(const wstring& _name);
+	Ptr<T> FindAsset(const wstring& _name);
 
 	template<typename T>
-	T* Load(const wstring& _strFilePath, const wstring _name);
+	Ptr<T> Load(const wstring& _strFilePath, const wstring _name);
 
 public:
 	void Awake();
@@ -57,18 +56,18 @@ inline void AssetMgr::AddAsset(T* _asset, const wstring& _name)
 {
 	ASSET_TYPE _type = GetAssetType<T>();
 
-	map<wstring, Asset*>::iterator iter = m_Assets[(UINT)_type].find(_name);
+	map<wstring, Ptr<Asset>>::iterator iter = m_Assets[(UINT)_type].find(_name);
 	assert(iter == m_Assets[(UINT)_type].end());
 
-	m_Assets[(UINT)_type].insert({ _name,_asset });
+	m_Assets[(UINT)_type].insert(make_pair(_name,_asset));
 }
 
 template<typename T>
-inline T* AssetMgr::FindAsset(const wstring& _name)
+Ptr<T> AssetMgr::FindAsset(const wstring& _name)
 {
 	ASSET_TYPE _type = GetAssetType<T>();
 
-	map<wstring, Asset*>::iterator iter = m_Assets[(UINT)_type].find(_name);
+	map<wstring, Ptr<Asset>>::iterator iter = m_Assets[(UINT)_type].find(_name);
 	
 	// check for exist
 	if (iter == m_Assets[(UINT)_type].end())
@@ -76,44 +75,31 @@ inline T* AssetMgr::FindAsset(const wstring& _name)
 		return nullptr;
 	}
 
-	// check for donwCasting
-	T* out = dynamic_cast<T*>(iter->second);
-	if (out == nullptr)
-	{
-		return nullptr;
-	}
-
-	return out;
+	return (T*)iter->second.Get();
 }
 
 template<typename T>
-inline T* AssetMgr::Load(const wstring& _strFilePath, const wstring _name)
+Ptr<T> AssetMgr::Load(const wstring& _strFilePath, const wstring _name)
 {
-	Asset* _asset = FindAsset<T>(_name);
+	Ptr<T> _asset = FindAsset<T>(_name);
 
 	if (_asset != nullptr)
 	{
-		T* _temp = dynamic_cast<T*>(_asset);
-		if (_temp == nullptr)
-		{
-			_temp = nullptr;
-		}
-		return _temp;
+		return (T*)_asset.Get();
 	}
 
 	_asset = new T;
 	if (FAILED(_asset->Load(_strFilePath)))
 	{
 		HandleError(MAIN_HWND, L"에셋 로딩 실패!", 0);
-		delete _asset;
+		_asset = nullptr;
 		return nullptr;
 	}
 
 	_asset->SetKey(_name);
 	_asset->SetRelativePath(_strFilePath);
 
-	T* _temp = dynamic_cast<T*>(_asset);
-	AddAsset<T>(_temp, _name);
+	AddAsset<T>((T*)_asset.Get(), _name);
 
-	return _temp;
+	return (T*)_asset.Get();
 }

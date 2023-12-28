@@ -6,9 +6,6 @@
 
 LIght2D::LIght2D()
 	:Component(COMPONENT_TYPE::LIGHT2D)
-	,m_DL{}
-	,m_PL{}
-	,m_SL{}
 {
 	/*m_PL.Ambient = XMFLOAT4(0.3f, 0.3f, 0.3f, 1.0f);
 	m_PL.Diffuse = XMFLOAT4(0.7f, 0.7f, 0.7f, 1.0f);

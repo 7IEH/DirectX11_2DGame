@@ -26,5 +26,5 @@ public:
 
 public:
 	ConstantBuffer();
-	virtual ~ConstantBuffer();
+	~ConstantBuffer();
 };

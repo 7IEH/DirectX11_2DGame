@@ -133,6 +133,9 @@
     <Filter Include="05. Level\DungeonLevel">
       <UniqueIdentifier>{e40d4b5d-1ab4-4fbc-baea-7d2946678337}</UniqueIdentifier>
     </Filter>
+    <Filter Include="08. Asset\SmartPtrForAsset">
+      <UniqueIdentifier>{1b6f516e-0b0f-401a-b1eb-b60318a43ff2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -266,6 +269,9 @@
     </ClInclude>
     <ClInclude Include="EHGarbageCollector.h">
       <Filter>04. Manager\GCMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Ptr.h">
+      <Filter>08. Asset\SmartPtrForAsset</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

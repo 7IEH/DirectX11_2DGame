@@ -15,7 +15,7 @@
 #include "EHCamera.h"
 
 Engine::Engine()
-	:m_vResolution{}
+	: m_vResolution{}
 	, m_hWnd(nullptr)
 {
 
@@ -59,7 +59,7 @@ void Engine::AwakeManager()
 	KeyMgr::GetInst()->Awake();
 	AssetMgr::GetInst()->Awake();
 	LevelMgr::GetInst()->Awake();
-	ThreadMgr::GetInst()->Awake();
+	//ThreadMgr::GetInst()->Awake();
 }
 
 void Engine::Start()

@@ -195,6 +195,7 @@ call Copy.bat</Command>
     <ClInclude Include="global.h" />
     <ClInclude Include="EHMeshRenderer.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Ptr.h" />
     <ClInclude Include="SimpleMath.h" />
     <ClInclude Include="singleton.h" />
     <ClInclude Include="struct.h" />

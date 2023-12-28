@@ -44,7 +44,7 @@ void TestLevel::Awake()
 	LIght2D* _light = _Light->AddComponent<LIght2D>();
 
 	Object::Instantiate(_MainCamera, (UINT)LAYER_TYPE::CAMERA);
-	//Object::Instantiate(_Light, (UINT)LAYER_TYPE::LIGHT2D);
+	Object::Instantiate(_Light, (UINT)LAYER_TYPE::LIGHT2D);
 	#pragma endregion
 
 	#pragma region BackGround
@@ -58,8 +58,7 @@ void TestLevel::Awake()
 	MeshRenderer* _playerRenderer = _backGround->AddComponent<MeshRenderer>();
 	_playerRenderer->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"BackGroundMesh"));
 	_playerRenderer->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"BackGroundMaterial"));
-	_playerRenderer->SetSprite(AssetMgr::GetInst()->FindAsset<Sprite>(L"BackGroundSprite"));
-	//Object::Instantiate(_backGround, (UINT)LAYER_TYPE::BACKGROUND);
+	Object::Instantiate(_backGround, (UINT)LAYER_TYPE::BACKGROUND);
 	#pragma endregion
 
 	#pragma region GameObject
@@ -73,11 +72,10 @@ void TestLevel::Awake()
 	_playerRenderer = _player->AddComponent<MeshRenderer>();
 	_playerRenderer->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"PlayerMesh"));
 	_playerRenderer->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"PlayerMaterial"));
-	_playerRenderer->SetSprite(AssetMgr::GetInst()->FindAsset<Sprite>(L"PlayerSprite"));
 
 	PlayerScript* _playerScript = _player->AddComponent<PlayerScript>();
 
-	//Object::Instantiate(_player, (UINT)LAYER_TYPE::PLAYER);
+	Object::Instantiate(_player, (UINT)LAYER_TYPE::PLAYER);
 
 	GameObject* _test = new GameObject();
 	tr = _test->AddComponent<Transform>();
@@ -88,8 +86,7 @@ void TestLevel::Awake()
 	_playerRenderer = _test->AddComponent<MeshRenderer>();
 	_playerRenderer->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"randMesh"));
 	_playerRenderer->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"randMat"));
-	//_playerRenderer->SetSprite(AssetMgr::GetInst()->FindAsset<Sprite>(L"PlayerSprite"));
-
+	
 	Object::Instantiate(_test, (UINT)LAYER_TYPE::PLAYER);
 	#pragma endregion
 

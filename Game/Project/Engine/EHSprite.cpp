@@ -44,7 +44,7 @@ HRESULT Sprite::Load(const wstring& _strFilePath)
 	{
 		return E_FAIL;
 	}
-	
+
 	CreateShaderResourceView(DEVICE, m_Image.GetImages(), m_Image.GetImageCount(), m_Image.GetMetadata(), m_ShaderResourceView.GetAddressOf());
 	m_ShaderResourceView.Get()->GetResource((ID3D11Resource**)m_SpriteTexture.GetAddressOf());
 	m_SpriteTexture.Get()->GetDesc(&m_DESC);
@@ -59,4 +59,15 @@ void Sprite::UpdateData(int _resgisterNumber)
 	CONTEXT->HSSetShaderResources(_resgisterNumber, 1, m_ShaderResourceView.GetAddressOf());
 	CONTEXT->DSSetShaderResources(_resgisterNumber, 1, m_ShaderResourceView.GetAddressOf());
 	CONTEXT->GSSetShaderResources(_resgisterNumber, 1, m_ShaderResourceView.GetAddressOf());
+}
+
+void Sprite::Clear(int _resgisterNumber)
+{
+	ID3D11ShaderResourceView* _clearSRV = nullptr;
+
+	CONTEXT->VSSetShaderResources(_resgisterNumber, 1, &_clearSRV);
+	CONTEXT->PSSetShaderResources(_resgisterNumber, 1, &_clearSRV);
+	CONTEXT->HSSetShaderResources(_resgisterNumber, 1, &_clearSRV);
+	CONTEXT->DSSetShaderResources(_resgisterNumber, 1, &_clearSRV);
+	CONTEXT->GSSetShaderResources(_resgisterNumber, 1, &_clearSRV);
 }

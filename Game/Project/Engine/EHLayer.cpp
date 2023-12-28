@@ -5,9 +5,7 @@
 #include "EHGarbageCollector.h"
 
 Layer::Layer()
-	: m_Parent{}
-	, m_GameObjects{}
-	, m_Type(LAYER_TYPE::NON_SELECT)
+	:m_Type(LAYER_TYPE::NON_SELECT)
 {
 }
 

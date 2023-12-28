@@ -12,8 +12,6 @@ GameObject::GameObject()
 	:m_LayerType(LAYER_TYPE::NON_SELECT)
 	, m_Component{}
 	, m_Renderer(nullptr)
-	, m_vScripts{}
-	, m_Parent(nullptr)
 	, m_Dead(false)
 {
 }

@@ -19,20 +19,18 @@ Transform::Transform()
 	, m_WorldDir{}
 	, m_Absolute(true)
 {
-	m_RelativeTransform = new tTransform();
 }
 
 Transform::~Transform()
 {
-	delete m_RelativeTransform;
 }
 
 void Transform::LateUpdate()
 {
 	// world(SRT)
-	Vec4 _Scale = m_RelativeTransform->_Scale;
-	Vec3 _Rotation = m_RelativeTransform->_Rotation;
-	Vec4 _Position = m_RelativeTransform->_Position;
+	Vec4 _Scale = m_RelativeTransform._Scale;
+	Vec3 _Rotation = m_RelativeTransform._Rotation;
+	Vec4 _Position = m_RelativeTransform._Position;
 
 	XMMATRIX _scaleMatrix = XMMatrixScaling(_Scale.x, _Scale.y, _Scale.z);
 	XMMATRIX _rotateMatrixX = XMMatrixRotationX(_Rotation.x * (XM_PI / 180.f));
@@ -116,16 +114,14 @@ void Transform::UpdateData()
 	Device::GetInst()->GetConstantBuffer(CONSTANT_TYPE::TRANSFORM)->SetData(&e_MatrixData, sizeof(transform), 1);
 	Device::GetInst()->GetConstantBuffer(CONSTANT_TYPE::TRANSFORM)->UpdateData();
 
-	NomralVector* temp = new NomralVector();
-	temp->Nomral = GetWorldDir(DIRECTION_TYPE::FRONT);
+	NomralVector temp = {};
+	temp.Nomral = GetWorldDir(DIRECTION_TYPE::FRONT);
 
 	Device::GetInst()->GetConstantBuffer(CONSTANT_TYPE::NORMANL)->SetData(&temp, sizeof(NomralVector), 1);
 	Device::GetInst()->GetConstantBuffer(CONSTANT_TYPE::NORMANL)->UpdateData();
-
-	delete temp;
 }
 
 void Transform::InitializeDir()
 {
-	m_RelativeTransform->_Rotation = { 0.f,0.f,0.f };
+	m_RelativeTransform._Rotation = { 0.f,0.f,0.f };
 }

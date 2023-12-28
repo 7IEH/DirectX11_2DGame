@@ -1,7 +1,18 @@
 #ifndef _STD2D
 #define _STD2D
 
-Texture2D shaderTexture : register(t0);
+Texture2D ST0 : register(t0);
+Texture2D ST1 : register(t1);
+Texture2D ST2 : register(t2);
+Texture2D ST3 : register(t3);
+Texture2D ST4 : register(t4);
+Texture2D ST5 : register(t5);
+
+Texture2D CUBE6 : register(t6);
+Texture2D CUBE7 : register(t7);
+
+Texture2D STARR8 : register(t8);
+Texture2D STARR9 : register(t9);
 
 SamplerState samplerType : register(s0);
 SamplerState samplerType2 : register(s1);
@@ -78,6 +89,21 @@ struct Material
     matrix _matrix1;
     matrix _matrix2;
     matrix _matrix3;
+    
+    int spriteCheck0;
+	int spriteCheck1;
+	int spriteCheck2;
+	int spriteCheck3;
+	int spriteCheck4;
+    int spriteCheck5;
+
+    int TEXCUBE_0;
+	int TEXCUBE_1;
+
+    int TEXARR_0;
+	int TEXARR_1;
+    
+    int2 padding;
 };
 
 cbuffer Worldspcae : register(b0)
@@ -283,9 +309,13 @@ float4 PS_Std2D(VS_OUT _in) : SV_Target
     spec += S;
     
     float4 lightColor = ambient + diffuse + spec;
+    float4 color;
+    if (gMatrial.spriteCheck0 == 1)
+    {
+        color = ST0.Sample(samplerType2, _in.vUV) + lightColor;
+        //color.a = diffuse.a;
+    }
     
-    float4 color = shaderTexture.Sample(samplerType2, _in.vUV) + lightColor;
-    //color.a = diffuse.a;
     return color;
 }
 #endif

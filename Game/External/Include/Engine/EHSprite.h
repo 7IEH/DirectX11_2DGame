@@ -21,8 +21,7 @@ public:
 	virtual void UpdateData()override {};
 	virtual void Render()override {};
 	void UpdateData(int _resgisterNumber);
-
-
+	static void Clear(int _resgisterNumber);
 
 private:
 	virtual HRESULT Load(const wstring& _strFilePath)override;

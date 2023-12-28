@@ -23,7 +23,7 @@ public:
 			return;
 		}
 
-		m_Levels.insert({ _levelName,_level });
+		m_Levels.insert(make_pair(_levelName, _level));
 	}
 
 	void SelectLevel(wstring _levelName)
@@ -38,7 +38,7 @@ public:
 	}
 
 public:
-	Level* GetCurLevel(){ return m_CurLevel; }
+	Level* GetCurLevel() { return m_CurLevel; }
 
 public:
 	void Awake();

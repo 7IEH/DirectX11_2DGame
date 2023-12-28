@@ -69,6 +69,9 @@ struct material
 	Vec2 v2Arr[4];
 	LightMateiral vLightMat;
 	Matrix matArr[4];
+
+	int	Sprite[(UINT)TEX_PARAM::END];
+	int padding[2];
 };
 
 struct NomralVector

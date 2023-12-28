@@ -48,10 +48,12 @@ MapGenerator::MapGenerator()
 
 MapGenerator::~MapGenerator()
 {
+	delete m_RootNode;
 }
 
 void MapGenerator::Awake()
 {
+	m_RootNode = new Node(Rect(0.f, 0.f, 6400.f, 3600.f));
 	ThreadTask::Awake();
 	Update();
 }
@@ -67,16 +69,14 @@ void MapGenerator::DrawRectangle(Rect _drawinfo)
 	MeshRenderer* _playerRenderer = _test->AddComponent<MeshRenderer>();
 	_playerRenderer->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"randMesh"));
 	_playerRenderer->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"randMat"));
-	//_playerRenderer->SetSprite(AssetMgr::GetInst()->FindAsset<Sprite>(L"PlayerSprite"));
 
 	Object::Instantiate(_test, (UINT)LAYER_TYPE::PLAYER);
 }
 
 void MapGenerator::Update()
 {
-	Node* rootNode = new Node(Rect(0.f, 0.f, 1600.f, 900.f));
-	Divide(rootNode, 0, 4);
-	GenerateRoom(rootNode, 0, 4);
+	Divide(m_RootNode, 0, 4);
+	GenerateRoom(m_RootNode, 0, 4);
 	GenerateRoad();
 }
 
@@ -85,7 +85,7 @@ void MapGenerator::Divide(Node* _node, int _level, int _maxLevel)
 	if (_level == _maxLevel)
 		return;
 
-	int _maxLength = max(_node->m_rect.h, _node->m_rect.w);
+	int _maxLength = (int)max(_node->m_rect.h, _node->m_rect.w);
 	int _temp = (_maxLength * 0.6f - _maxLength * 0.4f + 1);
 	int _split = rand() % _temp + _maxLength * 0.4f;
 
@@ -128,8 +128,9 @@ Rect MapGenerator::GenerateRoom(Node* _node, int _level, int _maxLevel)
 		_node->m_roomRect.y = _rect.y + (rand() % _temp + 1.f);
 
 
-		DrawRectangle(_node->m_roomRect);
+		//DrawRectangle(_node->m_roomRect);
 		_temporary = _node->m_roomRect;
+		FillRoom(_node->m_roomRect);
 	}
 	else
 	{
@@ -143,4 +144,20 @@ Rect MapGenerator::GenerateRoom(Node* _node, int _level, int _maxLevel)
 
 void MapGenerator::GenerateRoad()
 {
+}
+
+void MapGenerator::FillRoom(Rect _rect)
+{
+	for (size_t y = _rect.y;y <= _rect.y + _rect.h - 64.f;y += 64)
+	{
+		for (size_t x = _rect.x;x <= _rect.x + _rect.w - 64.f;x += 64)
+		{
+			Rect _temp = {};
+			_temp.x = x;
+			_temp.y = y;
+			_temp.h = 64.f;
+			_temp.w = 64.f;
+			DrawRectangle(_temp);
+		}
+	}
 }

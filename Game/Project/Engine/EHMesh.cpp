@@ -6,8 +6,6 @@
 Mesh::Mesh()
 	:Asset(ASSET_TYPE::MESH)
 	,m_IndexCount(0)
-	,m_VB(nullptr)
-	,m_IB(nullptr)
 	,m_VertexInfo(nullptr)
 	,m_IndexInfo(nullptr)
 {

@@ -24,15 +24,13 @@ MeshRenderer::~MeshRenderer()
 
 void MeshRenderer::UpdateData()
 {
+	// Matrial Update
+	if (GetMaterial() != nullptr)
+		GetMaterial()->Render();
 }
 
 void MeshRenderer::Render()
 {
-	if (GetMesh() == nullptr)
-	{
-		HandleError(MAIN_HWND, L"MeshRenderer Mesh is Nullptr Error!", 2);
-		return;
-	}
 	Transform* _tr = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
 
 	if (_tr != nullptr)
@@ -42,13 +40,10 @@ void MeshRenderer::Render()
 
 	UpdateData();
 
-	// Matrial Update
-	if (GetMaterial() != nullptr)
-		GetMaterial()->Render();
-
-	// Sprite Update
-	if (GetSprite() != nullptr)
-		GetSprite()->UpdateData(0);
-
+	if (GetMesh() == nullptr)
+	{
+		HandleError(MAIN_HWND, L"MeshRenderer Mesh is Nullptr Error!", 2);
+		return;
+	}
 	GetMesh()->Render();
 }

@@ -243,6 +243,34 @@ enum class  SAMPLER_TYPE
 	END,
 };
 
+// ScalarParam
+enum SCALAR_PARAM
+{
+	INT_0,
+	INT_1,
+	INT_2,
+	INT_3,
+
+	FLOAT_0,
+	FLOAT_1,
+	FLOAT_2,
+	FLOAT_3,
+
+	VEC2_0,
+	VEC2_1,
+	VEC2_2,
+	VEC2_3,
+
+	AMBIENT,
+	DIFFUSE,
+	SPECULAR,
+	REFLECT,
+
+	MAT_0,
+	MAT_1,
+	MAT_2,
+	MAT_3,
+};
 
 enum TEX_PARAM
 {

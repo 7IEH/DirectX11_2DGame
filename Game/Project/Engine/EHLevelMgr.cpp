@@ -6,7 +6,6 @@
 
 LevelMgr::LevelMgr()
 	:m_CurLevel(nullptr)
-	,m_Levels{}
 {
 
 }

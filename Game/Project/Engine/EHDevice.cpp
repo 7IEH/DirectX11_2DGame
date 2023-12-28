@@ -4,17 +4,9 @@
 #include "EHConstantBuffer.h"
 
 Device::Device()
-	:
-	m_Device(nullptr)
-	, m_DeviceContext(nullptr)
-	, m_SwapChain(nullptr)
-	, m_RTTexture(nullptr)
-	, m_RTView(nullptr)
-	, m_DSTexture(nullptr)
-	, m_DSView(nullptr)
-	, m_hWnd(nullptr)
-	, m_vRenderResolution{}
+	: m_hWnd(nullptr)
 	, m_4MSAAQuality(0)
+	, m_vRenderResolution{}
 	, m_ConstantBuffer{}
 {
 }
@@ -34,6 +26,7 @@ int Device::Awake(HWND _hWnd, Vec2 _vRenderResolution)
 	{
 		return E_FAIL;
 	}
+
 
 	// MultiSampling check
 	DEVICE->CheckMultisampleQualityLevels(DXGI_FORMAT_R8G8B8A8_UNORM, 4, &m_4MSAAQuality);
@@ -87,13 +80,13 @@ int Device::Awake(HWND _hWnd, Vec2 _vRenderResolution)
 	{
 		return E_FAIL;
 	}
-	
+
 	// Create Transform, Material, Light, Normal Vector
 	if (FAILED(CreateConstantBuffer()))
 	{
 		return E_FAIL;
 	}
-	
+
 	return S_OK;
 }
 
@@ -234,7 +227,7 @@ HRESULT Device::CreateConstantBuffer()
 	return S_OK;
 }
 
-HRESULT Device::CreateConstantBufferIndividual(CONSTANT_TYPE _type,UINT _elementSize, UINT _elementCount)
+HRESULT Device::CreateConstantBufferIndividual(CONSTANT_TYPE _type, UINT _elementSize, UINT _elementCount)
 {
 	m_ConstantBuffer[(UINT)_type] = new ConstantBuffer;
 	HRESULT _hr = m_ConstantBuffer[(UINT)_type]->Create(_elementSize, _elementCount, _type);
@@ -497,7 +490,7 @@ void Device::SetSamplerState()
 {
 	for (UINT i = 0;i < (UINT)SAMPLER_TYPE::END;i++)
 	{
-		CONTEXT->VSSetSamplers(i,1,m_Sampler[i].GetAddressOf());
+		CONTEXT->VSSetSamplers(i, 1, m_Sampler[i].GetAddressOf());
 		CONTEXT->PSSetSamplers(i, 1, m_Sampler[i].GetAddressOf());
 		CONTEXT->HSSetSamplers(i, 1, m_Sampler[i].GetAddressOf());
 		CONTEXT->DSSetSamplers(i, 1, m_Sampler[i].GetAddressOf());

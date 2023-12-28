@@ -7,24 +7,12 @@
 #include "EHMaterial.h"
 
 AssetMgr::AssetMgr()
-	:m_Assets{}
 {
 
 }
 
 AssetMgr::~AssetMgr()
 {
-	for (UINT i = 0;i < (UINT)ASSET_TYPE::END;i++)
-	{
-		for (auto pair : m_Assets[i])
-		{
-			if (pair.second != nullptr)
-			{
-				delete pair.second;
-			}
-		}
-		m_Assets[i].clear();
-	}
 }
 
 void AssetMgr::Awake()
@@ -124,18 +112,20 @@ void AssetMgr::Awake()
 	
 	#pragma region SpriteSetting
 	_path = L"\\resource\\Example.png";
-	Sprite* _BackGroundSprite = Load<Sprite>(_path,L"BackGroundSprite");
+	Ptr<Sprite> _BackGroundSprite = Load<Sprite>(_path,L"BackGroundSprite");
 
 	_path = L"\\resource\\NPC_Commander0.png";
-	Sprite* _PlayerSprite = Load<Sprite>(_path, L"PlayerSprite");
+	Ptr<Sprite> _PlayerSprite = Load<Sprite>(_path, L"PlayerSprite");
 	#pragma endregion
 
 	#pragma region Mateiral
 	Material* _backgroundMaterial = new Material;
 	_backgroundMaterial->SetGraphicShader(_shader);
+	_backgroundMaterial->SetTexParam(TEX_0, _BackGroundSprite);
 
 	Material* _playerMaterial = new Material;
 	_playerMaterial->SetGraphicShader(_shader);
+	_playerMaterial->SetTexParam(TEX_0, _PlayerSprite);
 
 	AddAsset(_backgroundMaterial, L"BackGroundMaterial");
 	AddAsset(_playerMaterial, L"PlayerMaterial");
@@ -146,7 +136,7 @@ void AssetMgr::Awake()
 	Mesh* _test_mesh = new Mesh;
 
 	vtx triangle3[4] = {};
-	UINT idx3[5] = {};
+	UINT idx3[6] = {};
 	// Triangle Test------------------------------
 	triangle3[0]._Postion = Vec3(-0.5f, 0.5f, 0.f);
 	triangle3[0]._Color = Vec4(1.f, 0.f, 0.f, 1.f);
@@ -168,25 +158,31 @@ void AssetMgr::Awake()
 	idx3[0] = 0;
 	idx3[1] = 1;
 	idx3[2] = 2;
-	idx3[3] = 3;
-	idx3[4] = 0;
 
-	_test_mesh->Create(triangle3, 4, idx3, 5);
+	idx3[3] = 0;
+	idx3[4] = 2;
+	idx3[5] = 3;
+
+	_test_mesh->Create(triangle3, 4, idx3, 6);
 
 	AddAsset(_test_mesh, L"randMesh");
 
 	// RandomMap Test
 	GraphicShader* _ranshader = new GraphicShader;
 
-	_path = L"\\shader\\st2dbg.fx";
+	_path = L"\\shader\\std2d.fx";
 	_vsEntry = "VS_Std2D";
 	_psEntry = "PS_Std2D";
 
-	_ranshader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
+	//_ranshader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
 	_ranshader->Create(_path, _vsEntry, _psEntry);
 	AddAsset(_ranshader, L"randShader");
 
+	_path = L"\\resource\\ranTest.png";
+	Ptr<Sprite> _ranSprite = Load<Sprite>(_path, L"ranSprite");
+
 	Material* _randMaterial = new Material;
+	_randMaterial->SetTexParam(TEX_0,_ranSprite);
 	_randMaterial->SetGraphicShader(_ranshader);
 	AddAsset(_randMaterial, L"randMat");
 	#pragma endregion

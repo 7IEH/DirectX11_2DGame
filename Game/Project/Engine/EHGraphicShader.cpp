@@ -4,6 +4,8 @@
 #include "EHDevice.h"
 #include "EHPathMgr.h"
 
+#include "EHSprite.h"
+
 GraphicShader::GraphicShader()
 	: m_Topology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
 	,m_CullType(CULL_TYPE::BACK)
