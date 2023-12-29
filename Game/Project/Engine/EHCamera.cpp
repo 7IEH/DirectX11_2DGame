@@ -21,6 +21,8 @@ Camera::Camera()
 	, m_Scale(1.f)
 	, m_AspectRatio(ASPECT_RATIO)
 	, m_Far(10000.0f)
+	, m_Type(CAMERA_TYPE::NON_TYPE)
+	, m_LayerVisible(0)
 {
 	Vec2 vResol = Device::GetInst()->GetResolution();
 	m_Width = vResol.x;

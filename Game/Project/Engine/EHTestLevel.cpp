@@ -108,8 +108,3 @@ void TestLevel::LateUpdate()
 {
 	Level::LateUpdate();
 }
-
-void TestLevel::Render()
-{
-	Level::Render();
-}

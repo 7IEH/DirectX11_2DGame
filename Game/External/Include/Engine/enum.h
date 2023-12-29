@@ -249,7 +249,8 @@ enum class CAMERA_TYPE
 	DEBUG_CAMERA,
 	UI_CAMERA,
 	WORLD_CAMERA,
-	END
+	END,
+	NON_TYPE
 };
 
 // ScalarParam

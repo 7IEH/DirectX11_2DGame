@@ -53,14 +53,6 @@ void Level::LateUpdate()
 	}
 }
 
-void Level::Render()
-{
-	for (int _type = 0;_type < (UINT)LAYER_TYPE::END;_type++)
-	{
-		m_Layers[_type]->Render();
-	}
-}
-
 void Level::Clear()
 {
 	for (UINT i = 0;i < (UINT)LAYER_TYPE::END;i++)

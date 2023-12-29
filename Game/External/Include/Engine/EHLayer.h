@@ -23,11 +23,10 @@ public:
 	void Update();
 	void FixedUpdate();
 	void LateUpdate();
-	void Render();
 	
 public:
 	vector<GameObject*>& GetLayerObject() { return m_GameObjects; }
-
+	vector<GameObject*>& GetLayerParent() { return m_Parent; }
 public:
 	Layer();
 	virtual ~Layer();

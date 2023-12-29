@@ -24,7 +24,6 @@ public:
 	virtual void Update();
 	virtual void FixedUpdate();
 	virtual void LateUpdate();
-	virtual void Render();
 
 private:
 	void Clear();

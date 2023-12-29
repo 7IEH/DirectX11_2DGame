@@ -65,14 +65,6 @@ void Layer::LateUpdate()
 	}
 }
 
-void Layer::Render()
-{
-	for (size_t i = 0;i < m_Parent.size();i++)
-	{
-		m_Parent[i]->Render();
-	}
-}
-
 void Layer::AddObject(GameObject* _obj, bool _bMove)
 {
 	// _bMove : ture - 레이어에 입력되는 Object가 자식이 있는 경우, 자식 까지 모두 해당 레이어로 넘어온다.

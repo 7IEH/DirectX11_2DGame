@@ -48,11 +48,3 @@ void LevelMgr::Update()
 	m_CurLevel->Update();
 	m_CurLevel->LateUpdate();
 }
-
-void LevelMgr::Render()
-{
-	if (m_CurLevel == nullptr)
-		return;
-
-	m_CurLevel->Render();
-}
