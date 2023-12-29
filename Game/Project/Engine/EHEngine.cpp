@@ -10,6 +10,7 @@
 #include "EHLevelMgr.h"
 #include "EHTaskMgr.h"
 #include "EHThreadMgr.h"
+#include "EHRenderMgr.h"	
 #include "EHGarbageCollector.h"
 
 #include "EHCamera.h"
@@ -70,24 +71,19 @@ void Engine::Start()
 
 void Engine::Update()
 {
-	// RenderTarget, DepthStencil ÃÊ±âÈ­
-	float ClearColor[4] = { 1.f,1.f,1.f,1.f };
-	Device::GetInst()->ClearRenderTarget(ClearColor);
-
 	//	Manger Progress
 	TimeMgr::GetInst()->Update();
 	KeyMgr::GetInst()->Update();
 
 	// Level Update
 	LevelMgr::GetInst()->Update();
-	LevelMgr::GetInst()->Render();
+	RenderMgr::GetInst()->Update();
+	//LevelMgr::GetInst()->Render();
 
 	if (KEY_TAP(KEY::SPACE))
 	{
 		ThreadMgr::GetInst()->StartThread(L"MapGenerator1");
 	}
-
-	Device::GetInst()->Present();
 
 	// GarbageCollector
 	// GameObject -> Memory Release

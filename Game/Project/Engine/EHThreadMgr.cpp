@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "EHThreadMgr.h"
+#include <thread>
 
 #include "EHMapGenerator.h"
 
@@ -23,7 +24,7 @@ ThreadMgr::~ThreadMgr()
 		(*iter).join();
 	}
 
-	ReleaseVector(m_Release);
+	//ReleaseVector(m_Release);
 }
 
 void ThreadMgr::Awake()

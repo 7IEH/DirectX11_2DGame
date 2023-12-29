@@ -179,6 +179,7 @@ call Copy.bat</Command>
     <ClInclude Include="EHPathMgr.h" />
     <ClInclude Include="EHPlayerScript.h" />
     <ClInclude Include="EHRenderer.h" />
+    <ClInclude Include="EHRenderMgr.h" />
     <ClInclude Include="EHScript.h" />
     <ClInclude Include="EHShader.h" />
     <ClInclude Include="EHSprite.h" />
@@ -225,6 +226,7 @@ call Copy.bat</Command>
     <ClCompile Include="EHPathMgr.cpp" />
     <ClCompile Include="EHPlayerScript.cpp" />
     <ClCompile Include="EHRenderer.cpp" />
+    <ClCompile Include="EHRenderMgr.cpp" />
     <ClCompile Include="EHScript.cpp" />
     <ClCompile Include="EHShader.cpp" />
     <ClCompile Include="EHSprite.cpp" />
@@ -245,8 +247,13 @@ call Copy.bat</Command>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <FxCompile Include="st2dbg.fx">
-      <FileType>Document</FileType>
+    <FxCompile Include="debug2d.fx">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="struct.fx">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>

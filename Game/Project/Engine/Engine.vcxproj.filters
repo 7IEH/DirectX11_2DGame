@@ -136,6 +136,9 @@
     <Filter Include="08. Asset\SmartPtrForAsset">
       <UniqueIdentifier>{1b6f516e-0b0f-401a-b1eb-b60318a43ff2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Manager\RenderMgr">
+      <UniqueIdentifier>{d07a1b79-ea16-46f2-bafd-cf6460c59ed1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -273,6 +276,9 @@
     <ClInclude Include="Ptr.h">
       <Filter>08. Asset\SmartPtrForAsset</Filter>
     </ClInclude>
+    <ClInclude Include="EHRenderMgr.h">
+      <Filter>04. Manager\RenderMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -392,6 +398,9 @@
     <ClCompile Include="EHGarbageCollector.cpp">
       <Filter>04. Manager\GCMgr</Filter>
     </ClCompile>
+    <ClCompile Include="EHRenderMgr.cpp">
+      <Filter>04. Manager\RenderMgr</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
@@ -402,7 +411,10 @@
     <FxCompile Include="std2d.fx">
       <Filter>ShaderCode</Filter>
     </FxCompile>
-    <FxCompile Include="st2dbg.fx">
+    <FxCompile Include="struct.fx">
+      <Filter>ShaderCode</Filter>
+    </FxCompile>
+    <FxCompile Include="debug2d.fx">
       <Filter>ShaderCode</Filter>
     </FxCompile>
   </ItemGroup>

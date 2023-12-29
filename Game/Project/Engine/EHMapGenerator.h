@@ -9,7 +9,7 @@ class MapGenerator
 {
 private:
 	Vec2			m_mapSize;
-	Node*			m_RootNode;
+	//Node			m_RootNode;
 
 
 public:

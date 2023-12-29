@@ -6,6 +6,11 @@
 #include "EHGameObject.h"
 #include "EHTransform.h"
 
+#include "EHLevelMgr.h"
+#include "EHRenderMgr.h"
+
+#include "EHLevel.h"
+
 extern transform e_MatrixData;
 
 Camera::Camera()
@@ -25,6 +30,10 @@ Camera::~Camera()
 {
 }
 
+/*********************************
+|	Camera View Projection Part
+**********************************/
+
 void Camera::LateUpdate()
 {
 	Vec4 _pos = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativePosition();
@@ -40,10 +49,17 @@ void Camera::LateUpdate()
 								_Front.x,_Front.y,_Front.z,0,
 								0,0,0,1 };
 
-	// View Matrix
-	e_MatrixData.View = XMMatrixMultiply(_reverseTransform, _reverseRotation);
-	
+	/**************************************
+	< -  View Matrix Caculate
 
+					
+	Store Class Member variable for Render
+	**************************************/
+
+	// 1. View Matrix
+	m_ViewMat = XMMatrixMultiply(_reverseTransform, _reverseRotation);
+
+	// 2. Projection Matrix
 	switch (m_Projection)
 	{
 	case PROJECTION_TYPE::PERSPECTIVE:
@@ -71,13 +87,67 @@ void Camera::InitializeDir()
 void Camera::ProjectiveView()
 {
 	// Projection(Projection)
-	e_MatrixData.Projection = XMMatrixTranspose(XMMatrixPerspectiveFovLH(m_FOV, ASPECT_RATIO, 1.f, m_Far));
+	m_ProjMat = XMMatrixTranspose(XMMatrixPerspectiveFovLH(m_FOV, ASPECT_RATIO, 1.f, m_Far));
 }
 
 void Camera::OrthographicView()
 {
 	// Projection(Orthographic)
-	e_MatrixData.Projection = XMMatrixTranspose(XMMatrixOrthographicLH(m_Width * m_Scale, 900.f * m_Scale, 1.f, m_Far));
+	m_ProjMat = XMMatrixTranspose(XMMatrixOrthographicLH(m_Width * m_Scale, 900.f * m_Scale, 1.f, m_Far));
 }
 
+/************************
+|	Camera Render Part
+************************/
 
+void Camera::Render()
+{
+	e_MatrixData.View = m_ViewMat;
+	e_MatrixData.Projection = m_ProjMat;
+
+	Level* _curLevel = LevelMgr::GetInst()->GetCurLevel();
+
+	for (int i = 0;i < (UINT)LAYER_TYPE::END;i++)
+	{
+		if (false == (m_LayerVisible & (1 << i)))
+			continue;
+
+		Layer* _layer = _curLevel->GetLayer(LAYER_TYPE(i));
+		const vector<GameObject*>& _objects = _layer->GetLayerObject();
+
+		for (size_t i = 0;i < _objects.size();i++)
+		{
+			_objects[i]->Render();
+		}
+	}
+}
+
+void Camera::LayerVisibleSet(LAYER_TYPE _type, bool _visible)
+{
+	if (_visible)
+	{
+		m_LayerVisible |= (1 << (UINT)_type);
+	}
+	else
+	{
+		m_LayerVisible &= (0 << (UINT)_type);
+	}
+}
+
+void Camera::AllVisibleSet(bool _visible)
+{
+	if (_visible)
+	{
+		m_LayerVisible = 0xffffffff;
+	}
+	else
+	{
+		m_LayerVisible = 0;
+	}
+}
+
+void Camera::SetCameraType(CAMERA_TYPE _type)
+{
+	m_Type = _type;
+	RenderMgr::GetInst()->RegisterCamera(_type, GetOwner());
+}

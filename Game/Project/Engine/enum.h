@@ -243,6 +243,15 @@ enum class  SAMPLER_TYPE
 	END,
 };
 
+enum class CAMERA_TYPE
+{
+	MAIN_CAMERA,
+	DEBUG_CAMERA,
+	UI_CAMERA,
+	WORLD_CAMERA,
+	END
+};
+
 // ScalarParam
 enum SCALAR_PARAM
 {

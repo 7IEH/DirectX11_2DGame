@@ -34,6 +34,10 @@ void TestLevel::Awake()
 	Transform* tr = _MainCamera->AddComponent<Transform>();
 	Camera* _camera = _MainCamera->AddComponent<Camera>();
 	CameraScript* _cameraScript = _MainCamera->AddComponent<CameraScript>();
+	
+	_camera->AllVisibleSet(TRUE);
+	_camera->SetCameraType(CAMERA_TYPE::MAIN_CAMERA);
+
 	tr->SetRelativeScale(Vec4(1.f, 1.f, 1.f, 1.f));
 	tr->SetRelativePosition(Vec4(0.f, 0.f, -10.f, 1.f));
 	tr->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
@@ -56,7 +60,7 @@ void TestLevel::Awake()
 	tr->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
 
 	MeshRenderer* _playerRenderer = _backGround->AddComponent<MeshRenderer>();
-	_playerRenderer->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"BackGroundMesh"));
+	_playerRenderer->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"DefaultRectMesh"));
 	_playerRenderer->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"BackGroundMaterial"));
 	Object::Instantiate(_backGround, (UINT)LAYER_TYPE::BACKGROUND);
 	#pragma endregion
@@ -70,24 +74,12 @@ void TestLevel::Awake()
 	tr->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
 
 	_playerRenderer = _player->AddComponent<MeshRenderer>();
-	_playerRenderer->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"PlayerMesh"));
+	_playerRenderer->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"DefaultRectMesh"));
 	_playerRenderer->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"PlayerMaterial"));
 
 	PlayerScript* _playerScript = _player->AddComponent<PlayerScript>();
 
 	Object::Instantiate(_player, (UINT)LAYER_TYPE::PLAYER);
-
-	GameObject* _test = new GameObject();
-	tr = _test->AddComponent<Transform>();
-	tr->SetRelativeScale(Vec4(100.f, 92.f, 1.f, 1.f));
-	tr->SetRelativePosition(Vec4(0.f, 0.f, 0.f, 1.f));
-	tr->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
-
-	_playerRenderer = _test->AddComponent<MeshRenderer>();
-	_playerRenderer->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"randMesh"));
-	_playerRenderer->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"randMat"));
-	
-	Object::Instantiate(_test, (UINT)LAYER_TYPE::PLAYER);
 	#pragma endregion
 
 	#pragma region Script Option

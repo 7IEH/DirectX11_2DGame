@@ -22,7 +22,6 @@ public:
 			HandleError(MAIN_HWND, L"LevelMgr AddLevelFunc Duplication Error!", 2);
 			return;
 		}
-
 		m_Levels.insert(make_pair(_levelName, _level));
 	}
 

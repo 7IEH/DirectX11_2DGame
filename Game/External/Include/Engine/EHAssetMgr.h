@@ -25,6 +25,11 @@ public:
 	template<typename T>
 	Ptr<T> Load(const wstring& _strFilePath, const wstring _name);
 
+private:
+	void CreateDefaultMesh();
+	void CreateDefaultShader();
+	void CreateDefaultMaterial();
+
 public:
 	void Awake();
 };
