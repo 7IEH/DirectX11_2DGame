@@ -43,6 +43,9 @@ public:
 
     void            InitializeDir();
 
+    Matrix          GetViewMat() { return m_ViewMat; }
+    Matrix          GetProjMat() { return m_ProjMat; }
+
 private:
     void ProjectiveView();
     void OrthographicView();

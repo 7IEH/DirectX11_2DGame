@@ -8,6 +8,13 @@ namespace Object
 {
 	void Instantiate(GameObject* _target, int _LayerIdx);
 	void Destroy(GameObject* _target);
+
+	void DrawDebugRect(const Matrix& _WorldMat, Vec3 _Color, bool _bDepthTest, float _Duration = 0.f);
+	void DrawDebugRect(Vec3 _vWorldPos, Vec3 _vWorldScale, Vec3 _vWorldRot, Vec3 _Color, bool _bDepthTest, float _Duration = 0.f);
+
+	//void DrawDebugCircle();
+	//void DrawDebugCube();
+	//void DrawDebugSphere();
 }
 
 // 메모리 해제 ( 배열용 )

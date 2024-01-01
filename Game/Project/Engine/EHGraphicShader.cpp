@@ -102,6 +102,12 @@ void GraphicShader::CreateBlobFile(SHADER_TYPE _type, wstring& _path, string& _e
 	default:
 		break;
 	}
+
+	if (nullptr != m_ErrBlob)
+	{
+		char* pErrMsg = (char*)m_ErrBlob->GetBufferPointer();
+		MessageBoxA(nullptr, pErrMsg, "Shader Compile Failed!!", MB_OK);
+	}
 }
 
 void GraphicShader::CreateShader(SHADER_TYPE _type)

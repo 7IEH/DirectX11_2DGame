@@ -34,8 +34,9 @@ void AssetMgr::CreateDefaultMesh()
 	vtx triangle[4] = {};
 	UINT idx[6] = {};
 
-
-	// RectMesh
+	/**********************
+	| Default Rect Mesh
+	**********************/
 	Mesh* _Rectmesh = new Mesh;
 
 	// Triangle Test------------------------------
@@ -71,6 +72,9 @@ void AssetMgr::CreateDefaultMesh()
 
 void AssetMgr::CreateDefaultShader()
 {
+	/******************
+	| Default Shader
+	******************/
 	GraphicShader* _defaultShader = new GraphicShader;
 
 	wstring _path = L"\\shader\\std2d.fx";
@@ -81,10 +85,27 @@ void AssetMgr::CreateDefaultShader()
 	_defaultShader->SetBlendType(BLEND_TYPE::ALPHABLENDING);
 
 	AddAsset(_defaultShader, L"DefaultShader");
+
+	/******************
+	| Debug Shader
+	******************/
+	GraphicShader* _debugShader = new GraphicShader;
+
+	_path = L"\\shader\\debug2d.fx";
+	_vsEntry = "VS_DebugShader";
+	_psEntry = "PS_DebugShader";
+
+	_debugShader->Create(_path, _vsEntry, _psEntry);
+	_debugShader->SetBlendType(BLEND_TYPE::DEFAULT);
+
+	AddAsset(_debugShader, L"DebugShader");
 }
 
 void AssetMgr::CreateDefaultMaterial()
 {
+	/******************
+	| BackGround Material
+	******************/
 	Material* _backgroundMaterial = new Material;
 	_backgroundMaterial->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"DefaultShader"));
 	_backgroundMaterial->SetMaterialParam(AMBIENT, Vec4(0.5f, 0.4f, 0.3f, 1.f));
@@ -93,6 +114,9 @@ void AssetMgr::CreateDefaultMaterial()
 	_backgroundMaterial->SetMaterialParam(SPECULAR, Vec4(0.5f, 0.4f, 0.3f, 1.f));
 	_backgroundMaterial->SetTexParam(TEX_0, AssetMgr::GetInst()->FindAsset<Sprite>(L"BackGroundSprite"));
 
+	/******************
+	| Player Material
+	******************/
 	Material* _playerMaterial = new Material;
 	_playerMaterial->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"DefaultShader"));
 	_playerMaterial->SetMaterialParam(AMBIENT, Vec4(0.5f, 0.4f, 0.3f, 1.f));
@@ -100,6 +124,13 @@ void AssetMgr::CreateDefaultMaterial()
 	_playerMaterial->SetMaterialParam(SPECULAR, Vec4(0.5f, 0.4f, 0.3f, 1.f));
 	_playerMaterial->SetTexParam(TEX_0, AssetMgr::GetInst()->FindAsset<Sprite>(L"PlayerSprite"));
 
+	/******************
+	| Debug Material
+	******************/
+	Material* _debugMaterial = new Material;
+	_debugMaterial->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"DebugShader"));
+
 	AddAsset(_backgroundMaterial, L"BackGroundMaterial");
 	AddAsset(_playerMaterial, L"PlayerMaterial");
+	AddAsset(_debugMaterial, L"DebugMaterial");
 }

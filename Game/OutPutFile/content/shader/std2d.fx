@@ -168,7 +168,7 @@ float4 PS_Std2D(VS_OUT _in) : SV_Target
     spec += S;
     
     float4 lightColor = ambient + diffuse + spec;
-    float4 color;
+    float4 color = (float4) 0.f;
     if (gMatrial.spriteCheck0 == 1)
     {
         color = ST0.Sample(samplerType2, _in.vUV) + lightColor;

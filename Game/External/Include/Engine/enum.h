@@ -243,6 +243,7 @@ enum class  SAMPLER_TYPE
 	END,
 };
 
+// Camera Type
 enum class CAMERA_TYPE
 {
 	MAIN_CAMERA,
@@ -253,7 +254,7 @@ enum class CAMERA_TYPE
 	NON_TYPE
 };
 
-// ScalarParam
+// Scalar Param
 enum SCALAR_PARAM
 {
 	INT_0,
@@ -282,6 +283,7 @@ enum SCALAR_PARAM
 	MAT_3,
 };
 
+// Texture Param
 enum TEX_PARAM
 {
 	TEX_0,
@@ -298,4 +300,14 @@ enum TEX_PARAM
 	TEXARR_1,
 
 	END,
+};
+
+// Debug Shape
+enum class DEBUG_SHAPE
+{
+	RECT,
+	CIRCLE,
+
+	CUBE,
+	SPHERE,
 };

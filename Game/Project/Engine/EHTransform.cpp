@@ -19,6 +19,7 @@ Transform::Transform()
 	, m_WorldDir{}
 	, m_Absolute(true)
 {
+	m_RelativeTransform._Scale = { 1.f,1.f,1.f,1.f };
 }
 
 Transform::~Transform()

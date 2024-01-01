@@ -401,6 +401,9 @@
     <ClCompile Include="EHRenderMgr.cpp">
       <Filter>04. Manager\RenderMgr</Filter>
     </ClCompile>
+    <ClCompile Include="RenderMgr_Init.cpp">
+      <Filter>04. Manager\RenderMgr</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">

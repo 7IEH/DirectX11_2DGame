@@ -132,7 +132,7 @@ void Camera::LayerVisibleSet(LAYER_TYPE _type, bool _visible)
 	}
 	else
 	{
-		m_LayerVisible &= (0 << (UINT)_type);
+		m_LayerVisible &= ~(1 << (UINT)_type);
 	}
 }
 

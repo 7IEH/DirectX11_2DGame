@@ -4,6 +4,15 @@
 #include "EHGameObject.h"
 #include "EHDevice.h"
 
+#include "EHCamera.h"
+
+#include "EHMeshRenderer.h"
+#include "EHTransform.h"
+
+#include "EHAssetMgr.h"
+
+extern transform e_MatrixData;
+
 RenderMgr::RenderMgr()
 	:m_Cam{}
 {
@@ -12,7 +21,8 @@ RenderMgr::RenderMgr()
 
 RenderMgr::~RenderMgr()
 {
-
+	if (nullptr != m_pDebugObj)
+		delete m_pDebugObj;
 }
 
 void RenderMgr::Update()
@@ -41,5 +51,38 @@ void RenderMgr::Render()
 
 void RenderMgr::DebugRender()
 {
+	Camera* _main_cam = m_Cam[0]->GetComponent<Camera>(COMPONENT_TYPE::CAMERA);
+	e_MatrixData.View = _main_cam->GetViewMat();
+	e_MatrixData.Projection = _main_cam->GetProjMat();
 
+	MeshRenderer* _debugMeshRenderer = m_pDebugObj->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER);
+	Transform* _debugtr = m_pDebugObj->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
+
+	list<tDebugShapeInfo>::iterator iter = m_DbgShapeInfo.begin();
+	for (; iter != m_DbgShapeInfo.end(); ++iter)
+	{
+		switch ((*iter).eShape)
+		{
+		case DEBUG_SHAPE::RECT:
+			_debugMeshRenderer->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"DefaultRectMesh"));
+			break;
+		case DEBUG_SHAPE::CIRCLE:
+			_debugMeshRenderer->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"DefaultCircleMesh"));
+			break;
+		case DEBUG_SHAPE::CUBE:
+			_debugMeshRenderer->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"DefaultCubeMesh"));
+			break;
+		case DEBUG_SHAPE::SPHERE:
+			_debugMeshRenderer->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"DefaultSphereMesh"));
+			break;
+		default:
+			break;
+		}
+
+		_debugMeshRenderer->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"DebugMaterial"));
+		_debugtr->SetWorldMat((*iter).matWorld);
+		_debugtr->UpdateData();
+
+		m_pDebugObj->Render();
+	}
 }

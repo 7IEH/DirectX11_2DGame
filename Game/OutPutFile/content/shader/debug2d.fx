@@ -25,9 +25,11 @@ VS_OUT VS_DebugShader(VS_IN _in)
     return _out;
 }
 
-float4 PS_DebugShader(VS_OUT _in)
+float4 PS_DebugShader(VS_OUT _in) : SV_Target
 {
-    float4 color = float4(1.f, 1.f, 0.f, 1.f);
+    float4 color = (float) 0.f;
+    
+    color = float4(1.f, 0.f, 0.f, 1.f);
     
     return color;
 }

@@ -37,6 +37,8 @@ public:
 
 	void SetAbsolute(bool _Absolute) { m_Absolute = _Absolute; }
 
+	void SetWorldMat(Matrix _RelativeWorld) { m_RelativeWorld = _RelativeWorld; }
+
 public:
 	virtual void LateUpdate() override;
 	virtual void UpdateData() override;

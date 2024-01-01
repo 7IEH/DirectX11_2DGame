@@ -60,6 +60,7 @@ void Engine::AwakeManager()
 	KeyMgr::GetInst()->Awake();
 	AssetMgr::GetInst()->Awake();
 	LevelMgr::GetInst()->Awake();
+	RenderMgr::GetInst()->Awake();
 	//ThreadMgr::GetInst()->Awake();
 }
 
