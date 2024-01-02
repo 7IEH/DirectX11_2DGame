@@ -1,15 +1,6 @@
 #pragma once
 #include "EHEntity.h"
-#include "EHComponent.h"
-#include "EHTransform.h"
-#include "EHMeshRenderer.h"
-#include "EHRenderer.h"
-#include "EHCamera.h"
-
-#include "EHScript.h"
-#include "EHPlayerScript.h"
-#include "EHCameraScript.h"
-#include "EHCameraTargetScript.h"
+#include "EHBehaviour.h"
 
 class Component;
 class Script;

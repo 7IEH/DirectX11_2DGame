@@ -29,7 +29,7 @@ float4 PS_DebugShader(VS_OUT _in) : SV_Target
 {
     float4 color = (float) 0.f;
     
-    color = float4(1.f, 0.f, 0.f, 1.f);
+    color = gMatrial._LightMat.Ambient;
     
     return color;
 }

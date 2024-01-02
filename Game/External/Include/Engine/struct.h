@@ -132,5 +132,6 @@ struct tDebugShapeInfo
 
 	Vec3		vColor;
 	float		fDuration;
+	float		fLifeTime;
 	bool		bDepthTest;
 };

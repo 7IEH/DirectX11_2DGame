@@ -311,3 +311,14 @@ enum class DEBUG_SHAPE
 	CUBE,
 	SPHERE,
 };
+
+// Map Generator Room Direction
+enum class DIR_ROOM 
+{
+	RIGHT,	
+	LEFT,
+	TOP,
+	BOTTOM,
+	CLOSED,
+	END
+};

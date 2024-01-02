@@ -4,6 +4,10 @@
 #include "framework.h"
 #include "Client.h"
 
+// IMGUI Header
+#include <imgui_impl_win32.h>
+
+// Engine Header
 #include <global.h>
 #include <EHEngine.h>
 #include <EHDevice.h>
@@ -14,6 +18,7 @@
 #pragma comment(lib,"Engine.lib")
 #endif // _DEBUG
 
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 #define MAX_LOADSTRING 100
 
@@ -86,10 +91,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
     }
 
-
-#ifdef _DEBUG
-    
-#endif 
+    // Imgui 소멸
+    ImGui_ImplWin32_Shutdown();
 
     return (int) msg.wParam;
 }
@@ -147,6 +150,13 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
 
+   IMGUI_CHECKVERSION();
+   ImGui::CreateContext();
+   ImGui::StyleColorsDark();
+
+   // Imgui init;
+   ImGui_ImplWin32_Init(hWnd);
+
    return TRUE;
 }
 
@@ -162,6 +172,11 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+    if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam))
+    {
+        return false;
+    }
+
     switch (message)
     {
     case WM_COMMAND:

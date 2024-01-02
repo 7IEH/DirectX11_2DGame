@@ -11,6 +11,7 @@
 #include "EHTaskMgr.h"
 #include "EHThreadMgr.h"
 #include "EHRenderMgr.h"	
+#include "EHImGUIMgr.h"
 #include "EHGarbageCollector.h"
 
 #include "EHCamera.h"
@@ -61,6 +62,10 @@ void Engine::AwakeManager()
 	AssetMgr::GetInst()->Awake();
 	LevelMgr::GetInst()->Awake();
 	RenderMgr::GetInst()->Awake();
+	if (FALSE == ImGUIMgr::GetInst()->Awake())
+	{
+		HandleError(MAIN_HWND, L"ImGUI InitailizeError", 1);
+	}
 	//ThreadMgr::GetInst()->Awake();
 }
 
@@ -79,7 +84,6 @@ void Engine::Update()
 	// Level Update
 	LevelMgr::GetInst()->Update();
 	RenderMgr::GetInst()->Update();
-	//LevelMgr::GetInst()->Render();
 
 	if (KEY_TAP(KEY::SPACE))
 	{

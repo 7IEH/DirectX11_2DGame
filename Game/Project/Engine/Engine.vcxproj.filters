@@ -139,6 +139,18 @@
     <Filter Include="04. Manager\RenderMgr">
       <UniqueIdentifier>{d07a1b79-ea16-46f2-bafd-cf6460c59ed1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="07. Component\Collider2D">
+      <UniqueIdentifier>{8dc68c76-3777-4dc5-89be-6cf72d4b1330}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\CollisionMgr">
+      <UniqueIdentifier>{08b0be4a-470e-44e6-945f-40bf6ca64ba6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Module\ImGUI">
+      <UniqueIdentifier>{54321bc4-00e7-4fb9-a9e2-d459df997201}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\ImGUIMgr">
+      <UniqueIdentifier>{af6c288e-4655-413e-83f9-2c5c7382f48d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -279,6 +291,39 @@
     <ClInclude Include="EHRenderMgr.h">
       <Filter>04. Manager\RenderMgr</Filter>
     </ClInclude>
+    <ClInclude Include="EHCollider2D.h">
+      <Filter>07. Component\Collider2D</Filter>
+    </ClInclude>
+    <ClInclude Include="EHBehaviour.h">
+      <Filter>01. Header</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_internal.h">
+      <Filter>Module\ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_rectpack.h">
+      <Filter>Module\ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_textedit.h">
+      <Filter>Module\ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_truetype.h">
+      <Filter>Module\ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="imconfig.h">
+      <Filter>Module\ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui.h">
+      <Filter>Module\ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="EHImGUIMgr.h">
+      <Filter>04. Manager\ImGUIMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_dx11.h">
+      <Filter>Module\ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_win32.h">
+      <Filter>Module\ImGUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -403,6 +448,33 @@
     </ClCompile>
     <ClCompile Include="RenderMgr_Init.cpp">
       <Filter>04. Manager\RenderMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="EHCollider2D.cpp">
+      <Filter>07. Component\Collider2D</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_demo.cpp">
+      <Filter>Module\ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_draw.cpp">
+      <Filter>Module\ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_tables.cpp">
+      <Filter>Module\ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_widgets.cpp">
+      <Filter>Module\ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui.cpp">
+      <Filter>Module\ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="EHImGUIMgr.cpp">
+      <Filter>04. Manager\ImGUIMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_dx11.cpp">
+      <Filter>Module\ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_win32.cpp">
+      <Filter>Module\ImGUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

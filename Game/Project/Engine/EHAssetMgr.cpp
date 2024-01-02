@@ -6,6 +6,15 @@
 #include "EHSprite.h"
 #include "EHMaterial.h"
 
+/************************
+|	AssetMgr
+|	1. Asset Initialize
+|	1-1. Sprite
+|	1-2. Mesh
+|	1-3. Shader
+|	1-4. Material
+************************/
+
 AssetMgr::AssetMgr()
 {
 
@@ -68,6 +77,40 @@ void AssetMgr::CreateDefaultMesh()
 	_Rectmesh->Create(triangle, 4, idx, 6);
 
 	AddAsset(_Rectmesh, L"DefaultRectMesh");
+
+
+	/***************************
+	| Default Debug Rect Mesh
+	***************************/
+	Mesh* _DebugRectMesh = new Mesh;
+
+	// Triangle Test------------------------------
+	triangle[0]._Postion = Vec3(-0.5f, 0.5f, 0.f);
+	triangle[0]._Color = Vec4(1.f, 0.f, 0.f, 1.f);
+	triangle[0]._UV = Vec2(0.f, 0.f);
+
+	triangle[1]._Postion = Vec3(0.5f, 0.5f, 0.f);
+	triangle[1]._Color = Vec4(0.f, 1.f, 0.f, 1.f);
+	triangle[1]._UV = Vec2(1.f, 0.f);
+
+	triangle[2]._Postion = Vec3(0.5f, -0.5f, 0.f);
+	triangle[2]._Color = Vec4(0.f, 0.f, 1.f, 1.f);
+	triangle[2]._UV = Vec2(1.f, 1.f);
+
+	triangle[3]._Postion = Vec3(-0.5f, -0.5f, 0.f);
+	triangle[3]._Color = Vec4(0.f, 0.f, 1.f, 1.f);
+	triangle[3]._UV = Vec2(0.f, 1.f);
+	// --------------------------------------------
+
+	idx[0] = 0;
+	idx[1] = 1;
+	idx[2] = 2;
+	idx[3] = 3;
+	idx[4] = 0;
+
+	_DebugRectMesh->Create(triangle, 4, idx, 5);
+
+	AddAsset(_DebugRectMesh, L"DefaultRectMesh_Debug");
 }
 
 void AssetMgr::CreateDefaultShader()
@@ -97,6 +140,9 @@ void AssetMgr::CreateDefaultShader()
 
 	_debugShader->Create(_path, _vsEntry, _psEntry);
 	_debugShader->SetBlendType(BLEND_TYPE::DEFAULT);
+	_debugShader->SetCullType(CULL_TYPE::NONE);
+	_debugShader->SetDSType(DS_TYPE::NO_TEST_NO_WRITE);
+	_debugShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
 
 	AddAsset(_debugShader, L"DebugShader");
 }
@@ -129,6 +175,7 @@ void AssetMgr::CreateDefaultMaterial()
 	******************/
 	Material* _debugMaterial = new Material;
 	_debugMaterial->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"DebugShader"));
+	_debugMaterial->SetMaterialParam(AMBIENT, Vec4(0.5f, 0.4f, 0.3f, 1.f));
 
 	AddAsset(_backgroundMaterial, L"BackGroundMaterial");
 	AddAsset(_playerMaterial, L"PlayerMaterial");

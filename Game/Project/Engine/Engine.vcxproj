@@ -154,9 +154,11 @@ call Copy.bat</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="EHBehaviour.h" />
     <ClInclude Include="EHCamera.h" />
     <ClInclude Include="EHCameraScript.h" />
     <ClInclude Include="EHCameraTargetScript.h" />
+    <ClInclude Include="EHCollider2D.h" />
     <ClInclude Include="EHComponent.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="EHAsset.h" />
@@ -167,6 +169,7 @@ call Copy.bat</Command>
     <ClInclude Include="EHEntity.h" />
     <ClInclude Include="EHGarbageCollector.h" />
     <ClInclude Include="EHGraphicShader.h" />
+    <ClInclude Include="EHImGUIMgr.h" />
     <ClInclude Include="EHKeyMgr.h" />
     <ClInclude Include="EHLayer.h" />
     <ClInclude Include="EHLevel.h" />
@@ -195,6 +198,14 @@ call Copy.bat</Command>
     <ClInclude Include="func.h" />
     <ClInclude Include="global.h" />
     <ClInclude Include="EHMeshRenderer.h" />
+    <ClInclude Include="imconfig.h" />
+    <ClInclude Include="imgui.h" />
+    <ClInclude Include="imgui_impl_dx11.h" />
+    <ClInclude Include="imgui_impl_win32.h" />
+    <ClInclude Include="imgui_internal.h" />
+    <ClInclude Include="imstb_rectpack.h" />
+    <ClInclude Include="imstb_textedit.h" />
+    <ClInclude Include="imstb_truetype.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Ptr.h" />
     <ClInclude Include="SimpleMath.h" />
@@ -205,6 +216,7 @@ call Copy.bat</Command>
     <ClCompile Include="EHCamera.cpp" />
     <ClCompile Include="EHCameraScript.cpp" />
     <ClCompile Include="EHCameraTargetScript.cpp" />
+    <ClCompile Include="EHCollider2D.cpp" />
     <ClCompile Include="EHComponent.cpp" />
     <ClCompile Include="EHAsset.cpp" />
     <ClCompile Include="EHAssetMgr.cpp" />
@@ -214,6 +226,7 @@ call Copy.bat</Command>
     <ClCompile Include="EHEntity.cpp" />
     <ClCompile Include="EHGarbageCollector.cpp" />
     <ClCompile Include="EHGraphicShader.cpp" />
+    <ClCompile Include="EHImGUIMgr.cpp" />
     <ClCompile Include="EHKeyMgr.cpp" />
     <ClCompile Include="EHLayer.cpp" />
     <ClCompile Include="EHLevel.cpp" />
@@ -241,6 +254,34 @@ call Copy.bat</Command>
     <ClCompile Include="func.cpp" />
     <ClCompile Include="global.cpp" />
     <ClCompile Include="EHMeshRenderer.cpp" />
+    <ClCompile Include="imgui.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="imgui_demo.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="imgui_draw.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_dx11.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_win32.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="imgui_tables.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="imgui_widgets.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

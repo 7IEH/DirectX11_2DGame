@@ -1,5 +1,9 @@
 #pragma once
 
+/********************
+|	Global Header
+********************/
+
 // 여기에 미리 컴파일하려는 헤더 추가
 #include "framework.h"
 
@@ -49,6 +53,10 @@ typedef Vector4 Vec4;
 #include "enum.h"
 #include "struct.h"
 #include "func.h"
+
+// ImGUI Header
+#include "imgui_impl_dx11.h"
+#include "imgui_impl_win32.h"
 
 #include <thread>
 #include <condition_variable>

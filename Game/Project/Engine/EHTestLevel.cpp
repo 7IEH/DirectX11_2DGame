@@ -7,16 +7,10 @@
 #include "EHThreadMgr.h"
 
 #include "EHMesh.h"
-#include "EHGraphicShader.h"
 #include "EHSprite.h"
 #include "EHMaterial.h" 
 
-#include "EHPlayerScript.h"
-#include "EHCameraScript.h"
-#include "EHCameraTargetScript.h"
-
-#include "EHCamera.h"
-#include "EHLIght2D.h"
+#include "EHBehaviour.h"
 
 TestLevel::TestLevel()
 {
@@ -94,6 +88,8 @@ void TestLevel::Awake()
 	_playerRenderer = _player->AddComponent<MeshRenderer>();
 	_playerRenderer->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"DefaultRectMesh"));
 	_playerRenderer->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"PlayerMaterial"));
+
+	_player->AddComponent<Collider2D>();
 
 	PlayerScript* _playerScript = _player->AddComponent<PlayerScript>();
 
