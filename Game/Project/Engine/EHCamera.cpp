@@ -40,7 +40,7 @@ void Camera::LateUpdate()
 {
 	Vec4 _pos = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativePosition();
 	// W = (RT)^-1 -> T^-1 * R^-1
-	Matrix _reverseTransform = XMMatrixTranspose(XMMatrixTranslation(-_pos.x, -_pos.y, -_pos.z));
+	Matrix _reverseTransform = XMMatrixTranslation(-_pos.x, -_pos.y, -_pos.z);
 
 	Vec3 _Right = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetWorldDir(DIRECTION_TYPE::RIGHT);
 	Vec3 _UP = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetWorldDir(DIRECTION_TYPE::UP);
@@ -50,6 +50,11 @@ void Camera::LateUpdate()
 								_UP.x,_UP.y,_UP.z,0,
 								_Front.x,_Front.y,_Front.z,0,
 								0,0,0,1 };
+
+	/*Matrix _reverseRotation = { _Right.x,_Right.y,_Right.z,0,
+								_UP.x,_UP.y,_UP.z,0,
+								_Front.x,_Front.y,_Front.z,0,
+								0,0,0,1 };*/
 
 	/**************************************
 	< -  View Matrix Caculate
@@ -89,13 +94,13 @@ void Camera::InitializeDir()
 void Camera::ProjectiveView()
 {
 	// Projection(Projection)
-	m_ProjMat = XMMatrixTranspose(XMMatrixPerspectiveFovLH(m_FOV, ASPECT_RATIO, 1.f, m_Far));
+	m_ProjMat = XMMatrixPerspectiveFovLH(m_FOV, ASPECT_RATIO, 1.f, m_Far);
 }
 
 void Camera::OrthographicView()
 {
 	// Projection(Orthographic)
-	m_ProjMat = XMMatrixTranspose(XMMatrixOrthographicLH(m_Width * m_Scale, 900.f * m_Scale, 1.f, m_Far));
+	m_ProjMat = XMMatrixOrthographicLH(m_Width * m_Scale, 900.f * m_Scale, 1.f, m_Far);
 }
 
 /************************

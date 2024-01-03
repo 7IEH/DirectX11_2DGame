@@ -151,6 +151,27 @@
     <Filter Include="04. Manager\ImGUIMgr">
       <UniqueIdentifier>{af6c288e-4655-413e-83f9-2c5c7382f48d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="07. Component\Collider">
+      <UniqueIdentifier>{c508850b-c8c7-4e2f-bf6c-b9ce5a25e315}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Component\Collider\Collider2D">
+      <UniqueIdentifier>{7808407c-367c-48bb-a1d9-3f55068b7014}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Component\Collider\Collider3D">
+      <UniqueIdentifier>{af526a59-f0ec-4d50-b060-0f3af74d7480}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Component\Collider\Collider2D\BoxCollider2D">
+      <UniqueIdentifier>{581388f2-7de7-467a-abcb-289965a36902}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Component\Collider\Collider2D\CircleCollider2D">
+      <UniqueIdentifier>{e92bcb1e-e96c-45aa-bf57-102b90dd711f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Component\Collider\Collider3D\BoxCollider">
+      <UniqueIdentifier>{687e93e7-c930-4974-93d4-7442a5e431a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Component\Collider\Collider3D\SphereCollider">
+      <UniqueIdentifier>{2d67622d-2574-4e31-8692-cd1ebef1059c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -324,6 +345,12 @@
     <ClInclude Include="imgui_impl_win32.h">
       <Filter>Module\ImGUI</Filter>
     </ClInclude>
+    <ClInclude Include="EHCollisionMgr.h">
+      <Filter>04. Manager\CollisionMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="EHCollider.h">
+      <Filter>07. Component\Collider</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -475,6 +502,12 @@
     </ClCompile>
     <ClCompile Include="imgui_impl_win32.cpp">
       <Filter>Module\ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="EHCollisionMgr.cpp">
+      <Filter>04. Manager\CollisionMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="EHCollider.cpp">
+      <Filter>07. Component\Collider</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

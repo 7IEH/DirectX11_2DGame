@@ -1,5 +1,6 @@
 #pragma once
 #include "EHComponent.h"
+
 class Collider2D :
 	public Component
 {
@@ -17,6 +18,8 @@ private:
 
 	bool			m_IsTrigger;
 
+	bool			m_Type;
+
 public:
 	virtual void LateUpdate();
 
@@ -31,8 +34,16 @@ public:
 	void    Enabled(bool _Enabled) { m_Enabled = _Enabled; }
 	void    IsTrigger(bool _IsTrigger) { m_IsTrigger = _IsTrigger; }
 
+private:
+	void OnTriggerEnter(Collider2D* _other);
+	void OnTriggerStay(Collider2D* _other);
+	void OnTriggerExit(Collider2D* _other);
+
 public:
 	Collider2D();
 	virtual ~Collider2D();
+
+
+	friend class CollisionMgr;
 };
 

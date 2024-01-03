@@ -158,7 +158,9 @@ call Copy.bat</Command>
     <ClInclude Include="EHCamera.h" />
     <ClInclude Include="EHCameraScript.h" />
     <ClInclude Include="EHCameraTargetScript.h" />
+    <ClInclude Include="EHCollider.h" />
     <ClInclude Include="EHCollider2D.h" />
+    <ClInclude Include="EHCollisionMgr.h" />
     <ClInclude Include="EHComponent.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="EHAsset.h" />
@@ -216,7 +218,9 @@ call Copy.bat</Command>
     <ClCompile Include="EHCamera.cpp" />
     <ClCompile Include="EHCameraScript.cpp" />
     <ClCompile Include="EHCameraTargetScript.cpp" />
+    <ClCompile Include="EHCollider.cpp" />
     <ClCompile Include="EHCollider2D.cpp" />
+    <ClCompile Include="EHCollisionMgr.cpp" />
     <ClCompile Include="EHComponent.cpp" />
     <ClCompile Include="EHAsset.cpp" />
     <ClCompile Include="EHAssetMgr.cpp" />

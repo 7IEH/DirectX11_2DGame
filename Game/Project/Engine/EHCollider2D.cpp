@@ -57,3 +57,17 @@ void Collider2D::LateUpdate()
 		Object::DrawDebugRect(m_OffsetMat, Vec3(1.f, 0.f, 0.f), TRUE, 0.f);
 	}
 }
+
+void Collider2D::OnTriggerEnter(Collider2D* _other)
+{
+	m_CollisionCount++;
+}
+
+void Collider2D::OnTriggerStay(Collider2D* _other)
+{
+}
+
+void Collider2D::OnTriggerExit(Collider2D* _other)
+{
+	m_CollisionCount--;
+}

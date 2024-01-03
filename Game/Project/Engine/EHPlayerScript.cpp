@@ -8,6 +8,8 @@
 
 #include "EHTimeMgr.h"
 
+#include "EHImGUIMgr.h"
+
 PlayerScript::PlayerScript()
 	:m_Speed(200.f)
 {
@@ -21,6 +23,7 @@ void PlayerScript::Update()
 {
 	Transform* _transform = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
 	tTransform* _transformInfo = nullptr;
+
 	if (_transform == nullptr)
 	{
 		return;
@@ -45,5 +48,11 @@ void PlayerScript::Update()
 	{
 		_pos.y -= m_Speed * DT;
 	}
+
+	if (KEY_PRESSED(SPACE))
+	{
+		GetOwner()->SetDead(TRUE);
+	}
+
 	_transform->SetRelativePosition(_pos);
 }

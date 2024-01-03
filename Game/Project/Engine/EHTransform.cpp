@@ -43,8 +43,8 @@ void Transform::LateUpdate()
 	_temp = XMMatrixMultiply(_temp, _rotateMatrixY);
 	_temp = XMMatrixMultiply(_temp, _rotateMatrixZ);
 	_temp = XMMatrixMultiply(_temp, _transformMatrix);
-	m_RelativeWorld = XMMatrixTranspose(_temp);
-
+	m_RelativeWorld = _temp;
+	
 	// 물체의 방향값을 다시 계산한다.
 	m_WorldDir[(UINT)DIRECTION_TYPE::RIGHT] = m_LocalDir[(UINT)DIRECTION_TYPE::RIGHT] = { 1.f,0.f,0.f,0.f };
 	m_WorldDir[(UINT)DIRECTION_TYPE::UP] = m_LocalDir[(UINT)DIRECTION_TYPE::UP] = { 0.f,1.f,0.f,0.f };
@@ -66,7 +66,6 @@ void Transform::LateUpdate()
 	{
 		Transform* _parenttr = _parent->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
 		XMMATRIX _parentMat = _parenttr->GetMatWorld();
-		_parentMat = XMMatrixTranspose(_parentMat);
 		if (m_Absolute)
 		{
 			Vec4 vParentScale = _parenttr->GetRelativeScale();
@@ -74,12 +73,10 @@ void Transform::LateUpdate()
 			XMMATRIX matParentScaleInv = XMMatrixScaling(1.f / vParentScale.x, 1.f / vParentScale.y, 1.f / vParentScale.z);
 
 			m_RelativeWorld = _temp * matParentScaleInv * _parentMat;
-			m_RelativeWorld = XMMatrixTranspose(m_RelativeWorld);
 		}
 		else
 		{
 			m_RelativeWorld = XMMatrixMultiply(_temp, _parentMat);
-			m_RelativeWorld = XMMatrixTranspose(m_RelativeWorld);
 		}
 	}
 
@@ -94,22 +91,29 @@ void Transform::LateUpdate()
 void Transform::UpdateData()
 {
 	e_MatrixData.World = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetMatWorld();
+
 	e_MatrixData.WorldInv = XMMatrixInverse(nullptr, e_MatrixData.World);
+	
+	e_MatrixData.WorldInv = XMMatrixTranspose(e_MatrixData.WorldInv);
 
 	e_MatrixData.ViewInv = XMMatrixInverse(nullptr, e_MatrixData.View);
 
+	e_MatrixData.ViewInv = XMMatrixTranspose(e_MatrixData.ViewInv);
+
 	e_MatrixData.ProjInv = XMMatrixInverse(nullptr, e_MatrixData.Projection);
 
-	XMMATRIX _worldtemp = XMMatrixTranspose(e_MatrixData.World);
-	XMMATRIX _viewtemp = XMMatrixTranspose(e_MatrixData.View);
-	XMMATRIX _projectiontemp = XMMatrixTranspose(e_MatrixData.Projection);
+	e_MatrixData.ProjInv = XMMatrixTranspose(e_MatrixData.ProjInv);
 
-	// WV
+	XMMATRIX _worldtemp = e_MatrixData.World;
+	XMMATRIX _viewtemp = e_MatrixData.View;
+	XMMATRIX _projectiontemp = e_MatrixData.Projection;
+
 	e_MatrixData.WV = XMMatrixMultiply(_worldtemp, _viewtemp);
 
 	// WVP
 	e_MatrixData.WVP = XMMatrixTranspose(XMMatrixMultiply(e_MatrixData.WV, _projectiontemp));
 
+	// WV 
 	e_MatrixData.WV = XMMatrixTranspose(e_MatrixData.WV);
 
 	Device::GetInst()->GetConstantBuffer(CONSTANT_TYPE::TRANSFORM)->SetData(&e_MatrixData, sizeof(transform), 1);
@@ -120,6 +124,20 @@ void Transform::UpdateData()
 
 	Device::GetInst()->GetConstantBuffer(CONSTANT_TYPE::NORMANL)->SetData(&temp, sizeof(NomralVector), 1);
 	Device::GetInst()->GetConstantBuffer(CONSTANT_TYPE::NORMANL)->UpdateData();
+}
+
+Vec3 Transform::GetWorldScale()
+{
+	GameObject* pParent = GetOwner()->GetParent();
+	Vec3 vWorldScale = Vec3(m_RelativeTransform._Scale);
+
+	while(pParent)
+	{
+		vWorldScale *= Vec3(pParent->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativeScale());
+		pParent = pParent->GetParent();
+	}
+
+	return vWorldScale;
 }
 
 void Transform::InitializeDir()

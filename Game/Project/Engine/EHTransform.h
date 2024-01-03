@@ -27,6 +27,8 @@ public:
 	Vec3 GetRelativeRotation() { return m_RelativeTransform._Rotation; }
 	Vec4 GetRelativePosition() { return  m_RelativeTransform._Position; }
 
+	Vec3 GetWorldScale();
+
 	Vec3 GetLocalDir(DIRECTION_TYPE _type) { return m_LocalDir[(UINT)_type]; }
 	void SetLocalDir(DIRECTION_TYPE _type, Vec3 _dir) { m_LocalDir[(UINT)_type] = _dir; }
 

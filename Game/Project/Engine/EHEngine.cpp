@@ -12,6 +12,7 @@
 #include "EHThreadMgr.h"
 #include "EHRenderMgr.h"	
 #include "EHImGUIMgr.h"
+#include "EHCollisionMgr.h"
 #include "EHGarbageCollector.h"
 
 #include "EHCamera.h"
@@ -83,6 +84,7 @@ void Engine::Update()
 
 	// Level Update
 	LevelMgr::GetInst()->Update();
+	CollisionMgr::GetInst()->Update();
 	RenderMgr::GetInst()->Update();
 
 	if (KEY_TAP(KEY::SPACE))

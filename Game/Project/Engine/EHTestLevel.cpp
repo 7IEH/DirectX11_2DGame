@@ -5,12 +5,14 @@
 
 #include "EHAssetMgr.h"
 #include "EHThreadMgr.h"
+#include "EHImGUIMgr.h"
 
 #include "EHMesh.h"
 #include "EHSprite.h"
 #include "EHMaterial.h" 
 
 #include "EHBehaviour.h"
+#include "EHCollisionMgr.h"
 
 TestLevel::TestLevel()
 {
@@ -30,7 +32,7 @@ void TestLevel::Awake()
 	CameraScript* _cameraScript = _MainCamera->AddComponent<CameraScript>();
 	
 	_camera->AllVisibleSet(TRUE);
-	_camera->LayerVisibleSet(LAYER_TYPE::BACKGROUND,true);
+	_camera->LayerVisibleSet(LAYER_TYPE::BACKGROUND,TRUE);
 	_camera->SetCameraType(CAMERA_TYPE::MAIN_CAMERA);
 
 	tr->SetRelativeScale(Vec4(1.f, 1.f, 1.f, 1.f));
@@ -89,6 +91,8 @@ void TestLevel::Awake()
 	_playerRenderer->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"DefaultRectMesh"));
 	_playerRenderer->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"PlayerMaterial"));
 
+	ImGUIMgr::GetInst()->SetObject(_player);
+
 	_player->AddComponent<Collider2D>();
 
 	PlayerScript* _playerScript = _player->AddComponent<PlayerScript>();
@@ -100,7 +104,24 @@ void TestLevel::Awake()
 	_cameraScript->SetTarget(_player);
 	#pragma endregion
 	
-	//Object::DrawDebugRect(Vec3(0.f, 0.f, 0.f), Vec3(400.f, 400.f, 1.f), Vec3(0.f, 0.f, 0.f), Vec3(1.f, 0.f, 0.f), TRUE, 20.f);
+	
+	// Player
+	GameObject* _enemy = new GameObject();
+	tr = _enemy->AddComponent<Transform>();
+	tr->SetRelativeScale(Vec4(100.f, 92.f, 1.f, 1.f));
+	tr->SetRelativePosition(Vec4(450.f, 0.f, 0.f, 1.f));
+	tr->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
+
+	_playerRenderer = _enemy->AddComponent<MeshRenderer>();
+	_playerRenderer->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"DefaultRectMesh"));
+	_playerRenderer->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"PlayerMaterial"));
+
+	_enemy->AddComponent<Collider2D>();
+
+	Object::Instantiate(_enemy, (UINT)LAYER_TYPE::MONSTER);
+
+	CollisionMgr::GetInst()->LayerCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::MONSTER);
+
 	Level::Awake();
 }
 
