@@ -1,6 +1,6 @@
 #pragma once
 
-class Collider2D;
+class Collider;
 
 union CollisionID
 {
@@ -36,6 +36,15 @@ public:
 
 private:
 	void CollisionLayer(UINT _left, UINT _right);
-	bool CollisionCollider(Collider2D* _pLeft, Collider2D* _pRight);
+	bool CollisionCollider(Collider* _colLeft, Collider* _colRight);
+
+private:
+	// 2D
+	bool Box2DCollisionCheck(Collider* _colLeft, Collider* _colRight);
+	bool Circle2DCollisionCheck(Collider* _colLeft, Collider* _colRight);
+	
+	// 3D
+	bool Box3DCollisionCheck(Collider* _colLeft, Collider* _colRight);
+	bool SphereCollisionCheck(Collider* _colLeft, Collider* _colRight);
 };
 

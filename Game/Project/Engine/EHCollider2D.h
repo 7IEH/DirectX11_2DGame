@@ -1,27 +1,18 @@
 #pragma once
-#include "EHComponent.h"
+#include "EHCollider.h"
 
 class Collider2D :
-	public Component
+	public Collider
 {
 private:
-	Vec3			m_OffsetPos;
-	Vec3			m_OffsetSize;
+	Vec3					m_OffsetPos;
+	Vec3					m_OffsetSize;
 
-	Matrix			m_OffsetMat;
-
-
-	UINT			m_CollisionCount;
-
-	bool			m_Absolute;
-	bool			m_Enabled;
-
-	bool			m_IsTrigger;
-
-	bool			m_Type;
+	Matrix					m_OffsetMat;
 
 public:
-	virtual void LateUpdate();
+	virtual void LateUpdate()override;
+	virtual void DrawCollider()override;
 
 public:
 	Vec3    GetOffsetPos() { return m_OffsetPos; }
@@ -30,14 +21,6 @@ public:
 
 	void    SetOffsetPos(Vec3 _OffsetPos) { m_OffsetPos = _OffsetPos; }
 	void    SetoffSetScale(Vec3 _OffsetSize) { m_OffsetSize = _OffsetSize; }
-
-	void    Enabled(bool _Enabled) { m_Enabled = _Enabled; }
-	void    IsTrigger(bool _IsTrigger) { m_IsTrigger = _IsTrigger; }
-
-private:
-	void OnTriggerEnter(Collider2D* _other);
-	void OnTriggerStay(Collider2D* _other);
-	void OnTriggerExit(Collider2D* _other);
 
 public:
 	Collider2D();

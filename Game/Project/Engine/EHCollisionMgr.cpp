@@ -4,6 +4,10 @@
 #include "EHLevelMgr.h"
 #include "EHGameObject.h"
 
+#include "EHCollider.h"
+#include "EHCollider2D.h"
+#include "EHCircleCollider2D.h"
+
 CollisionMgr::CollisionMgr()
 	:m_CollisionMatrix{}
 	, m_MemoryOfCollision{}
@@ -54,8 +58,8 @@ void CollisionMgr::CollisionLayer(UINT _left, UINT _right)
 	const vector<GameObject*>& _rightObj = _rightLayer->GetLayerObject();
 
 	for (size_t i = 0; i < _leftObj.size();i++)
-	{
-		if (nullptr == _leftObj[i]->GetComponent<Collider2D>(COMPONENT_TYPE::COLLIDER2D))
+	{		
+		if (nullptr == _leftObj[i]->GetComponent<Collider>(COMPONENT_TYPE::COLLIDER2D))
 			continue;
 
 		size_t j = 0;
@@ -67,7 +71,7 @@ void CollisionMgr::CollisionLayer(UINT _left, UINT _right)
 
 		for (;j < _rightObj.size();j++)
 		{
-			if (nullptr == _rightObj[i]->GetComponent<Collider2D>(COMPONENT_TYPE::COLLIDER2D))
+			if (nullptr == _rightObj[i]->GetComponent<Collider>(COMPONENT_TYPE::COLLIDER2D))
 				continue;
 
 			CollisionID id = {};
@@ -84,8 +88,8 @@ void CollisionMgr::CollisionLayer(UINT _left, UINT _right)
 
 			bool bDead = _leftObj[i]->GetDead() || _rightObj[i]->GetDead();
 
-			Collider2D* _leftCol = _leftObj[i]->GetComponent<Collider2D>(COMPONENT_TYPE::COLLIDER2D);
-			Collider2D* _rightCol = _rightObj[i]->GetComponent<Collider2D>(COMPONENT_TYPE::COLLIDER2D);
+			Collider* _leftCol = _leftObj[i]->GetComponent<Collider>(COMPONENT_TYPE::COLLIDER2D);
+			Collider* _rightCol = _rightObj[i]->GetComponent<Collider>(COMPONENT_TYPE::COLLIDER2D);
 
 			if (CollisionCollider(_leftCol, _rightCol))
 			{
@@ -131,10 +135,42 @@ void CollisionMgr::CollisionLayer(UINT _left, UINT _right)
 	}
 }
 
-bool CollisionMgr::CollisionCollider(Collider2D* _pLeft, Collider2D* _pRight)
+bool CollisionMgr::CollisionCollider(Collider* _colLeft, Collider* _colRight)
 {
-	Matrix _leftMat = _pLeft->GetOffsetMatrix();
-	Matrix _rightMat = _pRight->GetOffsetMatrix();
+	COLLIDER_TYPE _leftType = _colLeft->GetColliderType();
+	COLLIDER_TYPE _rightType = _colRight->GetColliderType();
+
+
+	if (_leftType == COLLIDER_TYPE::BOXCOLLIDER2D && _rightType == COLLIDER_TYPE::BOXCOLLIDER2D)
+	{
+		return Box2DCollisionCheck(_colLeft, _colRight);
+	}
+	else if (_leftType == COLLIDER_TYPE::CIRCLECOLLDIER2D && _rightType == COLLIDER_TYPE::CIRCLECOLLDIER2D)
+	{
+		return Circle2DCollisionCheck(_colLeft, _colRight);
+	}
+	else if (_leftType == COLLIDER_TYPE::BOXCOLLIDER && _rightType == COLLIDER_TYPE::BOXCOLLIDER)
+	{
+		return Box3DCollisionCheck(_colLeft, _colRight);
+	}
+	else if (_leftType == COLLIDER_TYPE::SPHERECOLLDIER && _rightType == COLLIDER_TYPE::SPHERECOLLDIER)
+	{
+		return SphereCollisionCheck(_colLeft, _colRight);
+	}
+
+	return FALSE;
+}
+
+bool CollisionMgr::Box2DCollisionCheck(Collider* _colLeft, Collider* _colRight)
+{
+	Collider2D* _box2DLeft = dynamic_cast<Collider2D*>(_colLeft);
+	Collider2D*	_box2DRight = dynamic_cast<Collider2D*>(_colRight);
+
+	if (nullptr == _box2DLeft || nullptr == _box2DRight)
+		return FALSE;
+
+	Matrix _leftMat = _box2DLeft->GetOffsetMatrix();
+	Matrix _rightMat = _box2DRight->GetOffsetMatrix();
 
 	// 가상의 점들
 	static Vec3	_Points[4] = { {-0.5f,0.5f,0.f},{0.5f,0.5f,0.f},
@@ -163,9 +199,46 @@ bool CollisionMgr::CollisionCollider(Collider2D* _pLeft, Collider2D* _pRight)
 
 		if (_test < _compare)
 		{
-			return false;
+			return FALSE;
 		}
 	}
 
+	return TRUE;
+}
+
+bool CollisionMgr::Circle2DCollisionCheck(Collider* _colLeft, Collider* _colRight)
+{
+	CircleCollider2D* _circle2DLeft = dynamic_cast<CircleCollider2D*>(_colLeft);
+	CircleCollider2D* _circle2DRight = dynamic_cast<CircleCollider2D*>(_colRight);
+
+	if (nullptr == _circle2DLeft || nullptr == _circle2DRight)
+		return FALSE;
+
+	float _leftRadius = _circle2DLeft->GetRadius();
+	float _rightRadius = _circle2DRight->GetRadius();
+
+	const Matrix _leftMat = _circle2DLeft->GetOffsetMat();
+	const Matrix _rightMat = _circle2DRight->GetOffsetMat();
+
+	Vec3 _CenterVec3 = XMVector3TransformCoord(Vec3(0.f, 0.f, 0.f), _leftMat) - XMVector3TransformCoord(Vec3(0.f, 0.f, 0.f), _rightMat);
+	float _CenterDistance = _CenterVec3.Length();
+	float _radiusCombine = _leftRadius + _rightRadius;
+	_radiusCombine /= 2.f;
+
+	if (_CenterDistance > _radiusCombine)
+	{
+		return FALSE;
+	}
+
+	return TRUE;
+}
+
+bool CollisionMgr::Box3DCollisionCheck(Collider* _colLeft, Collider* _colRight)
+{
+	return TRUE;
+}
+
+bool CollisionMgr::SphereCollisionCheck(Collider* _colLeft, Collider* _colRight)
+{
 	return TRUE;
 }

@@ -111,6 +111,38 @@ void AssetMgr::CreateDefaultMesh()
 	_DebugRectMesh->Create(triangle, 4, idx, 5);
 
 	AddAsset(_DebugRectMesh, L"DefaultRectMesh_Debug");
+
+	/***************************
+	| Default Debug Circle Mesh
+	***************************/
+	Mesh* _DebugCircleMesh = new Mesh;
+
+	vector<vtx> vecVtx;
+	vector<UINT> vecIdx;
+	vtx v;
+
+	UINT iSlice = 40;
+	float fTheta = 0.f;
+	float fRadius = 0.5f;
+
+	for (UINT i = 0;i <= iSlice;i++)
+	{
+		fTheta = (XM_2PI / iSlice) * i;
+		v._Postion = Vec3(fRadius * cosf(fTheta), fRadius * sinf(fTheta), 0.f);
+		v._Color = Vec4(1.f, 1.f, 1.f, 1.f);
+		v._UV = Vec2(0.f, 0.f);
+		
+		vecVtx.push_back(v);
+	}
+
+	for (int i = 0;i < vecVtx.size();i++)
+	{
+		vecIdx.push_back(i);
+	}
+
+	_DebugCircleMesh->Create(vecVtx.data(), (UINT)vecIdx.size(), vecIdx.data(), (UINT)vecIdx.size());
+
+	AddAsset(_DebugCircleMesh, L"DefaultCircleMesh_Debug");
 }
 
 void AssetMgr::CreateDefaultShader()

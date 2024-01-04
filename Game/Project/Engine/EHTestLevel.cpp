@@ -24,15 +24,15 @@ TestLevel::~TestLevel()
 
 void TestLevel::Awake()
 {
-	#pragma region Essential Object
+#pragma region Essential Object
 	// Main Camera
 	GameObject* _MainCamera = new GameObject;
 	Transform* tr = _MainCamera->AddComponent<Transform>();
 	Camera* _camera = _MainCamera->AddComponent<Camera>();
 	CameraScript* _cameraScript = _MainCamera->AddComponent<CameraScript>();
-	
+
 	_camera->AllVisibleSet(TRUE);
-	_camera->LayerVisibleSet(LAYER_TYPE::BACKGROUND,TRUE);
+	_camera->LayerVisibleSet(LAYER_TYPE::BACKGROUND, TRUE);
 	_camera->SetCameraType(CAMERA_TYPE::MAIN_CAMERA);
 
 	tr->SetRelativeScale(Vec4(1.f, 1.f, 1.f, 1.f));
@@ -52,7 +52,7 @@ void TestLevel::Awake()
 	tr->SetRelativePosition(Vec4(0.f, 0.f, -10.f, 1.f));
 	tr->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
 
-	
+
 	Object::Instantiate(_UICamera, (UINT)LAYER_TYPE::CAMERA);*/
 
 	// Light
@@ -60,12 +60,12 @@ void TestLevel::Awake()
 	tr = _Light->AddComponent<Transform>();
 	LIght2D* _light = _Light->AddComponent<LIght2D>();
 
-	
+
 	Object::Instantiate(_Light, (UINT)LAYER_TYPE::LIGHT2D);
 	Object::Instantiate(_MainCamera, (UINT)LAYER_TYPE::CAMERA);
-	#pragma endregion
+#pragma endregion
 
-	#pragma region BackGround
+#pragma region BackGround
 	// Background
 	GameObject* _backGround = new GameObject;
 	tr = _backGround->AddComponent<Transform>();
@@ -77,9 +77,9 @@ void TestLevel::Awake()
 	_playerRenderer->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"DefaultRectMesh"));
 	_playerRenderer->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"BackGroundMaterial"));
 	Object::Instantiate(_backGround, (UINT)LAYER_TYPE::BACKGROUND);
-	#pragma endregion
+#pragma endregion
 
-	#pragma region GameObject
+#pragma region GameObject
 	// Player
 	GameObject* _player = new GameObject();
 	tr = _player->AddComponent<Transform>();
@@ -93,18 +93,19 @@ void TestLevel::Awake()
 
 	ImGUIMgr::GetInst()->SetObject(_player);
 
-	_player->AddComponent<Collider2D>();
+	CircleCollider2D* _col = _player->AddComponent<CircleCollider2D>();
+	_col->SetRadius(100.f);
 
 	PlayerScript* _playerScript = _player->AddComponent<PlayerScript>();
 
 	Object::Instantiate(_player, (UINT)LAYER_TYPE::PLAYER);
-	#pragma endregion
+#pragma endregion
 
-	#pragma region Script Option
+#pragma region Script Option
 	_cameraScript->SetTarget(_player);
-	#pragma endregion
-	
-	
+#pragma endregion
+
+
 	// Player
 	GameObject* _enemy = new GameObject();
 	tr = _enemy->AddComponent<Transform>();
@@ -116,7 +117,8 @@ void TestLevel::Awake()
 	_playerRenderer->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"DefaultRectMesh"));
 	_playerRenderer->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"PlayerMaterial"));
 
-	_enemy->AddComponent<Collider2D>();
+	_col = _enemy->AddComponent<CircleCollider2D>();
+	_col->SetRadius(100.f);
 
 	Object::Instantiate(_enemy, (UINT)LAYER_TYPE::MONSTER);
 

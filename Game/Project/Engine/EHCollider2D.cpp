@@ -4,14 +4,10 @@
 #include "EHGameObject.h"
 
 Collider2D::Collider2D()
-	:Component(COMPONENT_TYPE::COLLIDER2D)
+	:Collider(COLLIDER_TYPE::BOXCOLLIDER2D)
 	, m_OffsetPos(Vec3(0.f, 0.f, 0.f))
 	, m_OffsetSize(Vec3(1.f, 1.f, 1.f))
 	, m_OffsetMat{}
-	, m_CollisionCount(0)
-	, m_Absolute(FALSE)
-	, m_Enabled(TRUE)
-	, m_IsTrigger(FALSE)
 {
 }
 
@@ -39,7 +35,7 @@ void Collider2D::LateUpdate()
 	Matrix _OwnerScaleMat = XMMatrixScaling(_OwnerScale.x, _OwnerScale.y, _OwnerScale.z);
 	_OwnerScaleMat = XMMatrixInverse(nullptr, _OwnerScaleMat);
 
-	if (m_Absolute)
+	if (GetAbsolute())
 	{
 		// Scale Normalized
 		_OwnerWorld = XMMatrixMultiply(_OwnerScaleMat, _OwnerWorld);
@@ -48,7 +44,12 @@ void Collider2D::LateUpdate()
 	m_OffsetMat = XMMatrixMultiply(m_OffsetMat, _OwnerWorld);
 
 	//Draw
-	if (m_CollisionCount == 0)
+	DrawCollider();
+}
+
+void Collider2D::DrawCollider()
+{
+	if (GetCollisionCount() == 0)
 	{
 		Object::DrawDebugRect(m_OffsetMat, Vec3(0.f, 1.f, 0.f), TRUE, 0.f);
 	}
@@ -56,18 +57,4 @@ void Collider2D::LateUpdate()
 	{
 		Object::DrawDebugRect(m_OffsetMat, Vec3(1.f, 0.f, 0.f), TRUE, 0.f);
 	}
-}
-
-void Collider2D::OnTriggerEnter(Collider2D* _other)
-{
-	m_CollisionCount++;
-}
-
-void Collider2D::OnTriggerStay(Collider2D* _other)
-{
-}
-
-void Collider2D::OnTriggerExit(Collider2D* _other)
-{
-	m_CollisionCount--;
 }

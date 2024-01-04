@@ -139,9 +139,6 @@
     <Filter Include="04. Manager\RenderMgr">
       <UniqueIdentifier>{d07a1b79-ea16-46f2-bafd-cf6460c59ed1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="07. Component\Collider2D">
-      <UniqueIdentifier>{8dc68c76-3777-4dc5-89be-6cf72d4b1330}</UniqueIdentifier>
-    </Filter>
     <Filter Include="04. Manager\CollisionMgr">
       <UniqueIdentifier>{08b0be4a-470e-44e6-945f-40bf6ca64ba6}</UniqueIdentifier>
     </Filter>
@@ -312,9 +309,6 @@
     <ClInclude Include="EHRenderMgr.h">
       <Filter>04. Manager\RenderMgr</Filter>
     </ClInclude>
-    <ClInclude Include="EHCollider2D.h">
-      <Filter>07. Component\Collider2D</Filter>
-    </ClInclude>
     <ClInclude Include="EHBehaviour.h">
       <Filter>01. Header</Filter>
     </ClInclude>
@@ -350,6 +344,12 @@
     </ClInclude>
     <ClInclude Include="EHCollider.h">
       <Filter>07. Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="EHCollider2D.h">
+      <Filter>07. Component\Collider\Collider2D\BoxCollider2D</Filter>
+    </ClInclude>
+    <ClInclude Include="EHCircleCollider2D.h">
+      <Filter>07. Component\Collider\Collider2D\CircleCollider2D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -476,9 +476,6 @@
     <ClCompile Include="RenderMgr_Init.cpp">
       <Filter>04. Manager\RenderMgr</Filter>
     </ClCompile>
-    <ClCompile Include="EHCollider2D.cpp">
-      <Filter>07. Component\Collider2D</Filter>
-    </ClCompile>
     <ClCompile Include="imgui_demo.cpp">
       <Filter>Module\ImGUI</Filter>
     </ClCompile>
@@ -508,6 +505,12 @@
     </ClCompile>
     <ClCompile Include="EHCollider.cpp">
       <Filter>07. Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="EHCollider2D.cpp">
+      <Filter>07. Component\Collider\Collider2D\BoxCollider2D</Filter>
+    </ClCompile>
+    <ClCompile Include="EHCircleCollider2D.cpp">
+      <Filter>07. Component\Collider\Collider2D\CircleCollider2D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
