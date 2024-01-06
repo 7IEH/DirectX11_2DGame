@@ -154,6 +154,8 @@ call Copy.bat</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="EHAnimation2D.h" />
+    <ClInclude Include="EHAnimator2D.h" />
     <ClInclude Include="EHBehaviour.h" />
     <ClInclude Include="EHCamera.h" />
     <ClInclude Include="EHCameraScript.h" />
@@ -173,6 +175,7 @@ call Copy.bat</Command>
     <ClInclude Include="EHGarbageCollector.h" />
     <ClInclude Include="EHGraphicShader.h" />
     <ClInclude Include="EHImGUIMgr.h" />
+    <ClInclude Include="EHIntroLevel.h" />
     <ClInclude Include="EHKeyMgr.h" />
     <ClInclude Include="EHLayer.h" />
     <ClInclude Include="EHLevel.h" />
@@ -189,11 +192,13 @@ call Copy.bat</Command>
     <ClInclude Include="EHScript.h" />
     <ClInclude Include="EHShader.h" />
     <ClInclude Include="EHSprite.h" />
+    <ClInclude Include="EHSpriteRenderer.h" />
     <ClInclude Include="EHTaskMgr.h" />
     <ClInclude Include="EHTestLevel.h" />
     <ClInclude Include="EHThreadMgr.h" />
     <ClInclude Include="EHThreadTask.h" />
     <ClInclude Include="EHTimeMgr.h" />
+    <ClInclude Include="EHTitleLevel.h" />
     <ClInclude Include="EHTransform.h" />
     <ClInclude Include="enum.h" />
     <ClInclude Include="Extern.h" />
@@ -216,6 +221,8 @@ call Copy.bat</Command>
     <ClInclude Include="struct.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="EHAnimation2D.cpp" />
+    <ClCompile Include="EHAnimator2D.cpp" />
     <ClCompile Include="EHCamera.cpp" />
     <ClCompile Include="EHCameraScript.cpp" />
     <ClCompile Include="EHCameraTargetScript.cpp" />
@@ -233,6 +240,7 @@ call Copy.bat</Command>
     <ClCompile Include="EHGarbageCollector.cpp" />
     <ClCompile Include="EHGraphicShader.cpp" />
     <ClCompile Include="EHImGUIMgr.cpp" />
+    <ClCompile Include="EHIntroLevel.cpp" />
     <ClCompile Include="EHKeyMgr.cpp" />
     <ClCompile Include="EHLayer.cpp" />
     <ClCompile Include="EHLevel.cpp" />
@@ -249,11 +257,13 @@ call Copy.bat</Command>
     <ClCompile Include="EHScript.cpp" />
     <ClCompile Include="EHShader.cpp" />
     <ClCompile Include="EHSprite.cpp" />
+    <ClCompile Include="EHSpriteRenderer.cpp" />
     <ClCompile Include="EHTaskMgr.cpp" />
     <ClCompile Include="EHTestLevel.cpp" />
     <ClCompile Include="EHThreadMgr.cpp" />
     <ClCompile Include="EHThreadTask.cpp" />
     <ClCompile Include="EHTimeMgr.cpp" />
+    <ClCompile Include="EHTitleLevel.cpp" />
     <ClCompile Include="EHTransform.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Extern.cpp" />

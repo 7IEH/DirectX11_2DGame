@@ -12,6 +12,7 @@
 #include "EHGameObject.h"
 #include "EHTransform.h"
 #include "EHCamera.h"
+#include "EHAnimator2D.h"
 
 MeshRenderer::MeshRenderer()
 	:Renderer(RENDERER_TYPE::MESHRENDERER)
@@ -27,15 +28,25 @@ void MeshRenderer::UpdateData()
 	// Matrial Update
 	if (GetMaterial() != nullptr)
 		GetMaterial()->Render();
+
+	Transform* _tr = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
+	if (_tr != nullptr)
+	{
+		_tr->UpdateData();
+	}
 }
 
 void MeshRenderer::Render()
 {
-	Transform* _tr = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
+	Animator2D* _animator = GetOwner()->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D);
 
-	if (_tr != nullptr)
+	if (_animator != nullptr)
 	{
-		_tr->UpdateData();
+		_animator->UpdateData();
+	}
+	else
+	{
+		_animator->Clear();
 	}
 
 	UpdateData();

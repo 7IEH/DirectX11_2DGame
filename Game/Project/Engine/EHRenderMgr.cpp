@@ -17,6 +17,7 @@ extern transform e_MatrixData;
 
 RenderMgr::RenderMgr()
 	:m_Cam{}
+	,m_NotRender(TRUE)
 {
 
 }
@@ -30,7 +31,7 @@ RenderMgr::~RenderMgr()
 void RenderMgr::Update()
 {
 	// RenderTarget, DepthStencil ÃÊ±âÈ­
-	float ClearColor[4] = { 1.f,1.f,1.f,1.f };
+	float ClearColor[4] = { 1.F,1.f,1.f,1.f };
 	Device::GetInst()->ClearRenderTarget(ClearColor);
 
 	Render();

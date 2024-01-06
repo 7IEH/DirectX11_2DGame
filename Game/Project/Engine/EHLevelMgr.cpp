@@ -3,6 +3,8 @@
 #include "EHLevel.h"
 
 #include "EHTestLevel.h"
+#include "EHIntroLevel.h"
+#include "EHTitleLevel.h"
 
 LevelMgr::LevelMgr()
 	:m_CurLevel(nullptr)
@@ -22,12 +24,14 @@ LevelMgr::~LevelMgr()
 void LevelMgr::Awake()
 {
 	AddLevel<TestLevel>(L"TestLevel");
-	SelectLevel(L"TestLevel");
+	AddLevel<IntroLevel>(L"IntroLevel");
+	AddLevel<TitleLevel>(L"TitleLevel");
+	SelectLevel(L"TitleLevel");
 
 	if (m_CurLevel == nullptr)
 		return;
 
-	m_CurLevel->Awake();
+	//m_CurLevel->Awake();
 }
 
 void LevelMgr::Start()

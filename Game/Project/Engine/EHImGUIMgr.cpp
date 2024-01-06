@@ -64,11 +64,14 @@ void ImGUIMgr::Frame()
 
 void ImGUIMgr::Render()
 {
+
+	if (m_Player == nullptr)
+		return;
+
 	Frame();
 	if (m_Enabled)
 	{
 		ImGuiInputTextFlags flags = ImGuiInputTextFlags_::ImGuiInputTextFlags_None;
-
 		Transform* _tr = m_Player->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
 
 		Vec4 _pos = _tr->GetRelativePosition();

@@ -52,7 +52,6 @@ struct FKeyData
 	bool		bPressed;
 };
 
-
 struct LightMateiral
 {
 	Vec4	Ambient;
@@ -134,4 +133,14 @@ struct tDebugShapeInfo
 	float		fDuration;
 	float		fLifeTime;
 	bool		bDepthTest;
+};
+
+struct tAnimationInfo
+{
+	Vec2 _OffsetSize;
+	Vec2 _LeftTop;
+	Vec2 _SliceSize;
+	Vec2 _BackGround;
+	int	 _AnimUse;
+	Vec3  _Padding;
 };

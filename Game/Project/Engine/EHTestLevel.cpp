@@ -55,13 +55,13 @@ void TestLevel::Awake()
 
 	Object::Instantiate(_UICamera, (UINT)LAYER_TYPE::CAMERA);*/
 
-	// Light
-	GameObject* _Light = new GameObject();
-	tr = _Light->AddComponent<Transform>();
-	LIght2D* _light = _Light->AddComponent<LIght2D>();
+	//// Light
+	//GameObject* _Light = new GameObject();
+	//tr = _Light->AddComponent<Transform>();
+	//LIght2D* _light = _Light->AddComponent<LIght2D>();
 
 
-	Object::Instantiate(_Light, (UINT)LAYER_TYPE::LIGHT2D);
+	//Object::Instantiate(_Light, (UINT)LAYER_TYPE::LIGHT2D);
 	Object::Instantiate(_MainCamera, (UINT)LAYER_TYPE::CAMERA);
 #pragma endregion
 
@@ -90,6 +90,11 @@ void TestLevel::Awake()
 	_playerRenderer = _player->AddComponent<MeshRenderer>();
 	_playerRenderer->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"DefaultRectMesh"));
 	_playerRenderer->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"PlayerMaterial"));
+
+	Animator2D* _animator = _player->AddComponent<Animator2D>();
+	Ptr<Sprite> _sprite = AssetMgr::GetInst()->FindAsset<Sprite>(L"PlayerIdleSprite");
+	_animator->CreateAnimation(L"PlayerIdle", _sprite, Vec2(0.f, 0.f), Vec2(0.f, 0.f), Vec2(23.f, 25.f), Vec2(200.f, 200.f), 5, 10.f);
+	_animator->Play(L"PlayerIdle");
 
 	ImGUIMgr::GetInst()->SetObject(_player);
 

@@ -17,6 +17,9 @@ Texture2D STARR9 : register(t9);
 SamplerState samplerType : register(s0);
 SamplerState samplerType2 : register(s1);
 
+// Animation Texture
+Texture2D atlas_texture : register(t10);
+
 // Luna Light Example
 struct DirectionalLight
 {
@@ -136,6 +139,16 @@ cbuffer Normal : register(b3)
     float3 vNormal;
     float pad1;
 }
+
+cbuffer tAnimationInfo : register(b4)
+{
+    float2  gOffsetSize;
+    float2  gLeftTop;
+    float2  gSliceSize;
+    float2  gBackground;
+    int     gAnimUse;
+    float3  gPadding;
+};
 
 struct VS_TEST
 {

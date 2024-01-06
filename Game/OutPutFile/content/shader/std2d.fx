@@ -169,12 +169,37 @@ float4 PS_Std2D(VS_OUT _in) : SV_Target
     
     float4 lightColor = ambient + diffuse + spec;
     float4 color = (float4) 0.f;
-    if (gMatrial.spriteCheck0 == 1)
-    {
-        color = ST0.Sample(samplerType2, _in.vUV) + lightColor;
-        //color.a = diffuse.a;
-    }
     
+    if(gAnimUse == 1)
+    {
+        float2 animUv = _in.vUV * gSliceSize + gLeftTop + gOffsetSize;
+        color = atlas_texture.Sample(samplerType2, animUv) + lightColor;
+        
+        float2 vBackgroundLeftTop = gLeftTop + (gSliceSize / 2.f) - (gBackground / 2.f);
+        vBackgroundLeftTop -= gOffsetSize;
+        float2 vUV = vBackgroundLeftTop + (gBackground * _in.vUV);
+        
+        if (vUV.x < gLeftTop.x || (gLeftTop.x + gSliceSize.x) < vUV.x
+            || vUV.y < gLeftTop.y || (gLeftTop.y + gSliceSize.y) < vUV.y)
+        {
+            //vColor = float4(1.f, 1.f, 0.f, 1.f);
+            discard;
+        }
+        else
+        {
+            color = atlas_texture.Sample(samplerType2, vUV);
+        }
+        
+    }
+    else
+    {
+        if (gMatrial.spriteCheck0 == 1)
+        {
+            color = ST0.Sample(samplerType2, _in.vUV) + lightColor;
+        //color.a = diffuse.a;
+        }
+    }
+       
     return color;
 }
 #endif

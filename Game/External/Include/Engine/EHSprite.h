@@ -18,6 +18,10 @@ private:
 	Vec2											m_WH;
 
 public:
+	UINT GetSpriteWidth() { return m_DESC.Width; }
+	UINT GetSpriteHeight() { return m_DESC.Height; }
+
+public:
 	virtual void UpdateData()override {};
 	virtual void Render()override {};
 	void UpdateData(int _resgisterNumber);

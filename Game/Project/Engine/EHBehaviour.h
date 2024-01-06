@@ -11,6 +11,7 @@
 #include "EHMeshRenderer.h"
 #include "EHScript.h"
 #include "EHTransform.h"
+#include "EHAnimator2D.h"
 //#include "EHRigidbody.h"
 
 /*******************

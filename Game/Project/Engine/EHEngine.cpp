@@ -85,7 +85,9 @@ void Engine::Update()
 	// Level Update
 	LevelMgr::GetInst()->Update();
 	CollisionMgr::GetInst()->Update();
-	RenderMgr::GetInst()->Update();
+
+	if(RenderMgr::GetInst()->GetRender())
+		RenderMgr::GetInst()->Update();
 
 	if (KEY_TAP(KEY::SPACE))
 	{

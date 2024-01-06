@@ -2,6 +2,7 @@
 
 #include "EHTaskMgr.h"
 #include "EHRenderMgr.h"
+#include "EHLevelMgr.h"
 
 void Object::Instantiate(GameObject* _target, int _LayerIdx)
 {
@@ -87,4 +88,14 @@ void Object::DrawDebugCircle(Vec3 _vWorldPos, float _fRadius, Vec3 _Color, bool 
 	info.fDuration = _Duration;
 
 	RenderMgr::GetInst()->AddDebugShapeInfo(info);
+}
+
+void SceneManager::LoadScene(const wstring& _sceneName)
+{
+	Level* _loadLevel = LevelMgr::GetInst()->FindLevel(_sceneName);
+
+	EHTask _task = {};
+	_task._Type = TASK_TYPE::LEVEL_CHANGE;
+	_task.Param_1 = (UINT_PTR)_loadLevel;
+	TaskMgr::GetInst()->AddTask(_task);
 }

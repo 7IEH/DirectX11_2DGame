@@ -224,6 +224,13 @@ HRESULT Device::CreateConstantBuffer()
 		return E_FAIL;
 	}
 
+	_hr = CreateConstantBufferIndividual(CONSTANT_TYPE::ANIMATION, sizeof(tAnimationInfo), 1);
+	if (FAILED(_hr))
+	{
+		HandleError(MAIN_HWND, L"Device Class Animation ConstantBuffer Initialize Failed!", 0);
+		return E_FAIL;
+	}
+
 	return S_OK;
 }
 

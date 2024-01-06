@@ -169,6 +169,18 @@
     <Filter Include="07. Component\Collider\Collider3D\SphereCollider">
       <UniqueIdentifier>{2d67622d-2574-4e31-8692-cd1ebef1059c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="07. Component\Animator2D">
+      <UniqueIdentifier>{7ad99ade-a9de-4643-86f5-6fe2129a96fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Component\Animator2D\Animation2D">
+      <UniqueIdentifier>{9113d5da-cea0-4c02-aaf7-bb93e3a137d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Level\IntroLevel">
+      <UniqueIdentifier>{07efa847-5345-4e52-ad07-71d57a9f3fe8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Level\TitleLevel">
+      <UniqueIdentifier>{fdd95026-3113-445d-a223-af78140c8eb6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -351,6 +363,21 @@
     <ClInclude Include="EHCircleCollider2D.h">
       <Filter>07. Component\Collider\Collider2D\CircleCollider2D</Filter>
     </ClInclude>
+    <ClInclude Include="EHAnimator2D.h">
+      <Filter>07. Component\Animator2D</Filter>
+    </ClInclude>
+    <ClInclude Include="EHAnimation2D.h">
+      <Filter>07. Component\Animator2D\Animation2D</Filter>
+    </ClInclude>
+    <ClInclude Include="EHSpriteRenderer.h">
+      <Filter>07. Component\Renderer\SpriteRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="EHIntroLevel.h">
+      <Filter>05. Level\IntroLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="EHTitleLevel.h">
+      <Filter>05. Level\TitleLevel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -511,6 +538,21 @@
     </ClCompile>
     <ClCompile Include="EHCircleCollider2D.cpp">
       <Filter>07. Component\Collider\Collider2D\CircleCollider2D</Filter>
+    </ClCompile>
+    <ClCompile Include="EHAnimator2D.cpp">
+      <Filter>07. Component\Animator2D</Filter>
+    </ClCompile>
+    <ClCompile Include="EHAnimation2D.cpp">
+      <Filter>07. Component\Animator2D\Animation2D</Filter>
+    </ClCompile>
+    <ClCompile Include="EHSpriteRenderer.cpp">
+      <Filter>07. Component\Renderer\SpriteRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="EHIntroLevel.cpp">
+      <Filter>05. Level\IntroLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="EHTitleLevel.cpp">
+      <Filter>05. Level\TitleLevel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

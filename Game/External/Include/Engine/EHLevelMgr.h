@@ -34,6 +34,25 @@ public:
 			return;
 		}
 		m_CurLevel = (*iter).second;
+		m_CurLevel->Awake();
+	}
+
+	void SelectLevel(Level* _curLevel)
+	{
+		m_CurLevel = _curLevel;
+		m_CurLevel->Awake();
+	}
+
+	Level* FindLevel(const wstring& _levelName)
+	{
+		map<wstring, Level*>::iterator iter = m_Levels.find(_levelName);
+
+		if (iter == m_Levels.end())
+		{
+			return nullptr;
+		}
+
+		return iter->second;
 	}
 
 public:

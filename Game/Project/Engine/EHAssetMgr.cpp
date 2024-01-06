@@ -32,6 +32,27 @@ void AssetMgr::Awake()
 	_path = L"\\resource\\NPC_Commander0.png";
 	Ptr<Sprite> _PlayerSprite = Load<Sprite>(_path, L"PlayerSprite");
 
+	_path = L"\\resource\\NPC_CommanderSheet.png";
+	Ptr<Sprite> _PlayerIdleSprite = Load<Sprite>(_path, L"PlayerIdleSprite");
+
+	_path = L"\\resource\\Title\\MainBG\\MenuAtlas1.png";
+	Ptr<Sprite> _BackGroundAtlas1 = Load<Sprite>(_path, L"_BackGroundAtlas1");
+
+	_path = L"\\resource\\Title\\MainBG\\MenuAtlas2.png";
+	Ptr<Sprite> _BackGroundAtlas2 = Load<Sprite>(_path, L"_BackGroundAtlas2");
+
+	_path = L"\\resource\\Title\\MainBG\\GUI_StartScreen_LeftDoor.png";
+	Ptr<Sprite> LeftDoor = Load<Sprite>(_path, L"StartLeftDoor");
+
+	_path = L"\\resource\\Title\\MainBG\\GUI_StartScreen_RightDoor.png";
+	Ptr<Sprite> RightDoor = Load<Sprite>(_path, L"StartRightDoor");
+
+	_path = L"\\resource\\Title\\MainBG\\GUI_StartScreen_Line.png";
+	Ptr<Sprite> StartLine = Load<Sprite>(_path, L"StartLine");
+
+	_path = L"\\resource\\Title\\MainBG\\GameLogo.png";
+	Ptr<Sprite> GameLogo = Load<Sprite>(_path, L"GameLogo");
+
 	CreateDefaultMesh();
 	CreateDefaultShader();
 	CreateDefaultMaterial();
@@ -203,6 +224,46 @@ void AssetMgr::CreateDefaultMaterial()
 	_playerMaterial->SetTexParam(TEX_0, AssetMgr::GetInst()->FindAsset<Sprite>(L"PlayerSprite"));
 
 	/******************
+	| Right Door Material
+	******************/
+	Material* _rightDoorMat = new Material;
+	_rightDoorMat->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"DefaultShader"));
+	_rightDoorMat->SetMaterialParam(AMBIENT, Vec4(0.5f, 0.4f, 0.3f, 1.f));
+	_rightDoorMat->SetMaterialParam(DIFFUSE, Vec4(0.5f, 0.4f, 0.3f, 1.f));
+	_rightDoorMat->SetMaterialParam(SPECULAR, Vec4(0.5f, 0.4f, 0.3f, 1.f));
+	_rightDoorMat->SetTexParam(TEX_0, AssetMgr::GetInst()->FindAsset<Sprite>(L"StartRightDoor"));
+
+	/******************
+	| Left Door Material
+	******************/
+	Material* _leftDoorMat = new Material;
+	_leftDoorMat->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"DefaultShader"));
+	_leftDoorMat->SetMaterialParam(AMBIENT, Vec4(0.5f, 0.4f, 0.3f, 1.f));
+	_leftDoorMat->SetMaterialParam(DIFFUSE, Vec4(0.5f, 0.4f, 0.3f, 1.f));
+	_leftDoorMat->SetMaterialParam(SPECULAR, Vec4(0.5f, 0.4f, 0.3f, 1.f));
+	_leftDoorMat->SetTexParam(TEX_0, AssetMgr::GetInst()->FindAsset<Sprite>(L"StartLeftDoor"));
+
+	/******************
+	| Center Door Material
+	******************/
+	Material* centerLineMat = new Material;
+	centerLineMat->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"DefaultShader"));
+	centerLineMat->SetMaterialParam(AMBIENT, Vec4(0.5f, 0.4f, 0.3f, 1.f));
+	centerLineMat->SetMaterialParam(DIFFUSE, Vec4(0.5f, 0.4f, 0.3f, 1.f));
+	centerLineMat->SetMaterialParam(SPECULAR, Vec4(0.5f, 0.4f, 0.3f, 1.f));
+	centerLineMat->SetTexParam(TEX_0, AssetMgr::GetInst()->FindAsset<Sprite>(L"StartLine"));
+
+	/******************
+	| Logo Door Material
+	******************/
+	Material* LogoMat = new Material;
+	LogoMat->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"DefaultShader"));
+	LogoMat->SetMaterialParam(AMBIENT, Vec4(0.5f, 0.4f, 0.3f, 1.f));
+	LogoMat->SetMaterialParam(DIFFUSE, Vec4(0.5f, 0.4f, 0.3f, 1.f));
+	LogoMat->SetMaterialParam(SPECULAR, Vec4(0.5f, 0.4f, 0.3f, 1.f));
+	LogoMat->SetTexParam(TEX_0, AssetMgr::GetInst()->FindAsset<Sprite>(L"GameLogo"));
+
+	/******************
 	| Debug Material
 	******************/
 	Material* _debugMaterial = new Material;
@@ -212,4 +273,9 @@ void AssetMgr::CreateDefaultMaterial()
 	AddAsset(_backgroundMaterial, L"BackGroundMaterial");
 	AddAsset(_playerMaterial, L"PlayerMaterial");
 	AddAsset(_debugMaterial, L"DebugMaterial");
+
+	AddAsset(_rightDoorMat, L"StartRightDoorMat");
+	AddAsset(_leftDoorMat, L"StartLeftDoorMat");
+	AddAsset(centerLineMat,L"StartLineMat");
+	AddAsset(LogoMat,L"GameLogoMat");
 }

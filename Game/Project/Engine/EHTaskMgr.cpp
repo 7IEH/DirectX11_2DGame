@@ -57,6 +57,11 @@ void TaskMgr::Update()
 		}
 			break;
 		case TASK_TYPE::LEVEL_CHANGE:
+		{
+			Level* _curLevel = (Level*)m_Tasks[i].Param_1;
+
+			LevelMgr::GetInst()->SelectLevel(_curLevel);
+		}
 			break;
 		case TASK_TYPE::ADD_CHILD:
 			break;

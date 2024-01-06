@@ -18,6 +18,11 @@ namespace Object
 	//void DrawDebugSphere();
 }
 
+namespace SceneManager
+{
+	void LoadScene(const wstring& _sceneName);
+}
+
 // 메모리 해제 ( 배열용 )
 template <typename T, int SIZE>
 void ReleaseArray(T* (&arr)[SIZE])
