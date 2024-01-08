@@ -73,13 +73,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)OutPutFile\bin\$(configuration)\</OutDir>
     <TargetName>$(ProjectName)_Debug</TargetName>
-    <ExternalIncludePath>$(SolutionDir)External\Include\Engine\;$(ExternalIncludePath)</ExternalIncludePath>
-    <LibraryPath>$(SolutionDir)External\Library\Engine\;$(LibraryPath)</LibraryPath>
+    <ExternalIncludePath>$(SolutionDir)External\Include\Engine\;$(SolutionDir)External\Include\Content\;$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>$(SolutionDir)External\Library\Engine\;$(SolutionDir)External\Library\Content\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)OutPutFile\bin\$(configuration)\</OutDir>
-    <ExternalIncludePath>$(SolutionDir)External\Include\Engine\;$(ExternalIncludePath)</ExternalIncludePath>
-    <LibraryPath>$(SolutionDir)External\Library\Engine\;$(LibraryPath)</LibraryPath>
+    <ExternalIncludePath>$(SolutionDir)External\Include\Engine\;$(SolutionDir)External\Include\Content\;$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>$(SolutionDir)External\Library\Engine\;$(SolutionDir)External\Library\Content\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

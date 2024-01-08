@@ -53,6 +53,9 @@ void AssetMgr::Awake()
 	_path = L"\\resource\\Title\\MainBG\\GameLogo.png";
 	Ptr<Sprite> GameLogo = Load<Sprite>(_path, L"GameLogo");
 
+	_path = L"\\resource\\background.png";
+	Ptr<Sprite> DungeonBackGround = Load<Sprite>(_path, L"DungeonBG");
+
 	CreateDefaultMesh();
 	CreateDefaultShader();
 	CreateDefaultMaterial();
@@ -263,6 +266,10 @@ void AssetMgr::CreateDefaultMaterial()
 	LogoMat->SetMaterialParam(SPECULAR, Vec4(0.5f, 0.4f, 0.3f, 1.f));
 	LogoMat->SetTexParam(TEX_0, AssetMgr::GetInst()->FindAsset<Sprite>(L"GameLogo"));
 
+	Material* dungeonBG = new Material;
+	dungeonBG->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"DefaultShader"));
+	dungeonBG->SetTexParam(TEX_0, AssetMgr::GetInst()->FindAsset<Sprite>(L"DungeonBG"));
+
 	/******************
 	| Debug Material
 	******************/
@@ -278,4 +285,6 @@ void AssetMgr::CreateDefaultMaterial()
 	AddAsset(_leftDoorMat, L"StartLeftDoorMat");
 	AddAsset(centerLineMat,L"StartLineMat");
 	AddAsset(LogoMat,L"GameLogoMat");
+
+	AddAsset(dungeonBG,L"dungeonBGMat");
 }

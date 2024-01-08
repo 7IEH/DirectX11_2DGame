@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Default">
+      <UniqueIdentifier>{2fee5dfd-788e-455e-b9eb-bb92a5234c48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene">
+      <UniqueIdentifier>{a42199dd-5c30-4848-b878-d8dd46ef82de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script">
+      <UniqueIdentifier>{265cbf56-9ae9-45cb-8116-ae7b586c9b76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\01. Intro">
+      <UniqueIdentifier>{736fca89-c252-4e81-a466-92670eff6728}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\02. Title">
+      <UniqueIdentifier>{d001ff22-4069-46e0-b1b6-0316d9c3df9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\03. Village">
+      <UniqueIdentifier>{f7c64941-c732-416a-941f-70e73340492f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\04. Dungeon">
+      <UniqueIdentifier>{f385a871-5529-4787-9751-bdbf26dd7019}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NewFilter1">
+      <UniqueIdentifier>{2ab025f0-5ee3-4ea0-ac82-f2fca6c0ae6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Util">
+      <UniqueIdentifier>{fe2fc1bb-eb87-4c26-aa37-c52baa97829d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Util\RoomManager">
+      <UniqueIdentifier>{f823057a-dd95-4017-bce0-d4c578c78c0b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="global.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="EHDungeonScene.h">
+      <Filter>01. Scene\04. Dungeon</Filter>
+    </ClInclude>
+    <ClInclude Include="EHIntroScene.h">
+      <Filter>01. Scene\01. Intro</Filter>
+    </ClInclude>
+    <ClInclude Include="EHTitleScene.h">
+      <Filter>01. Scene\02. Title</Filter>
+    </ClInclude>
+    <ClInclude Include="enum.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="struct.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="EHRoomManager.h">
+      <Filter>03. Util\RoomManager</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp">
+      <Filter>Default</Filter>
+    </ClCompile>
+    <ClCompile Include="Content.cpp">
+      <Filter>Default</Filter>
+    </ClCompile>
+    <ClCompile Include="EHDungeonScene.cpp">
+      <Filter>01. Scene\04. Dungeon</Filter>
+    </ClCompile>
+    <ClCompile Include="EHIntroScene.cpp">
+      <Filter>01. Scene\01. Intro</Filter>
+    </ClCompile>
+    <ClCompile Include="EHTitleScene.cpp">
+      <Filter>01. Scene\02. Title</Filter>
+    </ClCompile>
+    <ClCompile Include="EHRoomManager.cpp">
+      <Filter>03. Util\RoomManager</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

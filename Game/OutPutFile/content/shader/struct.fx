@@ -20,6 +20,9 @@ SamplerState samplerType2 : register(s1);
 // Animation Texture
 Texture2D atlas_texture : register(t10);
 
+// Structed Register
+StructuredBuffer<float> g_Light : register(t14);
+
 // Luna Light Example
 struct DirectionalLight
 {

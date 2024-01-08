@@ -63,3 +63,10 @@ typedef Vector4 Vec4;
 
 // Error Function
 void HandleError(HWND _hWnd, wstring _content, int flag);
+
+// Content Library
+#ifdef _DEBUG
+#pragma comment(lib,"Content_Debug.lib")
+#else
+#pragma comment(lib,"Content.lib")
+#endif // _DEBUG

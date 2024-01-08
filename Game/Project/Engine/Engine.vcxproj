@@ -73,9 +73,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)External\Library\Engine\</OutDir>
     <TargetName>$(ProjectName)_Debug</TargetName>
+    <ExternalIncludePath>$(SolutionDir)External\Include\Content\;$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>$(SolutionDir)External\Library\Content\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)External\Library\Engine\</OutDir>
+    <ExternalIncludePath>$(SolutionDir)External\Include\Content\;$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>$(SolutionDir)External\Library\Content\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -175,7 +179,6 @@ call Copy.bat</Command>
     <ClInclude Include="EHGarbageCollector.h" />
     <ClInclude Include="EHGraphicShader.h" />
     <ClInclude Include="EHImGUIMgr.h" />
-    <ClInclude Include="EHIntroLevel.h" />
     <ClInclude Include="EHKeyMgr.h" />
     <ClInclude Include="EHLayer.h" />
     <ClInclude Include="EHLevel.h" />
@@ -193,12 +196,12 @@ call Copy.bat</Command>
     <ClInclude Include="EHShader.h" />
     <ClInclude Include="EHSprite.h" />
     <ClInclude Include="EHSpriteRenderer.h" />
+    <ClInclude Include="EHStructuredBuffer.h" />
     <ClInclude Include="EHTaskMgr.h" />
     <ClInclude Include="EHTestLevel.h" />
     <ClInclude Include="EHThreadMgr.h" />
     <ClInclude Include="EHThreadTask.h" />
     <ClInclude Include="EHTimeMgr.h" />
-    <ClInclude Include="EHTitleLevel.h" />
     <ClInclude Include="EHTransform.h" />
     <ClInclude Include="enum.h" />
     <ClInclude Include="Extern.h" />
@@ -240,7 +243,6 @@ call Copy.bat</Command>
     <ClCompile Include="EHGarbageCollector.cpp" />
     <ClCompile Include="EHGraphicShader.cpp" />
     <ClCompile Include="EHImGUIMgr.cpp" />
-    <ClCompile Include="EHIntroLevel.cpp" />
     <ClCompile Include="EHKeyMgr.cpp" />
     <ClCompile Include="EHLayer.cpp" />
     <ClCompile Include="EHLevel.cpp" />
@@ -258,12 +260,12 @@ call Copy.bat</Command>
     <ClCompile Include="EHShader.cpp" />
     <ClCompile Include="EHSprite.cpp" />
     <ClCompile Include="EHSpriteRenderer.cpp" />
+    <ClCompile Include="EHStructuredBuffer.cpp" />
     <ClCompile Include="EHTaskMgr.cpp" />
     <ClCompile Include="EHTestLevel.cpp" />
     <ClCompile Include="EHThreadMgr.cpp" />
     <ClCompile Include="EHThreadTask.cpp" />
     <ClCompile Include="EHTimeMgr.cpp" />
-    <ClCompile Include="EHTitleLevel.cpp" />
     <ClCompile Include="EHTransform.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Extern.cpp" />

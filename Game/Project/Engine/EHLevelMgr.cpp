@@ -3,8 +3,9 @@
 #include "EHLevel.h"
 
 #include "EHTestLevel.h"
-#include "EHIntroLevel.h"
-#include "EHTitleLevel.h"
+#include <EHDungeonScene.h>
+#include <EHTitleScene.h>
+#include <EHIntroScene.h>
 
 LevelMgr::LevelMgr()
 	:m_CurLevel(nullptr)
@@ -26,7 +27,8 @@ void LevelMgr::Awake()
 	AddLevel<TestLevel>(L"TestLevel");
 	AddLevel<IntroLevel>(L"IntroLevel");
 	AddLevel<TitleLevel>(L"TitleLevel");
-	SelectLevel(L"TitleLevel");
+	AddLevel<DungeonScene>(L"DungeonScene");
+	SelectLevel(L"DungeonScene");
 
 	if (m_CurLevel == nullptr)
 		return;

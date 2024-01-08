@@ -38,8 +38,6 @@ void MapGenerator::Awake()
 	Update();
 }
 
-
-
 void MapGenerator::Update()
 {
 	while (!m_Nodequeue.empty())

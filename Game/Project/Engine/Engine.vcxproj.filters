@@ -127,12 +127,6 @@
     <Filter Include="04. Manager\GCMgr">
       <UniqueIdentifier>{268c0b88-2703-4002-b9a0-878514960477}</UniqueIdentifier>
     </Filter>
-    <Filter Include="05. Level\LoadingLevel">
-      <UniqueIdentifier>{2ed4eca1-9cad-4469-bea6-9f91d7c53d9b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="05. Level\DungeonLevel">
-      <UniqueIdentifier>{e40d4b5d-1ab4-4fbc-baea-7d2946678337}</UniqueIdentifier>
-    </Filter>
     <Filter Include="08. Asset\SmartPtrForAsset">
       <UniqueIdentifier>{1b6f516e-0b0f-401a-b1eb-b60318a43ff2}</UniqueIdentifier>
     </Filter>
@@ -175,11 +169,8 @@
     <Filter Include="07. Component\Animator2D\Animation2D">
       <UniqueIdentifier>{9113d5da-cea0-4c02-aaf7-bb93e3a137d4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="05. Level\IntroLevel">
-      <UniqueIdentifier>{07efa847-5345-4e52-ad07-71d57a9f3fe8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="05. Level\TitleLevel">
-      <UniqueIdentifier>{fdd95026-3113-445d-a223-af78140c8eb6}</UniqueIdentifier>
+    <Filter Include="03. Device\StructedBuffer">
+      <UniqueIdentifier>{3bfa84d5-3c07-47ca-9353-b1e991f5a66b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -372,11 +363,8 @@
     <ClInclude Include="EHSpriteRenderer.h">
       <Filter>07. Component\Renderer\SpriteRenderer</Filter>
     </ClInclude>
-    <ClInclude Include="EHIntroLevel.h">
-      <Filter>05. Level\IntroLevel</Filter>
-    </ClInclude>
-    <ClInclude Include="EHTitleLevel.h">
-      <Filter>05. Level\TitleLevel</Filter>
+    <ClInclude Include="EHStructuredBuffer.h">
+      <Filter>03. Device\StructedBuffer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -548,11 +536,8 @@
     <ClCompile Include="EHSpriteRenderer.cpp">
       <Filter>07. Component\Renderer\SpriteRenderer</Filter>
     </ClCompile>
-    <ClCompile Include="EHIntroLevel.cpp">
-      <Filter>05. Level\IntroLevel</Filter>
-    </ClCompile>
-    <ClCompile Include="EHTitleLevel.cpp">
-      <Filter>05. Level\TitleLevel</Filter>
+    <ClCompile Include="EHStructuredBuffer.cpp">
+      <Filter>03. Device\StructedBuffer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

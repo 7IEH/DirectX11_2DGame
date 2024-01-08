@@ -5,6 +5,8 @@ class LIght2D
 	:public Component
 {
 private:
+	
+
 	tLight					m_Light;
 
 	DirectinalLight			m_DL;
