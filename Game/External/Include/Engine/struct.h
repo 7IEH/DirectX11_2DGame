@@ -79,7 +79,27 @@ struct NomralVector
 	float pad;
 };
 
-// DX11 Light ¿¹Á¦
+// Light Parameter
+struct LightInfo
+{
+	Vec4	_Color;
+	Vec4	_Ambient;
+	Vec4	_Specular;
+	Vec4	_Diffuse;
+
+	Vec3	_Position;
+	float	_Radius;
+
+	Vec3	_LightDir;
+	int		_LightType;
+	
+	Vec3	_Att;
+	float	_Spot;
+
+	float	_Angle;
+	Vec3	_Padding;
+};
+
 struct DirectinalLight
 {
 	Vec4	Ambient;

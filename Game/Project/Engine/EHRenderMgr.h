@@ -1,13 +1,19 @@
 #pragma once
 
 class GameObject;
+class StructuredBuffer;
 
 class RenderMgr
 	:public Singleton<RenderMgr>
 {
 	Single(RenderMgr)
 private:
+	// CAM
 	GameObject* m_Cam[(UINT)CAMERA_TYPE::END];
+	
+	// Light
+	StructuredBuffer* m_Light2DBuffer;
+	vector<GameObject*> m_Light;
 
 	list<tDebugShapeInfo>   m_DbgShapeInfo;
 
@@ -25,6 +31,8 @@ public:
 		m_DbgShapeInfo.push_back(_info);
 	}
 
+	void RegisterLight2D(GameObject* _light) { m_Light.push_back(_light); }
+
 public:
 	void Awake();
 	void Update();
@@ -32,5 +40,8 @@ public:
 private:
 	void Render();
 	void DebugRender();
+
+	void UpdateData();
+	void Clear();
 };
 

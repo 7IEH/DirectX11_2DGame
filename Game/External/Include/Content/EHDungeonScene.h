@@ -9,6 +9,7 @@ class DungeonScene
 private:
 	int						m_Map[101][101];
 	vector<GameObject*>		m_MapInfo;
+	vector<Room>			m_MapRoomInfo;
 	GameObject*				m_EntryRoom;
 
 	// Room Reference

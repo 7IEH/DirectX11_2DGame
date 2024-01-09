@@ -2,6 +2,7 @@
 #define _STD2D
 
 #include "struct.fx"
+#include "func.fx"
 
 struct VS_IN
 {
@@ -19,109 +20,6 @@ struct VS_OUT
     float2 vUV : TEXCOORD;
 };
 
-// Luna Light Example
-void ComputeDirectionalLight(LightMaterial mat, DirectionalLight L,
-                             float3 normal, float3 toEye,
-                             out float4 ambient,
-                             out float4 diffuse,
-                             out float4 spec)
-{
-    ambient = float4(0.0f, 0.0f, 0.0f, 0.0f);
-    diffuse = float4(0.0f, 0.0f, 0.0f, 0.0f);
-    spec = float4(0.0f, 0.0f, 0.0f, 0.f);
-    
-    float3 lightVec = -L.Direction;
-    
-    ambient = mat.Ambient * L.Ambient;
-    
-    float diffuseFactor = dot(lightVec, normal);
-    
-    [flatten]
-    if(diffuseFactor>0.0f)
-    {
-        float3 v = reflect(-lightVec, normal);
-        float specFactor = pow(max(dot(v, toEye), 0.0f), mat.Specular.w);
-        
-        diffuse = diffuseFactor * mat.Diffuse * L.Diffuse;
-        spec = specFactor * mat.Specular * L.Specular;
-    }
-}
-
-void ComputePointLight(LightMaterial mat, PointLight L, float3 pos, float3 normal, float3 toEye,
-out float4 ambient, out float4 diffuse, out float4 spec)
-{
-    ambient = float4(0.0f, 0.0f, 0.0f, 0.0f);
-    diffuse = float4(0.0f, 0.0f, 0.0f, 0.0f);
-    spec = float4(0.0f, 0.0f, 0.0f, 0.0f);
-    
-    float3 lightVec = L.Position - pos;
-    
-    float d = length(lightVec);
-    
-    if(d>L.Range)
-        return;
-    
-    lightVec /= d;
-    
-    ambient = mat.Ambient * L.Ambient;
-    
-    float diffuseFactor = dot(lightVec, normal);
-    
-    [flatten]
-    if(diffuseFactor>0.0f)
-    {
-        float3 v = reflect(-lightVec, normal);
-        float specFactor = pow(max(dot(v, toEye), 0.0f), mat.Specular.w);
-        
-        diffuse = diffuseFactor * mat.Diffuse * L.Diffuse;
-        spec = specFactor * mat.Specular * L.Specular;
-    }
-    
-    float att = 1.0f / dot(L.Att, float3(1.0f, d, d * d));
-    
-    diffuse *= att;
-    spec *= att;
-}
-
-void ComputeSpotLight(LightMaterial mat, SpotLight L, float3 pos, float3 normal, float3 toEye,
-out float4 ambient, out float4 diffuse, out float4 spec)
-{
-    ambient = float4(0.0f, 0.0f, 0.0f, 0.0f);
-    diffuse = float4(0.0f, 0.0f, 0.0f, 0.0f);
-    spec = float4(0.0f, 0.0f, 0.0f, 0.0f);
-    
-    float3 lightVec = L.Position - pos;
-    
-    float d = length(lightVec);
-    
-    if (d > L.Range)
-        return;
-    
-    lightVec /= d;
-    
-    ambient = mat.Ambient * L.Ambient;
-    
-    float diffuseFactor = dot(lightVec, normal);
-    
-    [flatten]
-    if (diffuseFactor > 0.0f)
-    {
-        float3 v = reflect(-lightVec, normal);
-        float specFactor = pow(max(dot(v, toEye), 0.0f), mat.Specular.w);
-        
-        diffuse = diffuseFactor * mat.Diffuse * L.Diffuse;
-        spec = specFactor * mat.Specular * L.Specular;
-    }
-    
-    float spot = pow(max(dot(-lightVec, L.Direction), 0.0f), L.Spot);
-    
-    float att = spot / dot(L.Att, float3(1.0f, d, d * d));
-    
-    ambient *= spot;
-    diffuse *= att;
-    spec *= att;
-}
-
 RasterizerState WireframeRS
 {
     FillMode = Wireframe;
@@ -131,7 +29,6 @@ RasterizerState WireframeRS
 
 VS_OUT VS_Std2D(VS_IN _in)
 {
-    VS_TEST _v;
     VS_OUT output = (VS_OUT) 0.f;
     
     output.vPosition = mul(float4(_in.vPos, 1.f), WVP);
@@ -145,7 +42,7 @@ VS_OUT VS_Std2D(VS_IN _in)
 float4 PS_Std2D(VS_OUT _in) : SV_Target
 {
     float3 toEye = float3(0.f, 0.f, -0.1f);
-    
+     
     float4 ambient = float4(0.f, 0.f, 0.f, 0.f);
     float4 diffuse = float4(0.f, 0.f, 0.f, 0.f);
     float4 spec = float4(0.f, 0.f, 0.f, 0.f);
@@ -162,15 +59,15 @@ float4 PS_Std2D(VS_OUT _in) : SV_Target
     //diffuse += D;
     //spec += S;
       
-    ComputeSpotLight(gMatrial._LightMat, gLight._SL, _in.vWorld, vNormal, toEye, A, D, S);
-    ambient += A;
-    diffuse += D;
-    spec += S;
+    //ComputeSpotLight(gMatrial._LightMat, gLight._SL, _in.vWorld, vNormal, toEye, A, D, S);
+    //ambient += A;
+    //diffuse += D;
+    //spec += S;
     
     float4 lightColor = ambient + diffuse + spec;
     float4 color = (float4) 0.f;
     
-    if(gAnimUse == 1)
+    if (gAnimUse == 1)
     {
         float2 animUv = _in.vUV * gSliceSize + gLeftTop + gOffsetSize;
         color = atlas_texture.Sample(samplerType2, animUv) + lightColor;
@@ -193,10 +90,17 @@ float4 PS_Std2D(VS_OUT _in) : SV_Target
     }
     else
     {
+        float4 _lightcolor = (float4) 0.f;
         if (gMatrial.spriteCheck0 == 1)
         {
-            color = ST0.Sample(samplerType2, _in.vUV) + lightColor;
-        //color.a = diffuse.a;
+            for (int i = 0; i < 10;i++)
+            {
+                if(g_Light[i].LightType)
+                {
+                    
+                }
+                color = ST0.Sample(samplerType2, _in.vUV) * g_Light[0].Ambient;
+            }
         }
     }
        

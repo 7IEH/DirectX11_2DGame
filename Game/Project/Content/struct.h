@@ -34,8 +34,8 @@ struct SpawnPoint
 
 struct Room
 {
-	Content::Vec2				ParentRoom;
-	Content::Vec2				CurRoom;
+	Content::Vec2				ParentPos;
+	Content::Vec2				CurPos;
 
 	vector<SpawnPoint>	Spawn;
 	ROOM_TYPE			Type;

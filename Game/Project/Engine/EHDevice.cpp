@@ -210,13 +210,6 @@ HRESULT Device::CreateConstantBuffer()
 		return E_FAIL;
 	}
 
-	_hr = CreateConstantBufferIndividual(CONSTANT_TYPE::LIGHT, sizeof(tLight), 1);
-	if (FAILED(_hr))
-	{
-		HandleError(MAIN_HWND, L"Device Class Light ConstantBuffer Initialize Failed!", 0);
-		return E_FAIL;
-	}
-
 	_hr = CreateConstantBufferIndividual(CONSTANT_TYPE::NORMANL, sizeof(NomralVector), 1);
 	if (FAILED(_hr))
 	{

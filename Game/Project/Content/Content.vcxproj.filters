@@ -31,6 +31,12 @@
     <Filter Include="03. Util\RoomManager">
       <UniqueIdentifier>{f823057a-dd95-4017-bce0-d4c578c78c0b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Script\10. TriggerScript">
+      <UniqueIdentifier>{c378951c-3481-4448-8ca0-1285c4070c81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\10. TriggerScript\01. MoveTriggerScript">
+      <UniqueIdentifier>{2deaeca8-97b8-4b18-8b71-a5397e909ef2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">

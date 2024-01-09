@@ -18,13 +18,14 @@ HRESULT StructuredBuffer::Create(UINT _elementSize, UINT _elementCount, bool _is
 {
 	m_ElementSize = _elementSize;
 	m_ElementCount = _elementCount;
-
 	m_Type = _type;
+	m_IsUpdate = _isUpdate;
 
+	m_StructuredBuffer = nullptr;
+	m_StructWriteBuffer = nullptr;
 	m_StructReadBuffer = nullptr;
 	m_SV = nullptr;
-
-
+	
 	assert(!(m_ElementSize % 16));
 
 	D3D11_BUFFER_DESC tDesc = {};
@@ -91,6 +92,9 @@ void StructuredBuffer::UpdateData(UINT _resgisterNumber)
 
 void StructuredBuffer::SetData(void* _memData, UINT _elementCount)
 {
+	if (_memData == nullptr)
+		return;
+
 	assert(m_IsUpdate);
 
 	if (_elementCount == 0)
@@ -98,7 +102,7 @@ void StructuredBuffer::SetData(void* _memData, UINT _elementCount)
 
 	D3D11_MAPPED_SUBRESOURCE tSub = {};
 	CONTEXT->Map(m_StructWriteBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &tSub);
-	::memcpy(&tSub.pData, _memData, m_ElementSize * _elementCount);
+	::memcpy(tSub.pData, _memData, m_ElementSize * _elementCount);
 	CONTEXT->Unmap(m_StructWriteBuffer.Get(), 0);
 
 	CONTEXT->CopyResource(m_StructuredBuffer.Get(), m_StructWriteBuffer.Get());

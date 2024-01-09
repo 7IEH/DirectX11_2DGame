@@ -53,7 +53,7 @@ void AssetMgr::Awake()
 	_path = L"\\resource\\Title\\MainBG\\GameLogo.png";
 	Ptr<Sprite> GameLogo = Load<Sprite>(_path, L"GameLogo");
 
-	_path = L"\\resource\\background.png";
+	_path = L"\\resource\\photoshopver.png";
 	Ptr<Sprite> DungeonBackGround = Load<Sprite>(_path, L"DungeonBG");
 
 	CreateDefaultMesh();

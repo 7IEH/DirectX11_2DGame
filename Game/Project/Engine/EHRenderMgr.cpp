@@ -13,11 +13,17 @@
 #include "EHTimeMgr.h"
 #include "EHImGUIMgr.h"
 
+#include "EHLIght2D.h"
+
+#include "EHStructuredBuffer.h"
+
 extern transform e_MatrixData;
 
 RenderMgr::RenderMgr()
 	:m_Cam{}
 	,m_NotRender(TRUE)
+	,m_Light2DBuffer(nullptr)
+	,m_pDebugObj(nullptr)
 {
 
 }
@@ -26,6 +32,9 @@ RenderMgr::~RenderMgr()
 {
 	if (nullptr != m_pDebugObj)
 		delete m_pDebugObj;
+
+	if (nullptr != m_Light2DBuffer)
+		delete m_Light2DBuffer;
 }
 
 void RenderMgr::Update()
@@ -34,8 +43,12 @@ void RenderMgr::Update()
 	float ClearColor[4] = { 1.f,1.f,1.f,1.f };
 	Device::GetInst()->ClearRenderTarget(ClearColor);
 
+	UpdateData();
+
 	Render();
 	DebugRender();
+
+	Clear();
 	ImGUIMgr::GetInst()->Render();
 
 	Device::GetInst()->Present();
@@ -101,4 +114,25 @@ void RenderMgr::DebugRender()
 			iter++;
 		}
 	}
+}
+
+void RenderMgr::UpdateData()
+{
+	static vector<LightInfo> _vecLight2D = {};
+
+	for (int i = 0;i < m_Light.size();i++)
+	{
+		LIght2D* _light2D = m_Light[i]->GetComponent<LIght2D>(COMPONENT_TYPE::LIGHT2D);
+		_vecLight2D.push_back(_light2D->GetLightInfo());
+	}
+
+	m_Light2DBuffer->SetData(_vecLight2D.data(), (UINT)_vecLight2D.size());
+	m_Light2DBuffer->UpdateData(11);
+
+	_vecLight2D.clear();
+}
+
+void RenderMgr::Clear()
+{
+	m_Light.clear();
 }

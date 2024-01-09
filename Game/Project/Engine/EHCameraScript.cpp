@@ -11,7 +11,7 @@
 
 CameraScript::CameraScript()
 	:m_Target(nullptr)
-	, m_CamSpeed(100.f)
+	, m_CamSpeed(400.f)
 {
 }
 

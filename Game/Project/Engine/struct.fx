@@ -1,6 +1,26 @@
 #ifndef _STRUCT
 #define _STRUCT
 
+struct LightInfo
+{
+    float4 Color;
+    float4 Ambient;
+    float4 Specular;
+    float4 Diffuse;
+
+    float3 Position;
+    float Radius;
+
+    float3 LightDir;
+    int LightType;
+	
+    float3 Att;
+    float Spot;
+
+    float Angle;
+    float3 pad;
+};
+
 Texture2D ST0 : register(t0);
 Texture2D ST1 : register(t1);
 Texture2D ST2 : register(t2);
@@ -21,7 +41,7 @@ SamplerState samplerType2 : register(s1);
 Texture2D atlas_texture : register(t10);
 
 // Structed Register
-StructuredBuffer<float> g_Light : register(t14);
+StructuredBuffer<LightInfo> g_Light : register(t11);
 
 // Luna Light Example
 struct DirectionalLight
@@ -56,14 +76,7 @@ struct SpotLight
     float3 Att;
     float pad;
 };
-
-struct tLight
-{
-    DirectionalLight _DL;
-    PointLight _PL;
-    SpotLight _SL;
-};
-
+   
 struct LightMaterial
 {
     float4 Ambient;
@@ -132,18 +145,13 @@ cbuffer Material : register(b1)
     Material gMatrial;
 }
 
-cbuffer Light : register(b2)
-{
-    tLight gLight;
-};
-
-cbuffer Normal : register(b3)
+cbuffer Normal : register(b2)
 {
     float3 vNormal;
     float pad1;
 }
 
-cbuffer tAnimationInfo : register(b4)
+cbuffer tAnimationInfo : register(b3)
 {
     float2  gOffsetSize;
     float2  gLeftTop;
@@ -151,13 +159,6 @@ cbuffer tAnimationInfo : register(b4)
     float2  gBackground;
     int     gAnimUse;
     float3  gPadding;
-};
-
-struct VS_TEST
-{
-    float4 t_ambient;
-    float4 t_diffuse;
-    float4 t_spec;
 };
 
 #endif
