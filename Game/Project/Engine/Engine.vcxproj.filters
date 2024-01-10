@@ -97,12 +97,6 @@
     <Filter Include="07. Component\Camera">
       <UniqueIdentifier>{2cad6706-b321-4b30-ab7f-5d3e1de3ab7f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="07. Component\Script\2. Camera">
-      <UniqueIdentifier>{a7c4977d-e627-4d9e-9d7e-13a3e553764e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="07. Component\Script\1. Player">
-      <UniqueIdentifier>{c8515a4e-46b5-47e9-9f22-f4b956fed706}</UniqueIdentifier>
-    </Filter>
     <Filter Include="07. Component\Light2D">
       <UniqueIdentifier>{ae5f4f9f-9b03-440d-a999-8991054b773c}</UniqueIdentifier>
     </Filter>
@@ -171,6 +165,15 @@
     </Filter>
     <Filter Include="03. Device\StructedBuffer">
       <UniqueIdentifier>{3bfa84d5-3c07-47ca-9353-b1e991f5a66b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Component\Script\03. HomeWork">
+      <UniqueIdentifier>{a18f1db4-9a91-4a4f-8ad3-b3e69a2eeeac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Component\Script\01. Player">
+      <UniqueIdentifier>{c8515a4e-46b5-47e9-9f22-f4b956fed706}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Component\Script\02. Camera">
+      <UniqueIdentifier>{a7c4977d-e627-4d9e-9d7e-13a3e553764e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -271,10 +274,10 @@
       <Filter>01. Header</Filter>
     </ClInclude>
     <ClInclude Include="EHPlayerScript.h">
-      <Filter>07. Component\Script\1. Player</Filter>
+      <Filter>07. Component\Script\01. Player</Filter>
     </ClInclude>
     <ClInclude Include="EHCameraScript.h">
-      <Filter>07. Component\Script\2. Camera</Filter>
+      <Filter>07. Component\Script\02. Camera</Filter>
     </ClInclude>
     <ClInclude Include="EHMaterial.h">
       <Filter>08. Asset\Material</Filter>
@@ -283,7 +286,7 @@
       <Filter>07. Component\Light2D</Filter>
     </ClInclude>
     <ClInclude Include="EHCameraTargetScript.h">
-      <Filter>07. Component\Script\2. Camera</Filter>
+      <Filter>07. Component\Script\02. Camera</Filter>
     </ClInclude>
     <ClInclude Include="EHSprite.h">
       <Filter>08. Asset\Sprite</Filter>
@@ -365,6 +368,9 @@
     </ClInclude>
     <ClInclude Include="EHStructuredBuffer.h">
       <Filter>03. Device\StructedBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="EHLight2DScript.h">
+      <Filter>07. Component\Script\03. HomeWork</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -450,10 +456,10 @@
       <Filter>01. Header</Filter>
     </ClCompile>
     <ClCompile Include="EHPlayerScript.cpp">
-      <Filter>07. Component\Script\1. Player</Filter>
+      <Filter>07. Component\Script\01. Player</Filter>
     </ClCompile>
     <ClCompile Include="EHCameraScript.cpp">
-      <Filter>07. Component\Script\2. Camera</Filter>
+      <Filter>07. Component\Script\02. Camera</Filter>
     </ClCompile>
     <ClCompile Include="EHMaterial.cpp">
       <Filter>08. Asset\Material</Filter>
@@ -462,7 +468,7 @@
       <Filter>07. Component\Light2D</Filter>
     </ClCompile>
     <ClCompile Include="EHCameraTargetScript.cpp">
-      <Filter>07. Component\Script\2. Camera</Filter>
+      <Filter>07. Component\Script\02. Camera</Filter>
     </ClCompile>
     <ClCompile Include="EHSprite.cpp">
       <Filter>08. Asset\Sprite</Filter>
@@ -538,6 +544,9 @@
     </ClCompile>
     <ClCompile Include="EHStructuredBuffer.cpp">
       <Filter>03. Device\StructedBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="EHLight2DScript.cpp">
+      <Filter>07. Component\Script\03. HomeWork</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

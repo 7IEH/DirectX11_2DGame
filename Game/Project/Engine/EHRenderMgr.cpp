@@ -16,6 +16,12 @@
 #include "EHLIght2D.h"
 
 #include "EHStructuredBuffer.h"
+#include "EHConstantBuffer.h"
+
+#include "EHDevice.h"
+
+
+#include "EHKeyMgr.h"
 
 extern transform e_MatrixData;
 
@@ -119,15 +125,22 @@ void RenderMgr::DebugRender()
 void RenderMgr::UpdateData()
 {
 	static vector<LightInfo> _vecLight2D = {};
-
+	NomralVector temp = {};
 	for (int i = 0;i < m_Light.size();i++)
 	{
 		LIght2D* _light2D = m_Light[i]->GetComponent<LIght2D>(COMPONENT_TYPE::LIGHT2D);
 		_vecLight2D.push_back(_light2D->GetLightInfo());
+
+		Transform* _tr = m_Light[i]->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
 	}
 
 	m_Light2DBuffer->SetData(_vecLight2D.data(), (UINT)_vecLight2D.size());
 	m_Light2DBuffer->UpdateData(11);
+
+	e_Global._Light2DSize = m_Light.size();
+
+	Device::GetInst()->GetConstantBuffer(CONSTANT_TYPE::GLOBAL)->SetData(&e_Global, sizeof(e_Global), 1);
+	Device::GetInst()->GetConstantBuffer(CONSTANT_TYPE::GLOBAL)->UpdateData();
 
 	_vecLight2D.clear();
 }

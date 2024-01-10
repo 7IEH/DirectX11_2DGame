@@ -133,13 +133,6 @@ struct SpotLight
 	float	pad;
 };
 
-struct tLight
-{
-	DirectinalLight _DL;
-	PointLight _PL;
-	SpotLight _SL;
-};
-
 struct tDebugShapeInfo
 {
 	DEBUG_SHAPE	eShape;
@@ -163,4 +156,14 @@ struct tAnimationInfo
 	Vec2 _BackGround;
 	int	 _AnimUse;
 	Vec3  _Padding;
+};
+
+struct tGlobalData
+{
+	Vec2	_RenderResolution;
+	float	_Dt;
+	float	_AccTime;
+	int		_Light2DSize;
+	int		_Light3DSize;
+	Vec2	padding;
 };

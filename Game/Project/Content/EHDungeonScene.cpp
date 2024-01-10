@@ -9,6 +9,7 @@
 #include "EHRoomManager.h"
 
 #include "EHLight2D.h"
+#include "EHLight2DScript.h"
 
 void DungeonScene::Awake()
 {
@@ -357,11 +358,29 @@ void DungeonScene::Awake()
 		}
 	}
 	
+	// Player
+	GameObject* _player = new GameObject();
+	Transform* tr = _player->AddComponent<Transform>();
+	tr->SetRelativeScale(Vec4(100.f, 92.f, 1.f, 1.f));
+	tr->SetRelativePosition(Vec4(400.f, 0.f, -5.f, 1.f));
+	tr->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
+
+	MeshRenderer* _playerRenderer = _player->AddComponent<MeshRenderer>();
+	_playerRenderer->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"DefaultRectMesh"));
+	_playerRenderer->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"PlayerMaterial"));
+
+	Object::Instantiate(_player, (int)LAYER_TYPE::PLAYER);
+
 	GameObject* _light = new GameObject;
 	Transform* _lightTr = _light->AddComponent<Transform>();
-	
+
 	LIght2D* _light2D = _light->AddComponent<LIght2D>();
-	_light2D->SetAmbient(Vec4(0.5f, 0.1f, 0.1f, 1.f));
+	_light2D->SetColor(Vec4(1.f, 1.f, 1.f, 1.f));
+	_light2D->SetLightType(LIGHT_TYPE::SPOT);
+	_light2D->SetRadius(1000.f);
+	_light2D->SetAngle(40.f);
+
+	_light->AddComponent<Light2DScript>();
 
 	Object::Instantiate(_light, (UINT)LAYER_TYPE::LIGHT2D);
 

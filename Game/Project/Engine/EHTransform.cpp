@@ -9,8 +9,6 @@
 #include "EHConstantBuffer.h"
 #include "EHGameObject.h"
 
-extern transform e_MatrixData;
-
 Transform::Transform()
 	:Component(COMPONENT_TYPE::TRANSFORM)
 	, m_RelativeTransform{}
@@ -116,14 +114,12 @@ void Transform::UpdateData()
 	// WV 
 	e_MatrixData.WV = XMMatrixTranspose(e_MatrixData.WV);
 
+	// World
+	e_MatrixData.World = XMMatrixTranspose(e_MatrixData.World);
+
+
 	Device::GetInst()->GetConstantBuffer(CONSTANT_TYPE::TRANSFORM)->SetData(&e_MatrixData, sizeof(transform), 1);
 	Device::GetInst()->GetConstantBuffer(CONSTANT_TYPE::TRANSFORM)->UpdateData();
-
-	NomralVector temp = {};
-	temp.Nomral = GetWorldDir(DIRECTION_TYPE::FRONT);
-
-	Device::GetInst()->GetConstantBuffer(CONSTANT_TYPE::NORMANL)->SetData(&temp, sizeof(NomralVector), 1);
-	Device::GetInst()->GetConstantBuffer(CONSTANT_TYPE::NORMANL)->UpdateData();
 }
 
 Vec3 Transform::GetWorldScale()

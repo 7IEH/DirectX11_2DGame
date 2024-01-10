@@ -67,8 +67,8 @@ void Animation2D::LateUpdate()
 		++m_CurFrame;
 		if (m_FrameInfo.size() <= m_CurFrame)
 		{
-			m_CurFrame = 0;
-			//m_Finsih = TRUE;
+			m_CurFrame = m_FrameInfo.size() - 1;
+			m_Finsih = TRUE;
 		}
 		m_PlayTime = 0.f;
 	}

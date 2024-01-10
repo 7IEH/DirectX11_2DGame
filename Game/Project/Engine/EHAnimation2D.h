@@ -30,6 +30,14 @@ public:
 	void SetAnimator(Animator2D* _animator) { m_Animator = _animator; }
 	Animator2D* GetAnimator() { return m_Animator; }
 
+	bool IsFinish() { return m_Finsih; }
+	void Reset()
+	{
+		m_Finsih = false;
+		m_CurFrame = 0;
+		m_PlayTime = 0.f;
+	}
+
 public:
 	void UpdateData();
 	void LateUpdate();

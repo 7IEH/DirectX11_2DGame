@@ -70,3 +70,6 @@ void HandleError(HWND _hWnd, wstring _content, int flag);
 #else
 #pragma comment(lib,"Content.lib")
 #endif // _DEBUG
+
+// Extern
+#include "Extern.h"

@@ -149,6 +149,8 @@ HRESULT Device::CreateSwapChain()
 		return E_FAIL;
 	}
 
+	e_Global._RenderResolution = m_vRenderResolution;
+
 	return S_OK;
 }
 
@@ -221,6 +223,13 @@ HRESULT Device::CreateConstantBuffer()
 	if (FAILED(_hr))
 	{
 		HandleError(MAIN_HWND, L"Device Class Animation ConstantBuffer Initialize Failed!", 0);
+		return E_FAIL;
+	}
+
+	_hr = CreateConstantBufferIndividual(CONSTANT_TYPE::GLOBAL, sizeof(tGlobalData), 1);
+	if (FAILED(_hr))
+	{
+		HandleError(MAIN_HWND, L"Device Class Global ConstantBuffer Initialize Failed!", 0);
 		return E_FAIL;
 	}
 

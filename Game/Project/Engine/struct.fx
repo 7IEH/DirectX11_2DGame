@@ -159,6 +159,16 @@ cbuffer tAnimationInfo : register(b3)
     float2  gBackground;
     int     gAnimUse;
     float3  gPadding;
-};
+}
+
+cbuffer tGlobalData : register(b4)
+{
+    float2 gRenderResolution;
+    float gDt;
+    float gAccTime;
+    int gLight2DSize;
+    int gLight3DSize;
+    float2 padding;
+}
 
 #endif

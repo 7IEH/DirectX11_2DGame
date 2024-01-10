@@ -26,7 +26,7 @@ Animation2D* Animator2D::FindAnimation(const wstring& _strName)
 	return (*iter).second;
 }
 
-Animation2D* Animator2D::CreateAnimation(const wstring& _animName, Ptr<Sprite> _atalas, Vec2 _leftTop, Vec2 _offset, Vec2 _sliceSize , Vec2 _BackGround, UINT _FrameCount, float _FPS)
+Animation2D* Animator2D::CreateAnimation(const wstring& _animName, Ptr<Sprite> _atalas, Vec2 _leftTop, Vec2 _offset, Vec2 _sliceSize, Vec2 _BackGround, UINT _FrameCount, float _FPS)
 {
 	Animation2D* _anim = FindAnimation(_animName);
 	if (nullptr != _anim)
@@ -42,26 +42,37 @@ Animation2D* Animator2D::CreateAnimation(const wstring& _animName, Ptr<Sprite> _
 	return _anim;
 }
 
-void Animator2D::Play(const wstring& _strName)
+void Animator2D::Play(const wstring& _strName, bool _repeat)
 {
 	Animation2D* _anim = FindAnimation(_strName);
 	if (_anim == nullptr)
 		return;
 
+	m_Repeat = _repeat;
 	m_CurAnimation = _anim;
+	m_CurAnimation->Reset();
 }
 
 
 void Animator2D::UpdateData()
 {
-	if (m_CurAnimation != nullptr)
-		m_CurAnimation->UpdateData();
+	if (m_CurAnimation == nullptr)
+		return;
+
+	m_CurAnimation->UpdateData();
 }
 
 void Animator2D::LateUpdate()
 {
-	if (m_CurAnimation != nullptr)
-		m_CurAnimation->LateUpdate();
+	if (m_CurAnimation == nullptr)
+		return;
+
+	if (m_CurAnimation->IsFinish() && m_Repeat)
+	{
+		m_CurAnimation->Reset();
+	}
+
+	m_CurAnimation->LateUpdate();
 }
 
 void Animator2D::Clear()

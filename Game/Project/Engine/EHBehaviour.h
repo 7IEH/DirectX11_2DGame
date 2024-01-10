@@ -21,6 +21,7 @@
 #include "EHPlayerScript.h"
 #include "EHCameraScript.h"
 #include "EHCameraTargetScript.h"
+#include "EHLight2DScript.h"
 
 /*******************
 | Collider Component
