@@ -3,23 +3,28 @@
 class GameObject;
 class StructuredBuffer;
 
+#include "EHSprite.h"
+
 class RenderMgr
 	:public Singleton<RenderMgr>
 {
 	Single(RenderMgr)
 private:
 	// CAM
-	GameObject* m_Cam[(UINT)CAMERA_TYPE::END];
+	GameObject*					m_Cam[(UINT)CAMERA_TYPE::END];
 	
+	// PostProcess Texture
+	Ptr<Sprite>					m_PostProcessTex;
+
 	// Light
-	StructuredBuffer* m_Light2DBuffer;
-	vector<GameObject*> m_Light;
+	StructuredBuffer*			m_Light2DBuffer;
+	vector<GameObject*>			m_Light;
 
-	list<tDebugShapeInfo>   m_DbgShapeInfo;
+	list<tDebugShapeInfo>		m_DbgShapeInfo;
 
-	GameObject* m_pDebugObj;
+	GameObject*					m_pDebugObj;
 
-	bool					m_NotRender;
+	bool						m_NotRender;
 
 public:
 	void SetRender(bool _NotRender) { m_NotRender = _NotRender; }
@@ -33,6 +38,8 @@ public:
 
 	void RegisterLight2D(GameObject* _light) { m_Light.push_back(_light); }
 
+	Ptr<Sprite>		GetPostProcessTexture2D() { return m_PostProcessTex; }
+
 public:
 	void Awake();
 	void Update();
@@ -43,5 +50,7 @@ private:
 
 	void UpdateData();
 	void Clear();
+
+	void CopyResourceView();
 };
 

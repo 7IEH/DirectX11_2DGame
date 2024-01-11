@@ -56,14 +56,14 @@ void Camera::LateUpdate()
 								_Front.x,_Front.y,_Front.z,0,
 								0,0,0,1 };*/
 
-	/**************************************
-	< -  View Matrix Caculate
+								/**************************************
+								< -  View Matrix Caculate
 
-					
-	Store Class Member variable for Render
-	**************************************/
 
-	// 1. View Matrix
+								Store Class Member variable for Render
+								**************************************/
+
+								// 1. View Matrix
 	m_ViewMat = XMMatrixMultiply(_reverseTransform, _reverseRotation);
 
 	// 2. Projection Matrix
@@ -107,11 +107,8 @@ void Camera::OrthographicView()
 |	Camera Render Part
 ************************/
 
-void Camera::Render()
+void Camera::SortObject()
 {
-	e_MatrixData.View = m_ViewMat;
-	e_MatrixData.Projection = m_ProjMat;
-
 	Level* _curLevel = LevelMgr::GetInst()->GetCurLevel();
 
 	for (int i = 0;i < (UINT)LAYER_TYPE::END;i++)
@@ -122,11 +119,51 @@ void Camera::Render()
 		Layer* _layer = _curLevel->GetLayer(LAYER_TYPE(i));
 		const vector<GameObject*>& _objects = _layer->GetLayerObject();
 
-		for (size_t i = 0;i < _objects.size();i++)
+		for (size_t _idx = 0;_idx < _objects.size();_idx++)
 		{
-			_objects[i]->Render();
+			Renderer* _renderer = _objects[_idx]->GetComponent<Renderer>(COMPONENT_TYPE::RENDERER);
+
+			if (_renderer == nullptr)
+				continue;
+
+			Mesh* _mesh = _renderer->GetMesh().Get();
+			Material* _mat = _renderer->GetMaterial().Get();
+			GraphicShader* _shader = _mat->GetGraphicShader().Get();
+
+
+			if (!(_renderer->GetMesh().Get()
+				&& _renderer->GetMaterial().Get()
+				&& _renderer->GetMaterial()->GetGraphicShader().Get()))
+			{
+				continue;
+			}
+
+			SHADER_DOMAIN _domain = _renderer->GetMaterial()->GetGraphicShader()->GetDomain();
+
+			// Sorting
+			m_DomainSortingObjects[(UINT)_domain].push_back(_objects[_idx]);
 		}
 	}
+}
+
+void Camera::Render()
+{
+	e_MatrixData.View = m_ViewMat;
+	e_MatrixData.Projection = m_ProjMat;
+
+	for (int _idx = 0;_idx < (UINT)SHADER_DOMAIN::END;_idx++)
+	{
+		Render(m_DomainSortingObjects[_idx]);
+	}
+}
+
+void Camera::Render(vector<GameObject*>& _vecObj)
+{
+	for (size_t _idx = 0;_idx < _vecObj.size();_idx++)
+	{
+		_vecObj[_idx]->Render();
+	}
+	_vecObj.clear();
 }
 
 void Camera::LayerVisibleSet(LAYER_TYPE _type, bool _visible)

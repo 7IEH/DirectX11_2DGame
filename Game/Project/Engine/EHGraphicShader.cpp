@@ -12,6 +12,7 @@ GraphicShader::GraphicShader()
 	,m_DSType(DS_TYPE::LESS)
 	,m_BlendType(BLEND_TYPE::DEFAULT)
 	,m_SamplerType(SAMPLER_TYPE::POINT)
+	,m_Domain(SHADER_DOMAIN::DOMAIN_MASKED)
 {
 }
 

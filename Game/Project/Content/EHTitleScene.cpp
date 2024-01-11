@@ -17,6 +17,7 @@
 #include "EHKeyMgr.h"
 #include "EHLevelMgr.h"
 #include "EHPathMgr.h"
+#include "EHImGUIMgr.h"
 
 #include "EHTaskMgr.h"
 
@@ -65,8 +66,6 @@ void TitleLevel::Awake()
 	Ptr<Sprite> _sprite = AssetMgr::GetInst()->FindAsset<Sprite>(L"_BackGroundAtlas2");
 	_animator->CreateAnimation(L"_BackGroundAtlas2", _sprite, Vec2(0.f, 0.f), Vec2(0.f, 0.f), Vec2(640.f, 360.f), Vec2(640.f, 360.f), 16, 10.f);
 	_animator->Play(L"_BackGroundAtlas2");
-
-
 
 	// Background
 	GameObject* _backGround2 = new GameObject;
@@ -148,6 +147,25 @@ void TitleLevel::Awake()
 	//Object::Instantiate(startLine, (UINT)LAYER_TYPE::BACKGROUND);
 	Object::Instantiate(LeftDoor, (UINT)LAYER_TYPE::BACKGROUND);
 	Object::Instantiate(GameLogo, (UINT)LAYER_TYPE::BACKGROUND);
+
+
+	GameObject* _light = new GameObject;
+	Transform* _lightTr = _light->AddComponent<Transform>();
+	_lightTr->SetRelativePosition(Vec4(0.f, 500., 0.f, 0.f));
+	_lightTr->SetRelativeRotation(Vec3(0.f, 0.f, 90.f));
+
+	LIght2D* _light2D = _light->AddComponent<LIght2D>();
+	_light2D->SetAmbient(Vec4(0.1f, 0.1f, 0.1f, 1.f));
+	_light2D->SetColor(Vec4(1.f, 1.f, 1.f, 1.f));
+	_light2D->SetLightType(LIGHT_TYPE::SPOT);
+	_light2D->SetRadius(1000.f);
+	_light2D->SetAngle(180.f);
+
+	_light->AddComponent<Light2DScript>();
+	
+	ImGUIMgr::GetInst()->SetLight(_light);
+
+	Object::Instantiate(_light, (UINT)LAYER_TYPE::LIGHT2D);
 
 	Level::Awake();
 }

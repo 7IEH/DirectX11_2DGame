@@ -2,6 +2,7 @@
 #include "EHDevice.h"
 
 #include "EHConstantBuffer.h"
+#include "EHAssetMgr.h"
 
 Device::Device()
 	: m_hWnd(nullptr)
@@ -163,7 +164,7 @@ HRESULT Device::CreateRTView()
 
 HRESULT Device::CreateDSView()
 {
-	D3D11_TEXTURE2D_DESC Desc = {};
+	/*D3D11_TEXTURE2D_DESC Desc = {};
 
 	Desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
 	Desc.Width = (UINT)m_vRenderResolution.x;
@@ -183,9 +184,12 @@ HRESULT Device::CreateDSView()
 	if (FAILED(m_Device->CreateTexture2D(&Desc, nullptr, m_DSTexture.GetAddressOf())))
 	{
 		return E_FAIL;
-	}
+	}*/
 
-	m_Device->CreateDepthStencilView(m_DSTexture.Get(), nullptr, m_DSView.GetAddressOf());
+	m_DSTexture = AssetMgr::GetInst()->CreateResoruceTexture((UINT)m_vRenderResolution.x, (UINT)m_vRenderResolution.y, DXGI_FORMAT_D24_UNORM_S8_UINT, D3D11_BIND_DEPTH_STENCIL);
+
+
+	m_Device->CreateDepthStencilView(m_DSTexture.Get()->GetTexture2D(), nullptr, m_DSTexture.Get()->GetDSV().GetAddressOf());
 
 	return S_OK;
 }
@@ -193,7 +197,7 @@ HRESULT Device::CreateDSView()
 void Device::OMSetRT()
 {
 	// 최대 8개의 렌더타켓 가능
-	m_DeviceContext->OMSetRenderTargets(1, m_RTView.GetAddressOf(), m_DSView.Get());
+	m_DeviceContext->OMSetRenderTargets(1, m_RTView.GetAddressOf(), m_DSTexture.Get()->GetDSV().Get());
 }
 
 HRESULT Device::CreateConstantBuffer()
@@ -252,7 +256,7 @@ HRESULT Device::CreateConstantBufferIndividual(CONSTANT_TYPE _type, UINT _elemen
 void Device::ClearRenderTarget(float(&Color)[4])
 {
 	m_DeviceContext->ClearRenderTargetView(m_RTView.Get(), Color);
-	m_DeviceContext->ClearDepthStencilView(m_DSView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.f, 0);
+	m_DeviceContext->ClearDepthStencilView(m_DSTexture.Get()->GetDSV().Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.f, 0);
 }
 
 void Device::Present()
@@ -325,7 +329,7 @@ HRESULT Device::CreateRasterizerState()
 	tDesc.MultisampleEnable = FALSE;
 	tDesc.AntialiasedLineEnable = FALSE;
 
-	_hr = DEVICE->CreateRasterizerState(&tDesc, m_Rasterizer[(UINT)CULL_TYPE::NONE].GetAddressOf());
+	_hr = DEVICE->CreateRasterizerState(&tDesc, m_Rasterizer[(UINT)CULL_TYPE::WIRE].GetAddressOf());
 
 	if (FAILED(_hr))
 	{

@@ -9,7 +9,7 @@
 /************************
 |	AssetMgr
 |	1. Asset Initialize
-|	1-1. Sprite
+|	1-1. Sprite(D2D11 Texture)
 |	1-2. Mesh
 |	1-3. Shader
 |	1-4. Material
@@ -60,7 +60,6 @@ void AssetMgr::Awake()
 	CreateDefaultShader();
 	CreateDefaultMaterial();
 }
-
 
 void AssetMgr::CreateDefaultMesh()
 {
@@ -155,7 +154,7 @@ void AssetMgr::CreateDefaultMesh()
 		v._Postion = Vec3(fRadius * cosf(fTheta), fRadius * sinf(fTheta), 0.f);
 		v._Color = Vec4(1.f, 1.f, 1.f, 1.f);
 		v._UV = Vec2(0.f, 0.f);
-		
+
 		vecVtx.push_back(v);
 	}
 
@@ -171,9 +170,9 @@ void AssetMgr::CreateDefaultMesh()
 
 void AssetMgr::CreateDefaultShader()
 {
-	/******************
-	| Default Shader
-	******************/
+	/*********************
+	|	Default Shader
+	*********************/
 	GraphicShader* _defaultShader = new GraphicShader;
 
 	wstring _path = L"\\shader\\std2d.fx";
@@ -181,13 +180,54 @@ void AssetMgr::CreateDefaultShader()
 	string _psEntry = "PS_Std2D";
 
 	_defaultShader->Create(_path, _vsEntry, _psEntry);
+	
+	_defaultShader->SetCullType(CULL_TYPE::NONE);
+	_defaultShader->SetDSType(DS_TYPE::LESS);
 	_defaultShader->SetBlendType(BLEND_TYPE::ALPHABLENDING);
 
 	AddAsset(_defaultShader, L"DefaultShader");
 
+	/********************
+	|	Effect Shader
+	********************/
+	GraphicShader* _effectShader = new GraphicShader;
+
+	_path = L"\\shader\\std2d.fx";
+	_vsEntry = "VS_Std2D";
+	_psEntry = "PS_Std2D";
+
+	_effectShader->Create(_path, _vsEntry, _psEntry);
+
+	_effectShader->SetCullType(CULL_TYPE::NONE);
+	_effectShader->SetDSType(DS_TYPE::LESS);
+	_effectShader->SetBlendType(BLEND_TYPE::ALPHABLENDING);
+
+	AddAsset(_effectShader, L"EffectShader");
+
 	/******************
-	| Debug Shader
+	| GrayFilter Shader
+	| Mesh		: RectMesh
+	| RS_TYPE	: CALL_BACK
+	| DS_TYPE	: NO_TEST_NO_WRITE
+	| BS_TYPE	: Default
+	| Domain	: DOMAIN_POSTPROCESS
 	******************/
+	GraphicShader* _testFilter = new GraphicShader;
+
+	_path = L"\\shader\\postprocess.fx";
+	_vsEntry = "VS_GrayFilter";
+	_psEntry = "PS_GrayFilter";
+
+	_testFilter->Create(_path, _vsEntry, _psEntry);
+
+	_testFilter->SetCullType(CULL_TYPE::BACK);
+	_testFilter->SetDSType(DS_TYPE::NO_TEST_NO_WRITE);
+	
+	AddAsset(_testFilter, L"GrayFilterShader");
+
+	/********************
+	|	Debug Shader
+	********************/
 	GraphicShader* _debugShader = new GraphicShader;
 
 	_path = L"\\shader\\debug2d.fx";
@@ -277,14 +317,36 @@ void AssetMgr::CreateDefaultMaterial()
 	_debugMaterial->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"DebugShader"));
 	_debugMaterial->SetMaterialParam(AMBIENT, Vec4(0.5f, 0.4f, 0.3f, 1.f));
 
+	/***************************
+	| PostProcess TEST Material
+	***************************/
+	Material* _postProcess = new Material;
+	_postProcess->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"GrayFilterShader"));
+
+	AddAsset(_postProcess, L"GrayFilterMat");
+
 	AddAsset(_backgroundMaterial, L"BackGroundMaterial");
 	AddAsset(_playerMaterial, L"PlayerMaterial");
 	AddAsset(_debugMaterial, L"DebugMaterial");
 
 	AddAsset(_rightDoorMat, L"StartRightDoorMat");
 	AddAsset(_leftDoorMat, L"StartLeftDoorMat");
-	AddAsset(centerLineMat,L"StartLineMat");
-	AddAsset(LogoMat,L"GameLogoMat");
+	AddAsset(centerLineMat, L"StartLineMat");
+	AddAsset(LogoMat, L"GameLogoMat");
 
-	AddAsset(dungeonBG,L"dungeonBGMat");
+	AddAsset(dungeonBG, L"dungeonBGMat");
+}
+
+Ptr<Sprite> AssetMgr::CreateResoruceTexture(UINT _width, UINT _height, DXGI_FORMAT _format, UINT _flag, D3D11_USAGE _usage)
+{
+	Ptr<Sprite> _sprite = new Sprite;
+	HRESULT _hr = _sprite->Create(_width, _height, _format, _flag, _usage);
+
+	if (FAILED(_hr))
+	{
+		HandleError(MAIN_HWND, L"RESOURCE TEXTURE CREATE FAIELD!", 1);
+		return nullptr;
+	}
+
+	return _sprite;
 }

@@ -25,6 +25,8 @@ public:
 	template<typename T>
 	Ptr<T> Load(const wstring& _strFilePath, const wstring _name);
 
+	Ptr<Sprite> CreateResoruceTexture(UINT _width, UINT _height, DXGI_FORMAT _format, UINT _flag, D3D11_USAGE _usage = D3D11_USAGE_DEFAULT);
+
 private:
 	void CreateDefaultMesh();
 	void CreateDefaultShader();

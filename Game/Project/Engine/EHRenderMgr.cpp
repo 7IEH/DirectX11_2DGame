@@ -55,6 +55,8 @@ void RenderMgr::Update()
 	DebugRender();
 
 	Clear();
+
+	CopyResourceView();
 	ImGUIMgr::GetInst()->Render();
 
 	Device::GetInst()->Present();
@@ -68,6 +70,7 @@ void RenderMgr::Render()
 			continue;
 
 		Camera* _cam = m_Cam[i]->GetComponent<Camera>(COMPONENT_TYPE::CAMERA);
+		_cam->SortObject();
 		_cam->Render();
 	}
 }
@@ -148,4 +151,9 @@ void RenderMgr::UpdateData()
 void RenderMgr::Clear()
 {
 	m_Light.clear();
+}
+
+void RenderMgr::CopyResourceView()
+{
+	CONTEXT->CopyResource(m_PostProcessTex.Get()->GetTexture2D(), Device::GetInst()->GetRTT());
 }

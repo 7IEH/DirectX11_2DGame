@@ -2,6 +2,8 @@
 
 class ConstantBuffer;
 
+#include "EHSprite.h"
+
 class Device
 	: public Singleton<Device>
 {
@@ -17,8 +19,10 @@ private:
 	ComPtr<ID3D11RenderTargetView>			m_RTView;
 
 	// Depth-Stencil Texture, Depth-Stencil View
-	ComPtr<ID3D11Texture2D>					m_DSTexture;
-	ComPtr<ID3D11DepthStencilView>			m_DSView;
+	/*ComPtr<ID3D11Texture2D>					m_DSTexture;
+	ComPtr<ID3D11DepthStencilView>			m_DSView;*/
+
+	Ptr<Sprite>								m_DSTexture;
 
 	ComPtr<ID3D11RasterizerState>			m_Rasterizer[(UINT)CULL_TYPE::END];
 	ComPtr<ID3D11DepthStencilState>			m_DepthStencil[(UINT)DS_TYPE::END];
@@ -49,6 +53,7 @@ public:
 	ComPtr<ID3D11BlendState> GetBSState(BLEND_TYPE _Type) { return m_Blend[(UINT)_Type]; }
 	ComPtr<ID3D11SamplerState> GetSamplerState(SAMPLER_TYPE _Type) { return m_Sampler[(UINT)_Type]; }
 
+	ID3D11Texture2D*				GetRTT() { return m_RTTexture.Get(); }
 public:
 	int							Awake(HWND _hWnd, Vec2 _vRenderResolution);
 

@@ -26,16 +26,22 @@ private:
     DS_TYPE                                 m_DSType;
     BLEND_TYPE                              m_BlendType;
     SAMPLER_TYPE                            m_SamplerType;
+
+    SHADER_DOMAIN                           m_Domain;
+
 public:
     GraphicShader();
     virtual ~GraphicShader();
 
 public:
     void SetTopology(D3D_PRIMITIVE_TOPOLOGY _Topology) { m_Topology = _Topology; }
-
     void SetCullType(CULL_TYPE _type) { m_CullType = _type; }
     void SetDSType(DS_TYPE _type) { m_DSType = _type; }
     void SetBlendType(BLEND_TYPE _type) { m_BlendType = _type; }
+
+    void SetDomain(SHADER_DOMAIN _domain) { m_Domain = _domain; }
+
+    SHADER_DOMAIN GetDomain() { return m_Domain; }
 
 public:
     void Create(wstring& _shaderPath, string& _vsEntry, string& _psEntry);

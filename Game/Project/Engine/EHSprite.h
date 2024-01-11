@@ -18,8 +18,15 @@ private:
 	Vec2											m_WH;
 
 public:
-	UINT GetSpriteWidth() { return m_DESC.Width; }
-	UINT GetSpriteHeight() { return m_DESC.Height; }
+	UINT									GetSpriteWidth() { return m_DESC.Width; }
+	UINT									GetSpriteHeight() { return m_DESC.Height; }
+
+	ComPtr<ID3D11RenderTargetView>			GetRTV()	{return m_RenderTargetView;	  }
+	ComPtr<ID3D11DepthStencilView>			GetDSV()	{return m_DepthStencilView;	  }
+	ComPtr<ID3D11ShaderResourceView>		GetSRV()	{return m_ShaderResourceView; }
+	ComPtr<ID3D11UnorderedAccessView>		GetUAV()	{return m_UnorderedAccessView;}
+
+	ID3D11Texture2D*						GetTexture2D() { return m_SpriteTexture.Get(); }
 
 public:
 	virtual void UpdateData()override {};
@@ -29,6 +36,9 @@ public:
 
 private:
 	virtual HRESULT Load(const wstring& _strFilePath)override;
+	HRESULT Create(UINT _width, UINT _height,
+		DXGI_FORMAT _format, UINT _bindflags,
+		D3D11_USAGE _usage = D3D11_USAGE_DEFAULT);
 
 public:
 	Sprite();

@@ -71,3 +71,78 @@ void Sprite::Clear(int _resgisterNumber)
 	CONTEXT->DSSetShaderResources(_resgisterNumber, 1, &_clearSRV);
 	CONTEXT->GSSetShaderResources(_resgisterNumber, 1, &_clearSRV);
 }
+
+HRESULT Sprite::Create(UINT _width, UINT _height, DXGI_FORMAT _format, UINT _bindflags, D3D11_USAGE _usage)
+{
+	m_DESC.Format = _format;
+	m_DESC.BindFlags = _bindflags;
+
+	m_DESC.Width = _width;
+	m_DESC.Height = _height;
+
+	m_DESC.Usage = _usage;
+	if (_usage == D3D11_USAGE_DYNAMIC)
+	{
+		m_DESC.Usage = D3D11_USAGE_DYNAMIC;
+	}
+
+	m_DESC.SampleDesc.Count = 1;
+	m_DESC.SampleDesc.Quality = 0;
+
+	m_DESC.MipLevels = 1;
+	m_DESC.MiscFlags = 0;
+	m_DESC.ArraySize = 1;
+
+	HRESULT _hr = DEVICE->CreateTexture2D(&m_DESC, nullptr, m_SpriteTexture.GetAddressOf());
+
+	if (FAILED(_hr))
+	{
+		HandleError(MAIN_HWND, L"Texture DX Resource Create Failed!", 0);
+		return E_FAIL;
+	}
+
+	if (m_DESC.BindFlags & D3D11_BIND_DEPTH_STENCIL)
+	{
+		_hr = DEVICE->CreateDepthStencilView(m_SpriteTexture.Get(), nullptr, m_DepthStencilView.GetAddressOf());
+		if (FAILED(_hr))
+		{
+			HandleError(MAIN_HWND, L"Texture DX DepthStencil View Create Failed!", 0);
+			return E_FAIL;
+		}
+	}
+	else
+	{
+		if (m_DESC.BindFlags & D3D11_BIND_RENDER_TARGET)
+		{
+			_hr = DEVICE->CreateRenderTargetView(m_SpriteTexture.Get(), nullptr, m_RenderTargetView.GetAddressOf());
+			if (FAILED(_hr))
+			{
+				HandleError(MAIN_HWND, L"Texture DX RenderTarget View Create Failed!", 0);
+				return E_FAIL;
+			}
+		}
+
+		if (m_DESC.BindFlags & D3D11_BIND_SHADER_RESOURCE)
+		{
+			_hr = DEVICE->CreateShaderResourceView(m_SpriteTexture.Get(), nullptr, m_ShaderResourceView.GetAddressOf());
+			if (FAILED(_hr))
+			{
+				HandleError(MAIN_HWND, L"Texture DX Shaderresource View Create Failed!", 0);
+				return E_FAIL;
+			}
+		}
+
+		if (m_DESC.BindFlags & D3D11_BIND_UNORDERED_ACCESS)
+		{
+			_hr = DEVICE->CreateUnorderedAccessView(m_SpriteTexture.Get(), nullptr, m_UnorderedAccessView.GetAddressOf());
+			if (FAILED(_hr))
+			{
+				HandleError(MAIN_HWND, L"Texture DX UnorderedAccess View Create Failed!", 0);
+				return E_FAIL;
+			}
+		}
+	}
+
+
+	return S_OK;
+}

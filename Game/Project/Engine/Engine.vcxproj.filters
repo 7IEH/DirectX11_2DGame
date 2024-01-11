@@ -567,5 +567,8 @@
     <FxCompile Include="func.fx">
       <Filter>ShaderCode</Filter>
     </FxCompile>
+    <FxCompile Include="postprocess.fx">
+      <Filter>ShaderCode</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>
