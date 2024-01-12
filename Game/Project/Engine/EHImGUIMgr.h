@@ -17,8 +17,11 @@ private:
 
 	bool		m_DockSpace;
 
-	ComPtr<ID3D11ShaderResourceView> _SRV;
-	ComPtr<ID3D11Texture2D> textureCopy;
+	// Console Message 후에 선생님이 한 해당 페이지 번호 가져온거 찾아보기
+	vector<string> m_ConsoleMessage;
+	
+	float		m_AcctimeforDebug;
+	float		m_OutputTime;
 
 public:
 	void Enabled() { m_Enabled = !m_Enabled; }
@@ -41,5 +44,13 @@ private:
 
 	void	ChangeFont(FONT_TYPE _type);
 	void	ChangeFontIndividual(string _type, float _size);
+
+	/******************
+	|	Menu
+	******************/
+	void	GameView();
+	void	InSpector();
+	void	Hierarchy();
+	void	Console();
 };
 

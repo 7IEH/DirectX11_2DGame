@@ -157,37 +157,19 @@ HRESULT Device::CreateSwapChain()
 
 HRESULT Device::CreateRTView()
 {
-	m_SwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)m_RTTexture.GetAddressOf());
-	m_Device->CreateRenderTargetView(m_RTTexture.Get(), nullptr, m_RTView.GetAddressOf());
+	ComPtr<ID3D11Texture2D> _texture;
+
+	m_SwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)_texture.GetAddressOf());
+
+	m_RTTexture = AssetMgr::GetInst()->CreateResoruceTexture(L"RenderTargetTexture", _texture);
+
+	//m_Device->CreateRenderTargetView(m_RTTexture.Get(), nullptr, m_RTView.GetAddressOf());
 	return S_OK;
 }
 
 HRESULT Device::CreateDSView()
 {
-	/*D3D11_TEXTURE2D_DESC Desc = {};
-
-	Desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
-	Desc.Width = (UINT)m_vRenderResolution.x;
-	Desc.Height = (UINT)m_vRenderResolution.y;
-	Desc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
-	Desc.CPUAccessFlags = 0;
-	Desc.Usage = D3D11_USAGE_DEFAULT;
-
-	Desc.SampleDesc.Count = 1;
-	Desc.SampleDesc.Quality = 0;
-
-	Desc.MipLevels = 1;
-	Desc.MiscFlags = 0;
-
-	Desc.ArraySize = 1;
-
-	if (FAILED(m_Device->CreateTexture2D(&Desc, nullptr, m_DSTexture.GetAddressOf())))
-	{
-		return E_FAIL;
-	}*/
-
-	m_DSTexture = AssetMgr::GetInst()->CreateResoruceTexture((UINT)m_vRenderResolution.x, (UINT)m_vRenderResolution.y, DXGI_FORMAT_D24_UNORM_S8_UINT, D3D11_BIND_DEPTH_STENCIL);
-
+	m_DSTexture = AssetMgr::GetInst()->CreateResoruceTexture(L"DepthStencil",(UINT)m_vRenderResolution.x, (UINT)m_vRenderResolution.y, DXGI_FORMAT_D24_UNORM_S8_UINT, D3D11_BIND_DEPTH_STENCIL);
 
 	m_Device->CreateDepthStencilView(m_DSTexture.Get()->GetTexture2D(), nullptr, m_DSTexture.Get()->GetDSV().GetAddressOf());
 
@@ -197,7 +179,7 @@ HRESULT Device::CreateDSView()
 void Device::OMSetRT()
 {
 	// 최대 8개의 렌더타켓 가능
-	m_DeviceContext->OMSetRenderTargets(1, m_RTView.GetAddressOf(), m_DSTexture.Get()->GetDSV().Get());
+	m_DeviceContext->OMSetRenderTargets(1, m_RTTexture.Get()->GetRTV().GetAddressOf(), m_DSTexture.Get()->GetDSV().Get());
 }
 
 HRESULT Device::CreateConstantBuffer()
@@ -255,7 +237,7 @@ HRESULT Device::CreateConstantBufferIndividual(CONSTANT_TYPE _type, UINT _elemen
 
 void Device::ClearRenderTarget(float(&Color)[4])
 {
-	m_DeviceContext->ClearRenderTargetView(m_RTView.Get(), Color);
+	m_DeviceContext->ClearRenderTargetView(m_RTTexture.Get()->GetRTV().Get(), Color);
 	m_DeviceContext->ClearDepthStencilView(m_DSTexture.Get()->GetDSV().Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.f, 0);
 }
 

@@ -15,12 +15,11 @@ private:
 	ComPtr<IDXGISwapChain>					m_SwapChain;
 
 	// RenderTarget Texture , RenderTarget View
-	ComPtr<ID3D11Texture2D>					m_RTTexture;
-	ComPtr<ID3D11RenderTargetView>			m_RTView;
 
-	// Depth-Stencil Texture, Depth-Stencil View
-	/*ComPtr<ID3D11Texture2D>					m_DSTexture;
-	ComPtr<ID3D11DepthStencilView>			m_DSView;*/
+	Ptr<Sprite>								m_RTTexture;
+
+	//ComPtr<ID3D11Texture2D>					m_RTTexture;
+	//ComPtr<ID3D11RenderTargetView>			m_RTView;
 
 	Ptr<Sprite>								m_DSTexture;
 
@@ -53,7 +52,7 @@ public:
 	ComPtr<ID3D11BlendState> GetBSState(BLEND_TYPE _Type) { return m_Blend[(UINT)_Type]; }
 	ComPtr<ID3D11SamplerState> GetSamplerState(SAMPLER_TYPE _Type) { return m_Sampler[(UINT)_Type]; }
 
-	ID3D11Texture2D*				GetRTT() { return m_RTTexture.Get(); }
+	ID3D11Texture2D*				GetRTT() { return m_RTTexture.Get()->GetTexture2D(); }
 public:
 	int							Awake(HWND _hWnd, Vec2 _vRenderResolution);
 

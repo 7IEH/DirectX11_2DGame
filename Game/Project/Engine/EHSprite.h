@@ -40,6 +40,8 @@ private:
 		DXGI_FORMAT _format, UINT _bindflags,
 		D3D11_USAGE _usage = D3D11_USAGE_DEFAULT);
 
+	HRESULT Create(ComPtr<ID3D11Texture2D> _texture2D);
+
 public:
 	Sprite();
 	virtual ~Sprite();

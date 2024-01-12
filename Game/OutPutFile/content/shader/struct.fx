@@ -43,6 +43,9 @@ Texture2D atlas_texture : register(t10);
 // Structed Register
 StructuredBuffer<LightInfo> g_Light : register(t11);
 
+// PostProcess Register
+Texture2D g_postprocess : register(t13);
+
 // Luna Light Example
 struct DirectionalLight
 {

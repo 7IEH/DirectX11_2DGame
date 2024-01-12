@@ -25,7 +25,8 @@ public:
 	template<typename T>
 	Ptr<T> Load(const wstring& _strFilePath, const wstring _name);
 
-	Ptr<Sprite> CreateResoruceTexture(UINT _width, UINT _height, DXGI_FORMAT _format, UINT _flag, D3D11_USAGE _usage = D3D11_USAGE_DEFAULT);
+	Ptr<Sprite> CreateResoruceTexture(const wstring& _label, UINT _width, UINT _height, DXGI_FORMAT _format, UINT _flag, D3D11_USAGE _usage = D3D11_USAGE_DEFAULT);
+	Ptr<Sprite> CreateResoruceTexture(const wstring& _label, ComPtr<ID3D11Texture2D> _tex2D);
 
 private:
 	void CreateDefaultMesh();
@@ -66,7 +67,7 @@ inline void AssetMgr::AddAsset(T* _asset, const wstring& _name)
 	map<wstring, Ptr<Asset>>::iterator iter = m_Assets[(UINT)_type].find(_name);
 	assert(iter == m_Assets[(UINT)_type].end());
 
-	m_Assets[(UINT)_type].insert(make_pair(_name,_asset));
+	m_Assets[(UINT)_type].insert(make_pair(_name, _asset));
 }
 
 template<typename T>
@@ -75,7 +76,7 @@ Ptr<T> AssetMgr::FindAsset(const wstring& _name)
 	ASSET_TYPE _type = GetAssetType<T>();
 
 	map<wstring, Ptr<Asset>>::iterator iter = m_Assets[(UINT)_type].find(_name);
-	
+
 	// check for exist
 	if (iter == m_Assets[(UINT)_type].end())
 	{

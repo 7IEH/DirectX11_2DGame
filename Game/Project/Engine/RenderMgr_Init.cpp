@@ -21,8 +21,9 @@ void RenderMgr::Awake()
 	m_Light2DBuffer->Create(sizeof(LightInfo), 10, TRUE);
 
 	Vec2 _renderResoultion = Device::GetInst()->GetResolution();
-	m_PostProcessTex = AssetMgr::GetInst()->CreateResoruceTexture((UINT)_renderResoultion.x
-																, (UINT)_renderResoultion.y
+	m_PostProcessTex = AssetMgr::GetInst()->CreateResoruceTexture(L"PostProcessTexture"
+																, (UINT)1600.f
+																, (UINT)900.f
 																, DXGI_FORMAT_R8G8B8A8_UNORM
 																, D3D11_BIND_SHADER_RESOURCE);
 }

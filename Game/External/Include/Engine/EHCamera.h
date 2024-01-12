@@ -43,6 +43,7 @@ public:
 
 private:
     void Render(vector<GameObject*>& _vecObj);
+    void PostRender(vector<GameObject*>& _vecObj);
 
 public:
     PROJECTION_TYPE GetProjectionType() { return m_Projection; }

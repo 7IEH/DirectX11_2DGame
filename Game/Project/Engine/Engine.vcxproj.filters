@@ -175,6 +175,9 @@
     <Filter Include="07. Component\Script\02. Camera">
       <UniqueIdentifier>{a7c4977d-e627-4d9e-9d7e-13a3e553764e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Manager\DubugMgr">
+      <UniqueIdentifier>{ee96c86e-6f68-402e-9342-97c52f880289}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -372,6 +375,9 @@
     <ClInclude Include="EHLight2DScript.h">
       <Filter>07. Component\Script\03. HomeWork</Filter>
     </ClInclude>
+    <ClInclude Include="EHDebugMgr.h">
+      <Filter>04. Manager\DubugMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -547,6 +553,12 @@
     </ClCompile>
     <ClCompile Include="EHLight2DScript.cpp">
       <Filter>07. Component\Script\03. HomeWork</Filter>
+    </ClCompile>
+    <ClCompile Include="EHDebugMgr.cpp">
+      <Filter>04. Manager\DubugMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="EHAssetMgr_Init.cpp">
+      <Filter>04. Manager\AssetMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

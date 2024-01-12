@@ -153,7 +153,14 @@ void Camera::Render()
 
 	for (int _idx = 0;_idx < (UINT)SHADER_DOMAIN::END;_idx++)
 	{
-		Render(m_DomainSortingObjects[_idx]);
+		if (_idx == (UINT)SHADER_DOMAIN::DOMAIN_POSTPROCESS)
+		{
+			PostRender(m_DomainSortingObjects[_idx]);
+		}
+		else
+		{
+			Render(m_DomainSortingObjects[_idx]);
+		}
 	}
 }
 
@@ -161,6 +168,18 @@ void Camera::Render(vector<GameObject*>& _vecObj)
 {
 	for (size_t _idx = 0;_idx < _vecObj.size();_idx++)
 	{
+		_vecObj[_idx]->Render();
+	}
+	_vecObj.clear();
+}
+
+void Camera::PostRender(vector<GameObject*>& _vecObj)
+{
+	for (size_t _idx = 0;_idx < _vecObj.size();_idx++)
+	{
+		Ptr<Sprite> pPostProcessTex = RenderMgr::GetInst()->GetPostProcessTexture2D();
+		pPostProcessTex->UpdateData(13);
+
 		_vecObj[_idx]->Render();
 	}
 	_vecObj.clear();

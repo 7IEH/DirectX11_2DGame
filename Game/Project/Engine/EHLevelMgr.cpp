@@ -6,6 +6,7 @@
 #include <EHDungeonScene.h>
 #include <EHTitleScene.h>
 #include <EHIntroScene.h>
+#include "EHDebugMgr.h"
 
 LevelMgr::LevelMgr()
 	:m_CurLevel(nullptr)

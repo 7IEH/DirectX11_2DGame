@@ -173,6 +173,7 @@ call Copy.bat</Command>
     <ClInclude Include="EHAsset.h" />
     <ClInclude Include="EHAssetMgr.h" />
     <ClInclude Include="EHConstantBuffer.h" />
+    <ClInclude Include="EHDebugMgr.h" />
     <ClInclude Include="EHDevice.h" />
     <ClInclude Include="EHEngine.h" />
     <ClInclude Include="EHEntity.h" />
@@ -227,6 +228,7 @@ call Copy.bat</Command>
   <ItemGroup>
     <ClCompile Include="EHAnimation2D.cpp" />
     <ClCompile Include="EHAnimator2D.cpp" />
+    <ClCompile Include="EHAssetMgr_Init.cpp" />
     <ClCompile Include="EHCamera.cpp" />
     <ClCompile Include="EHCameraScript.cpp" />
     <ClCompile Include="EHCameraTargetScript.cpp" />
@@ -238,6 +240,7 @@ call Copy.bat</Command>
     <ClCompile Include="EHAsset.cpp" />
     <ClCompile Include="EHAssetMgr.cpp" />
     <ClCompile Include="EHConstantBuffer.cpp" />
+    <ClCompile Include="EHDebugMgr.cpp" />
     <ClCompile Include="EHDevice.cpp" />
     <ClCompile Include="EHEngine.cpp" />
     <ClCompile Include="EHEntity.cpp" />

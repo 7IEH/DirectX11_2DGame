@@ -14,6 +14,7 @@
 #include "EHImGUIMgr.h"
 #include "EHCollisionMgr.h"
 #include "EHGarbageCollector.h"
+#include "EHDebugMgr.h"
 
 #include "EHCamera.h"
 
@@ -88,6 +89,8 @@ void Engine::Update()
 
 	if(RenderMgr::GetInst()->GetRender())
 		RenderMgr::GetInst()->Update();
+
+	DebugMgr::GetInst()->LateUpdate();
 
 	if (KEY_TAP(KEY::SPACE))
 	{

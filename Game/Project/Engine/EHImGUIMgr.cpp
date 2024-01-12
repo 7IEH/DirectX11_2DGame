@@ -5,16 +5,21 @@
 #include "EHPathMgr.h"
 #include "EHAssetMgr.h"
 #include "EHRenderMgr.h"
+#include "EHLevelMgr.h"
 
 #include "EHGameObject.h"
 #include "EHBehaviour.h"
 
+#include "EHDebugMgr.h"
+#include "EHTimeMgr.h"
+
 #include "EHSprite.h"
 
 ImGUIMgr::ImGUIMgr()
-	:m_Enabled(TRUE)
-	,m_DockSpace(TRUE)
-	,m_io(ImGui::GetIO())
+	: m_Enabled(TRUE)
+	, m_DockSpace(TRUE)
+	, m_io(ImGui::GetIO())
+	, m_OutputTime(1.5f)
 {
 }
 
@@ -81,7 +86,7 @@ void ImGUIMgr::Render()
 
 	Frame();
 	ShowDockSpace();
-	
+
 	/*Frame();
 	if (m_Enabled)
 	{
@@ -91,6 +96,14 @@ void ImGUIMgr::Render()
 	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 }
+
+/***************
+|	DockSpace
+|	1. GameView
+|	2. Hierarchy
+|	3. Console
+|	DockSPace
+***************/
 
 void ImGUIMgr::ShowDockSpace()
 {
@@ -163,12 +176,32 @@ void ImGUIMgr::ShowDockSpace()
 			ImGui::Separator();
 
 			if (ImGui::MenuItem("Close", NULL, false, m_DockSpace != NULL))
-			ImGui::EndMenu();
+				ImGui::EndMenu();
 		}
 
 		ImGui::EndMenuBar();
 	}
 
+	InSpector();
+
+	GameView();
+
+	Hierarchy();
+
+	Console();
+
+	ImGui::End();
+}
+
+void ImGUIMgr::GameView()
+{
+	ImGui::Begin("Game");
+	ImGui::Image((void*)RenderMgr::GetInst()->GetPostProcessTexture2D().Get()->GetSRV().Get(), ImVec2(640.f, 360.f));
+	ImGui::End();
+}
+
+void ImGUIMgr::InSpector()
+{
 	if (m_Enabled && m_Player != nullptr)
 	{
 		ImGuiInputTextFlags flags = ImGuiInputTextFlags_::ImGuiInputTextFlags_None;
@@ -261,10 +294,66 @@ void ImGUIMgr::ShowDockSpace()
 
 		ImGui::End();
 	}
+}
 
-	ImGui::Begin("Test");
-	ImGui::Image((void*)RenderMgr::GetInst()->GetPostProcessTexture2D().Get()->GetSRV().Get(), ImVec2(1280.f, 720.f));
+void ImGUIMgr::Hierarchy()
+{
+	ImGui::Begin("Hierarchy");
+	Level* _curLevel = LevelMgr::GetInst()->GetCurLevel();
+
+	static int testidx = 0;
+	vector<int> testvec;
+	int _size = 0;
+
+	testvec.clear();
+	for (size_t _idx = 0;_idx < (UINT)LAYER_TYPE::END;_idx++)
+	{
+		Layer* _layer = _curLevel->GetLayer(LAYER_TYPE(_idx));
+		vector<GameObject*>& _objs = _layer->GetLayerObject();
+
+		_size += _objs.size();
+		testidx++;
+	}
+
+	testvec.reserve(_size);
+
+	for (int i = 0;i < _size;i++)
+		ImGui::Selectable("GameObjects", false);
+
 	ImGui::End();
+}
+
+void ImGUIMgr::Console()
+{
+	ImGui::Begin("Console");
+
+	vector<string> _msg = DebugMgr::GetInst()->GetDebugMessage();
+
+	for (int i = 0;i < _msg.size();i++)
+	{
+		m_ConsoleMessage.push_back(_msg[i]);
+	}
+
+	static int _line = 0;
+	m_AcctimeforDebug += DT;
+	if (m_AcctimeforDebug >= m_OutputTime)
+	{	
+		_line++;
+
+		if (_line >= m_ConsoleMessage.size())
+		{
+			_line = m_ConsoleMessage.size();
+		}
+
+		m_AcctimeforDebug = 0.f;
+	}
+
+	ImGui::BeginChild("Scrolling");
+	for (int i = 0;i < _line;i++)
+	{
+		ImGui::Text(m_ConsoleMessage[i].c_str());
+	}
+	ImGui::EndChild();
 
 	ImGui::End();
 }
