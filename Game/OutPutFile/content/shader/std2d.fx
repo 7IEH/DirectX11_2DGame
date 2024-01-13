@@ -129,7 +129,7 @@ float4 PS_Std2D_Effect(VS_OUT _in) : SV_Target
     }
 
     color.rgb *= (lightColor.Ambient.rgb + lightColor.Color.rgb);
-    
+     
     return color;
 }
 

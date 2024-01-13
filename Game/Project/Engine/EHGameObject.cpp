@@ -8,11 +8,15 @@
 #include "EHLevelMgr.h"
 #include "EHLevel.h"
 
+int GameObject::m_ObjectID = 0;
+
 GameObject::GameObject()
 	:m_LayerType(LAYER_TYPE::NON_SELECT)
 	, m_Component{}
 	, m_Renderer(nullptr)
 	, m_Dead(false)
+	, m_Picking(false)
+	, m_Idx(m_ObjectID++)
 {
 }
 

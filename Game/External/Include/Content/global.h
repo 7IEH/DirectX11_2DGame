@@ -6,6 +6,6 @@
 #pragma comment(lib,"Engine.lib")
 #endif // _DEBUG
 
-#include "enum.h"
+#include "Content_enum.h"
 #include "struct.h"
 #include <random>

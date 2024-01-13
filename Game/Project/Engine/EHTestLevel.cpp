@@ -96,8 +96,6 @@ void TestLevel::Awake()
 	_animator->CreateAnimation(L"PlayerIdle", _sprite, Vec2(0.f, 0.f), Vec2(0.f, 0.f), Vec2(23.f, 25.f), Vec2(200.f, 200.f), 5, 10.f);
 	_animator->Play(L"PlayerIdle");
 
-	ImGUIMgr::GetInst()->SetObject(_player);
-
 	CircleCollider2D* _col = _player->AddComponent<CircleCollider2D>();
 	_col->SetRadius(100.f);
 

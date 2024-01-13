@@ -57,7 +57,7 @@
     <ClInclude Include="EHTitleScene.h">
       <Filter>01. Scene\02. Title</Filter>
     </ClInclude>
-    <ClInclude Include="enum.h">
+    <ClInclude Include="Content_enum.h">
       <Filter>Default</Filter>
     </ClInclude>
     <ClInclude Include="struct.h">

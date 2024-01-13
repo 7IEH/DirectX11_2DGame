@@ -27,7 +27,9 @@ void MeshRenderer::UpdateData()
 {
 	// Matrial Update
 	if (GetMaterial() != nullptr)
+	{
 		GetMaterial()->Render();
+	}
 
 	Transform* _tr = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
 	if (_tr != nullptr)

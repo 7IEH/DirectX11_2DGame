@@ -24,6 +24,8 @@ private:
 
 	GameObject*					m_pDebugObj;
 
+	GameObject*					m_PickingObj;
+
 	bool						m_NotRender;
 
 public:
@@ -47,6 +49,7 @@ public:
 private:
 	void Render();
 	void DebugRender();
+	void PickingRender();
 
 	void UpdateData();
 	void Clear();

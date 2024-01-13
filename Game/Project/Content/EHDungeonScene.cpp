@@ -369,6 +369,7 @@ void DungeonScene::Awake()
 	_playerRenderer->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"DefaultRectMesh"));
 	_playerRenderer->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"PlayerMaterial"));
 
+	_player -> SetName(L"Player");
 	Object::Instantiate(_player, (int)LAYER_TYPE::PLAYER);
 
 	GameObject* _light = new GameObject;

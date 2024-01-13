@@ -17,6 +17,10 @@ void RenderMgr::Awake()
 	m_pDebugObj->AddComponent<Transform>();
 	m_pDebugObj->AddComponent<MeshRenderer>();
 
+	m_PickingObj = new GameObject;
+	m_PickingObj->AddComponent<Transform>();
+	m_PickingObj->AddComponent<MeshRenderer>();
+
 	m_Light2DBuffer = new StructuredBuffer;
 	m_Light2DBuffer->Create(sizeof(LightInfo), 10, TRUE);
 

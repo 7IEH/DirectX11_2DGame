@@ -12,6 +12,9 @@
 #include "EHAssetMgr.h"
 #include "EHTimeMgr.h"
 #include "EHImGUIMgr.h"
+#include "EHLevelMgr.h"
+
+#include "EHLevel.h"
 
 #include "EHLIght2D.h"
 
@@ -30,14 +33,17 @@ RenderMgr::RenderMgr()
 	,m_NotRender(TRUE)
 	,m_Light2DBuffer(nullptr)
 	,m_pDebugObj(nullptr)
+	,m_PickingObj(nullptr)
 {
-
 }
 
 RenderMgr::~RenderMgr()
 {
 	if (nullptr != m_pDebugObj)
 		delete m_pDebugObj;
+
+	if (nullptr != m_PickingObj)
+		delete m_PickingObj;
 
 	if (nullptr != m_Light2DBuffer)
 		delete m_Light2DBuffer;
@@ -52,6 +58,7 @@ void RenderMgr::Update()
 	UpdateData();
 
 	Render();
+	PickingRender();
 	DebugRender();
 
 	Clear();
@@ -121,6 +128,39 @@ void RenderMgr::DebugRender()
 		else
 		{
 			iter++;
+		}
+	}
+}
+
+void RenderMgr::PickingRender()
+{
+	Camera* _main_cam = m_Cam[0]->GetComponent<Camera>(COMPONENT_TYPE::CAMERA);
+	e_MatrixData.View = _main_cam->GetViewMat();
+	e_MatrixData.Projection = _main_cam->GetProjMat();
+
+	MeshRenderer* _pickingMeshRenderer = m_PickingObj->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER);
+	Transform* _pickingTr = m_PickingObj->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
+	
+	_pickingMeshRenderer->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"DefaultRectMesh_Debug"));
+
+	_pickingMeshRenderer->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"DebugMaterial"));
+	_pickingMeshRenderer->GetMaterial()->SetMaterialParam(AMBIENT, Vec4(0.f,1.f,0.f,1.f));
+
+	Level* _curLevel = LevelMgr::GetInst()->GetCurLevel();
+	
+	for (size_t _idx = 0;_idx < (UINT)LAYER_TYPE::END;_idx++)
+	{
+		Layer* _layer = _curLevel->GetLayer(LAYER_TYPE(_idx));
+		vector<GameObject*>& _objs = _layer->GetLayerObject();
+
+		for (size_t _obj = 0;_obj < _objs.size();_obj++)
+		{
+			if (_objs[_obj]->GetPicking() == TRUE)
+			{
+				Transform* _ownertr = _objs[_obj]->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
+				_pickingTr->SetWorldMat(_ownertr->GetMatWorld());
+				m_PickingObj->Render();
+			}
 		}
 	}
 }

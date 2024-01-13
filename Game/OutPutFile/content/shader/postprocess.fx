@@ -1,6 +1,9 @@
 #ifndef _POSTPROCESS
 #define _POSTPROCESS
 
+#include "struct.fx"
+#include "func.fx"
+
 struct VS_IN
 {
     float3 vPos : POSITION;

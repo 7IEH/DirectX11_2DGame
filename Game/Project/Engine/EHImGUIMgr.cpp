@@ -81,17 +81,16 @@ void ImGUIMgr::Frame()
 
 void ImGUIMgr::Render()
 {
-	if (m_Player == nullptr && m_Light == nullptr)
-		return;
-
 	Frame();
 	ShowDockSpace();
 
-	/*Frame();
-	if (m_Enabled)
-	{
-		ImGui::ShowDemoWindow(&m_Enabled);
-	}*/
+	//ImGui::ShowDemoWindow()
+
+	//Frame();
+	//if (m_Enabled)
+	//{
+	//	ImGui::ShowDemoWindow(&m_Enabled);
+	//}
 
 	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
@@ -202,99 +201,125 @@ void ImGUIMgr::GameView()
 
 void ImGUIMgr::InSpector()
 {
-	if (m_Enabled && m_Player != nullptr)
+	Level* _curLevel = LevelMgr::GetInst()->GetCurLevel();
+
+	bool enabled = FALSE;
+	for (size_t _layer = 0; _layer < (UINT)LAYER_TYPE::END;_layer++)
 	{
-		ImGuiInputTextFlags flags = ImGuiInputTextFlags_::ImGuiInputTextFlags_None;
-		Transform* _tr = m_Player->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
+		Layer* _layers = _curLevel->GetLayer(LAYER_TYPE(_layer));
+		vector<GameObject*>& _objs = _layers->GetLayerObject();
 
-		Vec4 _pos = _tr->GetRelativePosition();
-		Vec4 _scale = _tr->GetRelativeScale();
-		Vec3 _rot = _tr->GetRelativeRotation();
+		for (size_t _obj = 0; _obj < _objs.size();_obj++)
+		{
+			if (_objs[_obj]->GetPicking() == TRUE)
+			{
+				m_Inspector = _objs[_obj];
+				enabled = TRUE;
+				break;
+			}
+		}
 
-		ImGui::Begin("Character Inspector");
-
-		ImGui::Text("Position");
-		ImGui::InputScalar("PosX", ImGuiDataType_Float, &_pos.x, &_pos.x, &_pos.x, "%.f", flags);
-		ImGui::InputScalar("PosY", ImGuiDataType_Float, &_pos.y, 0, 0, "%.f", flags);
-		ImGui::InputScalar("PosZ", ImGuiDataType_Float, &_pos.z, 0, 0, "%.f", flags);
-
-		ImGui::Text("Scale");
-		ImGui::InputScalar("ScaleX", ImGuiDataType_Float, &_scale.x, 0, 0, "%.f", flags);
-		ImGui::InputScalar("ScaleY", ImGuiDataType_Float, &_scale.y, 0, 0, "%.f", flags);
-		ImGui::InputScalar("ScaleZ", ImGuiDataType_Float, &_scale.z, 0, 0, "%.f", flags);
-
-		ImGui::Text("Rotation");
-		ImGui::InputScalar("RotX", ImGuiDataType_Float, &_rot.x, 0, 0, "%.f", flags);
-		ImGui::InputScalar("RotY", ImGuiDataType_Float, &_rot.y, 0, 0, "%.f", flags);
-		ImGui::InputScalar("RotZ", ImGuiDataType_Float, &_rot.z, 0, 0, "%.f", flags);
-
-		_tr->SetRelativePosition(_pos);
-		_tr->SetRelativeScale(_scale);
-		_tr->SetRelativeRotation(_rot);
-
-		ImGui::End();
-		ImGui::Render();
-		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+		if (enabled)
+			break;
 	}
-	else if (m_Enabled && m_Light != nullptr)
+
+	if (nullptr == m_Inspector)
+		return;
+
+	Transform* _tr = m_Inspector->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
+	MeshRenderer* _renderer = m_Inspector->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER);
+	Animator2D* _animator = m_Inspector->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D);
+	Collider2D* _collider = m_Inspector->GetComponent<Collider2D>(COMPONENT_TYPE::COLLIDER2D);
+	LIght2D* _light2D = m_Inspector->GetComponent<LIght2D>(COMPONENT_TYPE::LIGHT2D);
+	// Script*
+	// Light*
+	// Camera*
+
+	ImGui::Begin("Inspector");
+	if (_tr != nullptr)
 	{
-		ImGuiInputTextFlags flags = ImGuiInputTextFlags_::ImGuiInputTextFlags_None;
-		Transform* _tr = m_Light->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
-		LIght2D* _light = m_Light->GetComponent<LIght2D>(COMPONENT_TYPE::LIGHT2D);
+		if (ImGui::CollapsingHeader("Transoform"))
+		{
+			Vec4 _scale = _tr->GetRelativeScale();
+				Vec4 _pos = _tr->GetRelativePosition();
+				Vec3 _rot = _tr->GetRelativeRotation();
 
-		Vec4 _pos = _tr->GetRelativePosition();
-		Vec3 _rot = _tr->GetRelativeRotation();
+				float _value[3] = { _pos.x,_pos.y,_pos.z };
+				ImGui::InputFloat3("Position", _value);
+				float _value2[3] = { _rot.x,_rot.y,_rot.z };
+				ImGui::InputFloat3("Rotation", _value2);
+				float _value3[3] = { _scale.x,_scale.y,_scale.z };
+				ImGui::InputFloat3("Scale", _value3);
 
-		LIGHT_TYPE _type = _light->GetLightType();
-		float _typeInfo = (float)_type;
-		float _Radius = _light->GetRadius();
-		float _Angle = _light->GetAngle();
-		Vec4 _Color = _light->GetColor();
-		Vec4 _Ambient = _light->GetAmbient();
+			_pos.x = _value[0];
+			_pos.y = _value[1];
+			_pos.z = _value[2];
 
-		ImGui::Begin("Light Inspector");
+			_rot.x = _value2[0];
+			_rot.y = _value2[1];
+			_rot.z = _value2[2];
 
-		ImGui::Text("Position");
-		ImGui::InputScalar("PosX", ImGuiDataType_Float, &_pos.x, 0, 0, "%.f", flags);
-		ImGui::InputScalar("PosY", ImGuiDataType_Float, &_pos.y, 0, 0, "%.f", flags);
-		ImGui::InputScalar("PosZ", ImGuiDataType_Float, &_pos.z, 0, 0, "%.f", flags);
+			_scale.x = _value3[0];
+			_scale.y = _value3[1];
+			_scale.z = _value3[2];
 
-		ImGui::Text("Rotation");
-		ImGui::InputScalar("RotX", ImGuiDataType_Float, &_rot.x, 0, 0, "%.f", flags);
-		ImGui::InputScalar("RotY", ImGuiDataType_Float, &_rot.y, 0, 0, "%.f", flags);
-		ImGui::InputScalar("RotZ", ImGuiDataType_Float, &_rot.z, 0, 0, "%.f", flags);
-
-		ImGui::Text("LightSetting");
-		ImGui::InputScalar("Radius", ImGuiDataType_Float, &_Radius, 0, 0, "%.f", flags);
-		ImGui::InputScalar("Angle", ImGuiDataType_Float, &_Angle, 0, 0, "%.f", flags);
-
-		ImGui::Text("LightColor");
-		ImGui::InputScalar("RED", ImGuiDataType_Float, &_Color.x, 0, 0, "%.f", flags);
-		ImGui::InputScalar("BLUE", ImGuiDataType_Float, &_Color.y, 0, 0, "%.f", flags);
-		ImGui::InputScalar("GREEN", ImGuiDataType_Float, &_Color.z, 0, 0, "%.f", flags);
-
-		ImGui::Text("LightAmbient");
-		ImGui::InputScalar("RED_A", ImGuiDataType_Float, &_Ambient.x, 0, 0, "%.f", flags);
-		ImGui::InputScalar("BLUE_A", ImGuiDataType_Float, &_Ambient.y, 0, 0, "%.f", flags);
-		ImGui::InputScalar("GREEN_A", ImGuiDataType_Float, &_Ambient.z, 0, 0, "%.f", flags);
-
-		ImGui::Text("Type");
-		ImGui::InputScalar("RIGHTTYPE", ImGuiDataType_Float, &_typeInfo, 0, 0, "%.f", flags);
-
-		_light->SetAmbient(_Ambient);
-		_light->SetColor(_Color);
-
-		int _push = (int)_typeInfo;
-		_light->SetLightType(LIGHT_TYPE(_push));
-		_light->SetRadius(_Radius);
-		_light->SetAngle(_Angle);
-
-		_tr->SetRelativePosition(_pos);
-		_tr->SetRelativeRotation(_rot);
-
-		ImGui::End();
+			_tr->SetRelativePosition(_pos);
+			_tr->SetRelativeRotation(_rot);
+			_tr->SetRelativeScale(_scale);
+		}
 	}
+
+	if (_renderer != nullptr)
+	{
+		
+	}
+
+	if (_light2D != nullptr)
+	{
+		if (ImGui::CollapsingHeader("Light2D"))
+		{
+			ImGuiInputTextFlags flags = ImGuiInputTextFlags_::ImGuiInputTextFlags_None;
+
+			LIGHT_TYPE _type = _light2D->GetLightType();
+			float _typeInfo = (float)_type;
+			float _Radius = _light2D->GetRadius();
+			float _Angle = _light2D->GetAngle();
+			Vec4 _Color = _light2D->GetColor();
+			Vec4 _Ambient = _light2D->GetAmbient();
+
+			ImGui::Text("LightSetting");
+			ImGui::InputScalar("Radius", ImGuiDataType_Float, &_Radius, 0, 0, "%.f", flags);
+			ImGui::InputScalar("Angle", ImGuiDataType_Float, &_Angle, 0, 0, "%.f", flags);
+
+			ImGui::Text("LightColor");
+			ImGui::InputScalar("RED", ImGuiDataType_Float, &_Color.x, 0, 0, "%.f", flags);
+			ImGui::InputScalar("BLUE", ImGuiDataType_Float, &_Color.y, 0, 0, "%.f", flags);
+			ImGui::InputScalar("GREEN", ImGuiDataType_Float, &_Color.z, 0, 0, "%.f", flags);
+
+			ImGui::Text("LightAmbient");
+			ImGui::InputScalar("RED_A", ImGuiDataType_Float, &_Ambient.x, 0, 0, "%.f", flags);
+			ImGui::InputScalar("BLUE_A", ImGuiDataType_Float, &_Ambient.y, 0, 0, "%.f", flags);
+			ImGui::InputScalar("GREEN_A", ImGuiDataType_Float, &_Ambient.z, 0, 0, "%.f", flags);
+
+			ImGui::Text("Type");
+			ImGui::InputScalar("RIGHTTYPE", ImGuiDataType_Float, &_typeInfo, 0, 0, "%.f", flags);
+
+			_light2D->SetAmbient(_Ambient);
+			_light2D->SetColor(_Color);
+
+			int _push = (int)_typeInfo;
+			_light2D->SetLightType(LIGHT_TYPE(_push));
+			_light2D->SetRadius(_Radius);
+			_light2D->SetAngle(_Angle);
+		}
+	}
+
+	ImGui::End();
 }
+
+/*****************
+|	Object Picking
+*****************/
 
 void ImGUIMgr::Hierarchy()
 {
@@ -302,23 +327,25 @@ void ImGUIMgr::Hierarchy()
 	Level* _curLevel = LevelMgr::GetInst()->GetCurLevel();
 
 	static int testidx = 0;
-	vector<int> testvec;
-	int _size = 0;
 
-	testvec.clear();
 	for (size_t _idx = 0;_idx < (UINT)LAYER_TYPE::END;_idx++)
 	{
 		Layer* _layer = _curLevel->GetLayer(LAYER_TYPE(_idx));
 		vector<GameObject*>& _objs = _layer->GetLayerObject();
 
-		_size += _objs.size();
-		testidx++;
+		for (size_t _obj = 0;_obj < _objs.size();_obj++)
+		{
+			wstring _name_w = _objs[_obj]->GetName();
+			string _name;
+
+			bool _picking = _objs[_obj]->GetPicking();
+			_name.assign(_name_w.begin(), _name_w.end());
+
+			ImGui::Selectable(_name.c_str(), &_picking);
+
+			_objs[_obj]->SetPicking(_picking);
+		}
 	}
-
-	testvec.reserve(_size);
-
-	for (int i = 0;i < _size;i++)
-		ImGui::Selectable("GameObjects", false);
 
 	ImGui::End();
 }
@@ -337,7 +364,7 @@ void ImGUIMgr::Console()
 	static int _line = 0;
 	m_AcctimeforDebug += DT;
 	if (m_AcctimeforDebug >= m_OutputTime)
-	{	
+	{
 		_line++;
 
 		if (_line >= m_ConsoleMessage.size())

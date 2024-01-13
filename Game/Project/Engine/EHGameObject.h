@@ -18,8 +18,13 @@ private:
 	vector<GameObject*>			m_Childs;
 
 	GameObject*					m_Parent;
-	bool						m_Dead;
 
+	bool						m_Dead;
+	bool						m_Picking;
+
+	static int					m_ObjectID;
+
+	int							m_Idx;
 public:
 	template<typename T>
 	T* AddComponent()
@@ -79,6 +84,10 @@ public:
 	void		SetDead(bool _dead) { m_Dead = _dead; }
 	bool		GetDead() { return m_Dead; }
 
+	void		SetPicking(bool _picking) { m_Picking = _picking; }
+	bool		GetPicking() { return m_Picking; }
+
+	int		GetIdx() { return m_Idx; }
 public:
 	virtual void Awake();
 	virtual void Start();

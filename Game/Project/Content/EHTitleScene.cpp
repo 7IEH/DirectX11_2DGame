@@ -153,6 +153,7 @@ void TitleLevel::Awake()
 	Transform* _lightTr = _light->AddComponent<Transform>();
 	_lightTr->SetRelativePosition(Vec4(0.f, 500., 0.f, 0.f));
 	_lightTr->SetRelativeRotation(Vec3(0.f, 0.f, 90.f));
+	_light->SetName(L"Light");
 
 	LIght2D* _light2D = _light->AddComponent<LIght2D>();
 	_light2D->SetAmbient(Vec4(0.1f, 0.1f, 0.1f, 1.f));
@@ -162,8 +163,6 @@ void TitleLevel::Awake()
 	_light2D->SetAngle(180.f);
 
 	_light->AddComponent<Light2DScript>();
-	
-	ImGUIMgr::GetInst()->SetLight(_light);
 
 	Object::Instantiate(_light, (UINT)LAYER_TYPE::LIGHT2D);
 

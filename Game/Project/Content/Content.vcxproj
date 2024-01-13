@@ -154,7 +154,7 @@
     <ClInclude Include="EHIntroScene.h" />
     <ClInclude Include="EHRoomManager.h" />
     <ClInclude Include="EHTitleScene.h" />
-    <ClInclude Include="enum.h" />
+    <ClInclude Include="Content_enum.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="global.h" />
     <ClInclude Include="pch.h" />
