@@ -7,10 +7,12 @@
 #include "EHGameObject.h"
 
 #include "EHRoomManager.h"
+#include "EHCollisionMgr.h"
 
 #include "EHLight2D.h"
 #include "EHLight2DScript.h"
 #include "EHPlayerScript.h"
+#include "EHTriggerScript.h"
 
 #include "EHOutLineScript.h"
 
@@ -83,6 +85,7 @@ void DungeonScene::Awake()
 
 	_entry->_This = _EntryRoom;
 	_entry->Type = ROOM_TYPE::ENTRY_ROOM;
+	_entry->_Parent = nullptr;
 
 	queue<Room*>q;
 	q.push(_entry);
@@ -97,6 +100,10 @@ void DungeonScene::Awake()
 		Room* _CurRoom = q.front(); q.pop();
 		Content::Vec2 _mapPos = _CurRoom->CurPos;
 		Content::Vec2 _parentPos = _CurRoom->ParentPos;
+		for (UINT _idx = 0;_idx < (UINT)SPAWN_TYPE::END;_idx++)
+		{
+			_CurRoom->_Child[_idx] = nullptr;
+		}
 
 		for (int i = 0;i < _CurRoom->Spawn.size();i++)
 		{
@@ -171,6 +178,9 @@ void DungeonScene::Awake()
 				_nxtRoom->_This = _obj;
 				_nxtRoom->ParentPos = _CurRoom->CurPos;
 				_nxtRoom->Type = _type;
+				_nxtRoom->m_ParentDir = SPAWN_TYPE::RIGHT;
+				_CurRoom->_Child[(UINT)SPAWN_TYPE::RIGHT] = _obj;
+				_nxtRoom->_Parent = _CurRoom->_This;
 
 				m_MapInfo.push_back(_obj);
 				m_MapRoomInfo.push_back(_nxtRoom);
@@ -241,6 +251,9 @@ void DungeonScene::Awake()
 				_nxtRoom->_This = _obj;
 				_nxtRoom->ParentPos = _CurRoom->CurPos;
 				_nxtRoom->Type = _type;
+				_nxtRoom->m_ParentDir = SPAWN_TYPE::LEFT;
+				_CurRoom->_Child[(UINT)SPAWN_TYPE::LEFT] = _obj;
+				_nxtRoom->_Parent = _CurRoom->_This;
 
 				m_MapInfo.push_back(_obj);
 				m_MapRoomInfo.push_back(_nxtRoom);
@@ -297,9 +310,9 @@ void DungeonScene::Awake()
 				_nxtRoom->ParentPos = _mapPos;
 				_nxtRoom->CurPos = _nxtPos;
 				_nxtRoom->Spawn = m_RoomRef[(UINT)_type][0].Spawn;
-				_nxtRoom->_This = _obj;
+				_nxtRoom->m_ParentDir = SPAWN_TYPE::TOP;
 				_nxtRoom->Type = _type;
-
+				_nxtRoom->_Parent = _CurRoom->_This;
 
 				_obj = new GameObject;
 				_tr = _obj->AddComponent<Transform>();
@@ -311,9 +324,11 @@ void DungeonScene::Awake()
 				_render->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"DefaultRectMesh"));
 				_render->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"dungeonBGMat"));
 
+				_CurRoom->_Child[(UINT)SPAWN_TYPE::BOTTOM] = _obj;
 				m_MapInfo.push_back(_obj);
 				m_MapRoomInfo.push_back(_nxtRoom);
 				Object::Instantiate(_obj, (int)LAYER_TYPE::BACKGROUND);
+				_nxtRoom->_This = _obj;
 				q.push(_nxtRoom);
 				break;
 			case SPAWN_TYPE::TOP:
@@ -357,13 +372,13 @@ void DungeonScene::Awake()
 					_type = ROOM_TYPE::TOP_BOTTOM;
 				}
 
-
 				m_Map[_nxtPos.y][_nxtPos.x] = (UINT)_type;
 				_nxtRoom->ParentPos = _mapPos;
 				_nxtRoom->CurPos = _nxtPos;
 				_nxtRoom->Spawn = m_RoomRef[(UINT)_type][0].Spawn;
-				_nxtRoom->_This = _obj;
 				_nxtRoom->Type = _type;
+				_nxtRoom->m_ParentDir = SPAWN_TYPE::BOTTOM;
+				_nxtRoom->_Parent = _CurRoom->_This;
 
 				_obj = new GameObject;
 				_tr = _obj->AddComponent<Transform>();
@@ -375,9 +390,11 @@ void DungeonScene::Awake()
 				_render->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"DefaultRectMesh"));
 				_render->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"dungeonBGMat"));
 
+				_CurRoom->_Child[(UINT)SPAWN_TYPE::TOP] = _obj;
 				m_MapRoomInfo.push_back(_nxtRoom);
 				m_MapInfo.push_back(_obj);
 				Object::Instantiate(_obj, (int)LAYER_TYPE::BACKGROUND);
+				_nxtRoom->_This = _obj;
 				q.push(_nxtRoom);
 				break;
 			case SPAWN_TYPE::END:
@@ -392,17 +409,221 @@ void DungeonScene::Awake()
 	for (size_t _idx = 0;_idx < m_MapRoomInfo.size();_idx++)
 	{
 		Room* _room = m_MapRoomInfo[_idx];
+		Transform* _curTr = _room->_This->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
+		Vec4 _currentPos = _curTr->GetRelativePosition();
 
 		// 내가 자식들을 향한 도어 생성
-		//CreateDoor();
+		for (UINT _dir = 0; _dir < (UINT)SPAWN_TYPE::END;_dir++)
+		{
+			if (_room->_Child[_dir] == nullptr)
+				continue;
 
+			GameObject* _door = nullptr;
+			Vec4 _curPos = _currentPos;
 
+			switch (SPAWN_TYPE(_dir))
+			{
+			case SPAWN_TYPE::RIGHT:
+			{
+				_door = new GameObject;
+				Transform* _doortr = _door->AddComponent<Transform>();
+				Collider2D* _doorcol = _door->AddComponent<Collider2D>();
+				TriggerScript* _trigger = _door->AddComponent<TriggerScript>();
+
+				Transform* _childtr = _room->_Child[_dir]->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
+
+				_trigger->SetPlayerPos(_childtr->GetRelativePosition());
+				_trigger->SetTriggerType(TRIGGER_TYPE::MOVE_TRIGGER);
+
+				float _width = 10.f;
+				float _height = 30.f;
+
+				_curPos.x -= 600.f + _width / 2.f;
+
+				_doortr->SetRelativePosition(_curPos);
+				_doortr->SetRelativeScale(Vec4(_width, _height, 0.f, 1.f));
+				Object::Instantiate(_door, (int)LAYER_TYPE::TRIGGER);
+			}
+			break;
+			case SPAWN_TYPE::LEFT:
+			{
+				_door = new GameObject;
+				Transform* _doortr = _door->AddComponent<Transform>();
+				Collider2D* _doorcol = _door->AddComponent<Collider2D>();
+				TriggerScript* _trigger = _door->AddComponent<TriggerScript>();
+
+				Transform* _childtr = _room->_Child[_dir]->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
+
+				_trigger->SetPlayerPos(_childtr->GetRelativePosition());
+				_trigger->SetTriggerType(TRIGGER_TYPE::MOVE_TRIGGER);
+
+				float _width = 10.f;
+				float _height = 30.f;
+
+				_curPos.x += 600.f - _width / 2.f;
+			
+				_doortr->SetRelativePosition(_curPos);
+				_doortr->SetRelativeScale(Vec4(_width, _height, 0.f, 1.f));
+				Object::Instantiate(_door, (int)LAYER_TYPE::TRIGGER);
+			}
+			break;
+			case SPAWN_TYPE::BOTTOM:
+			{
+				_door = new GameObject;
+				Transform* _doortr = _door->AddComponent<Transform>();
+				Collider2D* _doorcol = _door->AddComponent<Collider2D>();
+				TriggerScript* _trigger = _door->AddComponent<TriggerScript>();
+
+				Transform* _childtr = _room->_Child[_dir]->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
+
+				_trigger->SetPlayerPos(_childtr->GetRelativePosition());
+				_trigger->SetTriggerType(TRIGGER_TYPE::MOVE_TRIGGER);
+
+				float _width = 30.f;
+				float _height = 10.f;
+
+				_curPos.y -= 300.f + _height / 2.f;
+
+				_doortr->SetRelativePosition(_curPos);
+				_doortr->SetRelativeScale(Vec4(_width, _height, 0.f, 1.f));
+				Object::Instantiate(_door, (int)LAYER_TYPE::TRIGGER);
+			}
+			break;
+			case SPAWN_TYPE::TOP:
+			{
+				_door = new GameObject;
+				Transform* _doortr = _door->AddComponent<Transform>();
+				Collider2D* _doorcol = _door->AddComponent<Collider2D>();
+				TriggerScript* _trigger = _door->AddComponent<TriggerScript>();
+
+				_trigger->SetTriggerType(TRIGGER_TYPE::MOVE_TRIGGER);
+
+				float _width = 30.f;
+				float _height = 10.f;
+
+				Transform* _childtr = _room->_Child[_dir]->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
+
+				_trigger->SetPlayerPos(_childtr->GetRelativePosition());
+
+				_curPos.y += 300.f - _height / 2.f;
+
+				_doortr->SetRelativePosition(_curPos);
+				_doortr->SetRelativeScale(Vec4(_width, _height, 0.f, 1.f));
+				Object::Instantiate(_door, (int)LAYER_TYPE::TRIGGER);
+			}
+			break;
+			case SPAWN_TYPE::END:
+				break;
+			default:
+				break;
+			}
+		}
 
 		// 내가 부모를 향한 도어 생성
+		if (_room->_Parent == nullptr)
+			continue;
+
+		GameObject* _door = nullptr;
+		Transform* _tr = _room->_This->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
+		Vec4 _curPos = _tr->GetRelativePosition();
+		Transform* _parenttr = _room->_Parent->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
+		switch (_room->m_ParentDir)
+		{
+		case SPAWN_TYPE::RIGHT: 
+		{
+			_door = new GameObject;
+			Transform* _doortr = _door->AddComponent<Transform>();
+			Collider2D* _doorcol = _door->AddComponent<Collider2D>();
+			TriggerScript* _trigger = _door->AddComponent<TriggerScript>();
+
+			_trigger->SetTriggerType(TRIGGER_TYPE::MOVE_TRIGGER);
+
+			float _width = 10.f;
+			float _height = 30.f;
+
+			_trigger->SetPlayerPos(_parenttr->GetRelativePosition());
+
+			_curPos.x += 600.f - _width / 2.f;
+
+			_doortr->SetRelativePosition(_curPos);
+			_doortr->SetRelativeScale(Vec4(_width, _height, 0.f, 1.f));
+			Object::Instantiate(_door, (int)LAYER_TYPE::TRIGGER);
+		}
+			break;
+		case SPAWN_TYPE::LEFT:
+		{
+			_door = new GameObject;
+			Transform* _doortr = _door->AddComponent<Transform>();
+			Collider2D* _doorcol = _door->AddComponent<Collider2D>();
+			TriggerScript* _trigger = _door->AddComponent<TriggerScript>();
+
+			_trigger->SetTriggerType(TRIGGER_TYPE::MOVE_TRIGGER);
+
+			float _width = 10.f;
+			float _height = 30.f;
+
+			_trigger->SetPlayerPos(_parenttr->GetRelativePosition());
+
+			_curPos.x -= 600.f + _width / 2.f;
+
+			_doortr->SetRelativePosition(_curPos);
+			_doortr->SetRelativeScale(Vec4(_width, _height, 0.f, 1.f));
+			Object::Instantiate(_door, (int)LAYER_TYPE::TRIGGER);
+		}
+			break;
+		case SPAWN_TYPE::BOTTOM:
+		{
+			_door = new GameObject;
+			Transform* _doortr = _door->AddComponent<Transform>();
+			Collider2D* _doorcol = _door->AddComponent<Collider2D>();
+			TriggerScript* _trigger = _door->AddComponent<TriggerScript>();
+
+			_trigger->SetTriggerType(TRIGGER_TYPE::MOVE_TRIGGER);
+
+			float _width = 30.f;
+			float _height = 10.f;
+
+			_trigger->SetPlayerPos(_parenttr->GetRelativePosition());
+
+			_curPos.y -= 300.f - _height / 2.f;
+
+			_doortr->SetRelativePosition(_curPos);
+			_doortr->SetRelativeScale(Vec4(_width, _height, 0.f, 1.f));
+			Object::Instantiate(_door, (int)LAYER_TYPE::TRIGGER);
+		}
+			break;
+		case SPAWN_TYPE::TOP:
+		{
+			_door = new GameObject;
+			Transform* _doortr = _door->AddComponent<Transform>();
+			Collider2D* _doorcol = _door->AddComponent<Collider2D>();
+			TriggerScript* _trigger = _door->AddComponent<TriggerScript>();
+
+			_trigger->SetTriggerType(TRIGGER_TYPE::MOVE_TRIGGER);
+
+			float _width = 30.f;
+			float _height = 10.f;
+
+			_trigger->SetPlayerPos(_parenttr->GetRelativePosition());
+
+			_curPos.y += 300.f - _height / 2.f;
+
+			_doortr->SetRelativePosition(_curPos);
+			_doortr->SetRelativeScale(Vec4(_width, _height, 0.f, 1.f));
+			Object::Instantiate(_door, (int)LAYER_TYPE::TRIGGER);
+		}
+			break;
+		case SPAWN_TYPE::END:
+			break;
+		default:
+			break;
+		}
+
 	}
 
 	// Player
 	GameObject* _player = new GameObject();
+	_player->SetName(L"Player");
 	Transform* tr = _player->AddComponent<Transform>();
 	tr->SetRelativeScale(Vec4(96.f, 164.f, 1.f, 1.f));
 	tr->SetRelativePosition(Vec4(400.f, 0.f, -5.f, 1.f));
@@ -412,7 +633,8 @@ void DungeonScene::Awake()
 	_playerRenderer->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"DefaultRectMesh"));
 	_playerRenderer->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"PlayerMaterial"));
 
-	_player->SetName(L"Player");
+	Collider2D* _playercol = _player->AddComponent<Collider2D>();
+
 	Object::Instantiate(_player, (int)LAYER_TYPE::PLAYER);
 
 	_player->AddComponent<PlayerScript>();
@@ -424,6 +646,7 @@ void DungeonScene::Awake()
 
 	// Light2D
 	GameObject* _light = new GameObject;
+	_light->SetName(L"Light");
 	Transform* _lightTr = _light->AddComponent<Transform>();
 
 	LIght2D* _light2D = _light->AddComponent<LIght2D>();
@@ -449,6 +672,8 @@ void DungeonScene::Awake()
 	_posttr->SetRelativeScale(Vec4(400.f, 200.f, 0.f, 0.f));
 
 	Object::Instantiate(_postprocess, (UINT)LAYER_TYPE::BACKGROUND);
+
+	CollisionMgr::GetInst()->LayerCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::TRIGGER);
 	Level::Awake();
 }
 
@@ -472,13 +697,18 @@ void DungeonScene::LateUpdate()
 	Level::LateUpdate();
 }
 
+void DungeonScene::CreateRoom()
+{
+
+}
+
 void DungeonScene::CreateDoor(Vec2 _pos, Vec2 _nxtpos)
 {
 	GameObject* _door = new GameObject;
 	Collider2D* _col = _door->AddComponent<Collider2D>();
 	Transform* _tr = _door->AddComponent<Transform>();
 
-	_tr->SetRelativePosition(Vec4(_pos.x,_pos.y,0.f,0.f));
+	_tr->SetRelativePosition(Vec4(_pos.x, _pos.y, 0.f, 0.f));
 	_tr->SetRelativeScale(Vec4(50.f, 50.f, 1.f, 0.f));
 
 	//Object::Instantiate(_door, (int)LAYER_TYPE::TRIGGER);

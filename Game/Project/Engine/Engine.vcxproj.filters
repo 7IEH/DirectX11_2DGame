@@ -465,7 +465,7 @@
     <ClInclude Include="EHColliderUI.h">
       <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Collider</Filter>
     </ClInclude>
-    <ClInclude Include="Animator2DUI.h">
+    <ClInclude Include="EHAnimator2DUI.h">
       <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Animator2D</Filter>
     </ClInclude>
     <ClInclude Include="EHCameraUI.h">
@@ -474,7 +474,7 @@
     <ClInclude Include="EHRigidbodyUI.h">
       <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Rigidbody</Filter>
     </ClInclude>
-    <ClInclude Include="RendererUI.h">
+    <ClInclude Include="EHRendererUI.h">
       <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Renderer</Filter>
     </ClInclude>
   </ItemGroup>
@@ -686,7 +686,7 @@
     <ClCompile Include="EHColliderUI.cpp">
       <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Collider</Filter>
     </ClCompile>
-    <ClCompile Include="Animator2DUI.cpp">
+    <ClCompile Include="EHAnimator2DUI.cpp">
       <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Animator2D</Filter>
     </ClCompile>
     <ClCompile Include="EHCameraUI.cpp">
@@ -695,7 +695,7 @@
     <ClCompile Include="EHRigidbodyUI.cpp">
       <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Rigidbody</Filter>
     </ClCompile>
-    <ClCompile Include="RendererUI.cpp">
+    <ClCompile Include="EHRendererUI.cpp">
       <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Renderer</Filter>
     </ClCompile>
   </ItemGroup>

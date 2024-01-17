@@ -11,6 +11,7 @@ public:
 	virtual void Render_Update();
 
 public:
+	ColliderUI();
 	ColliderUI(const string& _label, const string& _strID, COLLIDER_TYPE _type);
 	virtual ~ColliderUI();
 };

@@ -90,6 +90,10 @@ void ComponentUI::SetTargetObject(GameObject* _target)
 				Enabled(TRUE);
 		}
 			break;
+		case COMPONENT_TYPE::RIGIDBODY:
+		{
+			Enabled(FALSE);
+		}
 		case COMPONENT_TYPE::END:
 			break;
 		case COMPONENT_TYPE::SCRIPT:

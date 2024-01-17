@@ -16,9 +16,12 @@ public:
 	void AddObject(GameObject* _obj, LAYER_TYPE _type, bool _bChildMove = true)
 	{
 		m_Layers[(UINT)_type]->AddObject(_obj,_bChildMove);
-		wchar_t buf[32] = {};
-		swprintf_s(buf, L"GameObject%d", _obj->GetIdx());
-		_obj->SetName(buf);
+		if (_obj->GetName() == L"")
+		{
+			wchar_t buf[32] = {};
+			swprintf_s(buf, L"GameObject%d", _obj->GetIdx());
+			_obj->SetName(buf);
+		}		
 	}
 
 	Layer* GetLayer(LAYER_TYPE _type) { return m_Layers[(UINT)_type]; }

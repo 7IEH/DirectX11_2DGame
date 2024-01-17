@@ -24,6 +24,7 @@ public:
 	virtual void LateUpdate() override;
 
 private:
+	void CreateRoom();
 	void CreateDoor(Vec2 _pos, Vec2 _nxtpos);
 
 public:

@@ -11,9 +11,16 @@ private:
 	/**************************
 	|	Move Trigger member
 	**************************/
-	ROOM_TYPE	m_Room;
-	SPAWN_TYPE	m_Dir;
+	Vec4		m_PlayerPos;
+	Vec4		m_CamPos;
 
+	GameObject* m_Cam;
+
+public:
+	void SetTriggerType(TRIGGER_TYPE _type) { m_Type = _type; }
+
+	void SetPlayerPos(Vec4 _playerpos) { m_PlayerPos = _playerpos; }
+	void SetCameraPos(Vec4 _campos) { m_CamPos = _campos; }
 
 public:
 	virtual void Awake() override;

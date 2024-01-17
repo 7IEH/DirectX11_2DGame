@@ -14,8 +14,6 @@ private:
 
 	ImGuiIO&		m_io;
 
-	bool		m_Check;
-
 	bool		m_DockSpace;
 
 	// Console Message 후에 선생님이 한 해당 페이지 번호 가져온거 찾아보기

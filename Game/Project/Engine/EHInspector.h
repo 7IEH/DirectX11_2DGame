@@ -11,6 +11,13 @@ class Inspector
 	:public UI
 {
 private:
+	map<LAYER_TYPE, string>	m_LayerByName;
+	map<string, LAYER_TYPE>	m_NameByLayer;
+
+	vector<string>		m_LayerName;
+
+	map<string,bool>	m_LayerSelect;
+
 	GameObject*		m_TargetObject;
 	Ptr<Asset>		m_TargetAsset;
 
@@ -23,6 +30,11 @@ public:
 public:
 	void SetTargetObject(GameObject* _obj);
 	void SetTargetAsset(Ptr<Asset> _asset);
+
+
+private:
+	void ShowName();
+	void ShowLayer();
 
 public:
 	Inspector();

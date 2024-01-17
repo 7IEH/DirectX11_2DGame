@@ -86,10 +86,10 @@ void CollisionMgr::CollisionLayer(UINT _left, UINT _right)
 				iter = m_MemoryOfCollision.find(id.ID);
 			}
 
-			bool bDead = _leftObj[i]->GetDead() || _rightObj[i]->GetDead();
+			bool bDead = _leftObj[i]->GetDead() || _rightObj[j]->GetDead();
 
 			Collider* _leftCol = _leftObj[i]->GetComponent<Collider>(COMPONENT_TYPE::COLLIDER2D);
-			Collider* _rightCol = _rightObj[i]->GetComponent<Collider>(COMPONENT_TYPE::COLLIDER2D);
+			Collider* _rightCol = _rightObj[j]->GetComponent<Collider>(COMPONENT_TYPE::COLLIDER2D);
 
 			if (CollisionCollider(_leftCol, _rightCol))
 			{

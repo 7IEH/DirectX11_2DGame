@@ -6,6 +6,7 @@ UI::UI(const string& _strName, const string& _strID)
 	, m_strID(_strID)
 	, m_bActive(true)
 	, m_Parent(nullptr)
+	, m_Collapsing(FALSE)
 {
 }
 

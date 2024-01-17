@@ -62,6 +62,7 @@ public:
 
 public:
 	LAYER_TYPE		GetLayerType() { return m_LayerType; }
+	void			SetLayerType(LAYER_TYPE _type) { m_LayerType = _type; }
 
 	template<typename T>
 	T* GetComponent(COMPONENT_TYPE _type)

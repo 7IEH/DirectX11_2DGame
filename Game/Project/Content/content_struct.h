@@ -38,9 +38,11 @@ struct Room
 	Content::Vec2				CurPos;
 
 	vector<SpawnPoint>			Spawn;
-	ROOM_TYPE					Type;					
+	ROOM_TYPE					Type;
+
+	SPAWN_TYPE					m_ParentDir;
 
 	GameObject*					_This;
 	GameObject*					_Parent;
-	vector<GameObject*>			_Child;
+	GameObject*					_Child[(UINT)SPAWN_TYPE::END];
 };

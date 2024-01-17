@@ -42,5 +42,5 @@ struct Room
 
 	GameObject*					_This;
 	GameObject*					_Parent;
-	vector<GameObject*>			_Child;
+	GameObject*					_Child[(UINT)SPAWN_TYPE::END];
 };
