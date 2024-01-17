@@ -43,4 +43,7 @@ void TimeMgr::Update()
 	}
 
 	++m_iCall;
+
+	e_Global._Dt = m_fDeltaTime;
+	e_Global._AccTime += m_fDeltaTime;
 }

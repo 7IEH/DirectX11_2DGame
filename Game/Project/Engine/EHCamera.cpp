@@ -177,6 +177,8 @@ void Camera::PostRender(vector<GameObject*>& _vecObj)
 {
 	for (size_t _idx = 0;_idx < _vecObj.size();_idx++)
 	{
+		RenderMgr::GetInst()->CopyResourceView();
+
 		Ptr<Sprite> pPostProcessTex = RenderMgr::GetInst()->GetPostProcessTexture2D();
 		pPostProcessTex->UpdateData(13);
 

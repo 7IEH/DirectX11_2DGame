@@ -69,6 +69,8 @@ public:
 		T* _comp = dynamic_cast<T*>(m_Component[(UINT)_type]);
 		if (_comp != nullptr)
 			return _comp;
+
+		return _comp;
 	}
 
 	vector<Script*>& GetScript()

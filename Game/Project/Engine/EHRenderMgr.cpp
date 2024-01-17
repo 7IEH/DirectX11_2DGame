@@ -30,10 +30,10 @@ extern transform e_MatrixData;
 
 RenderMgr::RenderMgr()
 	:m_Cam{}
-	,m_NotRender(TRUE)
-	,m_Light2DBuffer(nullptr)
-	,m_pDebugObj(nullptr)
-	,m_PickingObj(nullptr)
+	, m_NotRender(TRUE)
+	, m_Light2DBuffer(nullptr)
+	, m_pDebugObj(nullptr)
+	, m_PickingObj(nullptr)
 {
 }
 
@@ -52,7 +52,9 @@ RenderMgr::~RenderMgr()
 void RenderMgr::Update()
 {
 	// RenderTarget, DepthStencil ÃÊ±âÈ­
-	float ClearColor[4] = { 1.f,1.f,1.f,1.f };
+	Device::GetInst()->OMSetRT();
+
+	float ClearColor[4] = { 0.3f,0.3f,0.3f,0.3f };
 	Device::GetInst()->ClearRenderTarget(ClearColor);
 
 	UpdateData();
@@ -64,8 +66,8 @@ void RenderMgr::Update()
 	Clear();
 
 	CopyResourceView();
-	ImGUIMgr::GetInst()->Render();
 
+	ImGUIMgr::GetInst()->Render();
 	Device::GetInst()->Present();
 }
 
@@ -140,14 +142,14 @@ void RenderMgr::PickingRender()
 
 	MeshRenderer* _pickingMeshRenderer = m_PickingObj->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER);
 	Transform* _pickingTr = m_PickingObj->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
-	
+
 	_pickingMeshRenderer->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"DefaultRectMesh_Debug"));
 
 	_pickingMeshRenderer->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"DebugMaterial"));
-	_pickingMeshRenderer->GetMaterial()->SetMaterialParam(AMBIENT, Vec4(0.f,1.f,0.f,1.f));
+	_pickingMeshRenderer->GetMaterial()->SetMaterialParam(AMBIENT, Vec4(0.f, 1.f, 0.f, 1.f));
 
 	Level* _curLevel = LevelMgr::GetInst()->GetCurLevel();
-	
+
 	for (size_t _idx = 0;_idx < (UINT)LAYER_TYPE::END;_idx++)
 	{
 		Layer* _layer = _curLevel->GetLayer(LAYER_TYPE(_idx));
@@ -180,7 +182,7 @@ void RenderMgr::UpdateData()
 	m_Light2DBuffer->SetData(_vecLight2D.data(), (UINT)_vecLight2D.size());
 	m_Light2DBuffer->UpdateData(11);
 
-	e_Global._Light2DSize = m_Light.size();
+	e_Global._Light2DSize = (int)m_Light.size();
 
 	Device::GetInst()->GetConstantBuffer(CONSTANT_TYPE::GLOBAL)->SetData(&e_Global, sizeof(e_Global), 1);
 	Device::GetInst()->GetConstantBuffer(CONSTANT_TYPE::GLOBAL)->UpdateData();

@@ -56,6 +56,7 @@ public:
 public:
 	int							Awake(HWND _hWnd, Vec2 _vRenderResolution);
 
+	void						OMSetRT();
 private:
 	HRESULT						CreateDevice();
 	HRESULT						CreateSwapChain();
@@ -63,7 +64,7 @@ private:
 	HRESULT						CreateDSView();
 
 	void						CreateViewPort();
-	void						OMSetRT();
+	
 
 	HRESULT						CreateConstantBuffer();
 	HRESULT						CreateConstantBufferIndividual(CONSTANT_TYPE _type, UINT _elementSize, UINT _elementCount);

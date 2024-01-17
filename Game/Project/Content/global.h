@@ -7,5 +7,5 @@
 #endif // _DEBUG
 
 #include "Content_enum.h"
-#include "struct.h"
+#include "content_struct.h"
 #include <random>

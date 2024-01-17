@@ -1,10 +1,14 @@
 #pragma once
 
+#include "EHUI.h"
+
 class ImGUIMgr
 	:public Singleton<ImGUIMgr>
 {
 	Single(ImGUIMgr)
 private:
+	map<string, UI*> m_mapUI;
+
 	bool		m_Enabled;
 	FONT_TYPE	m_Type;
 
@@ -15,10 +19,6 @@ private:
 	bool		m_DockSpace;
 
 	// Console Message 후에 선생님이 한 해당 페이지 번호 가져온거 찾아보기
-	vector<string> m_ConsoleMessage;
-
-	float		m_AcctimeforDebug;
-	float		m_OutputTime;
 
 	GameObject* m_Inspector;
 
@@ -33,17 +33,16 @@ public:
 	void Render();
 
 private:
+	void CreateUI();
+
+public:
+	UI* FindUI(const string& _label);
+	void AddUI(const string& _label, UI* _ui);
+
+private:
 	void	ShowDockSpace();
 
 	void	ChangeFont(FONT_TYPE _type);
 	void	ChangeFontIndividual(string _type, float _size);
-
-	/******************
-	|	Menu
-	******************/
-	void	GameView();
-	void	InSpector();
-	void	Hierarchy();
-	void	Console();
 };
 

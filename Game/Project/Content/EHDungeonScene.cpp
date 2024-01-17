@@ -10,6 +10,18 @@
 
 #include "EHLight2D.h"
 #include "EHLight2DScript.h"
+#include "EHPlayerScript.h"
+
+#include "EHOutLineScript.h"
+
+DungeonScene::DungeonScene()
+{
+}
+
+DungeonScene::~DungeonScene()
+{
+	ReleaseVector(m_MapRoomInfo);
+}
 
 void DungeonScene::Awake()
 {
@@ -44,16 +56,16 @@ void DungeonScene::Awake()
 
 	SpawnPoint _tempSpawn;
 
-	Room _entry;
+	Room* _entry = new Room;
 	_tempSpawn._SpawnPos = SPAWN_TYPE::TOP;
-	_entry.Spawn.push_back(_tempSpawn);
+	_entry->Spawn.push_back(_tempSpawn);
 	_tempSpawn._SpawnPos = SPAWN_TYPE::BOTTOM;
-	_entry.Spawn.push_back(_tempSpawn);
+	_entry->Spawn.push_back(_tempSpawn);
 	_tempSpawn._SpawnPos = SPAWN_TYPE::LEFT;
-	_entry.Spawn.push_back(_tempSpawn);
+	_entry->Spawn.push_back(_tempSpawn);
 	_tempSpawn._SpawnPos = SPAWN_TYPE::RIGHT;
-	_entry.Spawn.push_back(_tempSpawn);
-	_entry.CurPos = Content::Vec2(25.f, 25.f);
+	_entry->Spawn.push_back(_tempSpawn);
+	_entry->CurPos = Content::Vec2(25.f, 25.f);
 
 	m_MapPos[25][25] = 4;
 
@@ -69,31 +81,34 @@ void DungeonScene::Awake()
 
 	Object::Instantiate(_EntryRoom, (int)LAYER_TYPE::BACKGROUND);
 
-	_entry._This = _EntryRoom;
+	_entry->_This = _EntryRoom;
+	_entry->Type = ROOM_TYPE::ENTRY_ROOM;
 
-	queue<Room>q;
+	queue<Room*>q;
 	q.push(_entry);
 	m_MapInfo.push_back(_EntryRoom);
+	m_MapRoomInfo.push_back(_entry);
 
 	ROOM_TYPE _type;
 
+	// 랜덤 룸 생성
 	while (!q.empty())
 	{
-		Room _CurRoom = q.front(); q.pop();
-		Content::Vec2 _mapPos = _CurRoom.CurPos;
-		Content::Vec2 _parentPos = _CurRoom.ParentPos;
+		Room* _CurRoom = q.front(); q.pop();
+		Content::Vec2 _mapPos = _CurRoom->CurPos;
+		Content::Vec2 _parentPos = _CurRoom->ParentPos;
 
-		for (int i = 0;i < _CurRoom.Spawn.size();i++)
+		for (int i = 0;i < _CurRoom->Spawn.size();i++)
 		{
-			GameObject* _obj;
-			SpawnPoint _nxt = _CurRoom.Spawn[i];
-			Room _nxtRoom;
+			GameObject* _obj = nullptr;
+			SpawnPoint _nxt = _CurRoom->Spawn[i];
+			Room* _nxtRoom = new Room;
 			Content::Vec2 _nxtPos = {};
 			int _rand = rand() % 4;
 			switch (_nxt._SpawnPos)
 			{
 			case SPAWN_TYPE::RIGHT:
-				_nxtPos = _CurRoom.CurPos;
+				_nxtPos = _CurRoom->CurPos;
 				_nxtPos.x += 1;
 				if (m_Map[_nxtPos.y][_nxtPos.x] != 0)
 				{
@@ -104,14 +119,17 @@ void DungeonScene::Awake()
 					if (m_Map[_mapPos.y][_mapPos.y] == (UINT)ROOM_TYPE::RIGHT_BOTTOM)
 					{
 						m_Map[_mapPos.y][_mapPos.x] = (UINT)ROOM_TYPE::BOTTOM;
+						_CurRoom->Type = ROOM_TYPE::BOTTOM;
 					}
 					else if (m_Map[_mapPos.y][_mapPos.x] == (UINT)ROOM_TYPE::RIGHT_TOP)
 					{
 						m_Map[_mapPos.y][_mapPos.x] = (UINT)ROOM_TYPE::TOP;
+						_CurRoom->Type = ROOM_TYPE::TOP;
 					}
 					else if (m_Map[_mapPos.y][_mapPos.x] == (UINT)ROOM_TYPE::LEFT_RIGHT)
 					{
 						m_Map[_mapPos.y][_mapPos.x] = (UINT)ROOM_TYPE::LEFT;
+						_CurRoom->Type = ROOM_TYPE::LEFT;
 					}
 					continue;
 				}
@@ -135,29 +153,32 @@ void DungeonScene::Awake()
 				}
 
 				m_Map[_nxtPos.y][_nxtPos.x] = (UINT)_type;
-				_nxtRoom.ParentPos = _mapPos;
-				_nxtRoom.CurPos = _nxtPos;
-				_nxtRoom.Spawn = m_RoomRef[(UINT)_type][0].Spawn;
+				_nxtRoom->ParentPos = _mapPos;
+				_nxtRoom->CurPos = _nxtPos;
+				_nxtRoom->Spawn = m_RoomRef[(UINT)_type][0].Spawn;
 
+				// 해당 방 생성
 				_obj = new GameObject;
 				_tr = _obj->AddComponent<Transform>();
 				_render = _obj->AddComponent<MeshRenderer>();
 
-				_tr->SetRelativePosition(Vec4(1600.f *(25.f-_nxtPos.x), 900.f *(25.f-_nxtPos.y), 0.f, 1.f));
+				_tr->SetRelativePosition(Vec4(1600.f * (25.f - _nxtPos.x), 900.f * (25.f - _nxtPos.y), 0.f, 1.f));
 				_tr->SetRelativeScale(Vec4(1600.f, 900.f, 0.f, 1.f));
 
 				_render->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"DefaultRectMesh"));
 				_render->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"dungeonBGMat"));
 
-				_nxtRoom._This = _obj;
-				_nxtRoom.ParentPos = _CurRoom.ParentPos;
+				_nxtRoom->_This = _obj;
+				_nxtRoom->ParentPos = _CurRoom->CurPos;
+				_nxtRoom->Type = _type;
 
 				m_MapInfo.push_back(_obj);
+				m_MapRoomInfo.push_back(_nxtRoom);
 				Object::Instantiate(_obj, (int)LAYER_TYPE::BACKGROUND);
 				q.push(_nxtRoom);
 				break;
 			case SPAWN_TYPE::LEFT:
-				_nxtPos = _CurRoom.CurPos;
+				_nxtPos = _CurRoom->CurPos;
 				_nxtPos.x -= 1;
 				if (m_Map[_nxtPos.y][_nxtPos.x] != 0)
 				{
@@ -168,14 +189,17 @@ void DungeonScene::Awake()
 					if (m_Map[_mapPos.y][_mapPos.y] == (UINT)ROOM_TYPE::LEFT_TOP)
 					{
 						m_Map[_mapPos.y][_mapPos.x] = (UINT)ROOM_TYPE::TOP;
+						_CurRoom->Type = ROOM_TYPE::TOP;
 					}
 					else if (m_Map[_mapPos.y][_mapPos.x] == (UINT)ROOM_TYPE::LEFT_BOTTOM)
 					{
 						m_Map[_mapPos.y][_mapPos.x] = (UINT)ROOM_TYPE::BOTTOM;
+						_CurRoom->Type = ROOM_TYPE::BOTTOM;
 					}
 					else if (m_Map[_mapPos.y][_mapPos.x] == (UINT)ROOM_TYPE::LEFT_RIGHT)
 					{
 						m_Map[_mapPos.y][_mapPos.x] = (UINT)ROOM_TYPE::RIGHT;
+						_CurRoom->Type = ROOM_TYPE::RIGHT;
 					}
 					continue;
 				}
@@ -200,9 +224,9 @@ void DungeonScene::Awake()
 
 
 				m_Map[_nxtPos.y][_nxtPos.x] = (UINT)_type;
-				_nxtRoom.ParentPos = _mapPos;
-				_nxtRoom.CurPos = _nxtPos;
-				_nxtRoom.Spawn = m_RoomRef[(UINT)_type][0].Spawn;
+				_nxtRoom->ParentPos = _mapPos;
+				_nxtRoom->CurPos = _nxtPos;
+				_nxtRoom->Spawn = m_RoomRef[(UINT)_type][0].Spawn;
 
 				_obj = new GameObject;
 				_tr = _obj->AddComponent<Transform>();
@@ -214,15 +238,17 @@ void DungeonScene::Awake()
 				_render->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"DefaultRectMesh"));
 				_render->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"dungeonBGMat"));
 
-				_nxtRoom._This = _obj;
-				_nxtRoom.ParentPos = _CurRoom.ParentPos;
+				_nxtRoom->_This = _obj;
+				_nxtRoom->ParentPos = _CurRoom->CurPos;
+				_nxtRoom->Type = _type;
 
 				m_MapInfo.push_back(_obj);
+				m_MapRoomInfo.push_back(_nxtRoom);
 				Object::Instantiate(_obj, (int)LAYER_TYPE::BACKGROUND);
 				q.push(_nxtRoom);
 				break;
 			case SPAWN_TYPE::BOTTOM:
-				_nxtPos = _CurRoom.CurPos;
+				_nxtPos = _CurRoom->CurPos;
 				_nxtPos.y += 1;
 				if (m_Map[_nxtPos.y][_nxtPos.x] != 0)
 				{
@@ -233,14 +259,17 @@ void DungeonScene::Awake()
 					if (m_Map[_mapPos.y][_mapPos.y] == (UINT)ROOM_TYPE::LEFT_BOTTOM)
 					{
 						m_Map[_mapPos.y][_mapPos.x] = (UINT)ROOM_TYPE::LEFT;
+						_CurRoom->Type = ROOM_TYPE::LEFT;
 					}
 					else if (m_Map[_mapPos.y][_mapPos.x] == (UINT)ROOM_TYPE::RIGHT_BOTTOM)
 					{
 						m_Map[_mapPos.y][_mapPos.x] = (UINT)ROOM_TYPE::RIGHT;
+						_CurRoom->Type = ROOM_TYPE::RIGHT;
 					}
 					else if (m_Map[_mapPos.y][_mapPos.x] == (UINT)ROOM_TYPE::TOP_BOTTOM)
 					{
 						m_Map[_mapPos.y][_mapPos.x] = (UINT)ROOM_TYPE::TOP;
+						_CurRoom->Type = ROOM_TYPE::TOP;
 					}
 					continue;
 				}
@@ -265,9 +294,12 @@ void DungeonScene::Awake()
 
 
 				m_Map[_nxtPos.y][_nxtPos.x] = (UINT)_type;
-				_nxtRoom.ParentPos = _mapPos;
-				_nxtRoom.CurPos = _nxtPos;
-				_nxtRoom.Spawn = m_RoomRef[(UINT)_type][0].Spawn;
+				_nxtRoom->ParentPos = _mapPos;
+				_nxtRoom->CurPos = _nxtPos;
+				_nxtRoom->Spawn = m_RoomRef[(UINT)_type][0].Spawn;
+				_nxtRoom->_This = _obj;
+				_nxtRoom->Type = _type;
+
 
 				_obj = new GameObject;
 				_tr = _obj->AddComponent<Transform>();
@@ -279,15 +311,13 @@ void DungeonScene::Awake()
 				_render->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"DefaultRectMesh"));
 				_render->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"dungeonBGMat"));
 
-				_nxtRoom._This = _obj;
-				_nxtRoom.ParentPos = _CurRoom.ParentPos;
-
 				m_MapInfo.push_back(_obj);
+				m_MapRoomInfo.push_back(_nxtRoom);
 				Object::Instantiate(_obj, (int)LAYER_TYPE::BACKGROUND);
 				q.push(_nxtRoom);
 				break;
 			case SPAWN_TYPE::TOP:
-				_nxtPos = _CurRoom.CurPos;
+				_nxtPos = _CurRoom->CurPos;
 				_nxtPos.y -= 1;
 				if (m_Map[_nxtPos.y][_nxtPos.x] != 0)
 				{
@@ -329,9 +359,11 @@ void DungeonScene::Awake()
 
 
 				m_Map[_nxtPos.y][_nxtPos.x] = (UINT)_type;
-				_nxtRoom.ParentPos = _mapPos;
-				_nxtRoom.CurPos = _nxtPos;
-				_nxtRoom.Spawn = m_RoomRef[(UINT)_type][0].Spawn;
+				_nxtRoom->ParentPos = _mapPos;
+				_nxtRoom->CurPos = _nxtPos;
+				_nxtRoom->Spawn = m_RoomRef[(UINT)_type][0].Spawn;
+				_nxtRoom->_This = _obj;
+				_nxtRoom->Type = _type;
 
 				_obj = new GameObject;
 				_tr = _obj->AddComponent<Transform>();
@@ -343,9 +375,7 @@ void DungeonScene::Awake()
 				_render->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"DefaultRectMesh"));
 				_render->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"dungeonBGMat"));
 
-				_nxtRoom._This = _obj;
-				_nxtRoom.ParentPos = _CurRoom.ParentPos;
-
+				m_MapRoomInfo.push_back(_nxtRoom);
 				m_MapInfo.push_back(_obj);
 				Object::Instantiate(_obj, (int)LAYER_TYPE::BACKGROUND);
 				q.push(_nxtRoom);
@@ -357,11 +387,24 @@ void DungeonScene::Awake()
 			}
 		}
 	}
-	
+
+	// 도어 생성
+	for (size_t _idx = 0;_idx < m_MapRoomInfo.size();_idx++)
+	{
+		Room* _room = m_MapRoomInfo[_idx];
+
+		// 내가 자식들을 향한 도어 생성
+		//CreateDoor();
+
+
+
+		// 내가 부모를 향한 도어 생성
+	}
+
 	// Player
 	GameObject* _player = new GameObject();
 	Transform* tr = _player->AddComponent<Transform>();
-	tr->SetRelativeScale(Vec4(100.f, 92.f, 1.f, 1.f));
+	tr->SetRelativeScale(Vec4(96.f, 164.f, 1.f, 1.f));
 	tr->SetRelativePosition(Vec4(400.f, 0.f, -5.f, 1.f));
 	tr->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
 
@@ -369,15 +412,24 @@ void DungeonScene::Awake()
 	_playerRenderer->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"DefaultRectMesh"));
 	_playerRenderer->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"PlayerMaterial"));
 
-	_player -> SetName(L"Player");
+	_player->SetName(L"Player");
 	Object::Instantiate(_player, (int)LAYER_TYPE::PLAYER);
 
+	_player->AddComponent<PlayerScript>();
+
+	Animator2D* _animator = _player->AddComponent<Animator2D>();
+	Ptr<Sprite> _sprite = AssetMgr::GetInst()->FindAsset<Sprite>(L"PlayerIdleFront");
+	_animator->CreateAnimation(L"IdleFront", _sprite, Vec2(0.f, 0.f), Vec2(0.f, 0.f), Vec2(24.f, 41.f), Vec2(24.f, 41.f), 10, 6.f);
+	_animator->Play(L"IdleFront");
+
+	// Light2D
 	GameObject* _light = new GameObject;
 	Transform* _lightTr = _light->AddComponent<Transform>();
 
 	LIght2D* _light2D = _light->AddComponent<LIght2D>();
 	_light2D->SetColor(Vec4(1.f, 1.f, 1.f, 1.f));
-	_light2D->SetLightType(LIGHT_TYPE::SPOT);
+	_light2D->SetAmbient(Vec4(1.f, 1.f, 1.f, 1.f));
+	_light2D->SetLightType(LIGHT_TYPE::DIRECTIONAL);
 	_light2D->SetRadius(1000.f);
 	_light2D->SetAngle(40.f);
 
@@ -385,6 +437,18 @@ void DungeonScene::Awake()
 
 	Object::Instantiate(_light, (UINT)LAYER_TYPE::LIGHT2D);
 
+	// PostProcess Test
+	GameObject* _postprocess = new GameObject;
+	Transform* _posttr = _postprocess->AddComponent<Transform>();
+	MeshRenderer* _postMR = _postprocess->AddComponent<MeshRenderer>();
+
+	_postMR->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"DefaultRectMesh"));
+	_postMR->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"DistortionFilterMat"));
+
+	_posttr->SetRelativePosition(Vec4(0.f, -150.f, -5.f, 0.f));
+	_posttr->SetRelativeScale(Vec4(400.f, 200.f, 0.f, 0.f));
+
+	Object::Instantiate(_postprocess, (UINT)LAYER_TYPE::BACKGROUND);
 	Level::Awake();
 }
 
@@ -406,4 +470,16 @@ void DungeonScene::FixedUpdate()
 void DungeonScene::LateUpdate()
 {
 	Level::LateUpdate();
+}
+
+void DungeonScene::CreateDoor(Vec2 _pos, Vec2 _nxtpos)
+{
+	GameObject* _door = new GameObject;
+	Collider2D* _col = _door->AddComponent<Collider2D>();
+	Transform* _tr = _door->AddComponent<Transform>();
+
+	_tr->SetRelativePosition(Vec4(_pos.x,_pos.y,0.f,0.f));
+	_tr->SetRelativeScale(Vec4(50.f, 50.f, 1.f, 0.f));
+
+	//Object::Instantiate(_door, (int)LAYER_TYPE::TRIGGER);
 }

@@ -42,6 +42,7 @@ public:
 
 	Ptr<Sprite>		GetPostProcessTexture2D() { return m_PostProcessTex; }
 
+	void CopyResourceView();
 public:
 	void Awake();
 	void Update();
@@ -53,7 +54,5 @@ private:
 
 	void UpdateData();
 	void Clear();
-
-	void CopyResourceView();
 };
 

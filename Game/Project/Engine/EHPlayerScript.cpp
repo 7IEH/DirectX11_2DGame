@@ -9,6 +9,9 @@
 #include "EHTimeMgr.h"
 
 #include "EHImGUIMgr.h"
+#include "EHAssetMgr.h"
+
+#include "EHTestScript.h"
 
 PlayerScript::PlayerScript()
 	:m_Speed(200.f)
@@ -52,6 +55,23 @@ void PlayerScript::Update()
 	if (KEY_PRESSED(SPACE))
 	{
 		GetOwner()->SetDead(TRUE);
+	}
+
+	if (KEY_TAP(V))
+	{
+		GameObject* _outline = new GameObject;
+		Transform* _posttr = _outline->AddComponent<Transform>();
+		MeshRenderer* _postMR = _outline->AddComponent<MeshRenderer>();
+
+		_postMR->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"DefaultRectMesh"));
+		_postMR->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"OutLineMat"));
+
+		_posttr->SetRelativePosition(GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativePosition());
+		_posttr->SetRelativeScale(Vec4(1600.f, 900.f, 0.f, 0.f));
+
+		_outline->AddComponent<TestScript>();
+
+		Object::Instantiate(_outline, (UINT)LAYER_TYPE::BACKGROUND);
 	}
 
 	_transform->SetRelativePosition(_pos);

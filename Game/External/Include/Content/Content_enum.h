@@ -31,3 +31,10 @@ enum class SPAWN_TYPE
 	TOP,
 	END
 };
+
+// Trigger Type
+enum class TRIGGER_TYPE
+{
+	MOVE_TRIGGER,
+	END,
+};

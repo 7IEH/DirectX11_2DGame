@@ -31,11 +31,11 @@ void AssetMgr::Awake()
 	wstring _path = L"\\resource\\Example.png";
 	Ptr<Sprite> _BackGroundSprite = Load<Sprite>(_path, L"BackGroundSprite");
 
-	_path = L"\\resource\\NPC_Commander0.png";
-	Ptr<Sprite> _PlayerSprite = Load<Sprite>(_path, L"PlayerSprite");
-
-	_path = L"\\resource\\NPC_CommanderSheet.png";
-	Ptr<Sprite> _PlayerIdleSprite = Load<Sprite>(_path, L"PlayerIdleSprite");
+	_path = L"\\resource\\Char\\Player\\Idle\\Dungeon\\Front\\FrontCycleIdle.png";
+	Ptr<Sprite> _PlayerSprite = Load<Sprite>(_path, L"PlayerIdleFront");
+	
+	_path = L"\\resource\\Char\\Player\\Idle\\Dungeon\\Front\\Will_Idle_Down_1.png";
+	Ptr<Sprite> _PlayerIdleSprite = Load<Sprite>(_path, L"PlayerTestSprite");
 
 	_path = L"\\resource\\Title\\MainBG\\MenuAtlas1.png";
 	Ptr<Sprite> _BackGroundAtlas1 = Load<Sprite>(_path, L"_BackGroundAtlas1");
@@ -57,6 +57,12 @@ void AssetMgr::Awake()
 
 	_path = L"\\resource\\photoshopver.png";
 	Ptr<Sprite> DungeonBackGround = Load<Sprite>(_path, L"DungeonBG");
+
+	_path = L"\\resource\\WaterTest.png";
+	Ptr<Sprite> WaterSprite = Load<Sprite>(_path, L"WaterSprite");
+
+	_path = L"\\resource\\test.png";
+	Ptr<Sprite> NoiseSprite = Load<Sprite>(_path, L"Noise3");
 
 	CreateDefaultMesh();
 	CreateDefaultShader();
@@ -209,23 +215,67 @@ void AssetMgr::CreateDefaultShader()
 	/******************
 	| GrayFilter Shader
 	| Mesh		: RectMesh
-	| RS_TYPE	: CALL_BACK
+	| RS_TYPE	: CULL_BACK
 	| DS_TYPE	: NO_TEST_NO_WRITE
 	| BS_TYPE	: Default
 	| Domain	: DOMAIN_POSTPROCESS
 	******************/
-	GraphicShader* _testFilter = new GraphicShader;
+	GraphicShader* _GrayFilter = new GraphicShader;
 
 	_path = L"\\shader\\postprocess.fx";
 	_vsEntry = "VS_GrayFilter";
 	_psEntry = "PS_GrayFilter";
 
-	_testFilter->Create(_path, _vsEntry, _psEntry);
+	_GrayFilter->Create(_path, _vsEntry, _psEntry);
 
-	_testFilter->SetCullType(CULL_TYPE::BACK);
-	_testFilter->SetDSType(DS_TYPE::NO_TEST_NO_WRITE);
+	_GrayFilter->SetCullType(CULL_TYPE::BACK);
+	_GrayFilter->SetDSType(DS_TYPE::NO_TEST_NO_WRITE);
 
-	AddAsset(_testFilter, L"GrayFilterShader");
+	AddAsset(_GrayFilter, L"GrayFilterShader");
+
+	/******************
+	| Distortion Shader
+	| Mesh		: RectMesh
+	| RS_TYPE	: CULL_BACK
+	| DS_TYPE	: NO_TEST_NO_WRITE
+	| BS_TYPE	: Default
+	| Domain	: DOMAIN_POSTPROCESS
+	******************/
+	GraphicShader* DistortionFilter = new GraphicShader;
+
+	_path = L"\\shader\\postprocess.fx";
+	_vsEntry = "VS_DistortionFilter";
+	_psEntry = "PS_DistortionFilter";
+
+	DistortionFilter->Create(_path, _vsEntry, _psEntry);
+
+	DistortionFilter->SetCullType(CULL_TYPE::BACK);
+	DistortionFilter->SetDSType(DS_TYPE::NO_TEST_NO_WRITE);
+	DistortionFilter->SetDomain(SHADER_DOMAIN::DOMAIN_POSTPROCESS);
+
+	AddAsset(DistortionFilter, L"DistortionFilterShader");
+
+	/******************
+	| Outline Shader
+	| Mesh		: RectMesh
+	| RS_TYPE	: CULL_BACK
+	| DS_TYPE	: NO_TEST_NO_WRITE
+	| BS_TYPE	: Default
+	| Domain	: DOMAIN_POSTPROCESS
+	******************/
+	GraphicShader* OutlineFilter = new GraphicShader;
+
+	_path = L"\\shader\\postprocess.fx";
+	_vsEntry = "VS_OutLineFilter";
+	_psEntry = "PS_OutLineFilter";
+
+	OutlineFilter->Create(_path, _vsEntry, _psEntry);
+
+	OutlineFilter->SetCullType(CULL_TYPE::BACK);
+	OutlineFilter->SetDSType(DS_TYPE::NO_TEST_NO_WRITE);
+	OutlineFilter->SetDomain(SHADER_DOMAIN::DOMAIN_POSTPROCESS);
+
+	AddAsset(OutlineFilter, L"OutlineFilterShader");
 
 	/********************
 	|	Debug Shader
@@ -252,10 +302,6 @@ void AssetMgr::CreateDefaultMaterial()
 	******************/
 	Material* _backgroundMaterial = new Material;
 	_backgroundMaterial->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"DefaultShader"));
-	_backgroundMaterial->SetMaterialParam(AMBIENT, Vec4(0.5f, 0.4f, 0.3f, 1.f));
-	_backgroundMaterial->SetMaterialParam(AMBIENT, Vec4(0.5f, 0.4f, 0.3f, 1.f));
-	_backgroundMaterial->SetMaterialParam(DIFFUSE, Vec4(0.5f, 0.4f, 0.3f, 1.f));
-	_backgroundMaterial->SetMaterialParam(SPECULAR, Vec4(0.5f, 0.4f, 0.3f, 1.f));
 	_backgroundMaterial->SetTexParam(TEX_0, AssetMgr::GetInst()->FindAsset<Sprite>(L"BackGroundSprite"));
 
 	/******************
@@ -263,19 +309,20 @@ void AssetMgr::CreateDefaultMaterial()
 	******************/
 	Material* _playerMaterial = new Material;
 	_playerMaterial->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"DefaultShader"));
-	_playerMaterial->SetMaterialParam(AMBIENT, Vec4(0.5f, 0.4f, 0.3f, 1.f));
-	_playerMaterial->SetMaterialParam(DIFFUSE, Vec4(0.5f, 0.4f, 0.3f, 1.f));
-	_playerMaterial->SetMaterialParam(SPECULAR, Vec4(0.5f, 0.4f, 0.3f, 1.f));
-	_playerMaterial->SetTexParam(TEX_0, AssetMgr::GetInst()->FindAsset<Sprite>(L"PlayerSprite"));
+	_playerMaterial->SetTexParam(TEX_0, AssetMgr::GetInst()->FindAsset<Sprite>(L"PlayerTestSprite"));
+	_playerMaterial->SetMaterialParam(INT_0, 1);
+
+	/****************************
+	| Player OutLine Material
+	****************************/
+	Material* _OutLineMat = new Material;
+	_OutLineMat->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"OutlineFilterShader"));
 
 	/******************
 	| Right Door Material
 	******************/
 	Material* _rightDoorMat = new Material;
 	_rightDoorMat->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"DefaultShader"));
-	_rightDoorMat->SetMaterialParam(AMBIENT, Vec4(0.5f, 0.4f, 0.3f, 1.f));
-	_rightDoorMat->SetMaterialParam(DIFFUSE, Vec4(0.5f, 0.4f, 0.3f, 1.f));
-	_rightDoorMat->SetMaterialParam(SPECULAR, Vec4(0.5f, 0.4f, 0.3f, 1.f));
 	_rightDoorMat->SetTexParam(TEX_0, AssetMgr::GetInst()->FindAsset<Sprite>(L"StartRightDoor"));
 
 	/******************
@@ -283,9 +330,6 @@ void AssetMgr::CreateDefaultMaterial()
 	******************/
 	Material* _leftDoorMat = new Material;
 	_leftDoorMat->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"DefaultShader"));
-	_leftDoorMat->SetMaterialParam(AMBIENT, Vec4(0.5f, 0.4f, 0.3f, 1.f));
-	_leftDoorMat->SetMaterialParam(DIFFUSE, Vec4(0.5f, 0.4f, 0.3f, 1.f));
-	_leftDoorMat->SetMaterialParam(SPECULAR, Vec4(0.5f, 0.4f, 0.3f, 1.f));
 	_leftDoorMat->SetTexParam(TEX_0, AssetMgr::GetInst()->FindAsset<Sprite>(L"StartLeftDoor"));
 
 	/******************
@@ -293,9 +337,6 @@ void AssetMgr::CreateDefaultMaterial()
 	******************/
 	Material* centerLineMat = new Material;
 	centerLineMat->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"DefaultShader"));
-	centerLineMat->SetMaterialParam(AMBIENT, Vec4(0.5f, 0.4f, 0.3f, 1.f));
-	centerLineMat->SetMaterialParam(DIFFUSE, Vec4(0.5f, 0.4f, 0.3f, 1.f));
-	centerLineMat->SetMaterialParam(SPECULAR, Vec4(0.5f, 0.4f, 0.3f, 1.f));
 	centerLineMat->SetTexParam(TEX_0, AssetMgr::GetInst()->FindAsset<Sprite>(L"StartLine"));
 
 	/******************
@@ -303,10 +344,8 @@ void AssetMgr::CreateDefaultMaterial()
 	******************/
 	Material* LogoMat = new Material;
 	LogoMat->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"DefaultShader"));
-	LogoMat->SetMaterialParam(AMBIENT, Vec4(0.5f, 0.4f, 0.3f, 1.f));
-	LogoMat->SetMaterialParam(DIFFUSE, Vec4(0.5f, 0.4f, 0.3f, 1.f));
-	LogoMat->SetMaterialParam(SPECULAR, Vec4(0.5f, 0.4f, 0.3f, 1.f));
 	LogoMat->SetTexParam(TEX_0, AssetMgr::GetInst()->FindAsset<Sprite>(L"GameLogo"));
+
 
 	Material* dungeonBG = new Material;
 	dungeonBG->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"DefaultShader"));
@@ -319,13 +358,32 @@ void AssetMgr::CreateDefaultMaterial()
 	_debugMaterial->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"DebugShader"));
 	_debugMaterial->SetMaterialParam(AMBIENT, Vec4(0.5f, 0.4f, 0.3f, 1.f));
 
+	/******************
+	| WaterGround
+	******************/
+	Material* _waterGround = new Material;
+	_waterGround->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"DefaultShader"));
+	_waterGround->SetTexParam(TEX_0, AssetMgr::GetInst()->FindAsset<Sprite>(L"WaterSprite"));
+
 	/***************************
 	| PostProcess TEST Material
 	***************************/
 	Material* _postProcess = new Material;
 	_postProcess->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"GrayFilterShader"));
 
+	/***************************
+	| DistortionFilter Material
+	****************************/
+	Material* _distortionMat = new Material;
+	_distortionMat->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"DistortionFilterShader"));
+	_distortionMat->SetTexParam(TEX_0, AssetMgr::GetInst()->FindAsset<Sprite>(L"WaterSprite"));
+	_distortionMat->SetMaterialParam(INT_0, 1);
+	_distortionMat->SetTexParam(TEX_1, AssetMgr::GetInst()->FindAsset<Sprite>(L"Noise3"));
+
 	AddAsset(_postProcess, L"GrayFilterMat");
+	AddAsset(_distortionMat, L"DistortionFilterMat");
+	AddAsset(_waterGround, L"WaterGroundMat");
+	AddAsset(_OutLineMat, L"OutLineMat");
 
 	AddAsset(_backgroundMaterial, L"BackGroundMaterial");
 	AddAsset(_playerMaterial, L"PlayerMaterial");

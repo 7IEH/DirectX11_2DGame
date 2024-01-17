@@ -9,7 +9,7 @@ class DungeonScene
 private:
 	int						m_Map[101][101];
 	vector<GameObject*>		m_MapInfo;
-	vector<Room>			m_MapRoomInfo;
+	vector<Room*>			m_MapRoomInfo;
 	GameObject*				m_EntryRoom;
 
 	// Room Reference
@@ -24,5 +24,10 @@ public:
 	virtual void LateUpdate() override;
 
 private:
+	void CreateDoor(Vec2 _pos, Vec2 _nxtpos);
+
+public:
+	DungeonScene();
+	virtual ~DungeonScene();
 };
 

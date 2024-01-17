@@ -87,6 +87,14 @@ void GameObject::LateUpdate()
 			m_Component[_comp]->LateUpdate();
 		}
 	}
+	
+	if (!m_vScripts.empty())
+	{
+		for (Script* _script : m_vScripts)
+		{
+			_script->LateUpdate();
+		}
+	}
 
 	Layer* pCurLayer = LevelMgr::GetInst()->GetCurLevel()->GetLayer(m_LayerType);
 	pCurLayer->RegisterGameObject(this);

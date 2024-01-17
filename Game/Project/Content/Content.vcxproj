@@ -152,19 +152,24 @@
   <ItemGroup>
     <ClInclude Include="EHDungeonScene.h" />
     <ClInclude Include="EHIntroScene.h" />
+    <ClInclude Include="EHOutLineScript.h" />
     <ClInclude Include="EHRoomManager.h" />
+    <ClInclude Include="EHTestScript.h" />
     <ClInclude Include="EHTitleScene.h" />
     <ClInclude Include="Content_enum.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="global.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="struct.h" />
+    <ClInclude Include="content_struct.h" />
+    <ClInclude Include="EHTriggerScript.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Content.cpp" />
     <ClCompile Include="EHDungeonScene.cpp" />
     <ClCompile Include="EHIntroScene.cpp" />
+    <ClCompile Include="EHOutLineScript.cpp" />
     <ClCompile Include="EHRoomManager.cpp" />
+    <ClCompile Include="EHTestScript.cpp" />
     <ClCompile Include="EHTitleScene.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -172,6 +177,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="EHTriggerScript.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

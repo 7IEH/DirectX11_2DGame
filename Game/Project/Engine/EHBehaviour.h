@@ -12,6 +12,8 @@
 #include "EHScript.h"
 #include "EHTransform.h"
 #include "EHAnimator2D.h"
+#include "EHOutLineScript.h"
+#include "EHTestScript.h"
 //#include "EHRigidbody.h"
 
 /*******************

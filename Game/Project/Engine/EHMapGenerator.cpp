@@ -17,8 +17,6 @@
 
 // random rand()%(b-a+1)+a
 
-
-
 MapGenerator::MapGenerator()
 	: m_RoomInfo{}
 	, m_OpeningDir(DIR_ROOM::END)

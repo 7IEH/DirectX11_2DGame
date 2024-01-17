@@ -154,6 +154,12 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    ImGui::CreateContext();
    ImGui::StyleColorsDark();
 
+   ImGuiIO& io = ImGui::GetIO(); (void)io;
+   io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+   io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+   io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;         // Enable Docking
+   //io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;       // Enable Multi-Viewport / Platform Windows
+
    // Imgui init;
    ImGui_ImplWin32_Init(hWnd);
 

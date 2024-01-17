@@ -15,11 +15,15 @@
 
 #include "EHSprite.h"
 
+#include "EHGameView.h"
+#include "EHHierarchy.h"
+#include "EHInspector.h"
+#include "EHConsole.h"
+
 ImGUIMgr::ImGUIMgr()
 	: m_Enabled(TRUE)
 	, m_DockSpace(TRUE)
 	, m_io(ImGui::GetIO())
-	, m_OutputTime(1.5f)
 {
 }
 
@@ -32,6 +36,8 @@ HRESULT ImGUIMgr::Awake()
 {
 	ImGui_ImplDX11_Init(DEVICE, CONTEXT);
 	ChangeFont(FONT_TYPE::Maple);
+	
+	CreateUI();
 
 	return TRUE;
 }
@@ -68,12 +74,6 @@ void ImGUIMgr::ChangeFontIndividual(string _type, float _size)
 
 void ImGUIMgr::Frame()
 {
-	if (m_DockSpace)
-	{
-		m_io.ConfigFlags = ImGuiConfigFlags_DockingEnable;
-		m_io.ConfigDockingAlwaysTabBar = TRUE;
-	}
-
 	ImGui_ImplDX11_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
@@ -94,6 +94,54 @@ void ImGUIMgr::Render()
 
 	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	/*if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+	{
+		ImGui::UpdatePlatformWindows();
+		ImGui::RenderPlatformWindowsDefault();
+	}*/
+}
+
+void ImGUIMgr::CreateUI()
+{
+	UI* pUI = nullptr;
+	// 1. Hierarchy
+	pUI = new Hierarchy;
+	AddUI("Hierarchy", pUI);
+
+	// 2. Console
+	pUI = new Console;
+	AddUI("Console", pUI);
+
+	// 3. Inspector
+	pUI = new Inspector;
+	AddUI("Inspector", pUI);
+
+	// 4. GameView
+	pUI = new GameView;
+	AddUI("GameView", pUI);
+
+	// Inspector apply
+	dynamic_cast<Hierarchy*>(FindUI("Hierarchy"))->SetInspector(dynamic_cast<Inspector*>(FindUI("Inspector")));
+}
+
+UI* ImGUIMgr::FindUI(const string& _label)
+{
+	map<string, UI*>::iterator iter = m_mapUI.find(_label);
+
+	if (iter == m_mapUI.end())
+	{
+		return nullptr;
+	}
+
+	return iter->second;
+}
+
+void ImGUIMgr::AddUI(const string& _label, UI* _ui)
+{
+	UI* _pui = FindUI(_label);
+	assert(!_pui);
+	m_mapUI.insert(make_pair(_label, _ui));
 }
 
 /***************
@@ -181,206 +229,15 @@ void ImGUIMgr::ShowDockSpace()
 		ImGui::EndMenuBar();
 	}
 
-	InSpector();
 
-	GameView();
-
-	Hierarchy();
-
-	Console();
-
-	ImGui::End();
-}
-
-void ImGUIMgr::GameView()
-{
-	ImGui::Begin("Game");
-	ImGui::Image((void*)RenderMgr::GetInst()->GetPostProcessTexture2D().Get()->GetSRV().Get(), ImVec2(640.f, 360.f));
-	ImGui::End();
-}
-
-void ImGUIMgr::InSpector()
-{
-	Level* _curLevel = LevelMgr::GetInst()->GetCurLevel();
-
-	bool enabled = FALSE;
-	for (size_t _layer = 0; _layer < (UINT)LAYER_TYPE::END;_layer++)
+	for (const auto& pair : m_mapUI)
 	{
-		Layer* _layers = _curLevel->GetLayer(LAYER_TYPE(_layer));
-		vector<GameObject*>& _objs = _layers->GetLayerObject();
-
-		for (size_t _obj = 0; _obj < _objs.size();_obj++)
-		{
-			if (_objs[_obj]->GetPicking() == TRUE)
-			{
-				m_Inspector = _objs[_obj];
-				enabled = TRUE;
-				break;
-			}
-		}
-
-		if (enabled)
-			break;
+		pair.second->Update();
 	}
 
-	if (nullptr == m_Inspector)
-		return;
-
-	Transform* _tr = m_Inspector->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
-	MeshRenderer* _renderer = m_Inspector->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER);
-	Animator2D* _animator = m_Inspector->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D);
-	Collider2D* _collider = m_Inspector->GetComponent<Collider2D>(COMPONENT_TYPE::COLLIDER2D);
-	LIght2D* _light2D = m_Inspector->GetComponent<LIght2D>(COMPONENT_TYPE::LIGHT2D);
-	// Script*
-	// Light*
-	// Camera*
-
-	ImGui::Begin("Inspector");
-	if (_tr != nullptr)
+	for (const auto& pair : m_mapUI)
 	{
-		if (ImGui::CollapsingHeader("Transoform"))
-		{
-			Vec4 _scale = _tr->GetRelativeScale();
-				Vec4 _pos = _tr->GetRelativePosition();
-				Vec3 _rot = _tr->GetRelativeRotation();
-
-				float _value[3] = { _pos.x,_pos.y,_pos.z };
-				ImGui::InputFloat3("Position", _value);
-				float _value2[3] = { _rot.x,_rot.y,_rot.z };
-				ImGui::InputFloat3("Rotation", _value2);
-				float _value3[3] = { _scale.x,_scale.y,_scale.z };
-				ImGui::InputFloat3("Scale", _value3);
-
-			_pos.x = _value[0];
-			_pos.y = _value[1];
-			_pos.z = _value[2];
-
-			_rot.x = _value2[0];
-			_rot.y = _value2[1];
-			_rot.z = _value2[2];
-
-			_scale.x = _value3[0];
-			_scale.y = _value3[1];
-			_scale.z = _value3[2];
-
-			_tr->SetRelativePosition(_pos);
-			_tr->SetRelativeRotation(_rot);
-			_tr->SetRelativeScale(_scale);
-		}
+		pair.second->Render();
 	}
-
-	if (_renderer != nullptr)
-	{
-		
-	}
-
-	if (_light2D != nullptr)
-	{
-		if (ImGui::CollapsingHeader("Light2D"))
-		{
-			ImGuiInputTextFlags flags = ImGuiInputTextFlags_::ImGuiInputTextFlags_None;
-
-			LIGHT_TYPE _type = _light2D->GetLightType();
-			float _typeInfo = (float)_type;
-			float _Radius = _light2D->GetRadius();
-			float _Angle = _light2D->GetAngle();
-			Vec4 _Color = _light2D->GetColor();
-			Vec4 _Ambient = _light2D->GetAmbient();
-
-			ImGui::Text("LightSetting");
-			ImGui::InputScalar("Radius", ImGuiDataType_Float, &_Radius, 0, 0, "%.f", flags);
-			ImGui::InputScalar("Angle", ImGuiDataType_Float, &_Angle, 0, 0, "%.f", flags);
-
-			ImGui::Text("LightColor");
-			ImGui::InputScalar("RED", ImGuiDataType_Float, &_Color.x, 0, 0, "%.f", flags);
-			ImGui::InputScalar("BLUE", ImGuiDataType_Float, &_Color.y, 0, 0, "%.f", flags);
-			ImGui::InputScalar("GREEN", ImGuiDataType_Float, &_Color.z, 0, 0, "%.f", flags);
-
-			ImGui::Text("LightAmbient");
-			ImGui::InputScalar("RED_A", ImGuiDataType_Float, &_Ambient.x, 0, 0, "%.f", flags);
-			ImGui::InputScalar("BLUE_A", ImGuiDataType_Float, &_Ambient.y, 0, 0, "%.f", flags);
-			ImGui::InputScalar("GREEN_A", ImGuiDataType_Float, &_Ambient.z, 0, 0, "%.f", flags);
-
-			ImGui::Text("Type");
-			ImGui::InputScalar("RIGHTTYPE", ImGuiDataType_Float, &_typeInfo, 0, 0, "%.f", flags);
-
-			_light2D->SetAmbient(_Ambient);
-			_light2D->SetColor(_Color);
-
-			int _push = (int)_typeInfo;
-			_light2D->SetLightType(LIGHT_TYPE(_push));
-			_light2D->SetRadius(_Radius);
-			_light2D->SetAngle(_Angle);
-		}
-	}
-
-	ImGui::End();
-}
-
-/*****************
-|	Object Picking
-*****************/
-
-void ImGUIMgr::Hierarchy()
-{
-	ImGui::Begin("Hierarchy");
-	Level* _curLevel = LevelMgr::GetInst()->GetCurLevel();
-
-	static int testidx = 0;
-
-	for (size_t _idx = 0;_idx < (UINT)LAYER_TYPE::END;_idx++)
-	{
-		Layer* _layer = _curLevel->GetLayer(LAYER_TYPE(_idx));
-		vector<GameObject*>& _objs = _layer->GetLayerObject();
-
-		for (size_t _obj = 0;_obj < _objs.size();_obj++)
-		{
-			wstring _name_w = _objs[_obj]->GetName();
-			string _name;
-
-			bool _picking = _objs[_obj]->GetPicking();
-			_name.assign(_name_w.begin(), _name_w.end());
-
-			ImGui::Selectable(_name.c_str(), &_picking);
-
-			_objs[_obj]->SetPicking(_picking);
-		}
-	}
-
-	ImGui::End();
-}
-
-void ImGUIMgr::Console()
-{
-	ImGui::Begin("Console");
-
-	vector<string> _msg = DebugMgr::GetInst()->GetDebugMessage();
-
-	for (int i = 0;i < _msg.size();i++)
-	{
-		m_ConsoleMessage.push_back(_msg[i]);
-	}
-
-	static int _line = 0;
-	m_AcctimeforDebug += DT;
-	if (m_AcctimeforDebug >= m_OutputTime)
-	{
-		_line++;
-
-		if (_line >= m_ConsoleMessage.size())
-		{
-			_line = m_ConsoleMessage.size();
-		}
-
-		m_AcctimeforDebug = 0.f;
-	}
-
-	ImGui::BeginChild("Scrolling");
-	for (int i = 0;i < _line;i++)
-	{
-		ImGui::Text(m_ConsoleMessage[i].c_str());
-	}
-	ImGui::EndChild();
-
 	ImGui::End();
 }

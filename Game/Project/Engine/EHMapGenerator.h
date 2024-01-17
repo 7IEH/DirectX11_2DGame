@@ -2,7 +2,7 @@
 
 #include "EHThreadTask.h"
 
-class Node;
+
 class Level;
 
 struct SpawnPoint
@@ -16,8 +16,6 @@ struct Node
 	Vec2 _location;
 	queue<SpawnPoint>	 _SpawnPoint;
 };
-
-//int visited[101][101];
 
 class MapGenerator
 	:public ThreadTask

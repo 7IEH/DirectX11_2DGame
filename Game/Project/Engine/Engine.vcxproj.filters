@@ -178,6 +178,66 @@
     <Filter Include="04. Manager\DubugMgr">
       <UniqueIdentifier>{ee96c86e-6f68-402e-9342-97c52f880289}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI">
+      <UniqueIdentifier>{4e5fac13-522a-4c68-80ed-b057d56119d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\InSpector">
+      <UniqueIdentifier>{fc547796-2f82-4a46-a312-45c4de7e39d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\GameView">
+      <UniqueIdentifier>{e8ccd83a-6b73-4173-9685-65ebec8353d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\Hierarchy">
+      <UniqueIdentifier>{31071a1e-fa0b-41f0-affb-fb0025c28c36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\Console">
+      <UniqueIdentifier>{4a3404e6-e6a0-4fc3-9542-4b7374275148}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\InSpector\AssetUI">
+      <UniqueIdentifier>{9286b6f6-0d27-455c-b302-7e574750a5f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\InSpector\AssetUI\Animation2D">
+      <UniqueIdentifier>{706052cd-fe2b-4d6b-bf63-c5a66ea224d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\InSpector\AssetUI\Mesh">
+      <UniqueIdentifier>{8ad591c4-cb84-4911-a227-ceaed872b50d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\InSpector\AssetUI\Shader">
+      <UniqueIdentifier>{fa595838-0656-40db-ae99-f8a51b6d4ead}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\InSpector\AssetUI\Material">
+      <UniqueIdentifier>{b8147231-a967-4b09-ad01-658a3554dbf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\InSpector\ComponentUI">
+      <UniqueIdentifier>{4923a5d5-0bd0-40be-a40a-d03f3895498a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Transform">
+      <UniqueIdentifier>{17ea00a8-99ab-4fff-810f-12ebee737733}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Collider">
+      <UniqueIdentifier>{b6779b69-cbbc-4cbf-a2a5-3f852f326388}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Rigidbody">
+      <UniqueIdentifier>{af702889-f0be-44ed-b3b6-20d97233d50e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Animator2D">
+      <UniqueIdentifier>{43bc5bd4-06a7-4279-8b89-56bd8e2ab68c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Light">
+      <UniqueIdentifier>{2a126b5e-b110-4439-8158-205b86b01529}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Camera">
+      <UniqueIdentifier>{76635c57-b857-4f86-a7c0-0b8ddf26941b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Collider\Collider3D">
+      <UniqueIdentifier>{389755c3-5581-4cbc-9a34-de707483c1ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Collider\Collider2D">
+      <UniqueIdentifier>{dec33551-3c11-4307-99e5-f59d1bdc5861}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Renderer">
+      <UniqueIdentifier>{911e4f37-e6a0-46f0-9664-1eddd7f32b68}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -378,6 +438,45 @@
     <ClInclude Include="EHDebugMgr.h">
       <Filter>04. Manager\DubugMgr</Filter>
     </ClInclude>
+    <ClInclude Include="EHUI.h">
+      <Filter>04. Manager\ImGUIMgr\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="EHInspector.h">
+      <Filter>04. Manager\ImGUIMgr\UI\InSpector</Filter>
+    </ClInclude>
+    <ClInclude Include="EHGameView.h">
+      <Filter>04. Manager\ImGUIMgr\UI\GameView</Filter>
+    </ClInclude>
+    <ClInclude Include="EHHierarchy.h">
+      <Filter>04. Manager\ImGUIMgr\UI\Hierarchy</Filter>
+    </ClInclude>
+    <ClInclude Include="EHConsole.h">
+      <Filter>04. Manager\ImGUIMgr\UI\Console</Filter>
+    </ClInclude>
+    <ClInclude Include="EHComponentUI.h">
+      <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI</Filter>
+    </ClInclude>
+    <ClInclude Include="EHTransformUI.h">
+      <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="EHLight2DUI.h">
+      <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="EHColliderUI.h">
+      <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Animator2DUI.h">
+      <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Animator2D</Filter>
+    </ClInclude>
+    <ClInclude Include="EHCameraUI.h">
+      <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="EHRigidbodyUI.h">
+      <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Rigidbody</Filter>
+    </ClInclude>
+    <ClInclude Include="RendererUI.h">
+      <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -559,6 +658,45 @@
     </ClCompile>
     <ClCompile Include="EHAssetMgr_Init.cpp">
       <Filter>04. Manager\AssetMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="EHUI.cpp">
+      <Filter>04. Manager\ImGUIMgr\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="EHInspector.cpp">
+      <Filter>04. Manager\ImGUIMgr\UI\InSpector</Filter>
+    </ClCompile>
+    <ClCompile Include="EHGameView.cpp">
+      <Filter>04. Manager\ImGUIMgr\UI\GameView</Filter>
+    </ClCompile>
+    <ClCompile Include="EHHierarchy.cpp">
+      <Filter>04. Manager\ImGUIMgr\UI\Hierarchy</Filter>
+    </ClCompile>
+    <ClCompile Include="EHConsole.cpp">
+      <Filter>04. Manager\ImGUIMgr\UI\Console</Filter>
+    </ClCompile>
+    <ClCompile Include="EHComponentUI.cpp">
+      <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI</Filter>
+    </ClCompile>
+    <ClCompile Include="EHTransformUI.cpp">
+      <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="EHLight2DUI.cpp">
+      <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="EHColliderUI.cpp">
+      <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Animator2DUI.cpp">
+      <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Animator2D</Filter>
+    </ClCompile>
+    <ClCompile Include="EHCameraUI.cpp">
+      <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="EHRigidbodyUI.cpp">
+      <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Rigidbody</Filter>
+    </ClCompile>
+    <ClCompile Include="RendererUI.cpp">
+      <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

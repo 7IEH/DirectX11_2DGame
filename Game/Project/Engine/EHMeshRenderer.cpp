@@ -25,10 +25,21 @@ MeshRenderer::~MeshRenderer()
 
 void MeshRenderer::UpdateData()
 {
+	Ptr<Material> _mat = GetMaterial();
+	GameObject* _owner = GetOwner();
+
 	// Matrial Update
-	if (GetMaterial() != nullptr)
+	if (_mat.Get() != nullptr)
 	{
-		GetMaterial()->Render();
+		if (_owner->GetPicking())
+		{
+			_mat.Get()->SetMaterialParam(INT_3, 1);
+		}
+		else
+		{
+			_mat.Get()->SetMaterialParam(INT_3, 0);
+		}
+		_mat.Get()->Render();
 	}
 
 	Transform* _tr = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
