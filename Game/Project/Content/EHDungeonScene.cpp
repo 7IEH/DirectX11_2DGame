@@ -32,6 +32,7 @@ void DungeonScene::Awake()
 	|	Main_Camera
 	*********************/
 	GameObject* _MainCamera = new GameObject;
+	_MainCamera->SetName(L"MainCamera");
 	Transform* _tr = _MainCamera->AddComponent<Transform>();
 	Camera* _camera = _MainCamera->AddComponent<Camera>();
 	CameraScript* _cameraScript = _MainCamera->AddComponent<CameraScript>();
@@ -45,6 +46,21 @@ void DungeonScene::Awake()
 	_tr->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
 
 	Object::Instantiate(_MainCamera, (int)LAYER_TYPE::CAMERA);
+
+	GameObject* _WorldCamera = new GameObject;
+	_MainCamera->SetName(L"PlayCamera");
+	_tr = _WorldCamera->AddComponent<Transform>();
+	_camera = _WorldCamera->AddComponent<Camera>();
+
+	_camera->AllVisibleSet(TRUE);
+	_camera->LayerVisibleSet(LAYER_TYPE::BACKGROUND, TRUE);
+	_camera->SetCameraType(CAMERA_TYPE::WORLD_CAMERA);
+
+	_tr->SetRelativeScale(Vec4(1.f, 1.f, 1.f, 1.f));
+	_tr->SetRelativePosition(Vec4(0.f, 0.f, -10.f, 1.f));
+	_tr->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
+
+	Object::Instantiate(_WorldCamera, (int)LAYER_TYPE::CAMERA);
 	/***********************
 	|	RoomManger Awake
 	***********************/

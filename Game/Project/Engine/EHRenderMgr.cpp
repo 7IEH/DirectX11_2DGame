@@ -23,7 +23,6 @@
 
 #include "EHDevice.h"
 
-
 #include "EHKeyMgr.h"
 
 extern transform e_MatrixData;
@@ -34,6 +33,7 @@ RenderMgr::RenderMgr()
 	, m_Light2DBuffer(nullptr)
 	, m_pDebugObj(nullptr)
 	, m_PickingObj(nullptr)
+	, m_multiPort(0)
 {
 }
 
@@ -57,10 +57,24 @@ void RenderMgr::Update()
 	float ClearColor[4] = { 0.3f,0.3f,0.3f,0.3f };
 	Device::GetInst()->ClearRenderTarget(ClearColor);
 
-	UpdateData();
+	for (int i = 0;i < 2;i++)
+	{
+		if (i == 0)
+		{
+			Device::GetInst()->CreateViewPort(Vec2(0.f, 0.f), Vec2(800.f, 900.f));
+			UpdateData();
+			Multi_Render();
+		}
+		else
+		{
+			Device::GetInst()->CreateViewPort(Vec2(800.f, 0.f), Vec2(800.f, 900.f));
+			UpdateData();
+			Render();
+		}
+	}
 
-	Render();
 	PickingRender();
+
 	DebugRender();
 
 	Clear();
@@ -75,6 +89,8 @@ void RenderMgr::Render()
 {
 	for (int i = 0; i < (UINT)CAMERA_TYPE::END;i++)
 	{
+		if (i == (UINT)CAMERA_TYPE::WORLD_CAMERA)
+			continue;
 		if (m_Cam[i] == nullptr)
 			continue;
 
@@ -82,6 +98,16 @@ void RenderMgr::Render()
 		_cam->SortObject();
 		_cam->Render();
 	}
+}
+
+void RenderMgr::Multi_Render()
+{
+	if (m_Cam[(UINT)CAMERA_TYPE::WORLD_CAMERA] == nullptr)
+		return;
+
+	Camera* _cam = m_Cam[(UINT)CAMERA_TYPE::WORLD_CAMERA]->GetComponent<Camera>(COMPONENT_TYPE::CAMERA);
+	_cam->SortObject();
+	_cam->Render();
 }
 
 void RenderMgr::DebugRender()

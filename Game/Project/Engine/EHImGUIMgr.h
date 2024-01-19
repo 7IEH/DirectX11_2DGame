@@ -15,6 +15,10 @@ private:
 	ImGuiIO&		m_io;
 
 	bool		m_DockSpace;
+	
+	bool		m_SpriteEditor;
+
+	UI*			m_Sprite;
 
 	// Console Message 후에 선생님이 한 해당 페이지 번호 가져온거 찾아보기
 

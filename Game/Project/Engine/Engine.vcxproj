@@ -204,9 +204,11 @@ call Copy.bat</Command>
     <ClInclude Include="EHRenderer.h" />
     <ClInclude Include="EHRenderMgr.h" />
     <ClInclude Include="EHRigidbodyUI.h" />
+    <ClInclude Include="EHSceneView.h" />
     <ClInclude Include="EHScript.h" />
     <ClInclude Include="EHShader.h" />
     <ClInclude Include="EHSprite.h" />
+    <ClInclude Include="EHSpriteEditor.h" />
     <ClInclude Include="EHSpriteRenderer.h" />
     <ClInclude Include="EHStructuredBuffer.h" />
     <ClInclude Include="EHTaskMgr.h" />
@@ -284,9 +286,11 @@ call Copy.bat</Command>
     <ClCompile Include="EHRenderer.cpp" />
     <ClCompile Include="EHRenderMgr.cpp" />
     <ClCompile Include="EHRigidbodyUI.cpp" />
+    <ClCompile Include="EHSceneView.cpp" />
     <ClCompile Include="EHScript.cpp" />
     <ClCompile Include="EHShader.cpp" />
     <ClCompile Include="EHSprite.cpp" />
+    <ClCompile Include="EHSpriteEditor.cpp" />
     <ClCompile Include="EHSpriteRenderer.cpp" />
     <ClCompile Include="EHStructuredBuffer.cpp" />
     <ClCompile Include="EHTaskMgr.cpp" />

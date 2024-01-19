@@ -18,6 +18,7 @@ Camera::Camera()
 	, m_Projection(PROJECTION_TYPE::ORTHOGRAPHIC)
 	, m_FOV(45.f * (3.141592f / 180.f))
 	, m_Width(1600.f)
+	, m_Height(900.f)
 	, m_Scale(1.f)
 	, m_AspectRatio(ASPECT_RATIO)
 	, m_Far(10000.0f)
@@ -100,7 +101,7 @@ void Camera::ProjectiveView()
 void Camera::OrthographicView()
 {
 	// Projection(Orthographic)
-	m_ProjMat = XMMatrixOrthographicLH(m_Width * m_Scale, 900.f * m_Scale, 1.f, m_Far);
+	m_ProjMat = XMMatrixOrthographicLH(m_Width * m_Scale, m_Height * m_Scale, 1.f, m_Far);
 }
 
 /************************

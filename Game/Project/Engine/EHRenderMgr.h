@@ -27,7 +27,8 @@ private:
 	GameObject*					m_PickingObj;
 
 	bool						m_NotRender;
-
+	
+	int							m_multiPort;
 public:
 	void SetRender(bool _NotRender) { m_NotRender = _NotRender; }
 	bool GetRender() { return m_NotRender; }
@@ -49,6 +50,7 @@ public:
 	
 private:
 	void Render();
+	void Multi_Render();
 	void DebugRender();
 	void PickingRender();
 

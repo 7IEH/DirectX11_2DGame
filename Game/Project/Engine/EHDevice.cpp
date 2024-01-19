@@ -56,7 +56,7 @@ int Device::Awake(HWND _hWnd, Vec2 _vRenderResolution)
 	OMSetRT();
 
 	// ViewPort Create
-	CreateViewPort();
+	CreateViewPort(Vec2(0.f,0.f),Vec2(1600.f,900.f));
 
 	// RasterizeState Create
 	if (FAILED(CreateRasterizerState()))
@@ -246,17 +246,17 @@ void Device::Present()
 	m_SwapChain->Present(0, 0);
 }
 
-void Device::CreateViewPort()
+void Device::CreateViewPort(Vec2 _pos, Vec2 _scale)
 {
 	D3D11_VIEWPORT vDesc = {};
 
 	vDesc.MinDepth = 0;
 	vDesc.MaxDepth = 1.f;
 
-	vDesc.TopLeftX = 0;
-	vDesc.TopLeftY = 0;
-	vDesc.Width = m_vRenderResolution.x;
-	vDesc.Height = m_vRenderResolution.y;
+	vDesc.TopLeftX = _pos.x;
+	vDesc.TopLeftY = _pos.y;
+	vDesc.Width = _scale.x;
+	vDesc.Height = _scale.y;
 
 	m_DeviceContext->RSSetViewports(1, &vDesc);
 }

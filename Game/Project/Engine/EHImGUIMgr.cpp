@@ -19,11 +19,14 @@
 #include "EHHierarchy.h"
 #include "EHInspector.h"
 #include "EHConsole.h"
+#include "EHSceneView.h"
+#include "EHSpriteEditor.h"
 
 ImGUIMgr::ImGUIMgr()
 	: m_Enabled(TRUE)
 	, m_DockSpace(TRUE)
 	, m_io(ImGui::GetIO())
+	, m_SpriteEditor(FALSE)
 {
 }
 
@@ -94,7 +97,7 @@ void ImGUIMgr::Render()
 
 	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	//ImGuiIO& io = ImGui::GetIO(); (void)io;
 	/*if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
 	{
 		ImGui::UpdatePlatformWindows();
@@ -120,6 +123,16 @@ void ImGUIMgr::CreateUI()
 	// 4. GameView
 	pUI = new GameView;
 	AddUI("GameView", pUI);
+
+	// 5. SceneView
+	pUI = new SceneView;
+	AddUI("Scene", pUI);
+
+	// 6. SpriteEditor
+	pUI = new SpriteEditor;
+	AddUI("SpriteEditor", pUI);
+
+	m_Sprite = pUI;
 
 	// Inspector apply
 	dynamic_cast<Hierarchy*>(FindUI("Hierarchy"))->SetInspector(dynamic_cast<Inspector*>(FindUI("Inspector")));
@@ -161,6 +174,7 @@ void ImGUIMgr::ShowDockSpace()
 	// We are using the ImGuiWindowFlags_NoDocking flag to make the parent window not dockable into,
 	// because it would be confusing to have two docking targets within each others.
 	ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
+
 	if (opt_fullscreen)
 	{
 		const ImGuiViewport* viewport = ImGui::GetMainViewport();
@@ -198,6 +212,7 @@ void ImGUIMgr::ShowDockSpace()
 
 	// Submit the DockSpace
 	ImGuiIO& io = ImGui::GetIO();
+
 	if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
 	{
 		ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
@@ -206,29 +221,17 @@ void ImGUIMgr::ShowDockSpace()
 
 	if (ImGui::BeginMenuBar())
 	{
-		if (ImGui::BeginMenu("Docking"))
+		if (ImGui::BeginMenu("Utility"))
 		{
-			// Disabling fullscreen would allow the window to be moved to the front of other windows,
-			// which we can't undo at the moment without finer window depth/z control.
-			ImGui::MenuItem("Fullscreen", NULL, &opt_fullscreen);
-			ImGui::MenuItem("Padding", NULL, &opt_padding);
-			ImGui::Separator();
+			ImGui::MenuItem("SpriteRenderer", "", &m_SpriteEditor);
 
-			if (ImGui::MenuItem("Flag: NoDockingOverCentralNode", "", (dockspace_flags & ImGuiDockNodeFlags_NoDockingOverCentralNode) != 0)) { dockspace_flags ^= ImGuiDockNodeFlags_NoDockingOverCentralNode; }
-			if (ImGui::MenuItem("Flag: NoDockingSplit", "", (dockspace_flags & ImGuiDockNodeFlags_NoDockingSplit) != 0)) { dockspace_flags ^= ImGuiDockNodeFlags_NoDockingSplit; }
-			if (ImGui::MenuItem("Flag: NoUndocking", "", (dockspace_flags & ImGuiDockNodeFlags_NoUndocking) != 0)) { dockspace_flags ^= ImGuiDockNodeFlags_NoUndocking; }
-			if (ImGui::MenuItem("Flag: NoResize", "", (dockspace_flags & ImGuiDockNodeFlags_NoResize) != 0)) { dockspace_flags ^= ImGuiDockNodeFlags_NoResize; }
-			if (ImGui::MenuItem("Flag: AutoHideTabBar", "", (dockspace_flags & ImGuiDockNodeFlags_AutoHideTabBar) != 0)) { dockspace_flags ^= ImGuiDockNodeFlags_AutoHideTabBar; }
-			if (ImGui::MenuItem("Flag: PassthruCentralNode", "", (dockspace_flags & ImGuiDockNodeFlags_PassthruCentralNode) != 0, opt_fullscreen)) { dockspace_flags ^= ImGuiDockNodeFlags_PassthruCentralNode; }
-			ImGui::Separator();
-
-			if (ImGui::MenuItem("Close", NULL, false, m_DockSpace != NULL))
-				ImGui::EndMenu();
+			ImGui::EndMenu();
 		}
 
 		ImGui::EndMenuBar();
 	}
 
+	m_Sprite->Enabled(m_SpriteEditor);
 
 	for (const auto& pair : m_mapUI)
 	{
@@ -239,5 +242,6 @@ void ImGUIMgr::ShowDockSpace()
 	{
 		pair.second->Render();
 	}
+
 	ImGui::End();
 }

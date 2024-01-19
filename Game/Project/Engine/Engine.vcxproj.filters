@@ -238,6 +238,15 @@
     <Filter Include="04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Renderer">
       <UniqueIdentifier>{911e4f37-e6a0-46f0-9664-1eddd7f32b68}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\Utility">
+      <UniqueIdentifier>{62b3192e-02d6-46a8-bbe3-306cd43fec39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\Utility\SpriteEditor">
+      <UniqueIdentifier>{7898c81d-75ce-4fae-96d3-50c5fa3604af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\SceneView">
+      <UniqueIdentifier>{bf3e3a72-6fa1-4dfd-9903-d4c6d5c5b491}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -477,6 +486,12 @@
     <ClInclude Include="EHRendererUI.h">
       <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="EHSpriteEditor.h">
+      <Filter>04. Manager\ImGUIMgr\UI\Utility\SpriteEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="EHSceneView.h">
+      <Filter>04. Manager\ImGUIMgr\UI\SceneView</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -697,6 +712,12 @@
     </ClCompile>
     <ClCompile Include="EHRendererUI.cpp">
       <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="EHSpriteEditor.cpp">
+      <Filter>04. Manager\ImGUIMgr\UI\Utility\SpriteEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="EHSceneView.cpp">
+      <Filter>04. Manager\ImGUIMgr\UI\SceneView</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

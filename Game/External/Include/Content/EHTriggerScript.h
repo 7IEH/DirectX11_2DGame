@@ -14,6 +14,8 @@ private:
 	Vec4		m_PlayerPos;
 	Vec4		m_CamPos;
 
+	GameObject* m_Cam;
+
 public:
 	void SetTriggerType(TRIGGER_TYPE _type) { m_Type = _type; }
 

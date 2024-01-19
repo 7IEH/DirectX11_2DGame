@@ -30,9 +30,17 @@ void ColliderUI::Render_Update()
 	Vec3 _pos = _collider->GetOffsetPos();
 
 	float _value[3] = { _pos.x,_pos.y,_pos.z };
-	ImGui::Text("Position"); ImGui::SameLine(); ImGui::DragFloat3("##Position", _value);
+	ImGui::Text("Position"); ImGui::SameLine(); ImGui::DragFloat3("##Position", _value , 0.3f);
 	float _value3[3] = { _scale.x,_scale.y,_scale.z };
-	ImGui::Text("Scale	 "); ImGui::SameLine(); ImGui::DragFloat3("##Scale", _value3);
+	ImGui::Text("Scale	 "); ImGui::SameLine(); ImGui::DragFloat3("##Scale", _value3 , 0.3f);
+
+	_pos.x = _value[0];
+	_pos.y = _value[1];
+	_pos.z = _value[2];
+
+	_scale.x = _value3[0];
+	_scale.y = _value3[1];
+	_scale.z = _value3[2];
 
 	_collider->SetOffsetPos(_pos);
 	_collider->SetoffSetScale(_scale);
