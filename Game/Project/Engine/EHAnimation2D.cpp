@@ -43,6 +43,40 @@ void Animation2D::Create(const wstring& _animName, Ptr<Sprite> _atalas, Vec2 _le
 	}
 }
 
+void Animation2D::Edit(const wstring& _animName, Ptr<Sprite> _atalas, Vec2 _leftTop, Vec2 _offset, Vec2 _sliceSize, Vec2 _BackGround, UINT _FrameCount, float _FPS)
+{
+	m_FrameInfo.clear();
+
+	tAnimFrameInfo _info = {};
+
+	m_AtlasSprite = _atalas;
+
+	UINT _width = m_AtlasSprite->GetSpriteWidth();
+	UINT _height = m_AtlasSprite->GetSpriteHeight();
+
+	for (UINT i = 0;i < _FrameCount;i++)
+	{
+		_info._Duration = 1.f / _FPS;
+		_info._SliceSize = Vec2(_sliceSize.x / (float)_width, _sliceSize.y / (float)_height);
+		_info._LeftTop = Vec2(_leftTop.x / (float)_width + _info._SliceSize.x * i, _leftTop.y / (float)_height);
+		_info._Offset = Vec2(_offset.x / (float)_width, _offset.y / (float)_height);
+		_info._BackGround = Vec2(_BackGround.x / (float)_atalas->GetSpriteWidth(), _BackGround.y / (float)_atalas->GetSpriteHeight());
+		m_FrameInfo.push_back(_info);
+	}
+}
+
+void Animation2D::SetAnimationFrame(const wstring& _label, Ptr<Sprite> _atlas, vector<tAnimFrameInfo>& _frameInfo)
+{
+	SetName(_label);
+
+	m_AtlasSprite = _atlas;
+
+	UINT _width = m_AtlasSprite->GetSpriteWidth();
+	UINT _height = m_AtlasSprite->GetSpriteHeight();
+
+	m_FrameInfo = _frameInfo;
+}
+
 void Animation2D::UpdateData()
 {
 	if (m_AtlasSprite.Get() != nullptr)

@@ -31,6 +31,7 @@ public:
 	void SetTargetObject(GameObject* _obj);
 	void SetTargetAsset(Ptr<Asset> _asset);
 
+	GameObject* GetTargetObject() { return m_TargetObject; }
 
 private:
 	void ShowName();

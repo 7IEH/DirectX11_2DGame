@@ -167,3 +167,18 @@ struct tGlobalData
 	int		_Light3DSize;
 	Vec2	padding;
 };
+
+// Particle System
+struct tParticle
+{
+	Vec4 vWorldPos;
+	Vec4 vWorldScale;
+	Vec4 vWolrdRotation;
+	Vec4 vColor;
+	Vec4 vDir;
+
+	float Mass;
+	float Age;
+	float Life;
+	int	  Active;
+};

@@ -28,6 +28,9 @@ public:
 
 	ID3D11Texture2D*						GetTexture2D() { return m_SpriteTexture.Get(); }
 
+	ScratchImage*							GetScratchImage() { return &m_Image; }
+
+
 public:
 	virtual void UpdateData()override {};
 	virtual void Render()override {};

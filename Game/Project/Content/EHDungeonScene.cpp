@@ -32,7 +32,7 @@ void DungeonScene::Awake()
 	|	Main_Camera
 	*********************/
 	GameObject* _MainCamera = new GameObject;
-	_MainCamera->SetName(L"MainCamera");
+	_MainCamera->SetName(L"SceneCamera");
 	Transform* _tr = _MainCamera->AddComponent<Transform>();
 	Camera* _camera = _MainCamera->AddComponent<Camera>();
 	CameraScript* _cameraScript = _MainCamera->AddComponent<CameraScript>();
@@ -48,7 +48,7 @@ void DungeonScene::Awake()
 	Object::Instantiate(_MainCamera, (int)LAYER_TYPE::CAMERA);
 
 	GameObject* _WorldCamera = new GameObject;
-	_MainCamera->SetName(L"PlayCamera");
+	_WorldCamera->SetName(L"GameCamera");
 	_tr = _WorldCamera->AddComponent<Transform>();
 	_camera = _WorldCamera->AddComponent<Camera>();
 
@@ -658,6 +658,10 @@ void DungeonScene::Awake()
 	Animator2D* _animator = _player->AddComponent<Animator2D>();
 	Ptr<Sprite> _sprite = AssetMgr::GetInst()->FindAsset<Sprite>(L"PlayerIdleFront");
 	_animator->CreateAnimation(L"IdleFront", _sprite, Vec2(0.f, 0.f), Vec2(0.f, 0.f), Vec2(24.f, 41.f), Vec2(24.f, 41.f), 10, 6.f);
+
+	_sprite = AssetMgr::GetInst()->FindAsset<Sprite>(L"PlayerIdleBack");
+	_animator->CreateAnimation(L"IdleBack", _sprite, Vec2(0.f, 0.f), Vec2(0.f, 0.f), Vec2(25.f, 41.f), Vec2(25.f, 41.f), 10, 6.f);
+	
 	_animator->Play(L"IdleFront");
 
 	// Light2D
@@ -689,7 +693,7 @@ void DungeonScene::Awake()
 
 	Object::Instantiate(_postprocess, (UINT)LAYER_TYPE::BACKGROUND);
 
-	CollisionMgr::GetInst()->LayerCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::TRIGGER);
+	CollisionMgr::GetInst()->LayerCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::TRIGGER,true);
 	Level::Awake();
 }
 

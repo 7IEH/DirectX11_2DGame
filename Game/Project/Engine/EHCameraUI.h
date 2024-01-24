@@ -1,7 +1,7 @@
 #pragma once
 #include "EHComponentUI.h"
 class CameraUI :
-    public ComponentUI
+	public ComponentUI
 {
 private:
 	map<string, PROJECTION_TYPE> m_NameByLayer;
@@ -10,6 +10,8 @@ private:
 	vector<string>		m_LayerName;
 
 	map<string, bool>	m_LayerSelect;
+
+	map<UINT, string> m_VisibleLayer;
 
 public:
 	virtual void Render_Update()override;

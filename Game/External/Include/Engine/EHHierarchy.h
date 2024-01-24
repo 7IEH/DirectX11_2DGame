@@ -11,6 +11,7 @@ private:
 	
 public:
 	void SetInspector(Inspector* _inspector) { m_Inspector = _inspector; }
+	Inspector* GetInsepctor() { return m_Inspector; }
 
 public:
 	virtual void Render_Update();

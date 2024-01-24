@@ -18,19 +18,33 @@ CollisionMgr::~CollisionMgr()
 {
 }
 
-void CollisionMgr::LayerCheck(LAYER_TYPE _layer1, LAYER_TYPE _layer2)
+void CollisionMgr::LayerCheck(LAYER_TYPE _layer1, LAYER_TYPE _layer2, bool _flag)
 {
 	UINT _col = (UINT)_layer1;
 	UINT _row = (UINT)_layer2;
 
-	if (_row > _col)
+	if (_flag)
 	{
-		int temp = _row;
-		_row = _col;
-		_col = temp;
-	}
+		if (_row > _col)
+		{
+			int temp = _row;
+			_row = _col;
+			_col = temp;
+		}
 
-	m_CollisionMatrix[_row] |= (1 << _col);
+		m_CollisionMatrix[_row] |= (1 << _col);
+	}
+	else
+	{
+		if (_row > _col)
+		{
+			int temp = _row;
+			_row = _col;
+			_col = temp;
+		}
+
+		m_CollisionMatrix[_row] &= ~(1 << _col);
+	}
 }
 
 void CollisionMgr::Update()
@@ -58,7 +72,7 @@ void CollisionMgr::CollisionLayer(UINT _left, UINT _right)
 	const vector<GameObject*>& _rightObj = _rightLayer->GetLayerObject();
 
 	for (size_t i = 0; i < _leftObj.size();i++)
-	{		
+	{
 		if (nullptr == _leftObj[i]->GetComponent<Collider>(COMPONENT_TYPE::COLLIDER2D))
 			continue;
 
@@ -164,7 +178,7 @@ bool CollisionMgr::CollisionCollider(Collider* _colLeft, Collider* _colRight)
 bool CollisionMgr::Box2DCollisionCheck(Collider* _colLeft, Collider* _colRight)
 {
 	Collider2D* _box2DLeft = dynamic_cast<Collider2D*>(_colLeft);
-	Collider2D*	_box2DRight = dynamic_cast<Collider2D*>(_colRight);
+	Collider2D* _box2DRight = dynamic_cast<Collider2D*>(_colRight);
 
 	if (nullptr == _box2DLeft || nullptr == _box2DRight)
 		return FALSE;

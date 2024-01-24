@@ -158,18 +158,23 @@ call Copy.bat</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="EHAnimationMgr.h" />
+    <ClInclude Include="EHAnimationUI.h" />
     <ClInclude Include="EHAnimator2DUI.h" />
     <ClInclude Include="EHAnimation2D.h" />
     <ClInclude Include="EHAnimator2D.h" />
     <ClInclude Include="EHBehaviour.h" />
+    <ClInclude Include="EHBoxCollider2DUI.h" />
     <ClInclude Include="EHCamera.h" />
     <ClInclude Include="EHCameraScript.h" />
     <ClInclude Include="EHCameraTargetScript.h" />
     <ClInclude Include="EHCameraUI.h" />
     <ClInclude Include="EHCircleCollider2D.h" />
+    <ClInclude Include="EHCircleCollider2DUI.h" />
     <ClInclude Include="EHCollider.h" />
     <ClInclude Include="EHCollider2D.h" />
     <ClInclude Include="EHColliderUI.h" />
+    <ClInclude Include="EHCollisionMatrix.h" />
     <ClInclude Include="EHCollisionMgr.h" />
     <ClInclude Include="EHComponent.h" />
     <ClInclude Include="define.h" />
@@ -181,6 +186,7 @@ call Copy.bat</Command>
     <ClInclude Include="EHDebugMgr.h" />
     <ClInclude Include="EHDevice.h" />
     <ClInclude Include="EHEngine.h" />
+    <ClInclude Include="EHEngineUI.h" />
     <ClInclude Include="EHEntity.h" />
     <ClInclude Include="EHGameView.h" />
     <ClInclude Include="EHGarbageCollector.h" />
@@ -199,6 +205,7 @@ call Copy.bat</Command>
     <ClInclude Include="EHMaterial.h" />
     <ClInclude Include="EHMesh.h" />
     <ClInclude Include="EHGameObject.h" />
+    <ClInclude Include="EHParticleSystem.h" />
     <ClInclude Include="EHPathMgr.h" />
     <ClInclude Include="EHPlayerScript.h" />
     <ClInclude Include="EHRenderer.h" />
@@ -209,12 +216,18 @@ call Copy.bat</Command>
     <ClInclude Include="EHShader.h" />
     <ClInclude Include="EHSprite.h" />
     <ClInclude Include="EHSpriteEditor.h" />
+    <ClInclude Include="EHSpriteLoader.h" />
     <ClInclude Include="EHSpriteRenderer.h" />
     <ClInclude Include="EHStructuredBuffer.h" />
     <ClInclude Include="EHTaskMgr.h" />
     <ClInclude Include="EHTestLevel.h" />
+    <ClInclude Include="EHTestUI.h" />
     <ClInclude Include="EHThreadMgr.h" />
     <ClInclude Include="EHThreadTask.h" />
+    <ClInclude Include="EHTileMap.h" />
+    <ClInclude Include="EHTileMapCollider.h" />
+    <ClInclude Include="EHTileMapRenderer.h" />
+    <ClInclude Include="EHTilePalette.h" />
     <ClInclude Include="EHTimeMgr.h" />
     <ClInclude Include="EHTransform.h" />
     <ClInclude Include="EHTransformUI.h" />
@@ -230,6 +243,7 @@ call Copy.bat</Command>
     <ClInclude Include="imgui_impl_dx11.h" />
     <ClInclude Include="imgui_impl_win32.h" />
     <ClInclude Include="imgui_internal.h" />
+    <ClInclude Include="imgui_stdlib.h" />
     <ClInclude Include="imstb_rectpack.h" />
     <ClInclude Include="imstb_textedit.h" />
     <ClInclude Include="imstb_truetype.h" />
@@ -239,20 +253,26 @@ call Copy.bat</Command>
     <ClInclude Include="SimpleMath.h" />
     <ClInclude Include="singleton.h" />
     <ClInclude Include="struct.h" />
+    <ClInclude Include="unAnimation2DUI.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="EHAnimationMgr.cpp" />
+    <ClCompile Include="EHAnimationUI.cpp" />
     <ClCompile Include="EHAnimator2DUI.cpp" />
     <ClCompile Include="EHAnimation2D.cpp" />
     <ClCompile Include="EHAnimator2D.cpp" />
     <ClCompile Include="EHAssetMgr_Init.cpp" />
+    <ClCompile Include="EHBoxCollider2DUI.cpp" />
     <ClCompile Include="EHCamera.cpp" />
     <ClCompile Include="EHCameraScript.cpp" />
     <ClCompile Include="EHCameraTargetScript.cpp" />
     <ClCompile Include="EHCameraUI.cpp" />
     <ClCompile Include="EHCircleCollider2D.cpp" />
+    <ClCompile Include="EHCircleCollider2DUI.cpp" />
     <ClCompile Include="EHCollider.cpp" />
     <ClCompile Include="EHCollider2D.cpp" />
     <ClCompile Include="EHColliderUI.cpp" />
+    <ClCompile Include="EHCollisionMatrix.cpp" />
     <ClCompile Include="EHCollisionMgr.cpp" />
     <ClCompile Include="EHComponent.cpp" />
     <ClCompile Include="EHAsset.cpp" />
@@ -281,6 +301,7 @@ call Copy.bat</Command>
     <ClCompile Include="EHMaterial.cpp" />
     <ClCompile Include="EHMesh.cpp" />
     <ClCompile Include="EHGameObject.cpp" />
+    <ClCompile Include="EHParticleSystem.cpp" />
     <ClCompile Include="EHPathMgr.cpp" />
     <ClCompile Include="EHPlayerScript.cpp" />
     <ClCompile Include="EHRenderer.cpp" />
@@ -291,12 +312,18 @@ call Copy.bat</Command>
     <ClCompile Include="EHShader.cpp" />
     <ClCompile Include="EHSprite.cpp" />
     <ClCompile Include="EHSpriteEditor.cpp" />
+    <ClCompile Include="EHSpriteLoader.cpp" />
     <ClCompile Include="EHSpriteRenderer.cpp" />
     <ClCompile Include="EHStructuredBuffer.cpp" />
     <ClCompile Include="EHTaskMgr.cpp" />
     <ClCompile Include="EHTestLevel.cpp" />
+    <ClCompile Include="EHTestUI.cpp" />
     <ClCompile Include="EHThreadMgr.cpp" />
     <ClCompile Include="EHThreadTask.cpp" />
+    <ClCompile Include="EHTileMap.cpp" />
+    <ClCompile Include="EHTileMapCollider.cpp" />
+    <ClCompile Include="EHTileMapRenderer.cpp" />
+    <ClCompile Include="EHTilePalette.cpp" />
     <ClCompile Include="EHTimeMgr.cpp" />
     <ClCompile Include="EHTransform.cpp" />
     <ClCompile Include="EHTransformUI.cpp" />
@@ -326,6 +353,10 @@ call Copy.bat</Command>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="imgui_stdlib.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="imgui_tables.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
@@ -342,6 +373,7 @@ call Copy.bat</Command>
     </ClCompile>
     <ClCompile Include="EHRendererUI.cpp" />
     <ClCompile Include="RenderMgr_Init.cpp" />
+    <ClCompile Include="unAnimation2DUI.cpp" />
     <FxCompile Include="debug2d.fx">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
@@ -361,6 +393,12 @@ call Copy.bat</Command>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="struct.fx">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="tilemap.fx">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>

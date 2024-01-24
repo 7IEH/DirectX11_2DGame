@@ -29,11 +29,11 @@ void TransformUI::Render_Update()
 	Vec3 _rot = _tr->GetRelativeRotation();
 
 	float _value[3] = { _pos.x,_pos.y,_pos.z };
-	ImGui::Text("Position"); ImGui::SameLine(); ImGui::DragFloat3("##Position", _value);
+	ImGui::Text("Position"); ImGui::SameLine(100.f); ImGui::DragFloat3("##Position", _value);
 	float _value2[3] = { _rot.x,_rot.y,_rot.z };
-	ImGui::Text("Rotation"); ImGui::SameLine(); ImGui::DragFloat3("##Rotation", _value2);
+	ImGui::Text("Rotation"); ImGui::SameLine(100.f); ImGui::DragFloat3("##Rotation", _value2);
 	float _value3[3] = { _scale.x,_scale.y,_scale.z };
-	ImGui::Text("Scale	 "); ImGui::SameLine(); ImGui::DragFloat3("##Scale", _value3);
+	ImGui::Text("Scale	 "); ImGui::SameLine(100.f); ImGui::DragFloat3("##Scale  ", _value3);
 
 	_pos.x = _value[0];
 	_pos.y = _value[1];

@@ -45,6 +45,11 @@ public:
 	void SetScale(float _scale) { m_Scale = _scale; }
 	float GetScale() { return m_Scale; }
 
+	void SetWidth(float _width) { m_Width = _width; }
+	float GetWidth() { return m_Width; }
+
+	UINT GetLayerVisible() { return m_LayerVisible; }
+
 public:
 	virtual void LateUpdate() override;
 

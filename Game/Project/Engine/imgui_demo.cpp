@@ -3568,6 +3568,12 @@ static void ShowDemoWindowLayout()
             if (ImGui::IsItemActive() && ImGui::IsMouseDragging(ImGuiMouseButton_Left))
             {
                 offset.x += ImGui::GetIO().MouseDelta.x;
+
+
+
+
+
+
                 offset.y += ImGui::GetIO().MouseDelta.y;
             }
             ImGui::PopID();

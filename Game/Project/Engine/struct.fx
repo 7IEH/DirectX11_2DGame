@@ -128,6 +128,13 @@ struct Material
     int2 padding;
 };
 
+struct tTileInfo
+{
+    float2 vLeftTopUV;
+    int bRender;
+    int padding;
+};
+
 cbuffer Worldspcae : register(b0)
 {
     matrix World;

@@ -23,6 +23,7 @@ public:
 
 	bool	GetEnabled() { return m_Enabled; }
 	void	Enabled() { m_Enabled = !m_Enabled; }
+
 public:
 	virtual void DrawCollider() = 0;
 	virtual void LateUpdate()override {};

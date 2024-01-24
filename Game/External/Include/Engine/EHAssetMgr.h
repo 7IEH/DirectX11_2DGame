@@ -16,6 +16,9 @@ private:
 	map<wstring, Ptr<Asset>>	m_Assets[(UINT)ASSET_TYPE::END];
 
 public:
+	map<wstring, Ptr<Asset>> GetSprite() { return m_Assets[(UINT)ASSET_TYPE::SPRITE]; }
+
+public:
 	template <typename T>
 	void AddAsset(T* _asset, const wstring& _name);
 
@@ -29,12 +32,15 @@ public:
 	Ptr<Sprite> CreateResoruceTexture(const wstring& _label, ComPtr<ID3D11Texture2D> _tex2D);
 
 private:
+	void CreateSprite();
 	void CreateDefaultMesh();
 	void CreateDefaultShader();
 	void CreateDefaultMaterial();
 
 public:
 	void Awake();
+
+	friend class SpriteLoader;
 };
 
 template<typename T>
@@ -103,7 +109,8 @@ Ptr<T> AssetMgr::Load(const wstring& _strFilePath, const wstring _name)
 		_asset = nullptr;
 		return nullptr;
 	}
-
+	
+	_asset->SetName(_name);
 	_asset->SetKey(_name);
 	_asset->SetRelativePath(_strFilePath);
 

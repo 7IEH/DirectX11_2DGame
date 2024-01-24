@@ -57,7 +57,17 @@ void ComponentUI::SetTargetObject(GameObject* _target)
 			if (_col2d == nullptr)
 				Enabled(FALSE);
 			else
+			{
+				if (COLLIDER_TYPE::BOXCOLLIDER2D == _col2d->GetColliderType())
+				{
+					this->SetLabel("BoxCollider2D");
+				}
+				else if (COLLIDER_TYPE::CIRCLECOLLDIER2D == _col2d->GetColliderType())
+				{
+					this->SetLabel("CircleCollider2D");
+				}
 				Enabled(TRUE);
+			}
 		}
 			break;
 		case COMPONENT_TYPE::ANIMATOR2D:

@@ -26,22 +26,53 @@ void ColliderUI::Render_Update()
 
 	Collider2D* _collider = GetTargetObject()->GetComponent<Collider2D>(COMPONENT_TYPE::COLLIDER2D);
 
-	Vec3 _scale = _collider->GetOffsetScale();
-	Vec3 _pos = _collider->GetOffsetPos();
+	Vec3 _scale = Vec3(0.f);
+	Vec3 _pos = Vec3(0.f);
+	float _radius = 0.f;
 
-	float _value[3] = { _pos.x,_pos.y,_pos.z };
+	float _value[3] = {};
+
+	if (COLLIDER_TYPE::BOXCOLLIDER2D == _collider->GetColliderType())
+	{
+		_scale = _collider->GetOffsetScale();
+		_pos = _collider->GetOffsetPos();
+
+		_value[0] = _scale.x;
+		_value[1] = _scale.y;
+		_value[2] = _scale.z;
+
+		ImGui::Text("Scale	 "); ImGui::SameLine(); ImGui::DragFloat3("##Scale", _value, 0.3f);
+
+		_scale.x = _value[0];
+		_scale.y = _value[1];
+		_scale.z = _value[2];
+
+		_collider->SetoffSetScale(_scale);
+	}
+	else if(COLLIDER_TYPE::CIRCLECOLLDIER2D == _collider->GetColliderType())
+	{
+		CircleCollider2D* _circleCol = dynamic_cast<CircleCollider2D*>(_collider);
+
+		if (nullptr == _circleCol)
+			return;
+
+		_radius = _circleCol->GetRadius();
+		_pos = _collider->GetOffsetPos();
+
+		ImGui::Text("Radius	 "); ImGui::SameLine(); ImGui::DragFloat("##Scale", &_radius, 0.3f);
+
+		_circleCol->SetRadius(_radius);
+	}
+
+	_value[0] = _pos.x;
+	_value[1] = _pos.y;
+	_value[2] = _pos.z;
+
 	ImGui::Text("Position"); ImGui::SameLine(); ImGui::DragFloat3("##Position", _value , 0.3f);
-	float _value3[3] = { _scale.x,_scale.y,_scale.z };
-	ImGui::Text("Scale	 "); ImGui::SameLine(); ImGui::DragFloat3("##Scale", _value3 , 0.3f);
 
 	_pos.x = _value[0];
 	_pos.y = _value[1];
 	_pos.z = _value[2];
 
-	_scale.x = _value3[0];
-	_scale.y = _value3[1];
-	_scale.z = _value3[2];
-
 	_collider->SetOffsetPos(_pos);
-	_collider->SetoffSetScale(_scale);
 }

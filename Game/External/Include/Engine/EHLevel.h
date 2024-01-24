@@ -26,6 +26,9 @@ public:
 
 	Layer* GetLayer(LAYER_TYPE _type) { return m_Layers[(UINT)_type]; }
 
+	GameObject* FindObjectByName(const wstring& _strName);
+	void FindObjectsByName(const wstring& _strName, vector<GameObject*>& _vecObj);
+
 public:
 	virtual void Awake();
 	virtual void Start();

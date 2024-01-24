@@ -6,33 +6,30 @@
 #include "EHAssetMgr.h"
 #include "EHRenderMgr.h"
 #include "EHLevelMgr.h"
-
-#include "EHGameObject.h"
-#include "EHBehaviour.h"
-
 #include "EHDebugMgr.h"
 #include "EHTimeMgr.h"
 
+#include "EHGameObject.h"
 #include "EHSprite.h"
 
-#include "EHGameView.h"
-#include "EHHierarchy.h"
-#include "EHInspector.h"
-#include "EHConsole.h"
-#include "EHSceneView.h"
-#include "EHSpriteEditor.h"
+#include "EHBehaviour.h"
+#include "EHEngineUI.h"
 
 ImGUIMgr::ImGUIMgr()
 	: m_Enabled(TRUE)
 	, m_DockSpace(TRUE)
 	, m_io(ImGui::GetIO())
 	, m_SpriteEditor(FALSE)
+	, m_CollisionMatrix(FALSE)
+	, m_TilePalette(FALSE)
 {
 }
 
 ImGUIMgr::~ImGUIMgr()
 {
 	ImGui_ImplDX11_Shutdown();
+	ImGui_ImplWin32_Shutdown();
+	ImGui::DestroyContext();
 }
 
 HRESULT ImGUIMgr::Awake()
@@ -89,11 +86,11 @@ void ImGUIMgr::Render()
 
 	//ImGui::ShowDemoWindow()
 
-	//Frame();
-	//if (m_Enabled)
-	//{
-	//	ImGui::ShowDemoWindow(&m_Enabled);
-	//}
+	/*Frame();
+	if (m_Enabled)
+	{
+		ImGui::ShowDemoWindow(&m_Enabled);
+	}*/
 
 	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
@@ -111,6 +108,8 @@ void ImGUIMgr::CreateUI()
 	// 1. Hierarchy
 	pUI = new Hierarchy;
 	AddUI("Hierarchy", pUI);
+
+	m_Hierarchy = pUI;
 
 	// 2. Console
 	pUI = new Console;
@@ -133,6 +132,38 @@ void ImGUIMgr::CreateUI()
 	AddUI("SpriteEditor", pUI);
 
 	m_Sprite = pUI;
+
+	// 7. CollisionMatrix
+	pUI = new CollisionMatrix;
+	AddUI("CollisionMatrix", pUI);
+	
+	m_CollisionMat = pUI;
+
+	// 8. AnimationCrate
+	pUI = new AnimationUI;
+	AddUI("AnimationCreateUI", pUI);
+	m_AnimationCreateUI = pUI;
+
+	// 9. SpriteLoader
+	pUI = new SpriteLoader;
+	AddUI("SpriteLoader", pUI);
+	m_SpriteLoader = pUI;
+
+	//// 10. TestUI
+	//pUI = new TestUI();
+	//AddUI("TestUI", pUI);
+
+	// 11. UnSortingAnimation
+	pUI = new unAnimation2DUI;
+	AddUI("UnAnimationUI", pUI);
+
+	m_unAnimationCreateUI = pUI;
+
+	// 12. TileMapPallete
+	pUI = new TilePalette;
+	AddUI("TilePalette", pUI);
+
+	m_TilePalette = pUI;
 
 	// Inspector apply
 	dynamic_cast<Hierarchy*>(FindUI("Hierarchy"))->SetInspector(dynamic_cast<Inspector*>(FindUI("Inspector")));
@@ -225,6 +256,10 @@ void ImGUIMgr::ShowDockSpace()
 		{
 			ImGui::MenuItem("SpriteRenderer", "", &m_SpriteEditor);
 
+			ImGui::MenuItem("CollsionMatrix", "", &m_CollisionMatrix);
+
+			ImGui::MenuItem("TileMapPalette", "", &m_TilePalette);
+
 			ImGui::EndMenu();
 		}
 
@@ -232,6 +267,11 @@ void ImGUIMgr::ShowDockSpace()
 	}
 
 	m_Sprite->Enabled(m_SpriteEditor);
+	m_CollisionMat->Enabled(m_CollisionMatrix);
+	m_AnimationCreateUI->Enabled(m_bAnimationUI);
+	m_SpriteLoader->Enabled(m_bSpriteLoader);
+	m_unAnimationCreateUI->Enabled(m_bunAnimationCreateUI);
+	m_TilePalette->Enabled(m_TilePalette);
 
 	for (const auto& pair : m_mapUI)
 	{
@@ -245,3 +285,5 @@ void ImGUIMgr::ShowDockSpace()
 
 	ImGui::End();
 }
+
+// Canvas

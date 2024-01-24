@@ -149,8 +149,6 @@ HRESULT Sprite::Create(UINT _width, UINT _height, DXGI_FORMAT _format, UINT _bin
 
 HRESULT Sprite::Create(ComPtr<ID3D11Texture2D> _texture2D)
 {
-	
-
 	m_SpriteTexture = _texture2D;
 	m_SpriteTexture.Get()->GetDesc(&m_DESC);
 

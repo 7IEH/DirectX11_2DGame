@@ -13,7 +13,7 @@ private:
 	bool			m_Collapsing;
 
 public:
-	void SetName(const string& _label) { m_label = _label; }
+	void SetLabel(const string& _label) { m_label = _label; }
 	const string& GetName() { return m_label; }
 	const string& GetID() { return m_strID; }
 

@@ -17,6 +17,9 @@
 #include <list>
 #include <map>
 
+#include <fstream>
+#include <iostream>
+
 using std::vector;
 using std::list;
 using std::map;
@@ -55,6 +58,7 @@ typedef Vector4 Vec4;
 #include "func.h"
 
 // ImGUI Header
+#include "imgui_stdlib.h"
 #include "imgui_impl_dx11.h"
 #include "imgui_impl_win32.h"
 

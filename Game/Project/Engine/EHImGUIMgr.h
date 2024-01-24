@@ -17,8 +17,20 @@ private:
 	bool		m_DockSpace;
 	
 	bool		m_SpriteEditor;
+	bool		m_CollisionMatrix;
+	bool		m_bAnimationUI;
+	bool		m_bSpriteLoader;
+	bool		m_bunAnimationCreateUI;
+	bool		m_bTilePalette;
 
+	//
 	UI*			m_Sprite;
+	UI*			m_CollisionMat;
+	UI*			m_AnimationCreateUI;
+	UI*			m_Hierarchy;
+	UI*			m_SpriteLoader;
+	UI*			m_unAnimationCreateUI;
+	UI*			m_TilePalette;
 
 	// Console Message 후에 선생님이 한 해당 페이지 번호 가져온거 찾아보기
 
@@ -30,6 +42,18 @@ public:
 
 	ImGuiIO GetIO() { return m_io; }
 	void Frame();
+
+	UI* GetAnimationUI() { return m_AnimationCreateUI; }
+
+	void SetAnimationUI(bool _animationUI) { m_bAnimationUI = _animationUI; }
+
+	void SetSprite(bool _flag) { m_SpriteEditor = _flag; }
+	void SetCol(bool _flag) { m_CollisionMatrix = _flag; }
+	void SetAnimationCreate(bool _flag) { m_bAnimationUI = _flag; }
+	void SetSpriteLoader(bool _flag) { m_bSpriteLoader = _flag; }
+	void SetunAnimationCreateUI(bool _flag) { m_bunAnimationCreateUI = _flag; }
+	void SetTilePalette(bool _flag) { m_bTilePalette = _flag; }
+
 public:
 	HRESULT Awake();
 	void Render();

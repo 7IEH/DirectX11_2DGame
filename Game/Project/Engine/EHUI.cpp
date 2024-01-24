@@ -16,7 +16,6 @@ UI::~UI()
 
 void UI::Update()
 {
-
 }
 
 void UI::Render()

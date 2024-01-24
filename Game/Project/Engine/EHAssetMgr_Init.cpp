@@ -7,6 +7,7 @@
 #include "EHMaterial.h"
 
 #include "EHDebugMgr.h"
+#include "EHPathMgr.h"
 
 /************************
 |	AssetMgr
@@ -28,45 +29,44 @@ AssetMgr::~AssetMgr()
 
 void AssetMgr::Awake()
 {
-	wstring _path = L"\\resource\\Example.png";
-	Ptr<Sprite> _BackGroundSprite = Load<Sprite>(_path, L"BackGroundSprite");
-
-	_path = L"\\resource\\Char\\Player\\Idle\\Dungeon\\Front\\FrontCycleIdle.png";
-	Ptr<Sprite> _PlayerSprite = Load<Sprite>(_path, L"PlayerIdleFront");
-	
-	_path = L"\\resource\\Char\\Player\\Idle\\Dungeon\\Front\\Will_Idle_Down_1.png";
-	Ptr<Sprite> _PlayerIdleSprite = Load<Sprite>(_path, L"PlayerTestSprite");
-
-	_path = L"\\resource\\Title\\MainBG\\MenuAtlas1.png";
-	Ptr<Sprite> _BackGroundAtlas1 = Load<Sprite>(_path, L"_BackGroundAtlas1");
-
-	_path = L"\\resource\\Title\\MainBG\\MenuAtlas2.png";
-	Ptr<Sprite> _BackGroundAtlas2 = Load<Sprite>(_path, L"_BackGroundAtlas2");
-
-	_path = L"\\resource\\Title\\MainBG\\GUI_StartScreen_LeftDoor.png";
-	Ptr<Sprite> LeftDoor = Load<Sprite>(_path, L"StartLeftDoor");
-
-	_path = L"\\resource\\Title\\MainBG\\GUI_StartScreen_RightDoor.png";
-	Ptr<Sprite> RightDoor = Load<Sprite>(_path, L"StartRightDoor");
-
-	_path = L"\\resource\\Title\\MainBG\\GUI_StartScreen_Line.png";
-	Ptr<Sprite> StartLine = Load<Sprite>(_path, L"StartLine");
-
-	_path = L"\\resource\\Title\\MainBG\\GameLogo.png";
-	Ptr<Sprite> GameLogo = Load<Sprite>(_path, L"GameLogo");
-
-	_path = L"\\resource\\photoshopver.png";
-	Ptr<Sprite> DungeonBackGround = Load<Sprite>(_path, L"DungeonBG");
-
-	_path = L"\\resource\\WaterTest.png";
-	Ptr<Sprite> WaterSprite = Load<Sprite>(_path, L"WaterSprite");
-
-	_path = L"\\resource\\test.png";
-	Ptr<Sprite> NoiseSprite = Load<Sprite>(_path, L"Noise3");
-
+	CreateSprite();
 	CreateDefaultMesh();
 	CreateDefaultShader();
 	CreateDefaultMaterial();
+}
+
+void AssetMgr::CreateSprite()
+{
+	wstring _path = PATH;
+	_path += L"\\resource\\spritedata\\SpriteData.txt";
+	std::ifstream _file(string(_path.begin(), _path.end()).data());
+
+	wstring _relativePath = L"";
+	wstring _name = L"";
+
+	if (_file.is_open())
+	{
+		bool _temp = false;
+		string _line;
+		while (std::getline(_file, _line))
+		{
+			if (!_temp)
+			{
+				_name = wstring(_line.begin(), _line.end());
+				_temp = true;
+			}
+			else
+			{
+				_relativePath = wstring(_line.begin(), _line.end());
+
+				if (_relativePath == L"")
+					return;
+				Ptr<Sprite> _BackGroundSprite = Load<Sprite>(_relativePath, _name);
+				_temp = false;
+			}
+		}
+		_file.close();
+	}
 }
 
 void AssetMgr::CreateDefaultMesh()
@@ -293,6 +293,21 @@ void AssetMgr::CreateDefaultShader()
 	_debugShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
 
 	AddAsset(_debugShader, L"DebugShader");
+
+	// =============
+	// TileMapShader
+	// =============
+	GraphicShader* tileShader = new GraphicShader;
+	_path = L"\\shader\\tilemap.fx";
+	_vsEntry = "VS_TileMap";
+	_psEntry = "PS_TileMap";
+
+	tileShader->SetCullType(CULL_TYPE::NONE);
+	tileShader->SetDSType(DS_TYPE::LESS);
+	tileShader->SetBlendType(BLEND_TYPE::DEFAULT);
+	tileShader->SetDomain(SHADER_DOMAIN::DOMAIN_MASKED);
+
+	AddAsset(tileShader, L"TileMapShader");
 }
 
 void AssetMgr::CreateDefaultMaterial()
@@ -379,6 +394,14 @@ void AssetMgr::CreateDefaultMaterial()
 	_distortionMat->SetTexParam(TEX_0, AssetMgr::GetInst()->FindAsset<Sprite>(L"WaterSprite"));
 	_distortionMat->SetMaterialParam(INT_0, 1);
 	_distortionMat->SetTexParam(TEX_1, AssetMgr::GetInst()->FindAsset<Sprite>(L"Noise3"));
+
+	/***************************
+	| TileMap Material
+	***************************/
+	Material* _tileMap = new Material;
+	_tileMap->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"TileMapShader"));
+	AddAsset(_tileMap, L"TileMapMat");
+
 
 	AddAsset(_postProcess, L"GrayFilterMat");
 	AddAsset(_distortionMat, L"DistortionFilterMat");

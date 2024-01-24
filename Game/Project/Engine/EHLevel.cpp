@@ -19,6 +19,15 @@ Level::~Level()
 	ReleaseArray(m_Layers);
 }
 
+GameObject* Level::FindObjectByName(const wstring& _strName)
+{
+	return nullptr;
+}
+
+void Level::FindObjectsByName(const wstring& _strName, vector<GameObject*>& _vecObj)
+{
+}
+
 void Level::Awake()
 {
 	for (UINT _type = 0;_type < (UINT)LAYER_TYPE::END;_type++)

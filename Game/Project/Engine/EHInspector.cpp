@@ -114,18 +114,13 @@ void Inspector::SetTargetAsset(Ptr<Asset> _asset)
 
 void Inspector::ShowName()
 {
-	string strName = string(m_TargetObject->GetName().begin(), m_TargetObject->GetName().end());
-	char buf[100];
+	string _strName = string(m_TargetObject->GetName().begin(), m_TargetObject->GetName().end());
 
-	strcpy_s(buf, strName.c_str());
+	string _label = "##" + _strName;
+	
+	ImGui::InputText(_label.c_str(), &_strName);
 
-	ImGui::InputText("##ObjectName", buf, sizeof(char) * strName.size());
-
-	string changeName(buf);
-
-	wstring _changeName = wstring(changeName.begin(), changeName.end());
-
-	m_TargetObject->SetName(_changeName);
+	m_TargetObject->SetName(wstring(_strName.begin(),_strName.end()));
 }
 
 void Inspector::ShowLayer()

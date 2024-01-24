@@ -22,6 +22,9 @@ GameObject::GameObject()
 
 GameObject::~GameObject()
 {
+	delete m_Renderer;
+	m_Renderer = nullptr;
+
 	ReleaseArray<Component, (int)COMPONENT_TYPE::END>(m_Component);
 	ReleaseVector(m_Childs);
 	ReleaseVector(m_vScripts);

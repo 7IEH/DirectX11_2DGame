@@ -14,6 +14,8 @@
 #include "EHAnimator2D.h"
 #include "EHOutLineScript.h"
 #include "EHTestScript.h"
+#include "EHTileMap.h"
+#include "EHParticleSystem.h"
 //#include "EHRigidbody.h"
 
 /*******************

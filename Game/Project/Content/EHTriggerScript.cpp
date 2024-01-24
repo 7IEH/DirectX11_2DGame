@@ -9,7 +9,7 @@
 #include "EHLevelMgr.h"
 
 TriggerScript::TriggerScript()
-	:m_Type(TRIGGER_TYPE::END)
+	:m_TriggerType(TRIGGER_TYPE::END)
 {
 }
 
@@ -28,7 +28,7 @@ void TriggerScript::OnTriggerEnter(Collider* _other)
 		return;
 	Transform* _playertr = _player->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
 
-	switch (m_Type)
+	switch (m_TriggerType)
 	{
 	case TRIGGER_TYPE::MOVE_TRIGGER:
 	{

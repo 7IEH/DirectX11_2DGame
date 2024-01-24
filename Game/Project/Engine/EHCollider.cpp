@@ -11,6 +11,7 @@ Collider::Collider(COLLIDER_TYPE _type)
 	, m_Type(_type)
 	, m_CollisionCount(0)
 	, m_Enabled(TRUE)
+	, m_Absolute(FALSE)
 {
 }
 

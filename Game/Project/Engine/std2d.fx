@@ -60,20 +60,20 @@ float4 PS_Std2D(VS_OUT _in) : SV_Target
         }
         else
         {
-            color = atlas_texture.Sample(samplerType2, vUV);
+            //color = atlas_texture.Sample(samplerType2, vUV);
            
-            if (gMatrial._int3 == 1 && color.a != 0)
-            {
-                float4 pixelUp = ST0.Sample(samplerType2, _in.vUV + float2(0, 0.02f));
-                float4 pixelDown = ST0.Sample(samplerType2, _in.vUV - float2(0, 0.02f));
-                float4 pixelRight = ST0.Sample(samplerType2, _in.vUV + float2(0.02f, 0));
-                float4 pixelLeft = ST0.Sample(samplerType2, _in.vUV - float2(0.02f, 0));
+            //if (gMatrial._int3 == 1 && color.a != 0)
+            //{
+            //    float4 pixelUp = ST0.Sample(samplerType2, _in.vUV + float2(0, 0.02f));
+            //    float4 pixelDown = ST0.Sample(samplerType2, _in.vUV - float2(0, 0.02f));
+            //    float4 pixelRight = ST0.Sample(samplerType2, _in.vUV + float2(0.02f, 0));
+            //    float4 pixelLeft = ST0.Sample(samplerType2, _in.vUV - float2(0.02f, 0));
                 
-                if (pixelUp.a <= 0.1f || pixelDown.a <= 0.1f || pixelRight.a <= 0.1f || pixelLeft.a <= 0.1f)
-                {
-                    color = float4(1.f, 0.f, 0.f, 1.f);
-                }
-            }
+            //    if (pixelUp.a <= 0.1f || pixelDown.a <= 0.1f || pixelRight.a <= 0.1f || pixelLeft.a <= 0.1f)
+            //    {
+            //        color = float4(1.f, 0.f, 0.f, 1.f);
+            //    }
+            //}
         }
         
     }

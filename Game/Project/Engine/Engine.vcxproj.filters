@@ -247,6 +247,51 @@
     <Filter Include="04. Manager\ImGUIMgr\UI\SceneView">
       <UniqueIdentifier>{bf3e3a72-6fa1-4dfd-9903-d4c6d5c5b491}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Collider\Collider2D\CircleCollider2D">
+      <UniqueIdentifier>{cb8a7347-b782-42a5-910b-d962f83c5fe6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Collider\Collider2D\BoxCollider2D">
+      <UniqueIdentifier>{419c54ad-1016-4551-adb9-11e8ef71e27d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\Utility\CollisionMatrix">
+      <UniqueIdentifier>{f55e38be-f44d-4d02-95f5-18ae40f520a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\AnimationMgr">
+      <UniqueIdentifier>{6e47ca5e-19da-49cd-a239-1db6b9c54c6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\Utility\SpriteEditor\SpriteLoader">
+      <UniqueIdentifier>{420cf57d-08be-491f-8e75-5c4b7430991e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Component\Renderer\TileMap">
+      <UniqueIdentifier>{90c099d8-f247-44c0-9f01-c9a0217cbf8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Component\Renderer\ParticleSystem">
+      <UniqueIdentifier>{daa2ef3b-2899-49b7-a06e-bc46d3fb1da4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderCode\Util">
+      <UniqueIdentifier>{e2fab2b6-3907-4b8b-8369-60634d1e26ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderCode\Render">
+      <UniqueIdentifier>{6758f1aa-3e91-45c9-86bb-27b1dfe177a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\Test">
+      <UniqueIdentifier>{a9370088-eb1c-40f1-8bcb-011381b5715b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\Utility\SpriteEditor\SortingAtlas">
+      <UniqueIdentifier>{b512ac28-0ae9-4d8a-b0f8-d4e46395fd27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\Utility\SpriteEditor\UnSortingAtlas">
+      <UniqueIdentifier>{d1bfdbec-6607-4ad6-941a-03baed862896}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\TileMapRenderer">
+      <UniqueIdentifier>{4ba72755-6dbe-4276-806e-7631e95f501b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\TileMapRenderer\TileMapCollider">
+      <UniqueIdentifier>{0ca540b6-19f0-4888-baaf-f623ed9fd051}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\Utility\TilePalette">
+      <UniqueIdentifier>{892c2fc9-1eae-41b4-aad1-d068145f113e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -492,6 +537,51 @@
     <ClInclude Include="EHSceneView.h">
       <Filter>04. Manager\ImGUIMgr\UI\SceneView</Filter>
     </ClInclude>
+    <ClInclude Include="EHCircleCollider2DUI.h">
+      <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Collider\Collider2D\CircleCollider2D</Filter>
+    </ClInclude>
+    <ClInclude Include="EHBoxCollider2DUI.h">
+      <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Collider\Collider2D\BoxCollider2D</Filter>
+    </ClInclude>
+    <ClInclude Include="EHCollisionMatrix.h">
+      <Filter>04. Manager\ImGUIMgr\UI\Utility\CollisionMatrix</Filter>
+    </ClInclude>
+    <ClInclude Include="EHAnimationMgr.h">
+      <Filter>04. Manager\AnimationMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="EHAnimationUI.h">
+      <Filter>04. Manager\ImGUIMgr\UI\Utility\SpriteEditor\SortingAtlas</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_stdlib.h">
+      <Filter>Module\ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="EHSpriteLoader.h">
+      <Filter>04. Manager\ImGUIMgr\UI\Utility\SpriteEditor\SpriteLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="EHParticleSystem.h">
+      <Filter>07. Component\Renderer\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="EHTileMap.h">
+      <Filter>07. Component\Renderer\TileMap</Filter>
+    </ClInclude>
+    <ClInclude Include="EHTestUI.h">
+      <Filter>04. Manager\ImGUIMgr\UI\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="unAnimation2DUI.h">
+      <Filter>04. Manager\ImGUIMgr\UI\Utility\SpriteEditor\UnSortingAtlas</Filter>
+    </ClInclude>
+    <ClInclude Include="EHTileMapRenderer.h">
+      <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\TileMapRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="EHTileMapCollider.h">
+      <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\TileMapRenderer\TileMapCollider</Filter>
+    </ClInclude>
+    <ClInclude Include="EHTilePalette.h">
+      <Filter>04. Manager\ImGUIMgr\UI\Utility\TilePalette</Filter>
+    </ClInclude>
+    <ClInclude Include="EHEngineUI.h">
+      <Filter>01. Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -719,6 +809,48 @@
     <ClCompile Include="EHSceneView.cpp">
       <Filter>04. Manager\ImGUIMgr\UI\SceneView</Filter>
     </ClCompile>
+    <ClCompile Include="EHCircleCollider2DUI.cpp">
+      <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Collider\Collider2D\CircleCollider2D</Filter>
+    </ClCompile>
+    <ClCompile Include="EHBoxCollider2DUI.cpp">
+      <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Collider\Collider2D\BoxCollider2D</Filter>
+    </ClCompile>
+    <ClCompile Include="EHCollisionMatrix.cpp">
+      <Filter>04. Manager\ImGUIMgr\UI\Utility\CollisionMatrix</Filter>
+    </ClCompile>
+    <ClCompile Include="EHAnimationMgr.cpp">
+      <Filter>04. Manager\AnimationMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="EHAnimationUI.cpp">
+      <Filter>04. Manager\ImGUIMgr\UI\Utility\SpriteEditor\SortingAtlas</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_stdlib.cpp">
+      <Filter>Module\ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="EHSpriteLoader.cpp">
+      <Filter>04. Manager\ImGUIMgr\UI\Utility\SpriteEditor\SpriteLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="EHParticleSystem.cpp">
+      <Filter>07. Component\Renderer\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="EHTileMap.cpp">
+      <Filter>07. Component\Renderer\TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="EHTestUI.cpp">
+      <Filter>04. Manager\ImGUIMgr\UI\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="unAnimation2DUI.cpp">
+      <Filter>04. Manager\ImGUIMgr\UI\Utility\SpriteEditor\UnSortingAtlas</Filter>
+    </ClCompile>
+    <ClCompile Include="EHTileMapRenderer.cpp">
+      <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\TileMapRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="EHTileMapCollider.cpp">
+      <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\TileMapRenderer\TileMapCollider</Filter>
+    </ClCompile>
+    <ClCompile Include="EHTilePalette.cpp">
+      <Filter>04. Manager\ImGUIMgr\UI\Utility\TilePalette</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
@@ -726,20 +858,23 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="std2d.fx">
-      <Filter>ShaderCode</Filter>
-    </FxCompile>
-    <FxCompile Include="struct.fx">
-      <Filter>ShaderCode</Filter>
-    </FxCompile>
     <FxCompile Include="debug2d.fx">
-      <Filter>ShaderCode</Filter>
-    </FxCompile>
-    <FxCompile Include="func.fx">
-      <Filter>ShaderCode</Filter>
+      <Filter>ShaderCode\Render</Filter>
     </FxCompile>
     <FxCompile Include="postprocess.fx">
-      <Filter>ShaderCode</Filter>
+      <Filter>ShaderCode\Render</Filter>
+    </FxCompile>
+    <FxCompile Include="std2d.fx">
+      <Filter>ShaderCode\Render</Filter>
+    </FxCompile>
+    <FxCompile Include="tilemap.fx">
+      <Filter>ShaderCode\Render</Filter>
+    </FxCompile>
+    <FxCompile Include="func.fx">
+      <Filter>ShaderCode\Util</Filter>
+    </FxCompile>
+    <FxCompile Include="struct.fx">
+      <Filter>ShaderCode\Util</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

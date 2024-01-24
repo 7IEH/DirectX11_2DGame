@@ -3,15 +3,29 @@
 
 #include "EHAnimation2D.h"
 
+#include "EHAnimationMgr.h"
+
 Animator2D::Animator2D()
 	:Component(COMPONENT_TYPE::ANIMATOR2D)
 	, m_AnimInfo{}
 	, m_CurAnimation(nullptr)
+	, m_Repeat(FALSE)
 {
 }
 
 Animator2D::~Animator2D()
 {
+	map<wstring, Animation2D*>::iterator iter = m_AnimInfo.begin();
+
+	for (;iter != m_AnimInfo.end();iter++)
+	{
+		if (iter->second != nullptr)
+		{
+			delete iter->second;
+			iter->second = nullptr;
+		}
+	}
+
 }
 
 Animation2D* Animator2D::FindAnimation(const wstring& _strName)
@@ -39,6 +53,8 @@ Animation2D* Animator2D::CreateAnimation(const wstring& _animName, Ptr<Sprite> _
 	_anim->Create(_animName, _atalas, _leftTop, _offset, _sliceSize, _BackGround, _FrameCount, _FPS);
 	m_AnimInfo.insert(make_pair(_animName, _anim));
 
+	AnimationMgr::GetInst()->Insert(_animName, _anim);
+
 	return _anim;
 }
 
@@ -46,7 +62,11 @@ void Animator2D::Play(const wstring& _strName, bool _repeat)
 {
 	Animation2D* _anim = FindAnimation(_strName);
 	if (_anim == nullptr)
-		return;
+	{
+		_anim = AnimationMgr::GetInst()->Find(_strName);
+		if (_anim == nullptr)
+			return;
+	}
 
 	m_Repeat = _repeat;
 	m_CurAnimation = _anim;
