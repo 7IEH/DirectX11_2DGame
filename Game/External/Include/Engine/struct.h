@@ -173,16 +173,16 @@ struct tGlobalData
 // Particle System
 struct tParticle
 {
-	Vec4 vWorldPos;
-	Vec4 vWorldScale;
-	Vec4 vWolrdRotation;
-	Vec4 vColor;
-	Vec4 vDir;
+	Vec4	_WorldPos;		// 위치
+	Vec4	_WorldScale;	// 크기
+	Vec4	_WorldRotation;	// 회전값
+	Vec4	_Velocity;		// 속도
+	Vec4	_Color;			// 색상
 
-	float Mass;
-	float Age;
-	float Life;
-	int	  Active;
+	float	_Mass;			// 질량
+	float	_Age;			// 현재 나이
+	float	_Life;			// 수명
+	int		_Active;		// 활성화, 비활성화 여부
 };
 
 // TilePaletteInfo

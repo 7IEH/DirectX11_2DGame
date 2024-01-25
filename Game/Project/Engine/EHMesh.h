@@ -19,10 +19,10 @@ public:
 
 public:
 	void Create(void* _VBData, UINT _VertexCount, void* _IBData, UINT _IndexCount);
-	virtual void UpdateData()override;
+	void UpdateData();
 
 public:
-	virtual void Render() override;
+	void Render();
 
 private:
 	// Re-Packaging ( DX12 )

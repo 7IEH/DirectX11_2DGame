@@ -51,7 +51,7 @@ void ConstantBuffer::SetData(void* _data, int _size, int _count)
 	D3D11_MAPPED_SUBRESOURCE tSubData = {};
 	::memset(&tSubData, 0, sizeof(tSubData));
 	CONTEXT->Map(m_CB.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &tSubData);
-	::memcpy(tSubData.pData, _data, _size * _count);
+	::memcpy(tSubData.pData, _data, m_ElementSize * _count);
 	CONTEXT->Unmap(m_CB.Get(), 0);
 }
 
@@ -62,4 +62,9 @@ void ConstantBuffer::UpdateData()
 	CONTEXT->HSSetConstantBuffers((UINT)m_Type, 1, m_CB.GetAddressOf());
 	CONTEXT->DSSetConstantBuffers((UINT)m_Type, 1, m_CB.GetAddressOf());
 	CONTEXT->GSSetConstantBuffers((UINT)m_Type, 1, m_CB.GetAddressOf());
+}
+
+VOID ConstantBuffer::UpdateData_CS()
+{
+	CONTEXT->CSSetConstantBuffers((UINT)m_Type, 1, m_CB.GetAddressOf());
 }

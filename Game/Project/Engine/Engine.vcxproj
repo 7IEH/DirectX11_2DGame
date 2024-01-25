@@ -181,6 +181,7 @@ call Copy.bat</Command>
     <ClInclude Include="EHAsset.h" />
     <ClInclude Include="EHAssetMgr.h" />
     <ClInclude Include="EHComponentUI.h" />
+    <ClInclude Include="EHComputeShader.h" />
     <ClInclude Include="EHConsole.h" />
     <ClInclude Include="EHConstantBuffer.h" />
     <ClInclude Include="EHDebugMgr.h" />
@@ -220,6 +221,7 @@ call Copy.bat</Command>
     <ClInclude Include="EHSpriteRenderer.h" />
     <ClInclude Include="EHStructuredBuffer.h" />
     <ClInclude Include="EHTaskMgr.h" />
+    <ClInclude Include="EHTestComputeShader.h" />
     <ClInclude Include="EHTestLevel.h" />
     <ClInclude Include="EHTestUI.h" />
     <ClInclude Include="EHThreadMgr.h" />
@@ -277,6 +279,7 @@ call Copy.bat</Command>
     <ClCompile Include="EHAsset.cpp" />
     <ClCompile Include="EHAssetMgr.cpp" />
     <ClCompile Include="EHComponentUI.cpp" />
+    <ClCompile Include="EHComputeShader.cpp" />
     <ClCompile Include="EHConsole.cpp" />
     <ClCompile Include="EHConstantBuffer.cpp" />
     <ClCompile Include="EHDebugMgr.cpp" />
@@ -315,6 +318,7 @@ call Copy.bat</Command>
     <ClCompile Include="EHSpriteRenderer.cpp" />
     <ClCompile Include="EHStructuredBuffer.cpp" />
     <ClCompile Include="EHTaskMgr.cpp" />
+    <ClCompile Include="EHTestComputeShader.cpp" />
     <ClCompile Include="EHTestLevel.cpp" />
     <ClCompile Include="EHTestUI.cpp" />
     <ClCompile Include="EHThreadMgr.cpp" />
@@ -384,7 +388,19 @@ call Copy.bat</Command>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
+    <FxCompile Include="particle.fx">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
     <FxCompile Include="postprocess.fx">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="setcolor.fx">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>

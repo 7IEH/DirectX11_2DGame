@@ -7,7 +7,9 @@
 #include "EHSprite.h"
 
 GraphicShader::GraphicShader()
-	: m_Topology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
+	:
+	Shader(ASSET_TYPE::GRAPHIC_SHADER)
+	,m_Topology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
 	,m_CullType(CULL_TYPE::BACK)
 	,m_DSType(DS_TYPE::LESS)
 	,m_BlendType(BLEND_TYPE::DEFAULT)
@@ -34,7 +36,7 @@ void GraphicShader::Create(wstring& _shaderPath, string& _vsEntry, string& _psEn
 	CreateLayOut();
 }
 
-void GraphicShader::UpdateData()
+HRESULT GraphicShader::UpdateData()
 {
 	/************************
 	Basic Rendering Pipeline
@@ -55,11 +57,8 @@ void GraphicShader::UpdateData()
 	// Output-Merger Stage
 	CONTEXT->OMSetDepthStencilState(Device::GetInst()->GetDSState(m_DSType).Get(),0);
 	CONTEXT->OMSetBlendState(Device::GetInst()->GetBSState(m_BlendType).Get(),nullptr,0xffffffff);
-}
- 
-void GraphicShader::Render()
-{
-	
+
+	return S_OK;
 }
 
 void GraphicShader::CreateBlobFile(SHADER_TYPE _type, wstring& _path, string& _entry)

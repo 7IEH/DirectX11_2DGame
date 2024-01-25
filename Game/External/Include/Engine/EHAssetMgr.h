@@ -4,6 +4,7 @@
 
 #include "EHMesh.h"
 #include "EHGraphicShader.h"
+#include "EHComputeShader.h"
 #include "EHMaterial.h"
 #include "EHSprite.h"
 
@@ -36,6 +37,7 @@ private:
 	void CreateDefaultMesh();
 	void CreateDefaultShader();
 	void CreateDefaultMaterial();
+	void CreateDefaultComputeShader();
 
 public:
 	void Awake();
@@ -57,6 +59,8 @@ ASSET_TYPE GetAssetType()
 		_type = ASSET_TYPE::SPRITE;
 	else if (&info == &typeid(GraphicShader))
 		_type = ASSET_TYPE::GRAPHIC_SHADER;
+	else if (&info == &typeid(ComputeShader))
+		_type = ASSET_TYPE::COMPUTE_SHADER;
 	else if (&info == &typeid(Material))
 		_type = ASSET_TYPE::MATERIAL;
 	/*else if (&info == &typeid(Sound))

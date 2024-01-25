@@ -4,9 +4,10 @@
 #include "EHDevice.h"
 
 StructuredBuffer::StructuredBuffer()
-	:m_ElementSize(0)
+	: m_ElementSize(0)
 	, m_ElementCount(0)
 	, m_Type(STRUCTURED_TYPE::READ_ONLY)
+	, m_IsUpdate(FALSE)
 {
 }
 
@@ -36,6 +37,11 @@ HRESULT StructuredBuffer::Create(UINT _elementSize, UINT _elementCount, bool _is
 
 	tDesc.CPUAccessFlags = 0;
 	tDesc.Usage = D3D11_USAGE_DEFAULT;
+
+	if (STRUCTURED_TYPE::READ_WRITE == m_Type)
+	{
+		tDesc.BindFlags |= D3D11_BIND_UNORDERED_ACCESS;
+	}
 
 	HRESULT _hr = E_FAIL;
 	if (nullptr != _memData)
@@ -72,6 +78,16 @@ HRESULT StructuredBuffer::Create(UINT _elementSize, UINT _elementCount, bool _is
 	tDesc2.Buffer.NumElements = m_ElementCount;
 
 	_hr = DEVICE->CreateShaderResourceView(m_StructuredBuffer.Get(), &tDesc2, m_SV.GetAddressOf());
+
+	if (STRUCTURED_TYPE::READ_WRITE == m_Type)
+	{
+		D3D11_UNORDERED_ACCESS_VIEW_DESC UAVDesc = {};
+		UAVDesc.ViewDimension = D3D11_UAV_DIMENSION_BUFFER;
+		UAVDesc.Buffer.NumElements = 1;
+
+		_hr = DEVICE->CreateUnorderedAccessView(m_StructuredBuffer.Get(), &UAVDesc, m_UAV.GetAddressOf());
+		if (FAILED(_hr)) return E_FAIL;
+	}
 
 	if (FAILED(_hr))
 	{

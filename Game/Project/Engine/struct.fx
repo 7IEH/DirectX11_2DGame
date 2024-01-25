@@ -135,6 +135,20 @@ struct tTileInfo
     int padding;
 };
 
+struct tParticle
+{
+    float4 _WorldPos;
+    float4 _WorldScale;
+    float4 _WorldRotation;
+    float4 _Velocity;
+    float4 _Color;
+    
+    float _Mass;
+    float _Age;
+    float _Life;
+    int   _Active;
+};
+
 cbuffer Worldspcae : register(b0)
 {
     matrix World;

@@ -38,10 +38,6 @@ private:
 
     int GetRefCount() { return m_RefCount; }
 
-public:
-    virtual void UpdateData() = 0;
-    virtual void Render() = 0;
-
 private:
     virtual HRESULT Load(const wstring& _strFilePath) { return E_FAIL; };
 

@@ -3,10 +3,8 @@
 
 #include "EHDevice.h"
 
-#include "EHPathMgr.h"
-
-Shader::Shader()
-	: Asset(ASSET_TYPE::SHADER)
+Shader::Shader(ASSET_TYPE _type)
+	: Asset(_type)
 {
 }
 

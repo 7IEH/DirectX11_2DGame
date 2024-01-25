@@ -54,6 +54,4 @@ void Material::UpdateData()
 void Material::Render()
 {
 	UpdateData();
-
-	GetGraphicShader()->Render();
 }

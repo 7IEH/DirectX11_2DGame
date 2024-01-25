@@ -8,7 +8,6 @@ struct VS_IN
 {
     float4 vColor : COLOR;
     float3 vPos : POSITION; // Sementic
-    //float3 vNomral : NORMAL;
     float2 vUV : TEXCOORD;
 };
 

@@ -9,6 +9,7 @@ private:
 	ComPtr<ID3D11Buffer>					m_StructReadBuffer;
 
 	ComPtr<ID3D11ShaderResourceView>		m_SV;
+	ComPtr<ID3D11UnorderedAccessView>		m_UAV;
 
 	UINT									m_ElementSize;
 	UINT									m_ElementCount;

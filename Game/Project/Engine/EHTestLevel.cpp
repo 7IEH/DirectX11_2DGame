@@ -14,6 +14,8 @@
 #include "EHBehaviour.h"
 #include "EHCollisionMgr.h"
 
+#include "EHTestComputeShader.h"
+
 TestLevel::TestLevel()
 {
 }
@@ -24,6 +26,17 @@ TestLevel::~TestLevel()
 
 void TestLevel::Awake()
 {
+	// ComputeShader 테스트
+	// 사용할 텍스쳐 생성
+	Ptr<Sprite> pTestTex = AssetMgr::GetInst()->CreateResoruceTexture(L"TestTex"
+		, 1024, 1024, DXGI_FORMAT_R8G8B8A8_UNORM
+		, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS);
+
+	Ptr<TestComputeShader> pCS = (TestComputeShader*)AssetMgr::GetInst()->FindAsset<ComputeShader>(L"SetColorShader").Get();
+	pCS->SetColor(Vec3(1.f, 0.f, 0.f));
+	pCS->SetTargetTexture(pTestTex);
+	pCS->Execute();
+
 #pragma region Essential Object
 	// Main Camera
 	GameObject* _MainCamera = new GameObject;
@@ -59,6 +72,7 @@ void TestLevel::Awake()
 	MeshRenderer* _playerRenderer = _backGround->AddComponent<MeshRenderer>();
 	_playerRenderer->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"DefaultRectMesh"));
 	_playerRenderer->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"BackGroundMaterial"));
+	_playerRenderer->GetMaterial()->SetTexParam(TEX_0, pTestTex);
 	Object::Instantiate(_backGround, (UINT)LAYER_TYPE::BACKGROUND);
 #pragma endregion
 
@@ -80,6 +94,15 @@ void TestLevel::Awake()
 
 	Object::Instantiate(_tile, int(LAYER_TYPE::TILE));
 
+
+	GameObject* _paritcle = new GameObject;
+	_paritcle->SetName(L"Particle");
+	tr = _paritcle->AddComponent<Transform>();
+	_paritcle->AddComponent<ParticleSystem>();
+
+	tr->SetRelativePosition(Vec4(0.f, 0.f, 0.f, 0.f));
+
+	Object::Instantiate(_paritcle, int(LAYER_TYPE::PLAYER));
 	Level::Awake();
 }
 

@@ -61,6 +61,29 @@ void Sprite::UpdateData(int _resgisterNumber)
 	CONTEXT->GSSetShaderResources(_resgisterNumber, 1, m_ShaderResourceView.GetAddressOf());
 }
 
+HRESULT Sprite::UpdateData_CS_SRV(int _registerNumber)
+{
+	if (nullptr == m_ShaderResourceView)
+		return E_FAIL;
+
+	m_RecentNum_SRV = _registerNumber;
+
+	CONTEXT->CSSetShaderResources(_registerNumber, 1, m_ShaderResourceView.GetAddressOf());
+	return S_OK;
+}
+
+HRESULT Sprite::UpdateData_CS_UAV(int _registerNumber)
+{
+	if (nullptr == m_UnorderedAccessView)
+		return E_FAIL;
+
+	m_RecentNum_UAV = _registerNumber;
+
+	UINT i = -1;
+	CONTEXT->CSSetUnorderedAccessViews(_registerNumber, 1, m_UnorderedAccessView.GetAddressOf(), &i);
+	return S_OK;
+}
+
 void Sprite::Clear(int _resgisterNumber)
 {
 	ID3D11ShaderResourceView* _clearSRV = nullptr;
@@ -70,6 +93,21 @@ void Sprite::Clear(int _resgisterNumber)
 	CONTEXT->HSSetShaderResources(_resgisterNumber, 1, &_clearSRV);
 	CONTEXT->DSSetShaderResources(_resgisterNumber, 1, &_clearSRV);
 	CONTEXT->GSSetShaderResources(_resgisterNumber, 1, &_clearSRV);
+}
+
+void Sprite::Clear_CS_SRV()
+{
+	ID3D11ShaderResourceView* pSRV = nullptr;
+
+	CONTEXT->CSSetShaderResources(m_RecentNum_SRV, 1, &pSRV);
+}
+
+void Sprite::Clear_CS_UAV()
+{
+	ID3D11UnorderedAccessView* pUAV = nullptr;
+
+	UINT i = -1;
+	CONTEXT->CSSetUnorderedAccessViews(m_RecentNum_UAV, 1, &pUAV, &i);
 }
 
 HRESULT Sprite::Create(UINT _width, UINT _height, DXGI_FORMAT _format, UINT _bindflags, D3D11_USAGE _usage)

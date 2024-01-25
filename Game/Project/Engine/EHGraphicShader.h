@@ -11,8 +11,6 @@ private:
     ComPtr<ID3DBlob>                        m_DBlob;
     ComPtr<ID3DBlob>                        m_GBlob;
 
-    ComPtr<ID3DBlob>                        m_ErrBlob;
-
     ComPtr<ID3D11VertexShader>              m_VS;
     ComPtr<ID3D11PixelShader>               m_PS;
     ComPtr<ID3D11HullShader>                m_HS;
@@ -46,8 +44,7 @@ public:
 public:
     void Create(wstring& _shaderPath, string& _vsEntry, string& _psEntry);
 
-    virtual void UpdateData()override;
-    virtual void Render() override;
+    virtual HRESULT UpdateData()override;
 
 private:
     void CreateBlobFile(SHADER_TYPE _type, wstring& _path, string& _entry);

@@ -289,6 +289,12 @@
     <Filter Include="04. Manager\TileMgr">
       <UniqueIdentifier>{b2916552-366a-4e0f-b94d-85d4668ad6d7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="08. Asset\Shader\ComputeShader\TestComputeShader">
+      <UniqueIdentifier>{1cc31d0b-7f3a-49df-9e4c-c291552b24ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Asset\Shader\ComputeShader\Particle">
+      <UniqueIdentifier>{d28e7459-0476-46db-b7d6-b956676c5e81}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -576,6 +582,12 @@
     <ClInclude Include="EHTileMgr.h">
       <Filter>04. Manager\TileMgr</Filter>
     </ClInclude>
+    <ClInclude Include="EHComputeShader.h">
+      <Filter>08. Asset\Shader\ComputeShader</Filter>
+    </ClInclude>
+    <ClInclude Include="EHTestComputeShader.h">
+      <Filter>08. Asset\Shader\ComputeShader\TestComputeShader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -842,6 +854,12 @@
     <ClCompile Include="EHTileMgr.cpp">
       <Filter>04. Manager\TileMgr</Filter>
     </ClCompile>
+    <ClCompile Include="EHComputeShader.cpp">
+      <Filter>08. Asset\Shader\ComputeShader</Filter>
+    </ClCompile>
+    <ClCompile Include="EHTestComputeShader.cpp">
+      <Filter>08. Asset\Shader\ComputeShader\TestComputeShader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
@@ -866,6 +884,12 @@
     </FxCompile>
     <FxCompile Include="struct.fx">
       <Filter>ShaderCode\Util</Filter>
+    </FxCompile>
+    <FxCompile Include="setcolor.fx">
+      <Filter>08. Asset\Shader\ComputeShader\TestComputeShader</Filter>
+    </FxCompile>
+    <FxCompile Include="particle.fx">
+      <Filter>ShaderCode\Render</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

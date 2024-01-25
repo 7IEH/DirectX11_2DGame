@@ -32,6 +32,7 @@ void AssetMgr::Awake()
 	CreateSprite();
 	CreateDefaultMesh();
 	CreateDefaultShader();
+	CreateDefaultComputeShader();
 	CreateDefaultMaterial();
 }
 
@@ -308,6 +309,22 @@ void AssetMgr::CreateDefaultShader()
 	tileShader->SetBlendType(BLEND_TYPE::DEFAULT);
 
 	AddAsset(tileShader, L"TileMapShader");
+
+	/*************************
+	|	ParticleShader
+	*************************/
+	GraphicShader* particleShader = new GraphicShader;
+	_path = L"\\shader\\particle.fx";
+	_vsEntry = "VS_Particle";
+	_psEntry = "PS_Particle";
+
+	particleShader->Create(_path, _vsEntry, _psEntry);
+	particleShader->SetCullType(CULL_TYPE::NONE);
+	particleShader->SetDSType(DS_TYPE::N0_WRITE);
+	particleShader->SetBlendType(BLEND_TYPE::ALPHABLENDING);
+	particleShader->SetDomain(SHADER_DOMAIN::DOMAIN_TRANSPARENT);
+
+	AddAsset(particleShader, L"ParticleShader");
 }
 
 void AssetMgr::CreateDefaultMaterial()
@@ -317,7 +334,7 @@ void AssetMgr::CreateDefaultMaterial()
 	******************/
 	Material* _backgroundMaterial = new Material;
 	_backgroundMaterial->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"DefaultShader"));
-	_backgroundMaterial->SetTexParam(TEX_0, AssetMgr::GetInst()->FindAsset<Sprite>(L"BackGroundSprite"));
+	//_backgroundMaterial->SetTexParam(TEX_0, AssetMgr::GetInst()->FindAsset<Sprite>(L"BackGroundSprite"));
 
 	/******************
 	| Player Material
@@ -402,6 +419,13 @@ void AssetMgr::CreateDefaultMaterial()
 	_tileMap->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"TileMapShader"));
 	AddAsset(_tileMap, L"TileMapMat");
 
+	/***************************
+	| Particle Material
+	***************************/
+	Material* _particleMat = new Material;
+	_particleMat->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"ParticleShader"));
+	AddAsset(_particleMat, L"ParticleMat");
+
 
 	AddAsset(_postProcess, L"GrayFilterMat");
 	AddAsset(_distortionMat, L"DistortionFilterMat");
@@ -418,4 +442,15 @@ void AssetMgr::CreateDefaultMaterial()
 	AddAsset(LogoMat, L"GameLogoMat");
 
 	AddAsset(dungeonBG, L"dungeonBGMat");
+}
+
+#include "EHTestComputeShader.h"
+void AssetMgr::CreateDefaultComputeShader()
+{
+	Ptr<ComputeShader> pShader = nullptr;
+
+	// SetColorShader
+	pShader = new TestComputeShader;
+	pShader->Create(L"\\shader\\setcolor.fx", "CS_SetColor");
+	AddAsset(pShader.Get(), L"SetColorShader");
 }

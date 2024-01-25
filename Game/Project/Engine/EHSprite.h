@@ -13,6 +13,9 @@ private:
 	ComPtr<ID3D11DepthStencilView>					m_DepthStencilView;
 	ComPtr<ID3D11ShaderResourceView>				m_ShaderResourceView;
 	ComPtr<ID3D11UnorderedAccessView>				m_UnorderedAccessView;
+	
+	UINT											m_RecentNum_SRV;
+	UINT											m_RecentNum_UAV;
 
 	Vec2											m_RT;
 	Vec2											m_WH;
@@ -27,15 +30,19 @@ public:
 	ComPtr<ID3D11UnorderedAccessView>		GetUAV()	{return m_UnorderedAccessView;}
 
 	ID3D11Texture2D*						GetTexture2D() { return m_SpriteTexture.Get(); }
-
 	ScratchImage*							GetScratchImage() { return &m_Image; }
 
 
 public:
-	virtual void UpdateData()override {};
-	virtual void Render()override {};
 	void UpdateData(int _resgisterNumber);
+
+	HRESULT UpdateData_CS_SRV(int _registerNumber);
+	HRESULT UpdateData_CS_UAV(int _registerNumber);
+
 	static void Clear(int _resgisterNumber);
+	void Clear_CS_SRV();
+	void Clear_CS_UAV();
+
 
 private:
 	virtual HRESULT Load(const wstring& _strFilePath)override;

@@ -22,7 +22,9 @@ public:
 public:
 	HRESULT			Create(UINT _elementSize, UINT _elementCount, CONSTANT_TYPE _type);
 	void			SetData(void* _data, int _size, int _count); 
+	
 	void			UpdateData();
+	void			UpdateData_CS();
 
 public:
 	ConstantBuffer();
