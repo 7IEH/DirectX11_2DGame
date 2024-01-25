@@ -56,7 +56,7 @@ void Material::SetMaterialParam(SCALAR_PARAM _paramType, const T& _value)
 	case VEC2_1:
 	case VEC2_2:
 	case VEC2_3:
-		m_tMaterial.v2Arr[_paramType - FLOAT_0] = *((Vec2*)pValue);
+		m_tMaterial.v2Arr[_paramType - VEC2_0] = *((Vec2*)pValue);
 		break;
 
 	case AMBIENT:

@@ -283,14 +283,11 @@
     <Filter Include="04. Manager\ImGUIMgr\UI\Utility\SpriteEditor\UnSortingAtlas">
       <UniqueIdentifier>{d1bfdbec-6607-4ad6-941a-03baed862896}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\TileMapRenderer">
-      <UniqueIdentifier>{4ba72755-6dbe-4276-806e-7631e95f501b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\TileMapRenderer\TileMapCollider">
-      <UniqueIdentifier>{0ca540b6-19f0-4888-baaf-f623ed9fd051}</UniqueIdentifier>
-    </Filter>
     <Filter Include="04. Manager\ImGUIMgr\UI\Utility\TilePalette">
       <UniqueIdentifier>{892c2fc9-1eae-41b4-aad1-d068145f113e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\TileMgr">
+      <UniqueIdentifier>{b2916552-366a-4e0f-b94d-85d4668ad6d7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -570,17 +567,14 @@
     <ClInclude Include="unAnimation2DUI.h">
       <Filter>04. Manager\ImGUIMgr\UI\Utility\SpriteEditor\UnSortingAtlas</Filter>
     </ClInclude>
-    <ClInclude Include="EHTileMapRenderer.h">
-      <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\TileMapRenderer</Filter>
-    </ClInclude>
-    <ClInclude Include="EHTileMapCollider.h">
-      <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\TileMapRenderer\TileMapCollider</Filter>
-    </ClInclude>
     <ClInclude Include="EHTilePalette.h">
       <Filter>04. Manager\ImGUIMgr\UI\Utility\TilePalette</Filter>
     </ClInclude>
     <ClInclude Include="EHEngineUI.h">
       <Filter>01. Header</Filter>
+    </ClInclude>
+    <ClInclude Include="EHTileMgr.h">
+      <Filter>04. Manager\TileMgr</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -842,14 +836,11 @@
     <ClCompile Include="unAnimation2DUI.cpp">
       <Filter>04. Manager\ImGUIMgr\UI\Utility\SpriteEditor\UnSortingAtlas</Filter>
     </ClCompile>
-    <ClCompile Include="EHTileMapRenderer.cpp">
-      <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\TileMapRenderer</Filter>
-    </ClCompile>
-    <ClCompile Include="EHTileMapCollider.cpp">
-      <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\TileMapRenderer\TileMapCollider</Filter>
-    </ClCompile>
     <ClCompile Include="EHTilePalette.cpp">
       <Filter>04. Manager\ImGUIMgr\UI\Utility\TilePalette</Filter>
+    </ClCompile>
+    <ClCompile Include="EHTileMgr.cpp">
+      <Filter>04. Manager\TileMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

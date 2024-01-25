@@ -84,8 +84,6 @@ void ImGUIMgr::Render()
 	Frame();
 	ShowDockSpace();
 
-	//ImGui::ShowDemoWindow()
-
 	/*Frame();
 	if (m_Enabled)
 	{
@@ -258,7 +256,7 @@ void ImGUIMgr::ShowDockSpace()
 
 			ImGui::MenuItem("CollsionMatrix", "", &m_CollisionMatrix);
 
-			ImGui::MenuItem("TileMapPalette", "", &m_TilePalette);
+			ImGui::MenuItem("TileMapPalette", "", &m_bTilePalette);
 
 			ImGui::EndMenu();
 		}
@@ -271,7 +269,7 @@ void ImGUIMgr::ShowDockSpace()
 	m_AnimationCreateUI->Enabled(m_bAnimationUI);
 	m_SpriteLoader->Enabled(m_bSpriteLoader);
 	m_unAnimationCreateUI->Enabled(m_bunAnimationCreateUI);
-	m_TilePalette->Enabled(m_TilePalette);
+	m_TilePalette->Enabled(m_bTilePalette);
 
 	for (const auto& pair : m_mapUI)
 	{

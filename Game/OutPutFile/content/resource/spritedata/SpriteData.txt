@@ -26,3 +26,5 @@ PlayerIdleLeft
 \\resource\\Char\\Player\\Idle\\Dungeon\\Left\\LeftCycleIdle.png
 PlayerIdleRight
 \\resource\\Char\\Player\\Idle\\Dungeon\\Right\\RightCycleIdle.png
+TileSprite
+\\resource\\TILE.bmp

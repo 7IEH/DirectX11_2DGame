@@ -39,38 +39,21 @@ void TestLevel::Awake()
 	tr->SetRelativePosition(Vec4(0.f, 0.f, -10.f, 1.f));
 	tr->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
 
-	// UI Camera
-	/*GameObject* _UICamera = new GameObject;
-	tr = _UICamera->AddComponent<Transform>();
-	_camera = _UICamera->AddComponent<Camera>();
-
-	_camera->AllVisibleSet(TRUE);
-	_camera->LayerVisibleSet(LAYER_TYPE::BACKGROUND, TRUE);
-	_camera->SetCameraType(CAMERA_TYPE::UI_CAMERA);
-
-	tr->SetRelativeScale(Vec4(1.f, 1.f, 1.f, 1.f));
-	tr->SetRelativePosition(Vec4(0.f, 0.f, -10.f, 1.f));
-	tr->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
-
-
-	Object::Instantiate(_UICamera, (UINT)LAYER_TYPE::CAMERA);*/
-
-	//// Light
-	//GameObject* _Light = new GameObject();
-	//tr = _Light->AddComponent<Transform>();
-	//LIght2D* _light = _Light->AddComponent<LIght2D>();
-
-
-	//Object::Instantiate(_Light, (UINT)LAYER_TYPE::LIGHT2D);
 	Object::Instantiate(_MainCamera, (UINT)LAYER_TYPE::CAMERA);
 #pragma endregion
+	GameObject* _light = new GameObject;
+	_light->SetName(L"Light");
+	_light->AddComponent<Transform>();
 
+	_light->AddComponent<LIght2D>();
+
+	Object::Instantiate(_light, (UINT)LAYER_TYPE::LIGHT2D);
 #pragma region BackGround
 	// Background
 	GameObject* _backGround = new GameObject;
 	tr = _backGround->AddComponent<Transform>();
 	tr->SetRelativeScale(Vec4(1600.f, 900.f, 1.f, 1.f));
-	tr->SetRelativePosition(Vec4(0.f, 0.f, 50.f, 1.f));
+	tr->SetRelativePosition(Vec4(0.f, 0.f, 100.f, 1.f));
 	tr->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
 
 	MeshRenderer* _playerRenderer = _backGround->AddComponent<MeshRenderer>();
@@ -79,53 +62,23 @@ void TestLevel::Awake()
 	Object::Instantiate(_backGround, (UINT)LAYER_TYPE::BACKGROUND);
 #pragma endregion
 
-#pragma region GameObject
-	// Player
-	GameObject* _player = new GameObject();
-	tr = _player->AddComponent<Transform>();
-	tr->SetRelativeScale(Vec4(100.f, 92.f, 1.f, 1.f));
-	tr->SetRelativePosition(Vec4(0.f, 0.f, 0.f, 1.f));
-	tr->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
+	GameObject* _tile = new GameObject;
+	_tile->SetName(L"TileTest");
+	tr = _tile->AddComponent<Transform>();
+	tr->SetRelativePosition(Vec4(0.f, 0.f, 30.f, 1.f));
+	TileMap* _tileMap = _tile->AddComponent<TileMap>();
 
-	_playerRenderer = _player->AddComponent<MeshRenderer>();
-	_playerRenderer->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"DefaultRectMesh"));
-	_playerRenderer->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"PlayerMaterial"));
+	_tileMap->SetTileAtlas(AssetMgr::GetInst()->FindAsset<Sprite>(L"TileSprite"), Vec2(64.f, 64.f));
 
-	Animator2D* _animator = _player->AddComponent<Animator2D>();
-	Ptr<Sprite> _sprite = AssetMgr::GetInst()->FindAsset<Sprite>(L"PlayerIdleSprite");
-	_animator->CreateAnimation(L"PlayerIdle", _sprite, Vec2(0.f, 0.f), Vec2(0.f, 0.f), Vec2(23.f, 25.f), Vec2(200.f, 200.f), 5, 10.f);
-	_animator->Play(L"PlayerIdle");
+	for (int y = 0;y < 2;y++)
+	{
+		for (int x = 0;x < 2;x++)
+		{
+			_tileMap->SetTileIndex(y, x, y * 2 + x, 1);
+		}
+	}
 
-	CircleCollider2D* _col = _player->AddComponent<CircleCollider2D>();
-	_col->SetRadius(100.f);
-
-	PlayerScript* _playerScript = _player->AddComponent<PlayerScript>();
-
-	Object::Instantiate(_player, (UINT)LAYER_TYPE::PLAYER);
-#pragma endregion
-
-#pragma region Script Option
-	_cameraScript->SetTarget(_player);
-#pragma endregion
-
-
-	// Player
-	GameObject* _enemy = new GameObject();
-	tr = _enemy->AddComponent<Transform>();
-	tr->SetRelativeScale(Vec4(100.f, 92.f, 1.f, 1.f));
-	tr->SetRelativePosition(Vec4(450.f, 0.f, 0.f, 1.f));
-	tr->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
-
-	_playerRenderer = _enemy->AddComponent<MeshRenderer>();
-	_playerRenderer->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"DefaultRectMesh"));
-	_playerRenderer->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"PlayerMaterial"));
-
-	_col = _enemy->AddComponent<CircleCollider2D>();
-	_col->SetRadius(100.f);
-
-	Object::Instantiate(_enemy, (UINT)LAYER_TYPE::MONSTER);
-
-	CollisionMgr::GetInst()->LayerCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::MONSTER);
+	Object::Instantiate(_tile, int(LAYER_TYPE::TILE));
 
 	Level::Awake();
 }

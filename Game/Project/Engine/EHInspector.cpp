@@ -54,6 +54,7 @@ Inspector::Inspector()
 	m_LayerByName.insert(make_pair(LAYER_TYPE::PLAYER, "Player"));
 	m_LayerByName.insert(make_pair(LAYER_TYPE::MONSTER, "Monster"));
 	m_LayerByName.insert(make_pair(LAYER_TYPE::TRIGGER, "Trigger"));
+	m_LayerByName.insert(make_pair(LAYER_TYPE::TILE, "Tile"));
 
 	m_NameByLayer.insert(make_pair("Camera", LAYER_TYPE::CAMERA));
 	m_NameByLayer.insert(make_pair("Light", LAYER_TYPE::LIGHT2D));
@@ -61,6 +62,7 @@ Inspector::Inspector()
 	m_NameByLayer.insert(make_pair("Player", LAYER_TYPE::PLAYER));
 	m_NameByLayer.insert(make_pair("Monster", LAYER_TYPE::MONSTER));
 	m_NameByLayer.insert(make_pair("Trigger", LAYER_TYPE::TRIGGER));
+	m_NameByLayer.insert(make_pair("Tile", LAYER_TYPE::TILE));
 
 	m_LayerSelect.insert(make_pair("Camera", FALSE));
 	m_LayerSelect.insert(make_pair("Light", FALSE));
@@ -68,6 +70,7 @@ Inspector::Inspector()
 	m_LayerSelect.insert(make_pair("Player", FALSE));
 	m_LayerSelect.insert(make_pair("Monster", FALSE));
 	m_LayerSelect.insert(make_pair("Trigger", FALSE));
+	m_LayerSelect.insert(make_pair("Tile", FALSE));
 
 	m_LayerName.push_back("Camera");
 	m_LayerName.push_back("Light");
@@ -75,6 +78,7 @@ Inspector::Inspector()
 	m_LayerName.push_back("Player");
 	m_LayerName.push_back("Monster");
 	m_LayerName.push_back("Trigger");
+	m_LayerName.push_back("Tile");
 }
 
 Inspector::~Inspector()

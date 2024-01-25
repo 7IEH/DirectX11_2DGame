@@ -20,8 +20,6 @@ private:
     Vec2                m_vTileRenderSize;  // 타일 1칸 사이즈
 
 
-    Vec3                m_vTileMapWorldPos;
-
     Ptr<Sprite>         m_TileAtlas;
     Vec2                m_vTilePixelSize;
     Vec2                m_vSliceSizeUV;
@@ -32,6 +30,7 @@ private:
     UINT                m_TileIdx;
 
     vector<tTileInfo>   m_vecTileInfo;
+
     StructuredBuffer* m_TileInfoBuffer;
 
 public:
@@ -42,8 +41,10 @@ public:
     UINT GetFaceX() { return m_FaceX; }
     UINT GetFaceY() { return m_FaceY; }
 
-    void SetTileIndex(UINT _Row, UINT _Col, UINT _ImgIdx);
+    Vec2            GetRenderTileSize() { return m_vTileRenderSize; }
+    void            SetRenderTileSize(Vec2 _vTileRenderSize) { m_vTileRenderSize = _vTileRenderSize; }
 
+    void SetTileIndex(UINT _Row, UINT _Col, UINT _ImgIdx, int _render);
 
 public:
     virtual void LateUpdate() override;

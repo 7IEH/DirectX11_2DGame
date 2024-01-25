@@ -225,8 +225,7 @@ call Copy.bat</Command>
     <ClInclude Include="EHThreadMgr.h" />
     <ClInclude Include="EHThreadTask.h" />
     <ClInclude Include="EHTileMap.h" />
-    <ClInclude Include="EHTileMapCollider.h" />
-    <ClInclude Include="EHTileMapRenderer.h" />
+    <ClInclude Include="EHTileMgr.h" />
     <ClInclude Include="EHTilePalette.h" />
     <ClInclude Include="EHTimeMgr.h" />
     <ClInclude Include="EHTransform.h" />
@@ -321,8 +320,7 @@ call Copy.bat</Command>
     <ClCompile Include="EHThreadMgr.cpp" />
     <ClCompile Include="EHThreadTask.cpp" />
     <ClCompile Include="EHTileMap.cpp" />
-    <ClCompile Include="EHTileMapCollider.cpp" />
-    <ClCompile Include="EHTileMapRenderer.cpp" />
+    <ClCompile Include="EHTileMgr.cpp" />
     <ClCompile Include="EHTilePalette.cpp" />
     <ClCompile Include="EHTimeMgr.cpp" />
     <ClCompile Include="EHTransform.cpp" />

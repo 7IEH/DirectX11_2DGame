@@ -4,6 +4,8 @@
 Struct Type
 ******************/
 
+#include "EHSprite.h"
+
 // Task Sturct
 struct EHTask
 {
@@ -181,4 +183,17 @@ struct tParticle
 	float Age;
 	float Life;
 	int	  Active;
+};
+
+// TilePaletteInfo
+struct tTilePaletteInfo
+{
+	Ptr<Sprite> _atlas;
+	Vec2		_Face;
+	Vec2		_RenderSize;
+	Vec2		_PixelSize;
+
+	int			_TileIdx;
+	int			_Render;
+	int			_ColliderEnabled;
 };

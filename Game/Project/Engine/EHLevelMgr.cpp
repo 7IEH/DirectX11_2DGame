@@ -29,7 +29,7 @@ void LevelMgr::Awake()
 	AddLevel<IntroLevel>(L"IntroLevel");
 	AddLevel<TitleLevel>(L"TitleLevel");
 	AddLevel<DungeonScene>(L"DungeonScene");
-	SelectLevel(L"DungeonScene");
+	SelectLevel(L"TestLevel");
 
 	if (m_CurLevel == nullptr)
 		return;

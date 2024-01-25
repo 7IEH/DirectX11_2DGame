@@ -302,10 +302,10 @@ void AssetMgr::CreateDefaultShader()
 	_vsEntry = "VS_TileMap";
 	_psEntry = "PS_TileMap";
 
+	tileShader->Create(_path, _vsEntry, _psEntry);
 	tileShader->SetCullType(CULL_TYPE::NONE);
 	tileShader->SetDSType(DS_TYPE::LESS);
 	tileShader->SetBlendType(BLEND_TYPE::DEFAULT);
-	tileShader->SetDomain(SHADER_DOMAIN::DOMAIN_MASKED);
 
 	AddAsset(tileShader, L"TileMapShader");
 }

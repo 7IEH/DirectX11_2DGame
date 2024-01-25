@@ -87,7 +87,21 @@ void ComponentUI::SetTargetObject(GameObject* _target)
 			if (_render == nullptr)
 				Enabled(FALSE);
 			else
+			{
+				if (RENDERER_TYPE::MESHRENDERER == _render->GetRenderType())
+				{
+					this->SetLabel("MeshRenderer");
+				}
+				else if (RENDERER_TYPE::TILEMAP == _render->GetRenderType())
+				{
+					this->SetLabel("TileMapRenderer");
+				}
+				else 
+				{
+					this->SetLabel("ParticleSystem");
+				}
 				Enabled(TRUE);
+			}
 		}
 			break;
 		case COMPONENT_TYPE::CAMERA:
@@ -104,11 +118,11 @@ void ComponentUI::SetTargetObject(GameObject* _target)
 		{
 			Enabled(FALSE);
 		}
+		break;
 		case COMPONENT_TYPE::END:
 			break;
 		case COMPONENT_TYPE::SCRIPT:
 		{
-
 		}
 			break;
 		default:

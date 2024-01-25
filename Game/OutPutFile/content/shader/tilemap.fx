@@ -43,11 +43,11 @@ float4 PS_TileMap(VS_OUT _in) : SV_Target
 {
     float4 vColor = float4(1.f, 0.f, 1.f, 1.f);
     
-    if (gMatrial.spriteCheck0)
+    if (gMatrial.spriteCheck0 == 1)
     {
         // 면 개수만큼 _in.vUV 를 배율을 늘림
         float2 vUV = _in.vUV * float2(FACE_X, FACE_Y);
-        int2 Integer = (int2) floor(vUV);
+        int2 Integer = (int2)floor(vUV);
         vUV = vUV - Integer;
                 
         int bufferidx = Integer.y * FACE_X + Integer.x;

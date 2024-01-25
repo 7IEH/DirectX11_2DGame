@@ -7,6 +7,7 @@
 #include "EHMesh.h"
 #include "EHSprite.h"
 
+#include "EHGameObject.h"
 #include "EHTransform.h"
 
 TileMap::TileMap()
@@ -55,7 +56,7 @@ void TileMap::SetFace(UINT _FaceX, UINT _FaceY)
 	m_TileInfoBuffer->Create(sizeof(tTileInfo), _FaceX * _FaceY, true,STRUCTURED_TYPE::READ_ONLY);
 }
 
-void TileMap::SetTileIndex(UINT _Row, UINT _Col, UINT _ImgIdx)
+void TileMap::SetTileIndex(UINT _Row, UINT _Col, UINT _ImgIdx ,int _render)
 {
 	if (nullptr == m_TileAtlas)
 		return;
@@ -69,14 +70,15 @@ void TileMap::SetTileIndex(UINT _Row, UINT _Col, UINT _ImgIdx)
 	m_vecTileInfo[idx].vLeftTopUV = Vec2((iCol * m_vTilePixelSize.x) / m_TileAtlas->GetSpriteWidth()
 		, (iRow * m_vTilePixelSize.y) / m_TileAtlas->GetSpriteHeight());
 
-	m_vecTileInfo[idx].bRender = 1;
+	m_vecTileInfo[idx].bRender = _render;
 }
 
 void TileMap::LateUpdate()
 {
 	// (타일 개수 * 타일 사이즈) 로 사이즈를 변경처리한다.
 	Vec3 vTileMapSize = Vec3(m_FaceX * m_vTileRenderSize.x, m_FaceY * m_vTileRenderSize.y, 1.f);
-	//Transform()->SetRelativeScale(vTileMapSize);
+
+	GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->SetRelativeScale(Vec4(vTileMapSize.x,vTileMapSize.y,vTileMapSize.z,1.f));
 }
 
 void TileMap::UpdateData()
@@ -104,7 +106,7 @@ void TileMap::Render()
 	// 재질 업데이트
 	GetMaterial()->UpdateData();
 
-	//Transform()->UpdateData();
+	GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->UpdateData();
 
 	GetMesh()->Render();
 }

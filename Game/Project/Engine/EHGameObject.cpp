@@ -90,7 +90,7 @@ void GameObject::LateUpdate()
 			m_Component[_comp]->LateUpdate();
 		}
 	}
-	
+
 	if (!m_vScripts.empty())
 	{
 		for (Script* _script : m_vScripts)
@@ -147,7 +147,7 @@ void GameObject::DisconnectWithParent()
 {
 	vector<GameObject*>::iterator iter = m_Parent->m_Childs.begin();
 
-	for (;iter != m_Childs.end();++iter)
+	for (;iter != m_Parent->m_Childs.end();++iter)
 	{
 		if (*iter == this)
 		{
@@ -156,7 +156,7 @@ void GameObject::DisconnectWithParent()
 			return;
 		}
 	}
-	
+
 	assert(nullptr);
 }
 
