@@ -588,6 +588,9 @@
     <ClInclude Include="EHTestComputeShader.h">
       <Filter>08. Asset\Shader\ComputeShader\TestComputeShader</Filter>
     </ClInclude>
+    <ClInclude Include="EHParticleUpdate.h">
+      <Filter>08. Asset\Shader\ComputeShader\Particle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -860,6 +863,9 @@
     <ClCompile Include="EHTestComputeShader.cpp">
       <Filter>08. Asset\Shader\ComputeShader\TestComputeShader</Filter>
     </ClCompile>
+    <ClCompile Include="EHParticleUpdate.cpp">
+      <Filter>08. Asset\Shader\ComputeShader\Particle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
@@ -890,6 +896,9 @@
     </FxCompile>
     <FxCompile Include="particle.fx">
       <Filter>ShaderCode\Render</Filter>
+    </FxCompile>
+    <FxCompile Include="particle_update.fx">
+      <Filter>08. Asset\Shader\ComputeShader\Particle</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

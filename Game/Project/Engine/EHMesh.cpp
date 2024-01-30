@@ -89,6 +89,13 @@ void Mesh::DrawIndexed()
 	CONTEXT->DrawIndexed(m_IndexCount, 0, 0);
 }
 
+void Mesh::Render_Instancing(UINT _particleCount)
+{
+	UpdateData();
+
+	CONTEXT->DrawIndexedInstanced(m_IndexCount, _particleCount, 0, 0, 0);
+}
+
 void Mesh::SetBuffer(BUFFER_TYPE _bufferType)
 {
 	switch (_bufferType)

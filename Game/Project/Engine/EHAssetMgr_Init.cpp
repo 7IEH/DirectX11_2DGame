@@ -445,12 +445,15 @@ void AssetMgr::CreateDefaultMaterial()
 }
 
 #include "EHTestComputeShader.h"
+#include "EHParticleUpdate.h"
 void AssetMgr::CreateDefaultComputeShader()
 {
 	Ptr<ComputeShader> pShader = nullptr;
 
 	// SetColorShader
 	pShader = new TestComputeShader;
-	pShader->Create(L"\\shader\\setcolor.fx", "CS_SetColor");
 	AddAsset(pShader.Get(), L"SetColorShader");
+
+	pShader = new ParticleUpdate;
+	AddAsset(pShader.Get(), L"ParticleUpdateShader");
 }

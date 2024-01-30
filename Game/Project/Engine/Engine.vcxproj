@@ -207,6 +207,7 @@ call Copy.bat</Command>
     <ClInclude Include="EHMesh.h" />
     <ClInclude Include="EHGameObject.h" />
     <ClInclude Include="EHParticleSystem.h" />
+    <ClInclude Include="EHParticleUpdate.h" />
     <ClInclude Include="EHPathMgr.h" />
     <ClInclude Include="EHPlayerScript.h" />
     <ClInclude Include="EHRenderer.h" />
@@ -304,6 +305,7 @@ call Copy.bat</Command>
     <ClCompile Include="EHMesh.cpp" />
     <ClCompile Include="EHGameObject.cpp" />
     <ClCompile Include="EHParticleSystem.cpp" />
+    <ClCompile Include="EHParticleUpdate.cpp" />
     <ClCompile Include="EHPathMgr.cpp" />
     <ClCompile Include="EHPlayerScript.cpp" />
     <ClCompile Include="EHRenderer.cpp" />
@@ -389,6 +391,12 @@ call Copy.bat</Command>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="particle.fx">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="particle_update.fx">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>

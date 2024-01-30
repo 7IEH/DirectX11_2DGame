@@ -29,6 +29,9 @@ private:
 	bool						m_NotRender;
 	
 	int							m_multiPort;
+
+	vector<Ptr<Sprite>>			m_vecNoiseTex;
+
 public:
 	void SetRender(bool _NotRender) { m_NotRender = _NotRender; }
 	bool GetRender() { return m_NotRender; }

@@ -14,6 +14,9 @@ private:
 	UINT									m_ElementSize;
 	UINT									m_ElementCount;
 
+	UINT									m_RegentSRV;
+	UINT									m_RegentUAV;
+
 	STRUCTURED_TYPE							m_Type;
 	bool									m_IsUpdate;
 
@@ -22,9 +25,18 @@ public:
 													STRUCTURED_TYPE _type = STRUCTURED_TYPE::READ_ONLY, void* _memData = nullptr);
 
 	void									UpdateData(UINT	_resgisterNumber);
+	HRESULT										UpdateData_CS_SRV(UINT _RegisterNum);
+	HRESULT										UpdateData_CS_UAV(UINT _RegisterNum);
+
+	void									Clear(UINT	_registerNum);
+	void									Clear_CS_SRV();
+	void									Clear_CS_UAV();
 
 	void									SetData(void* _memData, UINT _elementCount = 0);
 	void									GetData(void* _memData, UINT _elementCount = 0);
+
+	UINT									GetElementSize() { return m_ElementSize; }
+	UINT									GetElementCount() { return m_ElementCount; }
 
 public:
 	StructuredBuffer();

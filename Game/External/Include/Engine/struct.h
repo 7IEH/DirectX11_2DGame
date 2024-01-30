@@ -170,6 +170,19 @@ struct tGlobalData
 	Vec2	padding;
 };
 
+// TilePaletteInfo
+struct tTilePaletteInfo
+{
+	Ptr<Sprite> _atlas;
+	Vec2		_Face;
+	Vec2		_RenderSize;
+	Vec2		_PixelSize;
+
+	int			_TileIdx;
+	int			_Render;
+	int			_ColliderEnabled;
+};
+
 // Particle System
 struct tParticle
 {
@@ -185,15 +198,28 @@ struct tParticle
 	int		_Active;		// 활성화, 비활성화 여부
 };
 
-// TilePaletteInfo
-struct tTilePaletteInfo
+struct tParticleModule
 {
-	Ptr<Sprite> _atlas;
-	Vec2		_Face;
-	Vec2		_RenderSize;
-	Vec2		_PixelSize;
+	// Sapwn 모듈
+	Vec4	_SpawnColor;	// 초기 컬러
+	Vec4	_SpawnMinScale;	// 초기 최소 크기
+	Vec4	_SpawnMaxScale;	// 초기 최대 크기
 
-	int			_TileIdx;
-	int			_Render;
-	int			_ColliderEnabled;
+	float	_MinLife;		// 최소 수명
+	float	_MaxLife;		// 최대 수명
+	int		_SpawnRate;		// 초당 생성 개수
+	int		_SpaceType;		// 좌표계(0 : LocalSpace, 1 : WorldSpace)
+	int		_SpawnShape;
+	float	_Radius;
+	Vec4	_SpawnBoxScale;
+	Vec2	padding;
+
+
+	int		_arrModuleCheck[(UINT)PARTICLE_MODULE::END];
+};
+
+struct tSpawnCount
+{
+	int		_SpawnCount;
+	Vec3	_Padding;
 };

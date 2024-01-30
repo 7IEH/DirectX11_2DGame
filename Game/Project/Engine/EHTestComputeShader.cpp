@@ -4,6 +4,7 @@
 TestComputeShader::TestComputeShader()
 	:ComputeShader(32, 32, 1)
 {
+	Create(L"\\shader\\setcolor.fx", "CS_SetColor");
 }
 
 TestComputeShader::~TestComputeShader()

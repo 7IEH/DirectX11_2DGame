@@ -490,5 +490,6 @@ void Device::SetSamplerState()
 		CONTEXT->HSSetSamplers(i, 1, m_Sampler[i].GetAddressOf());
 		CONTEXT->DSSetSamplers(i, 1, m_Sampler[i].GetAddressOf());
 		CONTEXT->GSSetSamplers(i, 1, m_Sampler[i].GetAddressOf());
+		CONTEXT->CSSetSamplers(i, 1, m_Sampler[i].GetAddressOf());
 	}
 }

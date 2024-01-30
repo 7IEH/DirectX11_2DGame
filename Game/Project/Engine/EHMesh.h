@@ -23,6 +23,7 @@ public:
 
 public:
 	void Render();
+	void Render_Instancing(UINT _particleCount);
 
 private:
 	// Re-Packaging ( DX12 )

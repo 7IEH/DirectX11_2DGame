@@ -46,6 +46,8 @@ StructuredBuffer<LightInfo> g_Light : register(t11);
 // PostProcess Register
 Texture2D g_postprocess : register(t13);
 
+Texture2D g_NoiseTex : register(t14);
+
 // Luna Light Example
 struct DirectionalLight
 {
@@ -148,6 +150,33 @@ struct tParticle
     float _Life;
     int   _Active;
 };
+
+struct tParticleModule
+{
+	// Sapwn 모듈
+    float4 _vSpawnColor; // 초기 컬러
+    float4 _vSpawnMinScale; // 초기 최소 크기
+    float4 _vSpawnMaxScale; // 초기 최대 크기
+
+    float MinLife; // 최소 수명
+    float MaxLife; // 최대 수명
+    int SpawnRate; // 초당 생성 개수
+    int SpaceType; // 좌표계(0 : LocalSpace, 1 : WorldSpace)
+    
+    int spawnShape;
+    float Radius;
+    float4 _spawnBoxScale;
+    float2 _padding;
+    
+    int _arrModuleCheck[4];
+};
+
+struct tSpawnCount
+{
+    int iSpawnCount;
+    float3 iPadding;
+};
+
 
 cbuffer Worldspcae : register(b0)
 {

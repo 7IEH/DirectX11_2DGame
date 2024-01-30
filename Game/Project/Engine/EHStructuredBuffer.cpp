@@ -8,6 +8,8 @@ StructuredBuffer::StructuredBuffer()
 	, m_ElementCount(0)
 	, m_Type(STRUCTURED_TYPE::READ_ONLY)
 	, m_IsUpdate(FALSE)
+	, m_RegentSRV(0)
+	, m_RegentUAV(0)
 {
 }
 
@@ -26,7 +28,7 @@ HRESULT StructuredBuffer::Create(UINT _elementSize, UINT _elementCount, bool _is
 	m_StructWriteBuffer = nullptr;
 	m_StructReadBuffer = nullptr;
 	m_SV = nullptr;
-	
+
 	assert(!(m_ElementSize % 16));
 
 	D3D11_BUFFER_DESC tDesc = {};
@@ -61,6 +63,7 @@ HRESULT StructuredBuffer::Create(UINT _elementSize, UINT _elementCount, bool _is
 	{
 		tDesc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
 		tDesc.Usage = D3D11_USAGE_DEFAULT;
+		tDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
 		DEVICE->CreateBuffer(&tDesc, nullptr, m_StructReadBuffer.GetAddressOf());
 
 		tDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
@@ -83,7 +86,7 @@ HRESULT StructuredBuffer::Create(UINT _elementSize, UINT _elementCount, bool _is
 	{
 		D3D11_UNORDERED_ACCESS_VIEW_DESC UAVDesc = {};
 		UAVDesc.ViewDimension = D3D11_UAV_DIMENSION_BUFFER;
-		UAVDesc.Buffer.NumElements = 1;
+		UAVDesc.Buffer.NumElements = m_ElementCount;
 
 		_hr = DEVICE->CreateUnorderedAccessView(m_StructuredBuffer.Get(), &UAVDesc, m_UAV.GetAddressOf());
 		if (FAILED(_hr)) return E_FAIL;
@@ -104,6 +107,57 @@ void StructuredBuffer::UpdateData(UINT _resgisterNumber)
 	CONTEXT->HSSetShaderResources(_resgisterNumber, 1, m_SV.GetAddressOf());
 	CONTEXT->DSSetShaderResources(_resgisterNumber, 1, m_SV.GetAddressOf());
 	CONTEXT->GSSetShaderResources(_resgisterNumber, 1, m_SV.GetAddressOf());
+}
+
+HRESULT StructuredBuffer::UpdateData_CS_SRV(UINT _registerNum)
+{
+	if (nullptr == m_SV.Get())
+		return E_FAIL;
+
+	m_RegentSRV = _registerNum;
+
+	CONTEXT->CSSetShaderResources(_registerNum, 1, m_SV.GetAddressOf());
+
+	return S_OK;
+}
+
+HRESULT StructuredBuffer::UpdateData_CS_UAV(UINT _registerNum)
+{
+	if (nullptr == m_UAV.Get())
+		return E_FAIL;
+
+	m_RegentUAV = _registerNum;
+
+	UINT i = -1;
+	CONTEXT->CSSetUnorderedAccessViews(_registerNum, 1, m_UAV.GetAddressOf(), &i);
+
+	return S_OK;
+}
+
+void StructuredBuffer::Clear(UINT _registerNum)
+{
+	ID3D11ShaderResourceView* pSRV = nullptr;
+
+	CONTEXT->VSSetShaderResources(_registerNum, 1, &pSRV);
+	CONTEXT->HSSetShaderResources(_registerNum, 1, &pSRV);
+	CONTEXT->DSSetShaderResources(_registerNum, 1, &pSRV);
+	CONTEXT->GSSetShaderResources(_registerNum, 1, &pSRV);
+	CONTEXT->PSSetShaderResources(_registerNum, 1, &pSRV);
+}
+
+void StructuredBuffer::Clear_CS_SRV()
+{
+	ID3D11ShaderResourceView* _SRV = nullptr;
+
+	CONTEXT->CSSetShaderResources(m_RegentSRV, 1, &_SRV);
+}
+
+void StructuredBuffer::Clear_CS_UAV()
+{
+	ID3D11UnorderedAccessView* _UAV = nullptr;
+
+	UINT i = -1;
+	CONTEXT->CSSetUnorderedAccessViews(m_RegentUAV, 1, &_UAV, &i);
 }
 
 void StructuredBuffer::SetData(void* _memData, UINT _elementCount)
@@ -128,7 +182,7 @@ void StructuredBuffer::GetData(void* _memData, UINT _elementCount)
 {
 	assert(m_IsUpdate);
 
-	if (_elementCount)
+	if (!_elementCount)
 		_elementCount = m_ElementCount;
 
 	CONTEXT->CopyResource(m_StructReadBuffer.Get(), m_StructuredBuffer.Get());

@@ -386,3 +386,14 @@ enum class ANIMATION_UI
 	,EDIT
 	,END
 };
+
+// Particle Module
+enum class PARTICLE_MODULE
+{
+	SPAWN,	// 파티클 생성 관련
+	DRAG,	// 감속 관련 모듈
+	SCALE,
+	INITIAL_VELOCITY,
+
+	END,
+};
