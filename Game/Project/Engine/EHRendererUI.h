@@ -11,6 +11,12 @@ private:
     string				m_CurTile;
     string				m_prevTile;
     
+    // Particle
+    string              m_CurSpace;
+    string              m_CurSprite;
+    string              m_CurNoise;
+    string              m_CurShape;
+
 public:
     virtual void Render_Update();
 

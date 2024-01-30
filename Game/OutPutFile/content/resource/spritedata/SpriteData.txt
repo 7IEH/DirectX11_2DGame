@@ -21,10 +21,14 @@ DungeonBG
 WaterSprite
 \\resource\\WaterTest.png
 Noise3
-\\resource\\test.png
+\\resource\\Noise\\test.png
 PlayerIdleLeft
 \\resource\\Char\\Player\\Idle\\Dungeon\\Left\\LeftCycleIdle.png
 PlayerIdleRight
 \\resource\\Char\\Player\\Idle\\Dungeon\\Right\\RightCycleIdle.png
 TileSprite
 \\resource\\TILE.bmp
+AlphaCircle
+\\resource\\particle\\AlphaCircle.png
+Snow50px
+\\resource\\particle\\Snow50px.png

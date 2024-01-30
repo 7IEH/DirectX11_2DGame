@@ -11,13 +11,14 @@ StructuredBuffer<tParticleModule> g_Module : register(t20);
 #define SpawnCount  g_SpawnCount[0].iSpawnCount
 #define Particle    g_ParticleBuffer[id.x]
 #define Module      g_Module[0]
+#define CenterPos   gMatrial._LightMat.Ambient.xyz
 
 [numthreads(1024, 1, 1)]
 void CS_ParticleUpdate(uint3 id : SV_DispatchThreadID)
 {
     if (MAX_COUNT <= id.x)
         return;
-
+    
     // 파티클이 비활성화 상태라면
     if (0 == Particle._Active)
     {
@@ -41,15 +42,53 @@ void CS_ParticleUpdate(uint3 id : SV_DispatchThreadID)
                 
                 float2 vUv = float2((1.f / (MAX_COUNT - 1)) * id.x, 0.f);
                 
-                float4 vColor = g_NoiseTex.SampleLevel(samplerType2, vUv, 0);
+                vUv.x += gAccTime * 0.2f;
+                
+                vUv.y += sin(vUv.x * 20.f * 3.14f) * 0.2f + gAccTime * 0.1f;
+                
+                float4 vRand = g_NoiseTex.SampleLevel(samplerType2, vUv, 0);
                 
                 if(0==Module.spawnShape)
                 {
-                    float RandomRadius = vColor.x * Module.Radius;
+                    float RandomRadius = vRand.x * Module.Radius;
+                    float RandomAngle = vRand * 2 * 3.14f;
                     
-                    Particle._WorldPos = float4(RandomRadius, RandomRadius, Particle._WorldPos.z, Particle._WorldPos.w);
-                    
-                    Module.SpaceType;
+                    Particle._LocalPos.xyz = float3(cos(RandomAngle), sin(RandomAngle), 0.f) * RandomRadius;
+                }
+                else
+                {
+                    Particle._LocalPos.x = vRand[0] * Module._spawnBoxScale.x - (Module._spawnBoxScale.x / 2.f);
+                    Particle._LocalPos.y = vRand[1] * Module._spawnBoxScale.y - (Module._spawnBoxScale.y / 2.f);
+                    Particle._LocalPos.z = 0.f;
+                }
+                
+                Particle._WorldPos.xyz = Particle._LocalPos.xyz + CenterPos;
+                
+                // 스폰 컬러 설정
+                Particle._Color = float4(Module._vSpawnColor.xyz * (30.f - 20.f) * vRand[2],1.f);
+                
+                // 스폰 크기 설정
+                // 최대 크기 - 최소 크기 * (0~1)까지의 랜덤값 즉, (0~(최대크기-최소크기)) -> (최대 크기 ~ 최소 크기) 까지의 영역이 나옴
+                Particle._WorldScale = (Module._vSpawnMaxScale - Module._vSpawnMinScale) * vRand[2] + Module._vSpawnMinScale;
+                
+                // 스폰 Life 설정
+                Particle._Age = 0.f;
+                Particle._Life = (Module.MaxLife - Module.MinLife) * vRand[0] + Module.MinLife;
+                         
+                // Add VelocityModule
+                if (Module._arrModuleCheck[3])
+                {
+                    // 0 : From Center
+                    if (0 == Module._AddVelocityType)
+                    {
+                        float3 vDir = normalize(Particle._LocalPos.xyz);
+                        Particle._Velocity.xyz = vDir * clamp(vRand[2], Module._MinSpeed, Module._MaxSpeed);
+                    }
+                    if (1 == Module._AddVelocityType)
+                    {
+                        float3 vDir = -normalize(Particle._LocalPos.xyz);
+                        Particle._Velocity.xyz = vDir * clamp(vRand[2], Module._MinSpeed, Module._MaxSpeed);
+                    }
                 }
                 
                 break;
@@ -60,7 +99,27 @@ void CS_ParticleUpdate(uint3 id : SV_DispatchThreadID)
     // 파티클이 활성화 상태라면
     else
     {
-        //Particle._WorldPos.y += gDt * 200.f;
+       Particle._Age += gDt;
+        if (Particle._Life < Particle._Age)
+        {
+            Particle._Active = 0;
+            return;
+        }
+        
+        // 
+        if (0 == Module.SpaceType)
+        {
+            // local pos는 잔상이 남음
+            // 이유는 localpos는 말 그대로 파티클 하나 하나가 개인 포지션을 가지는 것이므로
+            Particle._LocalPos.xyz += Particle._Velocity.xyz * gDt;
+            Particle._WorldPos.xyz = Particle._LocalPos.xyz + CenterPos;
+        }
+        else if (1 == Module.SpaceType)
+        {
+            // worldpos는 파티클 하나가 해당 파티클 오브젝트를 딱 따라감
+            // 잔상이 남을 수 없음
+            Particle._WorldPos.xyz += Particle._Velocity.xyz * gDt;
+        }
     }
 }
 

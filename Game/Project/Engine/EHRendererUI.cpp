@@ -5,7 +5,9 @@
 #include "EHTileMap.h"
 #include "EHGameObject.h"
 
+#include "EHAssetMgr.h"
 #include "EHTileMgr.h"
+#include "EHParticleSystem.h"
 
 RendererUI::RendererUI()
 	:ComponentUI("Renderer", "##Renderer", COMPONENT_TYPE::RENDERER)
@@ -180,5 +182,163 @@ void RendererUI::TileMap_Update()
 
 void RendererUI::Particle_Update()
 {
+	ParticleSystem* _particle = GetTargetObject()->GetComponent<ParticleSystem>(COMPONENT_TYPE::RENDERER);
+	tParticleModule _module = _particle->GetModule();
 
+	// Basic Module
+	if (ImGui::TreeNode("Basic Module"))
+	{
+		float	_duration = 0.f;
+		bool	_looping = false;
+		float	_startDelay = 0.f;
+		float	_startSpeed = 0.f;
+		float	_startSize = 0.f;
+		float	_startRotation = 0.f;
+		float	_StartColor[3] = { _module._SpawnColor.x,_module._SpawnColor.y,_module._SpawnColor.z };
+		int		_maxParticles = 0;
+
+		ImGui::Text("Duration");		 ImGui::SameLine(150.f); ImGui::DragFloat("##Duration", &_duration);
+		ImGui::Text("Looping");			 ImGui::SameLine(150.f); ImGui::Checkbox("##Looping", &_looping);
+		ImGui::Text("Start Delay");		 ImGui::SameLine(150.f); ImGui::DragFloat("##Start Delay", &_startDelay);
+		ImGui::Text("Min LifeTime");	 ImGui::SameLine(150.f); ImGui::DragFloat("##Start LifeTime", &_module._MinLife);
+		ImGui::Text("Max LifeTime");	 ImGui::SameLine(150.f); ImGui::DragFloat("##Start LifeTime", &_module._MaxLife);
+		ImGui::Text("Start Size");		 ImGui::SameLine(150.f); ImGui::DragFloat("##Start Size", &_startSize);
+		ImGui::Text("Start Rotation");	 ImGui::SameLine(150.f); ImGui::DragFloat("##Start Rotation", &_startRotation);
+		ImGui::Text("Start Color");		 ImGui::SameLine(150.f); ImGui::ColorEdit3("##StartColor", _StartColor);
+		ImGui::Text("Max Particles");	 ImGui::SameLine(150.f); ImGui::DragInt("##Max Particles", &_maxParticles);
+		ImGui::Text("Simulation Space"); ImGui::SameLine(180.f);
+
+		bool _flag = false;
+		vector<string>_space;
+		_space.push_back("Local");
+		_space.push_back("World");
+
+		for (int i = 0;i < _space.size();i++)
+		{
+			if (i == _module._SpaceType)
+			{
+				m_CurSpace = _space[i];
+			}
+		}
+
+		if (ImGui::BeginCombo("##SimulationSpace", m_CurSpace.c_str()))
+		{
+			for (int i = 0;i < _space.size();i++)
+			{
+				if (ImGui::Selectable(_space[i].c_str(), &_flag))
+				{
+					_module._SpaceType = i;
+				}
+			}
+			ImGui::EndCombo();
+		}
+
+		vector<string>_shape;
+		_shape.push_back("Circle");
+		_shape.push_back("Box");
+
+		for (int i = 0;i < _shape.size();i++)
+		{
+			if (i == _module._SpawnShape)
+			{
+				m_CurShape = _shape[i];
+			}
+		}
+
+		ImGui::Text("SpawnShape"); ImGui::SameLine(180.f);
+		if (ImGui::BeginCombo("##SpawnShape", m_CurShape.c_str()))
+		{
+			for (int i = 0;i < _shape.size();i++)
+			{
+				if (ImGui::Selectable(_shape[i].c_str(), &_flag))
+				{
+					_module._SpawnShape = i;
+				}
+			}
+			ImGui::EndCombo();
+		}
+
+		if (_module._SpawnShape == 0)
+		{
+			ImGui::Text("Radius"); ImGui::SameLine(150.f); ImGui::DragFloat("##Radius", &_module._Radius);
+		}
+		else if (_module._SpawnShape == 1)
+		{
+			float _boxScale[4] = { _module._SpawnBoxScale.x,_module._SpawnBoxScale.y ,_module._SpawnBoxScale.z ,_module._SpawnBoxScale.w };
+			ImGui::Text("BoxScale"); ImGui::SameLine(150.f);ImGui::DragFloat4("##BosScale", _boxScale);
+			_module._SpawnBoxScale = Vec4{ _boxScale[0],_boxScale[1],_boxScale[2],_boxScale[3] };
+		}
+
+		map<wstring, Ptr<Asset>> _sprites = AssetMgr::GetInst()->GetSprite();
+		map<wstring, Ptr<Asset>>::iterator iter = _sprites.begin();
+
+		_flag = false;
+		ImGui::Text("Random Seed(Noise)"); ImGui::SameLine(180.f);
+		if (ImGui::BeginCombo("##Random Seed(Noise)", m_CurNoise.c_str()))
+		{
+			for (;iter != _sprites.end();iter++)
+			{
+				string _label = string(iter->first.begin(), iter->first.end());
+				if (ImGui::Selectable(_label.c_str(), _flag))
+				{
+					Ptr<Sprite> _sprite = dynamic_cast<Sprite*>(iter->second.Get());
+					_particle->SetNoiseSprite(_sprite);
+					m_CurNoise = _label;
+				}
+			}
+			ImGui::EndCombo();
+		}
+
+		_module._SpawnColor = Vec4(_StartColor[0], _StartColor[1], _StartColor[2], _module._SpawnColor.w);
+		ImGui::TreePop();
+	}
+
+	if (ImGui::TreeNode("Renderer"))
+	{
+		float _minParticleSize[4] = { _module._SpawnMinScale.x,_module._SpawnMinScale.y ,_module._SpawnMinScale.z ,_module._SpawnMinScale.w };
+		float _maxParticleSize[4] = { _module._SpawnMaxScale.x,_module._SpawnMaxScale.y ,_module._SpawnMaxScale.z ,_module._SpawnMaxScale.w };
+
+		ImGui::Text("Min Particle Size");ImGui::SameLine(170.f);ImGui::DragFloat4("##Min Particle Size", _minParticleSize);
+		ImGui::Text("Max Particle Size");ImGui::SameLine(170.f);ImGui::DragFloat4("##Max Particle Size", _maxParticleSize);
+
+		_module._SpawnMinScale = Vec4(_minParticleSize[0], _minParticleSize[1], _minParticleSize[2], _minParticleSize[3]);
+		_module._SpawnMaxScale = Vec4(_maxParticleSize[0], _maxParticleSize[1], _maxParticleSize[2], _maxParticleSize[3]);
+
+		map<wstring, Ptr<Asset>> _sprites = AssetMgr::GetInst()->GetSprite();
+		map<wstring, Ptr<Asset>>::iterator iter = _sprites.begin();
+
+		bool _flag = false;
+		ImGui::Text("Sprite"); ImGui::SameLine(170.f);
+		if (ImGui::BeginCombo("##Sprite", m_CurSprite.c_str()))
+		{
+			for (;iter != _sprites.end();iter++)
+			{
+				string _label = string(iter->first.begin(), iter->first.end());
+				if (ImGui::Selectable(_label.c_str(), _flag))
+				{
+					Ptr<Sprite> _sprite = dynamic_cast<Sprite*>(iter->second.Get());
+					_particle->SetParticleSprite(_sprite);
+					m_CurSprite = _label;
+				}
+			}
+			ImGui::EndCombo();
+		}
+		ImGui::TreePop();
+	}
+
+	if (ImGui::TreeNode("Velocity"))
+	{
+		ImGui::Text("Min Speed"); ImGui::SameLine(150.f); ImGui::DragFloat("##Min Speed", &_module._MinSpeed);
+		ImGui::Text("Max Speed"); ImGui::SameLine(150.f); ImGui::DragFloat("##Max Speed", &_module._MaxSpeed);
+
+		ImGui::TreePop();
+	}
+
+	// Custom Module
+	if (ImGui::TreeNode("Color Over Lifetime"))
+	{
+		ImGui::TreePop();
+	}
+
+	_particle->SetModule(_module);
 }

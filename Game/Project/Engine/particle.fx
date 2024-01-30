@@ -41,7 +41,18 @@ float4 PS_Particle(VS_OUT _in) : SV_Target
         discard;
     }
     
-    return g_ParticleBuffer[(uint) _in.InstID]._Color;
+    float4 vOutColor = (float4)0.f;
+    
+    if (gMatrial.spriteCheck0)
+    {
+        vOutColor = ST0.Sample(samplerType2, _in.vUV) * g_ParticleBuffer[(uint) _in.InstID]._Color;
+    }
+    else
+    {
+        vOutColor = g_ParticleBuffer[(uint) _in.InstID]._Color;
+    }
+    
+    return vOutColor;
 }
 
 

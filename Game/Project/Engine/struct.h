@@ -186,6 +186,7 @@ struct tTilePaletteInfo
 // Particle System
 struct tParticle
 {
+	Vec4	_LocalPos;
 	Vec4	_WorldPos;		// 위치
 	Vec4	_WorldScale;	// 크기
 	Vec4	_WorldRotation;	// 회전값
@@ -214,6 +215,11 @@ struct tParticleModule
 	Vec4	_SpawnBoxScale;
 	Vec2	padding;
 
+	int		_AddVelocityType;
+	float	_MinSpeed;
+	float	_MaxSpeed;
+	float	_FixedAngle;
+	Vec4	_FixedDirection;
 
 	int		_arrModuleCheck[(UINT)PARTICLE_MODULE::END];
 };

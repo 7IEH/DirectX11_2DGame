@@ -2,8 +2,8 @@
 #include "EHParticleUpdate.h"
 
 ParticleUpdate::ParticleUpdate()
-	:ComputeShader(1024,1,1)
-	,m_ParticleBuffer(nullptr)
+	:ComputeShader(1024, 1, 1)
+	, m_ParticleBuffer(nullptr)
 {
 	Create(L"\\shader\\particle_update.fx", "CS_ParticleUpdate");
 }
@@ -19,6 +19,8 @@ HRESULT ParticleUpdate::UpdateData()
 		return E_FAIL;
 
 	m_Const.iArr[0] = m_ParticleBuffer->GetElementCount();
+	m_Const.vLightMat.Ambient = Vec4(m_ParticleWorldPos.x, m_ParticleWorldPos.y, m_ParticleWorldPos.z, 0.f);
+
 	m_ParticleBuffer->UpdateData_CS_UAV(0);
 	m_SpawnCountBuffer->UpdateData_CS_UAV(1);
 	m_ParticleModuleBuffer->UpdateData_CS_SRV(20);

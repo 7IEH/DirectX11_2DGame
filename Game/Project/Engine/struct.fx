@@ -139,6 +139,7 @@ struct tTileInfo
 
 struct tParticle
 {
+    float4 _LocalPos;
     float4 _WorldPos;
     float4 _WorldScale;
     float4 _WorldRotation;
@@ -167,6 +168,12 @@ struct tParticleModule
     float Radius;
     float4 _spawnBoxScale;
     float2 _padding;
+    
+    int _AddVelocityType;
+    float _MinSpeed;
+    float _MaxSpeed;
+    float _FixedAngle;
+    float4 _FixedDirection;
     
     int _arrModuleCheck[4];
 };

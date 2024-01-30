@@ -16,25 +16,15 @@
 ParticleSystem::ParticleSystem()
 	:Renderer(RENDERER_TYPE::PARTICLESYSTEM)
 	, m_ParticleBuffer(nullptr)
-	, m_MaxParticleCount(100)
+	, m_MaxParticleCount(2000)
 {
 	SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"DefaultRectMesh"));
 	SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"ParticleMat"));
 
 	Vec2 vResol = Device::GetInst()->GetResolution();
 
-	tParticle arrParticle[100] = {};
-
-	for (UINT i = 0;i < m_MaxParticleCount;i++)
-	{
-		arrParticle[i]._WorldPos = Vec4((vResol.x / -2.f) + (i + 1) * vResol.x / (m_MaxParticleCount + 1), 0.f, 200.f, 1.f);
-		arrParticle[i]._WorldScale = Vec4(50.f, 50.f, 1.f, 1.f);
-		arrParticle[i]._Active = 0;
-		arrParticle[i]._Color = Vec4(1.f, 1.f, 0.f, 1.f);
-	}
-
 	m_ParticleBuffer = new StructuredBuffer;
-	m_ParticleBuffer->Create(sizeof(tParticle), m_MaxParticleCount, TRUE, STRUCTURED_TYPE::READ_WRITE, arrParticle);
+	m_ParticleBuffer->Create(sizeof(tParticle), m_MaxParticleCount, TRUE, STRUCTURED_TYPE::READ_WRITE);
 
 	// 파티클 모듈 정보를 저장하는 구조화버
 
@@ -43,19 +33,27 @@ ParticleSystem::ParticleSystem()
 	m_SpawnCountBuffer = new StructuredBuffer;
 	m_SpawnCountBuffer->Create(sizeof(tSpawnCount), 1, true, STRUCTURED_TYPE::READ_WRITE);
 
-
 	// 초기 모듈 셋팅
 	m_Module._arrModuleCheck[(UINT)PARTICLE_MODULE::SPAWN] = 1;
 
 	m_Module._SpaceType = 1;
 	m_Module._SpawnColor = Vec4(1.f, 0.f, 0.f, 1.f);
-	m_Module._SpawnMinScale = Vec4(20.f, 20.f, 1.f, 1.f);
-	m_Module._SpawnMaxScale = Vec4(20.f, 20.f, 1.f, 1.f);
-	m_Module._MinLife = 5.f;
-	m_Module._MaxLife = 5.f;
-	m_Module._SpawnShape = 0;
-	m_Module._SpawnRate = 1;
-	m_Module._Radius = 200.f;
+	m_Module._SpawnMinScale = Vec4(50.f, 50.f, 1.f, 1.f);
+	m_Module._SpawnMaxScale = Vec4(200.f, 200.f, 1.f, 1.f);
+	m_Module._MinLife = 0.4f;
+	m_Module._MaxLife = 1.f;
+	m_Module._SpawnShape = 1;
+	m_Module._Radius = 600.f;
+	m_Module._SpawnBoxScale = Vec4(900.f, 900.f, 0.f, 0.f);
+	m_Module._SpawnRate = 50;
+
+	// Add Velocity Module
+	m_Module._arrModuleCheck[(UINT)PARTICLE_MODULE::ADD_VELOCITY] = 1;
+	m_Module._AddVelocityType = 0;
+	m_Module._MinSpeed = 100;
+	m_Module._MaxSpeed = 200;
+	m_Module._FixedDirection;
+	m_Module._FixedAngle;
 
 	m_ParticleModuleBuffer = new StructuredBuffer;
 	m_ParticleModuleBuffer->Create(sizeof(tParticleModule), 1, TRUE, STRUCTURED_TYPE::READ_ONLY);
@@ -84,9 +82,8 @@ void ParticleSystem::LateUpdate()
 	{
 		float fSpawnCount = m_Time / (1.f / m_Module._SpawnRate);
 
-
 		m_Time -= (1.f / m_Module._SpawnRate) * floorf(fSpawnCount);
-		tSpawnCount count = tSpawnCount{ int(fSpawnCount),};
+		tSpawnCount count = tSpawnCount{ int(fSpawnCount), };
 		m_SpawnCountBuffer->SetData(&count);
 	}
 	else
@@ -97,19 +94,20 @@ void ParticleSystem::LateUpdate()
 
 	// 중복 바인딩?
 	m_ParticleModuleBuffer->SetData(&m_Module);
-	//m_ParticleModuleBuffer->UpdateData_CS_SRV(20);
 
 	m_CSParticleUpdate->SetParticleBuffer(m_ParticleBuffer);
 	m_CSParticleUpdate->SetParticleModuleBuffer(m_ParticleModuleBuffer);
 	m_CSParticleUpdate->SetParticleSpawnCount(m_SpawnCountBuffer);
 
 	m_CSParticleUpdate->Execute();
+	m_CSParticleUpdate->SetParticleWorldPos(Vec3(GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativePosition()));
 
-	tParticle arrParticle[100] = {};
+	// Test
+	/*tParticle arrParticle[100] = {};
 	m_ParticleBuffer->GetData(arrParticle);
 
 	tParticleModule _module = {};
-	m_ParticleModuleBuffer->GetData(&_module);
+	m_ParticleModuleBuffer->GetData(&_module);*/
 }
 
 void ParticleSystem::Render()
@@ -123,12 +121,20 @@ void ParticleSystem::Render()
 	// ParticleBuffer 바인딩
 	m_ParticleBuffer->UpdateData(20);
 
+	// NoiseTexture Binding
+	if (m_NoiseSprite != nullptr)
+	{
+		m_NoiseSprite->UpdateData(14);
+		m_NoiseSprite->UpdateData_CS_SRV(14);
+	}
+
 	// GlobalData ComputeShaderBinding
 	Device::GetInst()->GetConstantBuffer(CONSTANT_TYPE::GLOBAL)->UpdateData_CS();
 
 	// 파티클 개별 랜더링 -> 인스턴싱
 	// 이것도 뭐임?
-	GetMaterial()->SetMaterialParam(INT_0, 0);
+	//GetMaterial()->SetMaterialParam(INT_0, 0);
+	GetMaterial()->SetTexParam(TEX_0, m_ParticleSprite);
 	GetMaterial()->UpdateData();
 	GetMesh()->Render_Instancing(m_MaxParticleCount);
 

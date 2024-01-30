@@ -98,7 +98,7 @@ void TestLevel::Awake()
 	GameObject* _paritcle = new GameObject;
 	_paritcle->SetName(L"Particle");
 	tr = _paritcle->AddComponent<Transform>();
-	_paritcle->AddComponent<ParticleSystem>();
+	ParticleSystem* _particleSys = _paritcle->AddComponent<ParticleSystem>();
 
 	tr->SetRelativePosition(Vec4(0.f, 0.f, 0.f, 0.f));
 
