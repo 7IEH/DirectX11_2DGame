@@ -16,6 +16,11 @@ private:
     string              m_CurSprite;
     string              m_CurNoise;
     string              m_CurShape;
+    
+    bool                m_Velocity;
+    bool                m_Scale;
+    bool                m_Noise;
+    bool                m_Color;
 
 public:
     virtual void Render_Update();

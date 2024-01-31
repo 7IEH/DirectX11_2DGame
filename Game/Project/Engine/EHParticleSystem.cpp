@@ -26,8 +26,6 @@ ParticleSystem::ParticleSystem()
 	m_ParticleBuffer = new StructuredBuffer;
 	m_ParticleBuffer->Create(sizeof(tParticle), m_MaxParticleCount, TRUE, STRUCTURED_TYPE::READ_WRITE);
 
-	// 파티클 모듈 정보를 저장하는 구조화버
-
 	m_CSParticleUpdate = (ParticleUpdate*)AssetMgr::GetInst()->FindAsset<ComputeShader>(L"ParticleUpdateShader").Get();
 
 	m_SpawnCountBuffer = new StructuredBuffer;
@@ -42,21 +40,44 @@ ParticleSystem::ParticleSystem()
 	m_Module._SpawnMaxScale = Vec4(200.f, 200.f, 1.f, 1.f);
 	m_Module._MinLife = 0.4f;
 	m_Module._MaxLife = 1.f;
+	m_Module._MinMass = 1.f;
+	m_Module._MaxMass = 1.f;
 	m_Module._SpawnShape = 1;
 	m_Module._Radius = 600.f;
 	m_Module._SpawnBoxScale = Vec4(900.f, 900.f, 0.f, 0.f);
 	m_Module._SpawnRate = 50;
 
 	// Add Velocity Module
-	m_Module._arrModuleCheck[(UINT)PARTICLE_MODULE::ADD_VELOCITY] = 1;
+	m_Module._arrModuleCheck[(UINT)PARTICLE_MODULE::ADD_VELOCITY] = 0;
 	m_Module._AddVelocityType = 0;
 	m_Module._MinSpeed = 100;
 	m_Module._MaxSpeed = 200;
 	m_Module._FixedDirection;
 	m_Module._FixedAngle;
 
+	// Scale
+	m_Module._arrModuleCheck[(UINT)PARTICLE_MODULE::SCALE] = 0;
+	m_Module._ScaleRatio = Vec4(0.1f, 0.1f, 0.1f, 0.f);
+
+	// Noise Force
+	m_Module._arrModuleCheck[(UINT)PARTICLE_MODULE::NOISE_FORCE] = 1;
+	m_Module.NoiseForceScale = 500.f;
+	m_Module.NoiseForceTerm = 0.3f;
+
+	// Calculate Forec
+	m_Module._arrModuleCheck[(UINT)PARTICLE_MODULE::CALCULATE_FORCE] = 1;
+
+	m_Module._arrModuleCheck[(UINT)PARTICLE_MODULE::COLOR_OVER_LIFETIME] = 1;
+	m_Module._ColorType = 1;
+
+	// 파티클 모듈 정보를 저장하는 구조화버
 	m_ParticleModuleBuffer = new StructuredBuffer;
-	m_ParticleModuleBuffer->Create(sizeof(tParticleModule), 1, TRUE, STRUCTURED_TYPE::READ_ONLY);
+	UINT ModuleAddSize = 0;
+	if (sizeof(tParticleModule) % 16 != 0)
+	{
+		ModuleAddSize = 16 - (sizeof(tParticleModule) % 16);
+	}
+	m_ParticleModuleBuffer->Create(sizeof(tParticleModule) + ModuleAddSize, 1, TRUE, STRUCTURED_TYPE::READ_ONLY);
 }
 
 ParticleSystem::~ParticleSystem()
@@ -103,10 +124,10 @@ void ParticleSystem::LateUpdate()
 	m_CSParticleUpdate->SetParticleWorldPos(Vec3(GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativePosition()));
 
 	// Test
-	/*tParticle arrParticle[100] = {};
-	m_ParticleBuffer->GetData(arrParticle);
+	/*tParticle arrParticle[2000] = {};
+	m_ParticleBuffer->GetData(arrParticle);*/
 
-	tParticleModule _module = {};
+	/*tParticleModule _module = {};
 	m_ParticleModuleBuffer->GetData(&_module);*/
 }
 

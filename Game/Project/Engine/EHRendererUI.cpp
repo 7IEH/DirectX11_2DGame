@@ -15,8 +15,8 @@ RendererUI::RendererUI()
 	, m_Collider{}
 	, m_CurTile{}
 	, m_prevTile{}
-
 {
+	m_Noise = FALSE;
 }
 
 RendererUI::~RendererUI()
@@ -200,8 +200,8 @@ void RendererUI::Particle_Update()
 		ImGui::Text("Duration");		 ImGui::SameLine(150.f); ImGui::DragFloat("##Duration", &_duration);
 		ImGui::Text("Looping");			 ImGui::SameLine(150.f); ImGui::Checkbox("##Looping", &_looping);
 		ImGui::Text("Start Delay");		 ImGui::SameLine(150.f); ImGui::DragFloat("##Start Delay", &_startDelay);
-		ImGui::Text("Min LifeTime");	 ImGui::SameLine(150.f); ImGui::DragFloat("##Start LifeTime", &_module._MinLife);
-		ImGui::Text("Max LifeTime");	 ImGui::SameLine(150.f); ImGui::DragFloat("##Start LifeTime", &_module._MaxLife);
+		ImGui::Text("Min LifeTime");	 ImGui::SameLine(150.f); ImGui::DragFloat("##Min LifeTime", &_module._MinLife);
+		ImGui::Text("Max LifeTime");	 ImGui::SameLine(150.f); ImGui::DragFloat("##Max LifeTime", &_module._MaxLife);
 		ImGui::Text("Start Size");		 ImGui::SameLine(150.f); ImGui::DragFloat("##Start Size", &_startSize);
 		ImGui::Text("Start Rotation");	 ImGui::SameLine(150.f); ImGui::DragFloat("##Start Rotation", &_startRotation);
 		ImGui::Text("Start Color");		 ImGui::SameLine(150.f); ImGui::ColorEdit3("##StartColor", _StartColor);
@@ -227,7 +227,7 @@ void RendererUI::Particle_Update()
 			{
 				if (ImGui::Selectable(_space[i].c_str(), &_flag))
 				{
-					_module._SpaceType = i;
+					_module._SpaceType = 0;
 				}
 			}
 			ImGui::EndCombo();
@@ -292,7 +292,6 @@ void RendererUI::Particle_Update()
 		_module._SpawnColor = Vec4(_StartColor[0], _StartColor[1], _StartColor[2], _module._SpawnColor.w);
 		ImGui::TreePop();
 	}
-
 	if (ImGui::TreeNode("Renderer"))
 	{
 		float _minParticleSize[4] = { _module._SpawnMinScale.x,_module._SpawnMinScale.y ,_module._SpawnMinScale.z ,_module._SpawnMinScale.w };
@@ -326,19 +325,46 @@ void RendererUI::Particle_Update()
 		ImGui::TreePop();
 	}
 
+	// Custom Module
+	ImGui::Checkbox("##ScaleCheck", &m_Scale);ImGui::SameLine();
+	if (ImGui::TreeNode("Scale Over LifeTime"))
+	{
+		float _ratio[4] = { _module._ScaleRatio.x,_module._ScaleRatio.y ,_module._ScaleRatio.z ,_module._ScaleRatio.w };
+		ImGui::Text("ScaleRatio"); ImGui::SameLine(150.f); ImGui::DragFloat4("##ScaleRatio", _ratio, 0.3f, 0.f, 1.f);
+		_module._ScaleRatio = { _ratio[0],_ratio[1],_ratio[2],_ratio[3] };
+		ImGui::TreePop();
+	}
+
+	ImGui::Checkbox("##VelocityCheck", &m_Velocity);ImGui::SameLine();
 	if (ImGui::TreeNode("Velocity"))
 	{
 		ImGui::Text("Min Speed"); ImGui::SameLine(150.f); ImGui::DragFloat("##Min Speed", &_module._MinSpeed);
 		ImGui::Text("Max Speed"); ImGui::SameLine(150.f); ImGui::DragFloat("##Max Speed", &_module._MaxSpeed);
+		ImGui::Text("Velocity Type"); ImGui::SameLine(150.f); ImGui::InputInt("##VelocityType", &_module._AddVelocityType);
 
 		ImGui::TreePop();
 	}
 
-	// Custom Module
+	ImGui::Checkbox("##NoiseCheck", &m_Noise);ImGui::SameLine();
+	if (ImGui::TreeNode("Noise Velocity"))
+	{
+		ImGui::Text("Noise Scale");ImGui::SameLine(170.f);ImGui::DragFloat("##NoiseScale",&_module.NoiseForceScale);
+		ImGui::Text("Noise Term");ImGui::SameLine(170.f);ImGui::DragFloat("##NoiseTerm",&_module.NoiseForceTerm);
+		ImGui::TreePop();
+	}
+
+	ImGui::Checkbox("##ColorCheck", &m_Color);ImGui::SameLine();
 	if (ImGui::TreeNode("Color Over Lifetime"))
 	{
+		ImGui::Text("Color Type");ImGui::SameLine();ImGui::InputInt("##ColorType",&_module._ColorType);
 		ImGui::TreePop();
 	}
+
+	_module._arrModuleCheck[(UINT)PARTICLE_MODULE::ADD_VELOCITY] = m_Velocity;
+	_module._arrModuleCheck[(UINT)PARTICLE_MODULE::SCALE] = m_Scale;
+	_module._arrModuleCheck[(UINT)PARTICLE_MODULE::NOISE_FORCE] = m_Noise;
+	_module._arrModuleCheck[(UINT)PARTICLE_MODULE::CALCULATE_FORCE] = m_Noise;
+	_module._arrModuleCheck[(UINT)PARTICLE_MODULE::COLOR_OVER_LIFETIME] = m_Color;
 
 	_particle->SetModule(_module);
 }

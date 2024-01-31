@@ -141,11 +141,16 @@ struct tParticle
 {
     float4 _LocalPos;
     float4 _WorldPos;
+    float4 _WorldInitScale;
     float4 _WorldScale;
     float4 _WorldRotation;
-    float4 _Velocity;
+    float3 _Velocity;
     float4 _Color;
+    float4 _Force;
+    float3 _NoiseForce;
+    float _NoiseForceTime;
     
+    float _NomarlizedAge;
     float _Mass;
     float _Age;
     float _Life;
@@ -161,13 +166,19 @@ struct tParticleModule
 
     float MinLife; // 최소 수명
     float MaxLife; // 최대 수명
+    float MinMass;
+    float MaxMass;
     int SpawnRate; // 초당 생성 개수
     int SpaceType; // 좌표계(0 : LocalSpace, 1 : WorldSpace)
     
     int spawnShape;
     float Radius;
     float4 _spawnBoxScale;
-    float2 _padding;
+    
+    float4 _vScaleRatio;
+    
+    float _noiseForceScale;
+    float NoiseForceTerm;
     
     int _AddVelocityType;
     float _MinSpeed;
@@ -175,7 +186,9 @@ struct tParticleModule
     float _FixedAngle;
     float4 _FixedDirection;
     
-    int _arrModuleCheck[4];
+    int _ColorType;
+    
+    int _arrModuleCheck[7];
 };
 
 struct tSpawnCount

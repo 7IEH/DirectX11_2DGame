@@ -188,11 +188,16 @@ struct tParticle
 {
 	Vec4	_LocalPos;
 	Vec4	_WorldPos;		// 위치
+	Vec4	_InitScale;
 	Vec4	_WorldScale;	// 크기
 	Vec4	_WorldRotation;	// 회전값
-	Vec4	_Velocity;		// 속도
+	Vec3	_Velocity;		// 속도
 	Vec4	_Color;			// 색상
+	Vec4	_Force;
+	Vec3	vNoiseForce;	// NoiseForce 모듈로 인한 랜덤 힘
+	float	NoiseForceTime;
 
+	float	_normalizeAge;
 	float	_Mass;			// 질량
 	float	_Age;			// 현재 나이
 	float	_Life;			// 수명
@@ -208,18 +213,28 @@ struct tParticleModule
 
 	float	_MinLife;		// 최소 수명
 	float	_MaxLife;		// 최대 수명
+	float	_MinMass;
+	float	_MaxMass;
 	int		_SpawnRate;		// 초당 생성 개수
 	int		_SpaceType;		// 좌표계(0 : LocalSpace, 1 : WorldSpace)
 	int		_SpawnShape;
 	float	_Radius;
 	Vec4	_SpawnBoxScale;
-	Vec2	padding;
+
+	// Scale
+	Vec4	_ScaleRatio;
+
+	// Noise Force
+	float	NoiseForceScale;
+	float	NoiseForceTerm;
 
 	int		_AddVelocityType;
 	float	_MinSpeed;
 	float	_MaxSpeed;
 	float	_FixedAngle;
 	Vec4	_FixedDirection;
+
+	int		_ColorType;
 
 	int		_arrModuleCheck[(UINT)PARTICLE_MODULE::END];
 };

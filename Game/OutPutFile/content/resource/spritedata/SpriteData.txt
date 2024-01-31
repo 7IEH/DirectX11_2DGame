@@ -32,3 +32,7 @@ AlphaCircle
 \\resource\\particle\\AlphaCircle.png
 Snow50px
 \\resource\\particle\\Snow50px.png
+Noise5
+\\resource\\Noise\\Noise5.jpg
+Noise6
+\\resource\\Noise\\Noise6.jpg
