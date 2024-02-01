@@ -76,6 +76,15 @@ void AssetMgr::CreateDefaultMesh()
 	UINT idx[6] = {};
 
 	/**********************
+	| Bilbording Mesh
+	**********************/
+	vtx vPoint;
+	UINT _idx = 0;
+	Mesh* _OnePointMesh = new Mesh;
+	_OnePointMesh->Create(&vPoint, 1, &_idx, 1);
+	AddAsset(_OnePointMesh, L"PointMesh");
+
+	/**********************
 	| Default Rect Mesh
 	**********************/
 	Mesh* _Rectmesh = new Mesh;
@@ -188,7 +197,7 @@ void AssetMgr::CreateDefaultShader()
 	string _vsEntry = "VS_Std2D";
 	string _psEntry = "PS_Std2D";
 
-	_defaultShader->Create(_path, _vsEntry, _psEntry);
+	_defaultShader->Default_Create(_path, _vsEntry, _psEntry);
 
 	_defaultShader->SetCullType(CULL_TYPE::NONE);
 	_defaultShader->SetDSType(DS_TYPE::LESS);
@@ -205,7 +214,7 @@ void AssetMgr::CreateDefaultShader()
 	_vsEntry = "VS_Std2D";
 	_psEntry = "PS_Std2D";
 
-	_effectShader->Create(_path, _vsEntry, _psEntry);
+	_effectShader->Default_Create(_path, _vsEntry, _psEntry);
 
 	_effectShader->SetCullType(CULL_TYPE::NONE);
 	_effectShader->SetDSType(DS_TYPE::LESS);
@@ -227,7 +236,7 @@ void AssetMgr::CreateDefaultShader()
 	_vsEntry = "VS_GrayFilter";
 	_psEntry = "PS_GrayFilter";
 
-	_GrayFilter->Create(_path, _vsEntry, _psEntry);
+	_GrayFilter->Default_Create(_path, _vsEntry, _psEntry);
 
 	_GrayFilter->SetCullType(CULL_TYPE::BACK);
 	_GrayFilter->SetDSType(DS_TYPE::NO_TEST_NO_WRITE);
@@ -248,7 +257,7 @@ void AssetMgr::CreateDefaultShader()
 	_vsEntry = "VS_DistortionFilter";
 	_psEntry = "PS_DistortionFilter";
 
-	DistortionFilter->Create(_path, _vsEntry, _psEntry);
+	DistortionFilter->Default_Create(_path, _vsEntry, _psEntry);
 
 	DistortionFilter->SetCullType(CULL_TYPE::BACK);
 	DistortionFilter->SetDSType(DS_TYPE::NO_TEST_NO_WRITE);
@@ -270,7 +279,7 @@ void AssetMgr::CreateDefaultShader()
 	_vsEntry = "VS_OutLineFilter";
 	_psEntry = "PS_OutLineFilter";
 
-	OutlineFilter->Create(_path, _vsEntry, _psEntry);
+	OutlineFilter->Default_Create(_path, _vsEntry, _psEntry);
 
 	OutlineFilter->SetCullType(CULL_TYPE::BACK);
 	OutlineFilter->SetDSType(DS_TYPE::NO_TEST_NO_WRITE);
@@ -287,7 +296,7 @@ void AssetMgr::CreateDefaultShader()
 	_vsEntry = "VS_DebugShader";
 	_psEntry = "PS_DebugShader";
 
-	_debugShader->Create(_path, _vsEntry, _psEntry);
+	_debugShader->Default_Create(_path, _vsEntry, _psEntry);
 	_debugShader->SetBlendType(BLEND_TYPE::DEFAULT);
 	_debugShader->SetCullType(CULL_TYPE::NONE);
 	_debugShader->SetDSType(DS_TYPE::NO_TEST_NO_WRITE);
@@ -303,7 +312,7 @@ void AssetMgr::CreateDefaultShader()
 	_vsEntry = "VS_TileMap";
 	_psEntry = "PS_TileMap";
 
-	tileShader->Create(_path, _vsEntry, _psEntry);
+	tileShader->Default_Create(_path, _vsEntry, _psEntry);
 	tileShader->SetCullType(CULL_TYPE::NONE);
 	tileShader->SetDSType(DS_TYPE::LESS);
 	tileShader->SetBlendType(BLEND_TYPE::DEFAULT);
@@ -316,9 +325,15 @@ void AssetMgr::CreateDefaultShader()
 	GraphicShader* particleShader = new GraphicShader;
 	_path = L"\\shader\\particle.fx";
 	_vsEntry = "VS_Particle";
+	string _GsEntry = "GS_Particle";
+	string _HuEntry = "";
+	string _DmEntry = "";
 	_psEntry = "PS_Particle";
 
-	particleShader->Create(_path, _vsEntry, _psEntry);
+
+	particleShader->Default_Create(_path, _vsEntry, _psEntry);
+	particleShader->Custom_Create(_path, _GsEntry, _HuEntry, _DmEntry);
+	particleShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);
 	particleShader->SetCullType(CULL_TYPE::NONE);
 	particleShader->SetDSType(DS_TYPE::N0_WRITE);
 	particleShader->SetBlendType(BLEND_TYPE::ALPHABLENDING);

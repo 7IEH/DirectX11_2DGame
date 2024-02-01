@@ -22,7 +22,7 @@ GraphicShader::~GraphicShader()
 {
 }
 
-void GraphicShader::Create(wstring& _shaderPath, string& _vsEntry, string& _psEntry)
+void GraphicShader::Default_Create(wstring& _shaderPath, string& _vsEntry, string& _psEntry)
 {
 	// CreateBlob
 	CreateBlobFile(SHADER_TYPE::VERTEX, _shaderPath, _vsEntry);
@@ -34,6 +34,25 @@ void GraphicShader::Create(wstring& _shaderPath, string& _vsEntry, string& _psEn
 
 	// CreateLayOut
 	CreateLayOut();
+}
+
+void GraphicShader::Custom_Create(wstring& _shaderPath,string& _gsEntry, string& _huEntry, string& _dmEntry)
+{
+	if (_gsEntry != "")
+	{
+		CreateBlobFile(SHADER_TYPE::GEOMETRY,_shaderPath,_gsEntry);
+		CreateShader(SHADER_TYPE::GEOMETRY);
+	}
+	if (_huEntry != "")
+	{
+		CreateBlobFile(SHADER_TYPE::HULL, _shaderPath, _huEntry);
+		CreateShader(SHADER_TYPE::HULL);
+	}
+	if (_dmEntry != "")
+	{
+		CreateBlobFile(SHADER_TYPE::DOMAlN, _shaderPath, _dmEntry);
+		CreateShader(SHADER_TYPE::DOMAlN);
+	}
 }
 
 HRESULT GraphicShader::UpdateData()
@@ -53,6 +72,15 @@ HRESULT GraphicShader::UpdateData()
 
 	// Pixel Shader Stage
 	SetShader(SHADER_TYPE::PIXEL);
+
+	// DOMAIN Shader Stage
+	SetShader(SHADER_TYPE::DOMAlN);
+
+	// HULL Shader Stage
+	SetShader(SHADER_TYPE::HULL);
+
+	// GeoMetry Shader Stage
+	SetShader(SHADER_TYPE::GEOMETRY);
 
 	// Output-Merger Stage
 	CONTEXT->OMSetDepthStencilState(Device::GetInst()->GetDSState(m_DSType).Get(),0);
@@ -94,7 +122,10 @@ void GraphicShader::CreateBlobFile(SHADER_TYPE _type, wstring& _path, string& _e
 	break;
 	case SHADER_TYPE::GEOMETRY:
 	{
-		//D3DCompileFromFile();
+		D3DCompileFromFile(_finalPath.c_str()
+			, nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
+			, _entry.c_str(), "gs_5_0", D3DCOMPILE_DEBUG, 0
+			, m_GBlob.GetAddressOf(), m_ErrBlob.GetAddressOf());
 	}
 	break;
 	case SHADER_TYPE::END:
@@ -123,10 +154,16 @@ void GraphicShader::CreateShader(SHADER_TYPE _type)
 			m_PBlob->GetBufferSize(), nullptr, m_PS.GetAddressOf());
 		break;
 	case SHADER_TYPE::HULL:
+		DEVICE->CreateHullShader(m_HBlob->GetBufferPointer(),
+			m_HBlob->GetBufferSize(), nullptr, m_HS.GetAddressOf());
 		break;
 	case SHADER_TYPE::DOMAlN:
+		DEVICE->CreateDomainShader(m_DBlob->GetBufferPointer(),
+			m_DBlob->GetBufferSize(), nullptr, m_DS.GetAddressOf());
 		break;
 	case SHADER_TYPE::GEOMETRY:
+		DEVICE->CreateGeometryShader(m_GBlob->GetBufferPointer(),
+			m_GBlob->GetBufferSize(), nullptr, m_GS.GetAddressOf());
 		break;
 	case SHADER_TYPE::END:
 		break;
@@ -181,10 +218,19 @@ void GraphicShader::SetShader(SHADER_TYPE _type)
 	}
 	break;
 	case SHADER_TYPE::HULL:
+	{
+		CONTEXT->HSSetShader(m_HS.Get(), 0, 0);
+	}
 		break;
 	case SHADER_TYPE::DOMAlN:
+	{
+		CONTEXT->DSSetShader(m_DS.Get(), 0, 0);
+	}
 		break;
 	case SHADER_TYPE::GEOMETRY:
+	{
+		CONTEXT->GSSetShader(m_GS.Get(), 0, 0);
+	}
 		break;
 	case SHADER_TYPE::END:
 		break;

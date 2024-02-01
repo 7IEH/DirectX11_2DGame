@@ -18,7 +18,7 @@ ParticleSystem::ParticleSystem()
 	, m_ParticleBuffer(nullptr)
 	, m_MaxParticleCount(2000)
 {
-	SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"DefaultRectMesh"));
+	SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"PointMesh"));
 	SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"ParticleMat"));
 
 	Vec2 vResol = Device::GetInst()->GetResolution();
