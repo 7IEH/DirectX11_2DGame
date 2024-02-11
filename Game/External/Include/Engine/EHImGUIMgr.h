@@ -22,6 +22,7 @@ private:
 	bool		m_bSpriteLoader;
 	bool		m_bunAnimationCreateUI;
 	bool		m_bTilePalette;
+	bool		m_bCreateSceneUI;
 
 	//
 	UI*			m_Sprite;
@@ -31,6 +32,7 @@ private:
 	UI*			m_SpriteLoader;
 	UI*			m_unAnimationCreateUI;
 	UI*			m_TilePalette;
+	UI*			m_CreateSceneUI;
 
 	// Console Message 후에 선생님이 한 해당 페이지 번호 가져온거 찾아보기
 
@@ -53,6 +55,7 @@ public:
 	void SetSpriteLoader(bool _flag) { m_bSpriteLoader = _flag; }
 	void SetunAnimationCreateUI(bool _flag) { m_bunAnimationCreateUI = _flag; }
 	void SetTilePalette(bool _flag) { m_bTilePalette = _flag; }
+	void SetCreateSceneUI(bool _flag) { m_bCreateSceneUI = _flag; }
 
 public:
 	HRESULT Awake();

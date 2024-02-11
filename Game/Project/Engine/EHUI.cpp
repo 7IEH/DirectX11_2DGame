@@ -12,6 +12,7 @@ UI::UI(const string& _strName, const string& _strID)
 
 UI::~UI()
 {
+	ReleaseVector(m_vecChildUI);
 }
 
 void UI::Update()

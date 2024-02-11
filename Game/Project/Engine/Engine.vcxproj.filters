@@ -295,6 +295,15 @@
     <Filter Include="08. Asset\MeshData\Shader\ComputeShader\Particle">
       <UniqueIdentifier>{d28e7459-0476-46db-b7d6-b956676c5e81}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\ProjectView">
+      <UniqueIdentifier>{6818134c-45ef-4fe7-9f1c-d7d539b8d7f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\TreeUI">
+      <UniqueIdentifier>{513da414-2075-49b3-a43c-bd0fbf6d6c83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\ProjectView\SceneCreateUI">
+      <UniqueIdentifier>{8020458e-1366-47d1-919e-5dd073e18308}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -591,6 +600,15 @@
     <ClInclude Include="EHParticleUpdate.h">
       <Filter>08. Asset\MeshData\Shader\ComputeShader\Particle</Filter>
     </ClInclude>
+    <ClInclude Include="EHProjectView.h">
+      <Filter>04. Manager\ImGUIMgr\UI\ProjectView</Filter>
+    </ClInclude>
+    <ClInclude Include="EHTreeUI.h">
+      <Filter>04. Manager\ImGUIMgr\UI\TreeUI</Filter>
+    </ClInclude>
+    <ClInclude Include="EHSceneCreateUI.h">
+      <Filter>04. Manager\ImGUIMgr\UI\ProjectView\SceneCreateUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -865,6 +883,15 @@
     </ClCompile>
     <ClCompile Include="EHParticleUpdate.cpp">
       <Filter>08. Asset\MeshData\Shader\ComputeShader\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="EHProjectView.cpp">
+      <Filter>04. Manager\ImGUIMgr\UI\ProjectView</Filter>
+    </ClCompile>
+    <ClCompile Include="EHTreeUI.cpp">
+      <Filter>04. Manager\ImGUIMgr\UI\TreeUI</Filter>
+    </ClCompile>
+    <ClCompile Include="EHSceneCreateUI.cpp">
+      <Filter>04. Manager\ImGUIMgr\UI\ProjectView\SceneCreateUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

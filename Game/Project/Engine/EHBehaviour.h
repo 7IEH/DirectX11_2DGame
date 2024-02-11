@@ -5,7 +5,6 @@
 ********************/
 #include "EHComponent.h"
 #include "EHCamera.h"
-#include "EHCamera.h"
 #include "EHLIght2D.h"
 #include "EHRenderer.h"
 #include "EHMeshRenderer.h"

@@ -13,6 +13,7 @@
 
 #include "EHBehaviour.h"
 #include "EHCollisionMgr.h"
+#include "EHPathMgr.h"
 
 #include "EHTestComputeShader.h"
 
@@ -26,17 +27,6 @@ TestLevel::~TestLevel()
 
 void TestLevel::Awake()
 {
-	// ComputeShader 테스트
-	// 사용할 텍스쳐 생성
-	Ptr<Sprite> pTestTex = AssetMgr::GetInst()->CreateResoruceTexture(L"TestTex"
-		, 1024, 1024, DXGI_FORMAT_R8G8B8A8_UNORM
-		, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS);
-
-	Ptr<TestComputeShader> pCS = (TestComputeShader*)AssetMgr::GetInst()->FindAsset<ComputeShader>(L"SetColorShader").Get();
-	pCS->SetColor(Vec3(1.f, 0.f, 0.f));
-	pCS->SetTargetTexture(pTestTex);
-	pCS->Execute();
-
 #pragma region Essential Object
 	// Main Camera
 	GameObject* _MainCamera = new GameObject;
@@ -61,19 +51,6 @@ void TestLevel::Awake()
 	_light->AddComponent<LIght2D>();
 
 	Object::Instantiate(_light, (UINT)LAYER_TYPE::LIGHT2D);
-#pragma region BackGround
-	// Background
-	GameObject* _backGround = new GameObject;
-	tr = _backGround->AddComponent<Transform>();
-	tr->SetRelativeScale(Vec4(1600.f, 900.f, 1.f, 1.f));
-	tr->SetRelativePosition(Vec4(0.f, 0.f, 100.f, 1.f));
-	tr->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
-
-	MeshRenderer* _playerRenderer = _backGround->AddComponent<MeshRenderer>();
-	_playerRenderer->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"DefaultRectMesh"));
-	_playerRenderer->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"BackGroundMaterial"));
-	_playerRenderer->GetMaterial()->SetTexParam(TEX_0, pTestTex);
-	Object::Instantiate(_backGround, (UINT)LAYER_TYPE::BACKGROUND);
 #pragma endregion
 
 	GameObject* _tile = new GameObject;
@@ -103,6 +80,7 @@ void TestLevel::Awake()
 	tr->SetRelativePosition(Vec4(0.f, 0.f, 0.f, 0.f));
 
 	Object::Instantiate(_paritcle, int(LAYER_TYPE::PLAYER));
+
 	Level::Awake();
 }
 

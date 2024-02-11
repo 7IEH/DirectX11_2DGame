@@ -19,6 +19,9 @@ enum class TASK_TYPE
 
 	// Param1 : Parent Object, Param2 : Child Object
 	DISCONNECT_PARENT,
+
+	// Param1 : Level , Param2 : Path
+	LOAD_LEVEL,
 };
 
 // Key Type

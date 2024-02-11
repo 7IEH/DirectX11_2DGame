@@ -13,6 +13,5 @@ public:
 public:
     TestUI();
     virtual ~TestUI();
-
 };
 

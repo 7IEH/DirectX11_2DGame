@@ -99,3 +99,100 @@ void SceneManager::LoadScene(const wstring& _sceneName)
 	_task.Param_1 = (UINT_PTR)_loadLevel;
 	TaskMgr::GetInst()->AddTask(_task);
 }
+
+string EH::ConvertString(wstring& _wstr)
+{
+	return string(_wstr.begin(), _wstr.end());
+}
+
+wstring EH::ConvertWstring(string& _str)
+{
+	return wstring(_str.begin(), _str.end());
+}
+
+string EH::ConvertString(const std::filesystem::path::string_type _str)
+{
+	return string(_str.begin(), _str.end());
+}
+
+void EH::InputVector3(string _line, OUT Vec3& _output)
+{
+	int _prev = 0;
+	int _next = 0;
+	string _temp = "";
+
+	for (int j = 0;j < 3;j++)
+	{
+		_next = _line.find(" ", _prev + 1);
+		_temp = _line.substr(_prev, _next - _prev);
+		_prev = _next;
+		if (j == 0)
+		{
+			_output.x = stof(_temp);
+		}
+		else if (j == 1)
+		{
+			_output.y = stof(_temp);
+		}
+		else
+		{
+			_output.z = stof(_temp);
+		}
+	}
+}
+
+void EH::InputVector3(string _line, OUT Vec4& _output)
+{
+	int _prev = 0;
+	int _next = 0;
+	string _temp = "";
+
+	for (int j = 0;j < 3;j++)
+	{
+		_next = _line.find(" ", _prev + 1);
+		_temp = _line.substr(_prev, _next - _prev);
+		_prev = _next;
+		if (j == 0)
+		{
+			_output.x = stof(_temp);
+		}
+		else if (j == 1)
+		{
+			_output.y = stof(_temp);
+		}
+		else
+		{
+			_output.z = stof(_temp);
+		}
+	}
+}
+
+void EH::InputVector4(string _line, OUT Vec4& _output)
+{
+	int _prev = 0;
+	int _next = 0;
+	string _temp = "";
+
+	for (int j = 0;j < 4;j++)
+	{
+		_next = _line.find(" ", _prev + 1);
+		_temp = _line.substr(_prev, _next - _prev);
+		_prev = _next;
+		if (j == 0)
+		{
+			_output.x = stof(_temp);
+		}
+		else if (j == 1)
+		{
+			_output.y = stof(_temp);
+		}
+		else if(j==2)
+		{
+			_output.z = stof(_temp);
+		}
+		else
+		{
+			_output.w = stof(_temp);
+		}
+	}
+}

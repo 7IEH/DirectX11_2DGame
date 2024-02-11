@@ -123,6 +123,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -144,6 +145,7 @@ call Copy.bat</Command>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -210,9 +212,11 @@ call Copy.bat</Command>
     <ClInclude Include="EHParticleUpdate.h" />
     <ClInclude Include="EHPathMgr.h" />
     <ClInclude Include="EHPlayerScript.h" />
+    <ClInclude Include="EHProjectView.h" />
     <ClInclude Include="EHRenderer.h" />
     <ClInclude Include="EHRenderMgr.h" />
     <ClInclude Include="EHRigidbodyUI.h" />
+    <ClInclude Include="EHSceneCreateUI.h" />
     <ClInclude Include="EHSceneView.h" />
     <ClInclude Include="EHScript.h" />
     <ClInclude Include="EHShader.h" />
@@ -233,6 +237,7 @@ call Copy.bat</Command>
     <ClInclude Include="EHTimeMgr.h" />
     <ClInclude Include="EHTransform.h" />
     <ClInclude Include="EHTransformUI.h" />
+    <ClInclude Include="EHTreeUI.h" />
     <ClInclude Include="EHUI.h" />
     <ClInclude Include="enum.h" />
     <ClInclude Include="Extern.h" />
@@ -308,9 +313,11 @@ call Copy.bat</Command>
     <ClCompile Include="EHParticleUpdate.cpp" />
     <ClCompile Include="EHPathMgr.cpp" />
     <ClCompile Include="EHPlayerScript.cpp" />
+    <ClCompile Include="EHProjectView.cpp" />
     <ClCompile Include="EHRenderer.cpp" />
     <ClCompile Include="EHRenderMgr.cpp" />
     <ClCompile Include="EHRigidbodyUI.cpp" />
+    <ClCompile Include="EHSceneCreateUI.cpp" />
     <ClCompile Include="EHSceneView.cpp" />
     <ClCompile Include="EHScript.cpp" />
     <ClCompile Include="EHShader.cpp" />
@@ -331,6 +338,7 @@ call Copy.bat</Command>
     <ClCompile Include="EHTimeMgr.cpp" />
     <ClCompile Include="EHTransform.cpp" />
     <ClCompile Include="EHTransformUI.cpp" />
+    <ClCompile Include="EHTreeUI.cpp" />
     <ClCompile Include="EHUI.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Extern.cpp" />

@@ -21,6 +21,7 @@ TilePalette::TilePalette()
 
 TilePalette::~TilePalette()
 {
+	m_TileInfo.clear();
 }
 
 /*********************************************

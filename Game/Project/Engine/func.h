@@ -23,6 +23,24 @@ namespace SceneManager
 	void LoadScene(const wstring& _sceneName);
 }
 
+namespace EH
+{
+	string ConvertString(wstring& _wstr);
+
+	wstring ConvertWstring(string& _str);
+
+	string ConvertString(const std::filesystem::path::string_type _str);
+
+	// 메모장에서 가져온 숫자 변환
+	void InputVector3(string _line, OUT Vec3& _output);
+
+	// 메모장에서 가져온 숫자 변환
+	void InputVector3(string _line, OUT Vec4& _output);
+
+	// 메모장에서 가져온 숫자 변환
+	void InputVector4(string _line, OUT Vec4& _output);
+}
+
 // 메모리 해제 ( 배열용 )
 template <typename T, int SIZE>
 void ReleaseArray(T* (&arr)[SIZE])

@@ -44,8 +44,8 @@ void GS_Particle(point VS_OUT _in[1], inout TriangleStream<GS_OUT> _OutStream)
 {
     GS_OUT output[4] = { (GS_OUT) 0.f, (GS_OUT) 0.f, (GS_OUT) 0.f, (GS_OUT) 0.f };
 
-    tParticle particle = g_ParticleBuffer[(int) _in[0].InstID];
     // GS 가 담당하는 파티클 정보를 가져온다.
+    tParticle particle = g_ParticleBuffer[(int) _in[0].InstID];
     
     if (0 == particle._Active)
     {

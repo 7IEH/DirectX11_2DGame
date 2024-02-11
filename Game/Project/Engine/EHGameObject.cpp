@@ -24,6 +24,7 @@ GameObject::~GameObject()
 {
 	delete m_Renderer;
 	m_Renderer = nullptr;
+	m_Component[(UINT)COMPONENT_TYPE::RENDERER] = nullptr;
 
 	ReleaseArray<Component, (int)COMPONENT_TYPE::END>(m_Component);
 	ReleaseVector(m_Childs);

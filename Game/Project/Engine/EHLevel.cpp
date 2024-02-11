@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "EHLevel.h"
 
+#include "EHAssetMgr.h"
 #include "EHGameObject.h"
 #include "EHLayer.h"
 
@@ -26,6 +27,158 @@ GameObject* Level::FindObjectByName(const wstring& _strName)
 
 void Level::FindObjectsByName(const wstring& _strName, vector<GameObject*>& _vecObj)
 {
+}
+
+void Level::Initial_Setting(string _path)
+{
+	std::ifstream _file(string(_path.begin(), _path.end()).data());
+
+	if (_file.is_open())
+	{
+		bool _temp = false;
+		string _line;
+		while (std::getline(_file, _line))
+		{
+			if (_line == "object")
+			{
+				GameObject* _obj = new GameObject;
+				while (1)
+				{
+					std::getline(_file, _line);
+
+					if (_line.find("NAME") != string::npos)
+					{
+						_line = _line.substr(_line.find(":") + 1);
+						_obj->SetName(wstring(_line.begin(), _line.end()));
+					}
+
+					if (_line.find("LAYER") != string::npos)
+					{
+						_line = _line.substr(_line.find(":") + 1);
+						LAYER_TYPE _type = LAYER_TYPE(std::stoi(_line));
+						AddObject(_obj, _type);
+					}
+
+					if (_line.find("TRANSFORM") != string::npos)
+					{
+						Vec4 _postion = (Vec4)0.f;
+						Vec4 _scale = (Vec4)1.f;
+						Vec3 _rotation = (Vec3)0.f;
+
+						for (int i = 0;i < 3;i++)
+						{
+							std::getline(_file, _line);
+							int _prev = 0;
+							int _next = 0;
+							string _temp = "";
+
+							if (i == 0)
+							{
+								EH::InputVector3(_line, _postion);
+							}
+							else if (i == 1)
+							{
+								EH::InputVector3(_line, _scale);
+							}
+							else
+							{
+								EH::InputVector3(_line, _rotation);
+							}
+						}
+
+						AddTrasnform(_obj, _postion, _scale, _rotation);
+					}
+
+					if (_line.find("LIGHT2D") != string::npos)
+					{
+						LIGHT_TYPE _type = LIGHT_TYPE::DIRECTIONAL;
+						Vec4 _color = Vec4(0.f);
+						Vec4 _ambient = Vec4(0.f);
+						float _angle = 0.f;
+
+						for (int i = 0;i < 4;i++)
+						{
+							std::getline(_file, _line);
+							if (i == 0)
+							{
+								_type = LIGHT_TYPE(stoi(_line));
+							}
+							else if (i == 1)
+							{
+								EH::InputVector4(_line, _color);
+							}
+							else if (i == 2)
+							{
+								EH::InputVector4(_line, _ambient);
+							}
+							else
+							{
+								_angle = stof(_line);
+							}
+						}
+
+						AddLight2D(_obj, _type, _color, _ambient, _angle);
+					}
+
+					if (_line.find("CAMERA") != string::npos)
+					{
+						PROJECTION_TYPE _type = PROJECTION_TYPE::PERSPECTIVE;
+						CAMERA_TYPE _camType = CAMERA_TYPE::MAIN_CAMERA;
+						UINT _visibleLayer = 0;
+
+						for (int i = 0;i < 3;i++)
+						{
+							std::getline(_file, _line);
+							if (i == 0)
+							{
+								if ("perspective" != _line)
+								{
+									_type = PROJECTION_TYPE::ORTHOGRAPHIC;
+								}
+							}
+							else if (i == 1)
+							{
+								_camType = CAMERA_TYPE(stoi(_line));
+							}
+							else
+							{
+								_visibleLayer = (UINT)stoi(_line);
+							}
+						}
+
+						AddCamera(_obj, _type, _camType, _visibleLayer);
+					}
+
+					if (_line.find("MESHRENDERER") != string::npos)
+					{
+						wstring _mesh = L"";;
+						wstring _material = L"";
+
+						for (int i = 0;i < 2;i++)
+						{
+							std::getline(_file, _line);
+							if (i == 0)
+							{
+								_mesh = EH::ConvertWstring(_line);
+							}
+							else
+							{
+								_material = EH::ConvertWstring(_line);
+							}
+						}
+						
+						AddMeshRenderer(_obj, _mesh, _material);
+					}
+
+					if (_line.find("endobject") != string::npos)
+					{
+						break;
+					}
+				}
+			}
+		}
+		_file.close();
+	}
 }
 
 void Level::Awake()
@@ -70,4 +223,46 @@ void Level::Clear()
 	}
 }
 
+void Level::AddTrasnform(GameObject* _obj, Vec4 _position, Vec4 _scale, Vec3 _rotation)
+{
+	Transform* _tr = _obj->AddComponent<Transform>();
+	_tr->SetRelativePosition(_position);
+	_tr->SetRelativeScale(_scale);
+	_tr->SetRelativeRotation(_rotation);
+}
 
+void Level::AddCamera(GameObject* _obj, PROJECTION_TYPE _proj, CAMERA_TYPE _camtype, UINT _visibleLayer)
+{
+	Camera* _cam = _obj->AddComponent<Camera>();
+	_cam->SetPorjectionType(_proj);
+	_cam->SetCameraType(_camtype);
+
+	for (UINT i = 0;i < (UINT)LAYER_TYPE::END;i++)
+	{
+		if (_visibleLayer & (1 << i))
+		{
+			_cam->LayerVisibleSet(LAYER_TYPE(i), TRUE);
+		}
+		else
+		{
+			_cam->LayerVisibleSet(LAYER_TYPE(i), FALSE);
+		}
+	}
+}
+
+void Level::AddLight2D(GameObject* _obj, LIGHT_TYPE _lighttype, Vec4 _color, Vec4 _ambient, float _angle)
+{
+	LIght2D* _light = _obj->AddComponent<LIght2D>();
+	_obj->AddComponent<Light2DScript>();
+	_light->SetLightType(_lighttype);
+	_light->SetColor(_color);
+	_light->SetAmbient(_ambient);
+	_light->SetAngle(_angle);
+}
+
+void Level::AddMeshRenderer(GameObject* _obj, wstring _mesh, wstring _material)
+{
+	MeshRenderer* _mr = _obj->AddComponent<MeshRenderer>();
+	_mr->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(_mesh));
+	_mr->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(_material));
+}

@@ -13,16 +13,19 @@ private:
 
 public:
 	template <typename T>
-	void AddLevel(wstring _levelName)
+	T* AddLevel(wstring _levelName)
 	{
 		T* _level = new T();
+		_level->SetName(_levelName);
 		map<wstring, Level*>::iterator iter = m_Levels.find(_levelName);
 		if (iter != m_Levels.end())
 		{
 			HandleError(MAIN_HWND, L"LevelMgr AddLevelFunc Duplication Error!", 2);
-			return;
+			return nullptr;
 		}
 		m_Levels.insert(make_pair(_levelName, _level));
+
+		return _level;
 	}
 
 	void SelectLevel(wstring _levelName)
@@ -62,4 +65,7 @@ public:
 	void Awake();
 	void Start();
 	void Update();
+
+private:
+	void Initial_Setting();
 };

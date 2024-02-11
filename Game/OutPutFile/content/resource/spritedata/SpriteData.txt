@@ -36,3 +36,5 @@ Noise5
 \\resource\\Noise\\Noise5.jpg
 Noise6
 \\resource\\Noise\\Noise6.jpg
+PlayerTestSprite
+\\resource\\NPC_Commander0.png

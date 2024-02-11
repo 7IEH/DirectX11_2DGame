@@ -162,8 +162,6 @@ HRESULT Device::CreateRTView()
 	m_SwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)_texture.GetAddressOf());
 
 	m_RTTexture = AssetMgr::GetInst()->CreateResoruceTexture(L"RenderTargetTexture", _texture);
-
-	//m_Device->CreateRenderTargetView(m_RTTexture.Get(), nullptr, m_RTView.GetAddressOf());
 	return S_OK;
 }
 

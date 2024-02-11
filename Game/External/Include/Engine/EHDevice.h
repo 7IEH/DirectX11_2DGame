@@ -17,10 +17,6 @@ private:
 	// RenderTarget Texture , RenderTarget View
 
 	Ptr<Sprite>								m_RTTexture;
-
-	//ComPtr<ID3D11Texture2D>					m_RTTexture;
-	//ComPtr<ID3D11RenderTargetView>			m_RTView;
-
 	Ptr<Sprite>								m_DSTexture;
 
 	ComPtr<ID3D11RasterizerState>			m_Rasterizer[(UINT)CULL_TYPE::END];

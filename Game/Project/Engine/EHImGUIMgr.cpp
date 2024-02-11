@@ -15,6 +15,9 @@
 #include "EHBehaviour.h"
 #include "EHEngineUI.h"
 
+#include "EHProjectView.h"
+#include "EHSceneCreateUI.h"
+
 ImGUIMgr::ImGUIMgr()
 	: m_Enabled(TRUE)
 	, m_DockSpace(TRUE)
@@ -27,6 +30,17 @@ ImGUIMgr::ImGUIMgr()
 
 ImGUIMgr::~ImGUIMgr()
 {
+	map<string, UI*>::iterator iter = m_mapUI.begin();
+	for (;iter != m_mapUI.end();iter++)
+	{
+		if (iter->second != nullptr)
+		{
+			delete iter->second;
+			iter->second = nullptr;
+		}
+	}
+	m_mapUI.clear();
+
 	ImGui_ImplDX11_Shutdown();
 	ImGui_ImplWin32_Shutdown();
 	ImGui::DestroyContext();
@@ -85,10 +99,7 @@ void ImGUIMgr::Render()
 	ShowDockSpace();
 
 	/*Frame();
-	if (m_Enabled)
-	{
-		ImGui::ShowDemoWindow(&m_Enabled);
-	}*/
+	ImGui::ShowDemoWindow();*/
 
 	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
@@ -162,6 +173,14 @@ void ImGUIMgr::CreateUI()
 	AddUI("TilePalette", pUI);
 
 	m_TilePalette = pUI;
+
+	// 13. ProjectView
+	pUI = new ProjectView;
+	AddUI("ProjectView", pUI);
+
+	pUI = new SceneCreateUI;
+	AddUI("SceneCreateUI", pUI);
+	m_CreateSceneUI = pUI;
 
 	// Inspector apply
 	dynamic_cast<Hierarchy*>(FindUI("Hierarchy"))->SetInspector(dynamic_cast<Inspector*>(FindUI("Inspector")));
@@ -270,6 +289,7 @@ void ImGUIMgr::ShowDockSpace()
 	m_SpriteLoader->Enabled(m_bSpriteLoader);
 	m_unAnimationCreateUI->Enabled(m_bunAnimationCreateUI);
 	m_TilePalette->Enabled(m_bTilePalette);
+	m_CreateSceneUI->Enabled(m_bCreateSceneUI);
 
 	for (const auto& pair : m_mapUI)
 	{

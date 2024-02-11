@@ -15,19 +15,21 @@ private:
 public:
 	void AddObject(GameObject* _obj, LAYER_TYPE _type, bool _bChildMove = true)
 	{
-		m_Layers[(UINT)_type]->AddObject(_obj,_bChildMove);
+		m_Layers[(UINT)_type]->AddObject(_obj, _bChildMove);
 		if (_obj->GetName() == L"")
 		{
 			wchar_t buf[32] = {};
 			swprintf_s(buf, L"GameObject%d", _obj->GetIdx());
 			_obj->SetName(buf);
-		}		
+		}
 	}
 
 	Layer* GetLayer(LAYER_TYPE _type) { return m_Layers[(UINT)_type]; }
 
 	GameObject* FindObjectByName(const wstring& _strName);
 	void FindObjectsByName(const wstring& _strName, vector<GameObject*>& _vecObj);
+
+	void Initial_Setting(string _path);
 
 public:
 	virtual void Awake();
@@ -38,6 +40,12 @@ public:
 
 private:
 	void Clear();
+
+private:
+	void AddTrasnform(GameObject* _obj, Vec4 _position, Vec4 _scale, Vec3 _rotation);
+	void AddCamera(GameObject* _obj, PROJECTION_TYPE _proj, CAMERA_TYPE _camtype, UINT _visibleLayer);
+	void AddLight2D(GameObject* _obj, LIGHT_TYPE _lighttype, Vec4 _color, Vec4 _ambient, float _angle);
+	void AddMeshRenderer(GameObject* _obj, wstring _mesh, wstring _material);
 
 public:
 	Level();
