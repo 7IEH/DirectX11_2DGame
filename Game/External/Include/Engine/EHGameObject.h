@@ -99,6 +99,9 @@ public:
 	virtual void LateUpdate();
 	virtual void Render();
 
+private:
+	void Save(string _path);
+
 public:
 	GameObject();
 	virtual ~GameObject();

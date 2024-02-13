@@ -24,6 +24,8 @@ public:
 	virtual void LateUpdate() override;
 	virtual void DrawCollider() override;
 
+	virtual void Save(string _path)override;
+
 public:
 	CircleCollider2D();
 	virtual ~CircleCollider2D();

@@ -78,6 +78,7 @@ inline void AssetMgr::AddAsset(T* _asset, const wstring& _name)
 	assert(iter == m_Assets[(UINT)_type].end());
 
 	m_Assets[(UINT)_type].insert(make_pair(_name, _asset));
+	_asset->SetName(_name);
 }
 
 template<typename T>

@@ -45,6 +45,7 @@ public:
 	virtual void LateUpdate() override;
 	virtual void UpdateData() override;
 
+	virtual void Save(string _path)override;
 public:
 	Transform();
 	virtual ~Transform();

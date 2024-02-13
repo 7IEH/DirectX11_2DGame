@@ -42,7 +42,7 @@ void Transform::LateUpdate()
 	_temp = XMMatrixMultiply(_temp, _rotateMatrixZ);
 	_temp = XMMatrixMultiply(_temp, _transformMatrix);
 	m_RelativeWorld = _temp;
-	
+
 	// 물체의 방향값을 다시 계산한다.
 	m_WorldDir[(UINT)DIRECTION_TYPE::RIGHT] = m_LocalDir[(UINT)DIRECTION_TYPE::RIGHT] = { 1.f,0.f,0.f,0.f };
 	m_WorldDir[(UINT)DIRECTION_TYPE::UP] = m_LocalDir[(UINT)DIRECTION_TYPE::UP] = { 0.f,1.f,0.f,0.f };
@@ -91,7 +91,7 @@ void Transform::UpdateData()
 	e_MatrixData.World = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetMatWorld();
 
 	e_MatrixData.WorldInv = XMMatrixInverse(nullptr, e_MatrixData.World);
-	
+
 	e_MatrixData.WorldInv = XMMatrixTranspose(e_MatrixData.WorldInv);
 
 	e_MatrixData.ViewInv = XMMatrixInverse(nullptr, e_MatrixData.View);
@@ -127,7 +127,7 @@ Vec3 Transform::GetWorldScale()
 	GameObject* pParent = GetOwner()->GetParent();
 	Vec3 vWorldScale = Vec3(m_RelativeTransform._Scale);
 
-	while(pParent)
+	while (pParent)
 	{
 		vWorldScale *= Vec3(pParent->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativeScale());
 		pParent = pParent->GetParent();
@@ -139,4 +139,29 @@ Vec3 Transform::GetWorldScale()
 void Transform::InitializeDir()
 {
 	m_RelativeTransform._Rotation = { 0.f,0.f,0.f };
+}
+
+void Transform::Save(string _path)
+{
+	std::ofstream _file(_path, std::fstream::out | std::fstream::app);
+
+	_file << "TRANSFORM\n";
+
+	string _temp = "";
+
+	// 1.Pos 2. Scale 3. Rotation
+	Vec3 _Pos = Vec3(m_RelativeTransform._Position);
+	Vec3 _Scale = Vec3(m_RelativeTransform._Scale);
+	Vec3 _rotation = m_RelativeTransform._Rotation;
+
+	EH::WriteVector3(_Pos, _temp);
+	_file << _temp + '\n';
+	_temp.clear();
+	EH::WriteVector3(_Scale, _temp);
+	_file << _temp + '\n';
+	_temp.clear();
+	EH::WriteVector3(_rotation, _temp);
+	_file << _temp + '\n';
+	_temp.clear();
+	_file.close();
 }

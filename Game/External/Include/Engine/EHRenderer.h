@@ -23,6 +23,7 @@ public:
 
 public:
 	virtual void Render() = 0;
+	virtual void Save(string _path)override {};
 
 public:
 	Renderer(RENDERER_TYPE _type);

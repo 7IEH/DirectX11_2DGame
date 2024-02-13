@@ -67,5 +67,5 @@ public:
 	void Update();
 
 private:
-	void Initial_Setting();
+	void SaveScene();
 };

@@ -58,3 +58,7 @@ void Collider2D::DrawCollider()
 		Object::DrawDebugRect(m_OffsetMat, Vec3(1.f, 0.f, 0.f), TRUE, 0.f);
 	}
 }
+
+void Collider2D::Save(string _path)
+{
+}

@@ -103,7 +103,7 @@ void Layer::AddObject(GameObject* _obj, bool _bMove)
 			{
 				_temp->m_LayerType = m_Type;
 			}
-			else if(_temp->m_LayerType == LAYER_TYPE::NON_SELECT)
+			else if (_temp->m_LayerType == LAYER_TYPE::NON_SELECT)
 			{
 				_temp->m_LayerType = m_Type;
 			}
@@ -134,4 +134,13 @@ void Layer::DetachGameObject(GameObject* _obj)
 	}
 
 	assert(nullptr);
+}
+
+void Layer::Save(string _path)
+{
+	for (size_t i = 0;i < m_Parent.size();i++)
+	{
+		if (m_Parent[i] != nullptr)
+			m_Parent[i]->Save(_path);
+	}
 }

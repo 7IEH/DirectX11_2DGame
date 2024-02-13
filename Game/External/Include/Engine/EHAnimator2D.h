@@ -22,9 +22,11 @@ public:
 
 	void					Play(const wstring& _strName, bool _repeat = TRUE);
 	static void				Clear();
+
 public:
 	virtual void			LateUpdate()override;
 	virtual void			UpdateData()override;
+	virtual void			Save(string _path)override;
 public:
 	Animator2D();
 	virtual ~Animator2D();

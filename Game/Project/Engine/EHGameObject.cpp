@@ -170,3 +170,35 @@ void GameObject::DisconnectWithLayer()
 	Layer* _CurLayer = _CurLevel->GetLayer(m_LayerType);
 	_CurLayer->DetachGameObject(this);
 }
+
+void GameObject::Save(string _path)
+{
+	std::ofstream _file;
+	_file.open(_path.data(), std::fstream::out | std::fstream::app);
+
+	std::ofstream _filename;
+
+	if (_file.is_open())
+	{
+		string _name = "NAME:" + EH::ConvertString(GetName()) + '\n';
+		string _layer = "LAYER:" + std::to_string(int(GetLayerType())) + '\n';
+		string _temp = "";
+		_temp = "object\n";
+		_file.write("\n", 1);
+		_file.write(_temp.c_str(), _temp.size());
+		_file.write(_name.c_str(), _name.size());
+		_file.write(_layer.c_str(), _layer.size());
+		_file.close();
+		for (UINT i = 0;i < (UINT)COMPONENT_TYPE::END;i++)
+		{
+			if (nullptr != m_Component[i])
+				m_Component[i]->Save(_path);
+		}
+
+		_file.open(_path.data(), std::fstream::out | std::fstream::app);
+		_temp = "endobject\n";
+		_file.write(_temp.c_str(), _temp.size());
+	}
+
+	_file.close();
+}

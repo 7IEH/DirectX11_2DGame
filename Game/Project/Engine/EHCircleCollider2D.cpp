@@ -54,3 +54,7 @@ void CircleCollider2D::DrawCollider()
 		Object::DrawDebugCircle(m_OffsetMat, Vec3(0.f, 1.f, 0.f), TRUE);
 	}
 }
+
+void CircleCollider2D::Save(string _path)
+{
+}

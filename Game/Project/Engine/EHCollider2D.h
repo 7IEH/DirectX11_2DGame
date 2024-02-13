@@ -14,6 +14,7 @@ public:
 	virtual void LateUpdate()override;
 	virtual void DrawCollider()override;
 
+	virtual void Save(string _path)override;
 public:
 	Vec3    GetOffsetPos() { return m_OffsetPos; }
 	Vec3    GetOffsetScale() { return m_OffsetSize; }

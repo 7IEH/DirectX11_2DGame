@@ -56,6 +56,8 @@ public:
 	void SortObject();
 	void Render();
 
+	virtual void			Save(string _path)override;
+
 private:
 	void Render(vector<GameObject*>& _vecObj);
 	void PostRender(vector<GameObject*>& _vecObj);

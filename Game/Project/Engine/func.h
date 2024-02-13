@@ -39,6 +39,11 @@ namespace EH
 
 	// 메모장에서 가져온 숫자 변환
 	void InputVector4(string _line, OUT Vec4& _output);
+
+	// 메모장에 들어갈 숫자 형식 변환
+	void WriteVector3(Vec3 _data, OUT string& _input);
+
+	void WriteVector4(Vec4 _data, OUT string& _input);
 }
 
 // 메모리 해제 ( 배열용 )

@@ -82,6 +82,10 @@ void Animator2D::UpdateData()
 	m_CurAnimation->UpdateData();
 }
 
+void Animator2D::Save(string _path)
+{
+}
+
 void Animator2D::LateUpdate()
 {
 	if (m_CurAnimation == nullptr)

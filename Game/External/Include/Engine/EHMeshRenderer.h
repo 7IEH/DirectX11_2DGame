@@ -14,4 +14,6 @@ public:
 	virtual void UpdateData() override;
 	virtual void LateUpdate() override {};
 	virtual void Render() override;
+
+	virtual void Save(string _path)override;
 };

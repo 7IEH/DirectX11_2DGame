@@ -17,6 +17,7 @@ public:
 	virtual void FixedUpdate() override {};
 	virtual void LateUpdate() override {};
 
+	virtual void Save(string _path)override {};
 public:
 	virtual void OnTriggerEnter(Collider* _other) {};
 	virtual void OnTriggerStay(Collider* _other) {};

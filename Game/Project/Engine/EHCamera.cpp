@@ -165,6 +165,29 @@ void Camera::Render()
 	}
 }
 
+void Camera::Save(string _path)
+{
+	// 1.Proj Type 2. Camera Type 3. VisibleLayer
+	std::ofstream _file(_path.data(), std::fstream::out | std::fstream::app);
+
+	_file << "CAMERA\n";
+
+	if (m_Projection == PROJECTION_TYPE::PERSPECTIVE)
+	{
+		_file << "perspective\n";
+	}
+	else
+	{
+		_file << "orthographic\n";
+	}
+
+	_file << std::to_string(int(m_Type)) + '\n';
+
+	_file << std::to_string(m_LayerVisible) + '\n';
+
+	_file.close();
+}
+
 void Camera::Render(vector<GameObject*>& _vecObj)
 {
 	for (size_t _idx = 0;_idx < _vecObj.size();_idx++)

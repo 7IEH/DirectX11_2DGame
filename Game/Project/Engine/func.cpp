@@ -196,3 +196,23 @@ void EH::InputVector4(string _line, OUT Vec4& _output)
 		}
 	}
 }
+
+void EH::WriteVector3(Vec3 _data, OUT string& _input)
+{
+	_input += std::to_string(_data.x);
+	_input += " ";
+	_input += std::to_string(_data.y);
+	_input += " ";
+	_input += std::to_string(_data.z);
+}
+
+void EH::WriteVector4(Vec4 _data, OUT string& _input)
+{
+	_input += std::to_string(_data.x);
+	_input += " ";
+	_input += std::to_string(_data.y);
+	_input += " ";
+	_input += std::to_string(_data.z);
+	_input += " ";
+	_input += std::to_string(_data.w);
+}

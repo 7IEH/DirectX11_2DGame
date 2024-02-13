@@ -22,6 +22,7 @@ public:
     virtual void LateUpdate() = 0;
     virtual void UpdateData() {};
 
+    virtual void Save(string _path) = 0;
 public:
     Component(COMPONENT_TYPE _type);
     virtual ~Component();

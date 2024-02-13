@@ -27,10 +27,15 @@ public:
 public:
 	vector<GameObject*>& GetLayerObject() { return m_GameObjects; }
 	vector<GameObject*>& GetLayerParent() { return m_Parent; }
+
+private:
+	void Save(string _path);
+
 public:
 	Layer();
 	virtual ~Layer();
 
 	friend class Level;
+	friend class LevelMgr;
 };
 

@@ -28,6 +28,8 @@ public:
 	virtual void DrawCollider() = 0;
 	virtual void LateUpdate()override {};
 
+	virtual void Save(string _path)override {};
+
 private:
 	virtual void OnTriggerEnter(Collider* _other);
 	virtual void OnTriggerStay(Collider* _other);
