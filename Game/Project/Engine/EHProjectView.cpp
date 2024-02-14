@@ -26,15 +26,16 @@ void ProjectView::Render_Update()
 	// 열 사이즈 조정
 	static ImGuiTableFlags _flags = ImGuiTableFlags_Resizable;
 
+	m_IsHovered = ImGui::IsItemHovered();
+
 	// 테이블 표 시작
 	ImGui::BeginTable("ProjectViewTable", 2, _flags);
-
-	Mouse_Event();
 
 	// 각 테이블 표 주석 이름
 	ImGui::TableSetupColumn("File");
 	ImGui::TableSetupColumn(m_ColumnPath.c_str());
 	ImGui::TableHeadersRow();
+
 
 	// 첫번째 열 Render : File이름
 	Render_File();
@@ -43,6 +44,8 @@ void ProjectView::Render_Update()
 	Render_FileIcon();
 
 	ImGui::EndTable();
+
+	Mouse_Event();
 }
 
 void ProjectView::Render_File()
@@ -123,24 +126,44 @@ void ProjectView::Render_FileIcon()
 
 void ProjectView::Mouse_Event()
 {
-	ImGui::InvisibleButton("ProjectViewTable", ImVec2(1600.f, 900.f)
-		, ImGuiButtonFlags_MouseButtonLeft | ImGuiButtonFlags_MouseButtonRight | ImGuiButtonFlags_MouseButtonMiddle);
-
 	if (ImGui::IsMouseClicked(ImGuiMouseButton_Right) || m_DefaultMouseFlags)
 	{
 		ImGui::OpenPopup("ProjectViewOption1");
 		m_DefaultMouseFlags = TRUE;
 		if (ImGui::BeginPopup("ProjectViewOption1"))
 		{
-			bool _flags = FALSE;
-			if (ImGui::MenuItem("Create", NULL, &_flags))
+			bool _flags = false;
+			if (ImGui::BeginMenu("Create"))
 			{
-				// Scene 제작
-				Create_SceneFile();
+				if (ImGui::MenuItem("Scene##create", NULL, &_flags))
+				{
+					Create_SceneFile();
+					m_DefaultMouseFlags = FALSE;
+				}
 
-				m_DefaultMouseFlags = FALSE;
+				if (ImGui::MenuItem("GameObject##create", NULL, &_flags))
+				{
+					Create_Object();
+					m_DefaultMouseFlags = FALSE;
+				}
+				ImGui::EndMenu();
 			}
 
+			if (ImGui::BeginMenu("Delete"))
+			{
+				if (ImGui::MenuItem("Scene##Delete", NULL, &_flags))
+				{
+					Delete_Scene();
+					m_DefaultMouseFlags = FALSE;
+				}
+
+				if (ImGui::MenuItem("GameObject##Delete", NULL, &_flags))
+				{
+					Delete_Object();
+					m_DefaultMouseFlags = FALSE;
+				}
+				ImGui::EndMenu();
+			}
 			ImGui::EndPopup();
 		}
 	}
@@ -157,4 +180,19 @@ void ProjectView::Load_Scene(string _sceneName)
 	_wsceneName = _wsceneName.substr(0, _wsceneName.find(L"."));
 
 	LevelMgr::GetInst()->SelectLevel(_wsceneName);
+}
+
+void ProjectView::Create_Object()
+{
+	LevelMgr::GetInst()->GetCurLevel()->AddEmptyObject();
+}
+
+void ProjectView::Delete_Scene()
+{
+	ImGUIMgr::GetInst()->SetCreateSceneUI(TRUE);
+}
+
+void ProjectView::Delete_Object()
+{
+	ImGUIMgr::GetInst()->SetDeleteUI(TRUE);
 }

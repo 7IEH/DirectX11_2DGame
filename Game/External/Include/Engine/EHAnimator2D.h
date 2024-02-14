@@ -10,7 +10,7 @@ class Animator2D :
 {
 private:
 	map<wstring, Animation2D*>			m_AnimInfo;
-	Animation2D* m_CurAnimation;
+	Animation2D*						m_CurAnimation;
 
 	bool								m_Repeat;
 
@@ -19,6 +19,8 @@ public:
 	Animation2D*			CreateAnimation(const wstring& _animName, Ptr<Sprite> _atalas, Vec2 _leftTop, Vec2 _offset, Vec2 _sliceSize, Vec2 _BackGround, UINT _FrameCount, float _FPS);
 
 	Animation2D*			GetCurAnimation2D() { return m_CurAnimation; }
+
+	HRESULT					AddAnimation2D(const wstring& _strName);
 
 	void					Play(const wstring& _strName, bool _repeat = TRUE);
 	static void				Clear();

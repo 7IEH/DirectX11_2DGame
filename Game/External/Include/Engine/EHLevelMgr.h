@@ -40,6 +40,18 @@ public:
 		m_CurLevel->Awake();
 	}
 
+	void DeletLevel(wstring _levelName)
+	{
+		Level* _level = FindLevel(_levelName);
+
+		if (_level == nullptr)
+			return;
+
+		m_Levels.erase(_levelName);
+		delete _level;
+		_level = nullptr;
+	}
+
 	void SelectLevel(Level* _curLevel)
 	{
 		m_CurLevel = _curLevel;
@@ -67,5 +79,5 @@ public:
 	void Update();
 
 private:
-	void SaveScene();
+	void Save();
 };

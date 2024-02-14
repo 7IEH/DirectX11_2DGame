@@ -186,6 +186,9 @@ void RenderMgr::PickingRender()
 			if (_objs[_obj]->GetPicking() == TRUE)
 			{
 				Transform* _ownertr = _objs[_obj]->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
+				if (_ownertr == nullptr)
+					return;
+
 				_pickingTr->SetWorldMat(_ownertr->GetMatWorld());
 				m_PickingObj->Render();
 			}

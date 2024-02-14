@@ -31,6 +31,8 @@ namespace EH
 
 	string ConvertString(const std::filesystem::path::string_type _str);
 
+	void InputVector2(string _line, OUT Vec2& _output);
+
 	// 메모장에서 가져온 숫자 변환
 	void InputVector3(string _line, OUT Vec3& _output);
 
@@ -41,9 +43,12 @@ namespace EH
 	void InputVector4(string _line, OUT Vec4& _output);
 
 	// 메모장에 들어갈 숫자 형식 변환
-	void WriteVector3(Vec3 _data, OUT string& _input);
 
-	void WriteVector4(Vec4 _data, OUT string& _input);
+	string WriteVector2(Vec2 _data);
+
+	string WriteVector3(Vec3 _data);
+
+	string WriteVector4(Vec4 _data);
 }
 
 // 메모리 해제 ( 배열용 )

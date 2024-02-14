@@ -29,7 +29,13 @@ public:
 	GameObject* FindObjectByName(const wstring& _strName);
 	void FindObjectsByName(const wstring& _strName, vector<GameObject*>& _vecObj);
 
-	void Initial_Setting(string _path);
+	void Load(string _path);
+
+	void AddEmptyObject()
+	{
+		GameObject* _empty = new GameObject;
+		Object::Instantiate(_empty, int(LAYER_TYPE::BACKGROUND));
+	}
 
 public:
 	virtual void Awake();
@@ -46,6 +52,10 @@ private:
 	void AddCamera(GameObject* _obj, PROJECTION_TYPE _proj, CAMERA_TYPE _camtype, UINT _visibleLayer);
 	void AddLight2D(GameObject* _obj, LIGHT_TYPE _lighttype, Vec4 _color, Vec4 _ambient, float _angle);
 	void AddMeshRenderer(GameObject* _obj, wstring _mesh, wstring _material);
+	void AddCollisionLayer();
+	void AddCollider2D(GameObject* _obj, Vec3 _offsetPostion, Vec3 _offsetScale);
+	void AddCollider2D(GameObject* _obj, Vec3 _offsetPostion, float _radius);
+	void AddAnimator2D(GameObject* _obj, vector<wstring>_aniName);
 
 public:
 	Level();

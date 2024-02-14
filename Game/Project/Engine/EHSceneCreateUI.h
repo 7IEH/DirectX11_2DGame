@@ -10,6 +10,7 @@ public:
     
 private:
     void File_Create(string _filepath);
+    void File_Delete(string _filepath);
 
 public:
     SceneCreateUI();

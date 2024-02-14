@@ -115,6 +115,28 @@ string EH::ConvertString(const std::filesystem::path::string_type _str)
 	return string(_str.begin(), _str.end());
 }
 
+void EH::InputVector2(string _line, OUT Vec2& _output)
+{
+	int _prev = 0;
+	int _next = 0;
+	string _temp = "";
+
+	for (int j = 0;j < 2;j++)
+	{
+		_next = _line.find(" ", _prev + 1);
+		_temp = _line.substr(_prev, _next - _prev);
+		_prev = _next;
+		if (j == 0)
+		{
+			_output.x = stof(_temp);
+		}
+		else
+		{
+			_output.y = stof(_temp);
+		}
+	}
+}
+
 void EH::InputVector3(string _line, OUT Vec3& _output)
 {
 	int _prev = 0;
@@ -197,22 +219,37 @@ void EH::InputVector4(string _line, OUT Vec4& _output)
 	}
 }
 
-void EH::WriteVector3(Vec3 _data, OUT string& _input)
+string EH::WriteVector2(Vec2 _data)
 {
-	_input += std::to_string(_data.x);
-	_input += " ";
-	_input += std::to_string(_data.y);
-	_input += " ";
-	_input += std::to_string(_data.z);
+	string _result = "";
+
+	_result += std::to_string(_data.x);
+	_result += " ";
+	_result += std::to_string(_data.y);
+	return _result;
 }
 
-void EH::WriteVector4(Vec4 _data, OUT string& _input)
+string EH::WriteVector3(Vec3 _data)
 {
-	_input += std::to_string(_data.x);
-	_input += " ";
-	_input += std::to_string(_data.y);
-	_input += " ";
-	_input += std::to_string(_data.z);
-	_input += " ";
-	_input += std::to_string(_data.w);
+	string _result = "";
+
+	_result += std::to_string(_data.x);
+	_result += " ";
+	_result += std::to_string(_data.y);
+	_result += " ";
+	_result += std::to_string(_data.z);
+	return _result;
+}
+
+string EH::WriteVector4(Vec4 _data)
+{
+	string _result = "";
+	_result += std::to_string(_data.x);
+	_result += " ";
+	_result += std::to_string(_data.y);
+	_result += " ";
+	_result += std::to_string(_data.z);
+	_result += " ";
+	_result += std::to_string(_data.w);
+	return _result;
 }

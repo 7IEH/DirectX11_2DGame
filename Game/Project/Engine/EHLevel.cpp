@@ -22,14 +22,23 @@ Level::~Level()
 
 GameObject* Level::FindObjectByName(const wstring& _strName)
 {
-	return nullptr;
+	GameObject* _obj = nullptr;
+	for (UINT i = 0;i < (UINT)LAYER_TYPE::END;i++)
+	{
+		_obj = m_Layers[i]->FindObject(_strName);
+
+		if (_obj != nullptr)
+			break;
+	}
+
+	return _obj;
 }
 
 void Level::FindObjectsByName(const wstring& _strName, vector<GameObject*>& _vecObj)
 {
 }
 
-void Level::Initial_Setting(string _path)
+void Level::Load(string _path)
 {
 	std::ifstream _file(string(_path.begin(), _path.end()).data());
 
@@ -166,8 +175,69 @@ void Level::Initial_Setting(string _path)
 								_material = EH::ConvertWstring(_line);
 							}
 						}
-						
+
 						AddMeshRenderer(_obj, _mesh, _material);
+					}
+
+					if (_line.find("ANIMATOR2D") != string::npos)
+					{
+						size_t _size = 0;
+						vector<wstring>_aniName; _aniName.clear();
+
+						//size name
+						std::getline(_file, _line);
+
+						_size = std::stoi(_line);
+
+						for (size_t i = 0;i < _size;i++)
+						{
+							std::getline(_file, _line);
+							_aniName.push_back(EH::ConvertWstring(_line));
+						}
+
+						AddAnimator2D(_obj, _aniName);
+					}
+
+					if (_line.find("BOXCOLLIDER2D") != string::npos)
+					{
+						Vec3 _offsetPos = Vec3(0.f);
+						Vec3 _offsetSize = Vec3(0.f);
+
+						for (int i = 0;i < 2;i++)
+						{
+							std::getline(_file, _line);
+							if (i == 0)
+							{
+								EH::InputVector3(_line, _offsetSize);
+							}
+							else
+							{
+								EH::InputVector3(_line, _offsetPos);
+							}
+						}
+
+						AddCollider2D(_obj, _offsetPos, _offsetSize);
+					}
+
+					if (_line.find("CIRCLECOLLIDER2D") != string::npos)
+					{
+						Vec3 _offsetPos = Vec3(0.f);
+						float _radius = 0.f;
+
+						for (int i = 0;i < 2;i++)
+						{
+							std::getline(_file, _line);
+							if (i == 0)
+							{
+								_radius = std::stof(_line);
+							}
+							else
+							{
+								EH::InputVector3(_line, _offsetPos);
+							}
+						}
+
+						AddCollider2D(_obj, _offsetPos, _radius);
 					}
 
 					if (_line.find("endobject") != string::npos)
@@ -265,4 +335,35 @@ void Level::AddMeshRenderer(GameObject* _obj, wstring _mesh, wstring _material)
 	MeshRenderer* _mr = _obj->AddComponent<MeshRenderer>();
 	_mr->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(_mesh));
 	_mr->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(_material));
+}
+
+void Level::AddCollisionLayer()
+{
+}
+
+void Level::AddCollider2D(GameObject* _obj, Vec3 _offsetPostion, Vec3 _offsetScale)
+{
+	Collider2D* _col = _obj->AddComponent<Collider2D>();
+	_col->SetOffsetPos(_offsetPostion);
+	_col->SetoffSetScale(_offsetScale);
+}
+
+void Level::AddCollider2D(GameObject* _obj, Vec3 _offsetPostion, float _radius)
+{
+	CircleCollider2D* _col = _obj->AddComponent<CircleCollider2D>();
+	_col->SetOffsetPos(_offsetPostion);
+	_col->SetRadius(_radius);
+}
+
+void Level::AddAnimator2D(GameObject* _obj, vector<wstring> _aniName)
+{
+	Animator2D* _anim = _obj->AddComponent<Animator2D>();
+
+	for (size_t i = 0;i < _aniName.size();i++)
+	{
+		if (FAILED(_anim->AddAnimation2D(_aniName[i])))
+		{
+			return;
+		}
+	}
 }

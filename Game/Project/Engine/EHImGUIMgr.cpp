@@ -17,6 +17,7 @@
 
 #include "EHProjectView.h"
 #include "EHSceneCreateUI.h"
+#include "EHDeleteUI.h"
 
 ImGUIMgr::ImGUIMgr()
 	: m_Enabled(TRUE)
@@ -178,6 +179,10 @@ void ImGUIMgr::CreateUI()
 	pUI = new ProjectView;
 	AddUI("ProjectView", pUI);
 
+	pUI = new DeleteUI;
+	AddUI("DeleteUI", pUI);
+	m_DeleteUI = pUI;
+
 	pUI = new SceneCreateUI;
 	AddUI("SceneCreateUI", pUI);
 	m_CreateSceneUI = pUI;
@@ -290,6 +295,7 @@ void ImGUIMgr::ShowDockSpace()
 	m_unAnimationCreateUI->Enabled(m_bunAnimationCreateUI);
 	m_TilePalette->Enabled(m_bTilePalette);
 	m_CreateSceneUI->Enabled(m_bCreateSceneUI);
+	m_DeleteUI->Enabled(m_bDeleteUI);
 
 	for (const auto& pair : m_mapUI)
 	{

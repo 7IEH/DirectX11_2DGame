@@ -304,6 +304,9 @@
     <Filter Include="04. Manager\ImGUIMgr\UI\ProjectView\SceneCreateUI">
       <UniqueIdentifier>{8020458e-1366-47d1-919e-5dd073e18308}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\ProjectView\GameObjectDeleteUI">
+      <UniqueIdentifier>{a349d254-2fe5-40c0-8e25-bbae13b41517}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -609,6 +612,9 @@
     <ClInclude Include="EHSceneCreateUI.h">
       <Filter>04. Manager\ImGUIMgr\UI\ProjectView\SceneCreateUI</Filter>
     </ClInclude>
+    <ClInclude Include="EHDeleteUI.h">
+      <Filter>04. Manager\ImGUIMgr\UI\ProjectView\GameObjectDeleteUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -892,6 +898,9 @@
     </ClCompile>
     <ClCompile Include="EHSceneCreateUI.cpp">
       <Filter>04. Manager\ImGUIMgr\UI\ProjectView\SceneCreateUI</Filter>
+    </ClCompile>
+    <ClCompile Include="EHDeleteUI.cpp">
+      <Filter>04. Manager\ImGUIMgr\UI\ProjectView\GameObjectDeleteUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

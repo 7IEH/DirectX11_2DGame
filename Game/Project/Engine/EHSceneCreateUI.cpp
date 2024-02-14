@@ -22,9 +22,22 @@ void SceneCreateUI::Render_Update()
 	{
 		wstring _absPath = PathMgr::GetInst()->GetPath();
 		string _filePath = string(_absPath.begin(), _absPath.end());
-		_filePath += "\\Assets\\Scenes\\" + m_SceneName + ".txt";
+		_filePath += "\\Assets\\Scenes\\" + m_SceneName + ".Scene";
 		File_Create(_filePath);
 		LevelMgr::GetInst()->AddLevel<Level>(EH::ConvertWstring(m_SceneName));
+
+		m_SceneName = "";
+	}
+	ImGui::SameLine();
+	if (ImGui::Button("Delete"))
+	{
+		wstring _absPath = PathMgr::GetInst()->GetPath();
+		string _filePath = string(_absPath.begin(), _absPath.end());
+		_filePath += "\\Assets\\Scenes\\" + m_SceneName + ".Scene";
+		File_Delete(_filePath);
+		LevelMgr::GetInst()->DeletLevel(EH::ConvertWstring(m_SceneName));
+
+		m_SceneName = "";
 	}
 	ImGui::SameLine();
 	if (ImGui::Button("Exit"))
@@ -36,5 +49,9 @@ void SceneCreateUI::Render_Update()
 void SceneCreateUI::File_Create(string _filepath)
 {
 	std::ofstream(_filepath.c_str());
-	m_SceneName = "";
+}
+
+void SceneCreateUI::File_Delete(string _filepath)
+{
+	std::filesystem::remove_all(_filepath);
 }

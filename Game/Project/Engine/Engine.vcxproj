@@ -187,6 +187,7 @@ call Copy.bat</Command>
     <ClInclude Include="EHConsole.h" />
     <ClInclude Include="EHConstantBuffer.h" />
     <ClInclude Include="EHDebugMgr.h" />
+    <ClInclude Include="EHDeleteUI.h" />
     <ClInclude Include="EHDevice.h" />
     <ClInclude Include="EHEngine.h" />
     <ClInclude Include="EHEngineUI.h" />
@@ -289,6 +290,7 @@ call Copy.bat</Command>
     <ClCompile Include="EHConsole.cpp" />
     <ClCompile Include="EHConstantBuffer.cpp" />
     <ClCompile Include="EHDebugMgr.cpp" />
+    <ClCompile Include="EHDeleteUI.cpp" />
     <ClCompile Include="EHDevice.cpp" />
     <ClCompile Include="EHEngine.cpp" />
     <ClCompile Include="EHEntity.cpp" />

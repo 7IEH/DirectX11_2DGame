@@ -2,7 +2,8 @@
 
 #include "EHEntity.h"
 
-class GameObject;
+#include "EHGameObject.h"
+
 class Layer
 	:public Entity
 {
@@ -16,6 +17,19 @@ public:
 	void AddObject(GameObject* _obj, bool _bMove);
 	void DetachGameObject(GameObject* _obj);
 	void RegisterGameObject(GameObject* _obj) { m_GameObjects.push_back(_obj); }
+
+	GameObject* FindObject(const wstring& _strName)
+	{
+		for (size_t i = 0;i < m_Parent.size();i++)
+		{
+			if (m_Parent[i]->GetName() == _strName)
+			{
+				return m_Parent[i];
+			}
+		}
+
+		return nullptr;
+	}
 
 public:
 	void Awake();

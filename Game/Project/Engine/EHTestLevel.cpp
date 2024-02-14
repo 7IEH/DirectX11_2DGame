@@ -53,33 +53,54 @@ void TestLevel::Awake()
 	Object::Instantiate(_light, (UINT)LAYER_TYPE::LIGHT2D);
 #pragma endregion
 
-	GameObject* _tile = new GameObject;
-	_tile->SetName(L"TileTest");
-	tr = _tile->AddComponent<Transform>();
-	tr->SetRelativePosition(Vec4(0.f, 0.f, 30.f, 1.f));
-	TileMap* _tileMap = _tile->AddComponent<TileMap>();
+	//GameObject* _tile = new GameObject;
+	//_tile->SetName(L"TileTest");
+	//tr = _tile->AddComponent<Transform>();
+	//tr->SetRelativePosition(Vec4(0.f, 0.f, 30.f, 1.f));
+	//TileMap* _tileMap = _tile->AddComponent<TileMap>();
 
-	_tileMap->SetTileAtlas(AssetMgr::GetInst()->FindAsset<Sprite>(L"TileSprite"), Vec2(64.f, 64.f));
+	//_tileMap->SetTileAtlas(AssetMgr::GetInst()->FindAsset<Sprite>(L"TileSprite"), Vec2(64.f, 64.f));
 
-	for (int y = 0;y < 2;y++)
-	{
-		for (int x = 0;x < 2;x++)
-		{
-			_tileMap->SetTileIndex(y, x, y * 2 + x, 1);
-		}
-	}
+	//for (int y = 0;y < 2;y++)
+	//{
+	//	for (int x = 0;x < 2;x++)
+	//	{
+	//		_tileMap->SetTileIndex(y, x, y * 2 + x, 1);
+	//	}
+	//}
 
-	Object::Instantiate(_tile, int(LAYER_TYPE::TILE));
+	//Object::Instantiate(_tile, int(LAYER_TYPE::TILE));
 
 
-	GameObject* _paritcle = new GameObject;
-	_paritcle->SetName(L"Particle");
-	tr = _paritcle->AddComponent<Transform>();
-	ParticleSystem* _particleSys = _paritcle->AddComponent<ParticleSystem>();
+	//GameObject* _paritcle = new GameObject;
+	//_paritcle->SetName(L"Particle");
+	//tr = _paritcle->AddComponent<Transform>();
+	//ParticleSystem* _particleSys = _paritcle->AddComponent<ParticleSystem>();
 
-	tr->SetRelativePosition(Vec4(0.f, 0.f, 0.f, 0.f));
+	//tr->SetRelativePosition(Vec4(0.f, 0.f, 0.f, 0.f));
 
-	Object::Instantiate(_paritcle, int(LAYER_TYPE::PLAYER));
+	//Object::Instantiate(_paritcle, int(LAYER_TYPE::PLAYER));
+	
+	// Player
+	GameObject* _player = new GameObject();
+	_player->SetName(L"Player");
+	tr = _player->AddComponent<Transform>();
+	tr->SetRelativeScale(Vec4(96.f, 164.f, 1.f, 1.f));
+	tr->SetRelativePosition(Vec4(400.f, 0.f, -5.f, 1.f));
+	tr->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
+
+	MeshRenderer* _playerRenderer = _player->AddComponent<MeshRenderer>();
+	_playerRenderer->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"DefaultRectMesh"));
+	_playerRenderer->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"PlayerMaterial"));
+
+	Collider2D* _playercol = _player->AddComponent<Collider2D>();
+
+	Object::Instantiate(_player, (int)LAYER_TYPE::PLAYER);
+
+	_player->AddComponent<PlayerScript>();
+
+	Animator2D* _animator = _player->AddComponent<Animator2D>();
+	_animator->Play(L"IdleFront");
 
 	Level::Awake();
 }

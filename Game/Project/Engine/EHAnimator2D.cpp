@@ -58,6 +58,22 @@ Animation2D* Animator2D::CreateAnimation(const wstring& _animName, Ptr<Sprite> _
 	return _anim;
 }
 
+HRESULT Animator2D::AddAnimation2D(const wstring& _strName)
+{
+	Animation2D* _anim = nullptr;
+	_anim = AnimationMgr::GetInst()->Find(_strName);
+
+	if (_anim == nullptr)
+	{
+		HandleError(MAIN_HWND, _strName + L" Animation2D Loading Failure!", 0);
+		return E_FAIL;
+	}
+
+	m_AnimInfo.insert(make_pair(_strName, _anim));
+
+	return S_OK;
+}
+
 void Animator2D::Play(const wstring& _strName, bool _repeat)
 {
 	Animation2D* _anim = FindAnimation(_strName);
@@ -82,10 +98,6 @@ void Animator2D::UpdateData()
 	m_CurAnimation->UpdateData();
 }
 
-void Animator2D::Save(string _path)
-{
-}
-
 void Animator2D::LateUpdate()
 {
 	if (m_CurAnimation == nullptr)
@@ -102,4 +114,22 @@ void Animator2D::LateUpdate()
 void Animator2D::Clear()
 {
 	Animation2D::Clear();
+}
+
+void Animator2D::Save(string _path)
+{
+	// 1. Animation Size 2. Animation Name
+	std::ofstream _file(_path.data(), std::fstream::out | std::fstream::app);
+
+	size_t _size = m_AnimInfo.size();
+	map<wstring, Animation2D*>::iterator iter = m_AnimInfo.begin();
+
+	_file << "ANIMATOR2D\n";
+	_file << std::to_string(_size) + '\n';
+	for (;iter != m_AnimInfo.end();iter++)
+	{
+		_file << EH::ConvertString(iter->first) + '\n';
+	}
+
+	_file.close();
 }

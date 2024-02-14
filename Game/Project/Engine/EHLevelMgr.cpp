@@ -6,9 +6,11 @@
 #include <EHDungeonScene.h>
 #include <EHTitleScene.h>
 #include <EHIntroScene.h>
+
 #include "EHDebugMgr.h"
 #include "EHPathMgr.h"
 #include "EHKeyMgr.h"
+#include "EHAnimationMgr.h"
 
 LevelMgr::LevelMgr()
 	:m_CurLevel(nullptr)
@@ -37,7 +39,7 @@ void LevelMgr::Awake()
 		_levelName = _levelName.substr(_levelName.find_last_of('\\') + 1,
 			_levelName.find_last_of('.') - _levelName.find_last_of('\\') - 1);
 		Level* _level = AddLevel<Level>(_levelName);
-		_level->Initial_Setting(string(_path.begin(), _path.end()));
+		_level->Load(string(_path.begin(), _path.end()));
 	}
 
 	AddLevel<TestLevel>(L"TestLevel");
@@ -71,10 +73,10 @@ void LevelMgr::Update()
 	m_CurLevel->LateUpdate();
 
 	// 이거 나중에 UI 켜저있을때만 하게 만들기
-	SaveScene();
+	Save();
 }
 
-void LevelMgr::SaveScene()
+void LevelMgr::Save()
 {
 	// 변경 사항이 없을 경우 실행하지 않게 함
 	if (KEY_PRESSED(KEY::LCTRL) && KEY_TAP(KEY::S))
@@ -114,5 +116,9 @@ void LevelMgr::SaveScene()
 				}
 			}
 		}
+
+		
+		// ANIMATION SAVE
+		AnimationMgr::GetInst()->Save();
 	}
 }

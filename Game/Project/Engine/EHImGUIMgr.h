@@ -23,6 +23,7 @@ private:
 	bool		m_bunAnimationCreateUI;
 	bool		m_bTilePalette;
 	bool		m_bCreateSceneUI;
+	bool		m_bDeleteUI;
 
 	//
 	UI*			m_Sprite;
@@ -33,6 +34,7 @@ private:
 	UI*			m_unAnimationCreateUI;
 	UI*			m_TilePalette;
 	UI*			m_CreateSceneUI;
+	UI*			m_DeleteUI;
 
 	// Console Message 후에 선생님이 한 해당 페이지 번호 가져온거 찾아보기
 
@@ -56,7 +58,7 @@ public:
 	void SetunAnimationCreateUI(bool _flag) { m_bunAnimationCreateUI = _flag; }
 	void SetTilePalette(bool _flag) { m_bTilePalette = _flag; }
 	void SetCreateSceneUI(bool _flag) { m_bCreateSceneUI = _flag; }
-
+	void SetDeleteUI(bool _flag) { m_bDeleteUI = _flag; }
 public:
 	HRESULT Awake();
 	void Render();
