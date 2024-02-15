@@ -18,6 +18,8 @@ private:
 
 public:
 	map<wstring, Ptr<Asset>> GetSprite() { return m_Assets[(UINT)ASSET_TYPE::SPRITE]; }
+	map<wstring, Ptr<Asset>> GetMesh() { return m_Assets[(UINT)ASSET_TYPE::MESH]; }
+	map<wstring, Ptr<Asset>> GetMaterial() { return m_Assets[(UINT)ASSET_TYPE::MATERIAL]; }
 
 public:
 	template <typename T>

@@ -11,6 +11,7 @@
 TriggerScript::TriggerScript()
 	:m_TriggerType(TRIGGER_TYPE::END)
 {
+	SetName(L"TriggerScript");
 }
 
 TriggerScript::~TriggerScript()

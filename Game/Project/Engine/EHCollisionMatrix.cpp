@@ -15,6 +15,8 @@ CollisionMatrix::CollisionMatrix()
 	m_LayerName.push_back("Player");
 	m_LayerName.push_back("Monster");
 	m_LayerName.push_back("Trigger");
+	m_LayerName.push_back("Tile");
+	m_LayerName.push_back("Particle");
 }
 
 CollisionMatrix::~CollisionMatrix()

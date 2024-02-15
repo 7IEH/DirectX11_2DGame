@@ -2,6 +2,7 @@
 
 #include "EHDevice.h"
 #include "EHLevel.h"
+#include "EHCollisionMgr.h"
 
 class LevelMgr
 	:public Singleton<LevelMgr>
@@ -31,6 +32,7 @@ public:
 	void SelectLevel(wstring _levelName)
 	{
 		map<wstring, Level*>::iterator iter = m_Levels.find(_levelName);
+		CollisionMgr::GetInst()->Clear();
 		if (iter == m_Levels.end())
 		{
 			HandleError(MAIN_HWND, L"LevelMgr FindFunc Not Found!", 2);

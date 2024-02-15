@@ -81,6 +81,17 @@ void ReleaseVector(vector<T*>& vec)
 	vec.clear();
 }
 
+// 메모리 해제 ( Map용 ) 
+template<typename T, typename Y>
+void ReleaseMap(map<T, Y>& _map)
+{
+	for (const auto& pair : _map)
+	{
+		delete pair.second;
+	}
+	_map.clear();
+}
+
 // 한면의 법선 벡터 구하기
 //void ComputeNormal(const XMVECTOR& p0, const XMVECTOR& p1, const XMVECTOR& p2, OUT XMVECTOR& out)
 //{

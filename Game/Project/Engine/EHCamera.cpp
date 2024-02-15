@@ -129,15 +129,16 @@ void Camera::SortObject()
 
 			Mesh* _mesh = _renderer->GetMesh().Get();
 			Material* _mat = _renderer->GetMaterial().Get();
-			GraphicShader* _shader = _mat->GetGraphicShader().Get();
 
-
-			if (!(_renderer->GetMesh().Get()
-				&& _renderer->GetMaterial().Get()
-				&& _renderer->GetMaterial()->GetGraphicShader().Get()))
+			if (!(_mesh && _mat))
 			{
 				continue;
 			}
+
+			GraphicShader* _shader = _mat->GetGraphicShader().Get();
+
+			if (nullptr == _shader)
+				continue;
 
 			SHADER_DOMAIN _domain = _renderer->GetMaterial()->GetGraphicShader()->GetDomain();
 

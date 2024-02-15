@@ -7,6 +7,7 @@
 OutLineScript::OutLineScript()
 	:m_Owner(nullptr)
 {
+	SetName(L"OutLineScript");
 }
 
 OutLineScript::~OutLineScript()

@@ -11,8 +11,10 @@
 #include "EHCameraUI.h"
 
 #include "EHColliderUI.h"
+#include "EHScriptUI.h"
 
 #include "EHGameObject.h"
+#include "EHAddComponent.h"
 
 Inspector::Inspector()
 	:UI("Inspector", "##Insepctor")
@@ -40,6 +42,9 @@ Inspector::Inspector()
 	m_arrComUI[(UINT)COMPONENT_TYPE::LIGHT2D] = new Light2DUI;
 	AddChildUI(m_arrComUI[(UINT)COMPONENT_TYPE::LIGHT2D]);
 
+	m_AddCompoentUI = new AddComponent;
+	AddChildUI(m_AddCompoentUI);
+
 	for (UINT _idx = 0;_idx < (UINT)COMPONENT_TYPE::END;_idx++)
 	{
 		if (nullptr != m_arrComUI[_idx])
@@ -55,6 +60,7 @@ Inspector::Inspector()
 	m_LayerByName.insert(make_pair(LAYER_TYPE::MONSTER, "Monster"));
 	m_LayerByName.insert(make_pair(LAYER_TYPE::TRIGGER, "Trigger"));
 	m_LayerByName.insert(make_pair(LAYER_TYPE::TILE, "Tile"));
+	m_LayerByName.insert(make_pair(LAYER_TYPE::PARTICLE, "Particle"));
 
 	m_NameByLayer.insert(make_pair("Camera", LAYER_TYPE::CAMERA));
 	m_NameByLayer.insert(make_pair("Light", LAYER_TYPE::LIGHT2D));
@@ -63,6 +69,7 @@ Inspector::Inspector()
 	m_NameByLayer.insert(make_pair("Monster", LAYER_TYPE::MONSTER));
 	m_NameByLayer.insert(make_pair("Trigger", LAYER_TYPE::TRIGGER));
 	m_NameByLayer.insert(make_pair("Tile", LAYER_TYPE::TILE));
+	m_NameByLayer.insert(make_pair("Particle", LAYER_TYPE::PARTICLE));
 
 	m_LayerSelect.insert(make_pair("Camera", FALSE));
 	m_LayerSelect.insert(make_pair("Light", FALSE));
@@ -71,6 +78,7 @@ Inspector::Inspector()
 	m_LayerSelect.insert(make_pair("Monster", FALSE));
 	m_LayerSelect.insert(make_pair("Trigger", FALSE));
 	m_LayerSelect.insert(make_pair("Tile", FALSE));
+	m_LayerSelect.insert(make_pair("Particle", FALSE));
 
 	m_LayerName.push_back("Camera");
 	m_LayerName.push_back("Light");
@@ -79,6 +87,7 @@ Inspector::Inspector()
 	m_LayerName.push_back("Monster");
 	m_LayerName.push_back("Trigger");
 	m_LayerName.push_back("Tile");
+	m_LayerName.push_back("Particle");
 }
 
 Inspector::~Inspector()
@@ -109,6 +118,8 @@ void Inspector::SetTargetObject(GameObject* _obj)
 			m_arrComUI[_idx]->SetTargetObject(_obj);
 		}
 	}
+
+	m_AddCompoentUI->SetTargetObject(m_TargetObject);
 }
 
 void Inspector::SetTargetAsset(Ptr<Asset> _asset)

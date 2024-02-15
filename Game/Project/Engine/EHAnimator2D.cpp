@@ -118,7 +118,7 @@ void Animator2D::Clear()
 
 void Animator2D::Save(string _path)
 {
-	// 1. Animation Size 2. Animation Name
+	// 1. Animation Size 2. Animation Name 3. 현재 애니메이션
 	std::ofstream _file(_path.data(), std::fstream::out | std::fstream::app);
 
 	size_t _size = m_AnimInfo.size();

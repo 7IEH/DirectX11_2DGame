@@ -123,7 +123,7 @@ void EH::InputVector2(string _line, OUT Vec2& _output)
 
 	for (int j = 0;j < 2;j++)
 	{
-		_next = _line.find(" ", _prev + 1);
+		_next = (int)_line.find(" ", _prev + 1);
 		_temp = _line.substr(_prev, _next - _prev);
 		_prev = _next;
 		if (j == 0)
@@ -145,7 +145,7 @@ void EH::InputVector3(string _line, OUT Vec3& _output)
 
 	for (int j = 0;j < 3;j++)
 	{
-		_next = _line.find(" ", _prev + 1);
+		_next = (int)_line.find(" ", _prev + 1);
 		_temp = _line.substr(_prev, _next - _prev);
 		_prev = _next;
 		if (j == 0)
@@ -171,7 +171,7 @@ void EH::InputVector3(string _line, OUT Vec4& _output)
 
 	for (int j = 0;j < 3;j++)
 	{
-		_next = _line.find(" ", _prev + 1);
+		_next = (int)_line.find(" ", _prev + 1);
 		_temp = _line.substr(_prev, _next - _prev);
 		_prev = _next;
 		if (j == 0)
@@ -197,7 +197,7 @@ void EH::InputVector4(string _line, OUT Vec4& _output)
 
 	for (int j = 0;j < 4;j++)
 	{
-		_next = _line.find(" ", _prev + 1);
+		_next = (int)_line.find(" ", _prev + 1);
 		_temp = _line.substr(_prev, _next - _prev);
 		_prev = _next;
 		if (j == 0)

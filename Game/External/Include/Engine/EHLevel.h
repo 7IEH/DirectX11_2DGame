@@ -12,6 +12,8 @@ class Level
 private:
 	Layer* m_Layers[(UINT)LAYER_TYPE::END];
 
+	UINT   m_CollistionMatrix[(UINT)LAYER_TYPE::END];
+
 public:
 	void AddObject(GameObject* _obj, LAYER_TYPE _type, bool _bChildMove = true)
 	{
@@ -52,10 +54,10 @@ private:
 	void AddCamera(GameObject* _obj, PROJECTION_TYPE _proj, CAMERA_TYPE _camtype, UINT _visibleLayer);
 	void AddLight2D(GameObject* _obj, LIGHT_TYPE _lighttype, Vec4 _color, Vec4 _ambient, float _angle);
 	void AddMeshRenderer(GameObject* _obj, wstring _mesh, wstring _material);
-	void AddCollisionLayer();
 	void AddCollider2D(GameObject* _obj, Vec3 _offsetPostion, Vec3 _offsetScale);
 	void AddCollider2D(GameObject* _obj, Vec3 _offsetPostion, float _radius);
 	void AddAnimator2D(GameObject* _obj, vector<wstring>_aniName);
+	void AddScript(GameObject* _obj, vector<wstring>_script);
 
 public:
 	Level();

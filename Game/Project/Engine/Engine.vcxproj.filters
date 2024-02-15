@@ -307,6 +307,12 @@
     <Filter Include="04. Manager\ImGUIMgr\UI\ProjectView\GameObjectDeleteUI">
       <UniqueIdentifier>{a349d254-2fe5-40c0-8e25-bbae13b41517}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\AddComponent">
+      <UniqueIdentifier>{81f34c45-09f0-4113-a682-02bd532ab69d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\ScriptUI">
+      <UniqueIdentifier>{e8ab9d72-feae-4ed4-85be-4d458892f76d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -615,6 +621,15 @@
     <ClInclude Include="EHDeleteUI.h">
       <Filter>04. Manager\ImGUIMgr\UI\ProjectView\GameObjectDeleteUI</Filter>
     </ClInclude>
+    <ClInclude Include="EHAddComponent.h">
+      <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\AddComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts.h">
+      <Filter>01. Header</Filter>
+    </ClInclude>
+    <ClInclude Include="EHScriptUI.h">
+      <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\ScriptUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -901,6 +916,12 @@
     </ClCompile>
     <ClCompile Include="EHDeleteUI.cpp">
       <Filter>04. Manager\ImGUIMgr\UI\ProjectView\GameObjectDeleteUI</Filter>
+    </ClCompile>
+    <ClCompile Include="EHAddComponent.cpp">
+      <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\AddComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="EHScriptUI.cpp">
+      <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\ScriptUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

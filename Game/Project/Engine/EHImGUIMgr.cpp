@@ -71,7 +71,7 @@ void ImGUIMgr::ChangeFont(FONT_TYPE _type)
 	{
 		_localPath += L"\\fonts\\Maplestory Light.ttf";
 		string _temp;
-		_temp.assign(_localPath.begin(), _localPath.end());
+		_temp = EH::ConvertString(_localPath.c_str());
 		ChangeFontIndividual(_temp, 18.0f);
 	}
 	break;

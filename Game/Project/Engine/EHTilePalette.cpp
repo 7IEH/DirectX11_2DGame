@@ -148,11 +148,11 @@ void TilePalette::Canvas(Ptr<Sprite> _atlasImage)
 	{
 		if (m_ClickedTile._Collider == 1)
 		{
-			int maxRow = _atlasImage->GetSpriteWidth() / m_PixelSize[0];
-			int maxCol = _atlasImage->GetSpriteHeight() / m_PixelSize[1];
+			int maxRow = int((float)_atlasImage->GetSpriteWidth() / m_PixelSize[0]);
+			int maxCol = int((float)_atlasImage->GetSpriteHeight() / m_PixelSize[1]);
 
-			int _row = mouse_pos_in_canvas.x / m_PixelSize[0];
-			int _col = mouse_pos_in_canvas.y / m_PixelSize[1];
+			int _row = int(mouse_pos_in_canvas.x / m_PixelSize[0]);
+			int _col = int(mouse_pos_in_canvas.y / m_PixelSize[1]);
 
 			int _idx = _col * m_Face[0] + _row;
 
@@ -168,11 +168,11 @@ void TilePalette::Canvas(Ptr<Sprite> _atlasImage)
 			if (m_ClickedTile._tileIdx == -1)
 				return;
 
-			int maxRow = _atlasImage->GetSpriteWidth() / m_PixelSize[0];
-			int maxCol = _atlasImage->GetSpriteHeight() / m_PixelSize[1];
+			int maxRow = int((float)_atlasImage->GetSpriteWidth() / m_PixelSize[0]);
+			int maxCol = int((float)_atlasImage->GetSpriteHeight() / m_PixelSize[1]);
 
-			int _row = mouse_pos_in_canvas.x / m_PixelSize[0];
-			int _col = mouse_pos_in_canvas.y / m_PixelSize[1];
+			int _row = int(mouse_pos_in_canvas.x / m_PixelSize[0]);
+			int _col = int(mouse_pos_in_canvas.y / m_PixelSize[1]);
 
 			int _idx = _col * m_Face[0] + _row;
 
@@ -183,7 +183,7 @@ void TilePalette::Canvas(Ptr<Sprite> _atlasImage)
 
 			m_TileInfo[_idx]._TileIdx = m_ClickedTile._tileIdx;
 			m_TileInfo[_idx]._atlas = _atlasImage;
-			m_TileInfo[_idx]._Face = Vec2(m_Face[0], m_Face[1]);
+			m_TileInfo[_idx]._Face = Vec2((float)m_Face[0], (float)m_Face[1]);
 			m_TileInfo[_idx]._Render = 1;
 			m_TileInfo[_idx]._RenderSize = Vec2(m_RenderSize[0], m_RenderSize[1]);
 			m_TileInfo[_idx]._PixelSize = Vec2(m_PixelSize[0], m_PixelSize[1]);
@@ -195,11 +195,11 @@ void TilePalette::Canvas(Ptr<Sprite> _atlasImage)
 		if (m_ClickedTile._tileIdx == -1)
 			return;
 
-		int maxRow = _atlasImage->GetSpriteWidth() / m_PixelSize[0];
-		int maxCol = _atlasImage->GetSpriteHeight() / m_PixelSize[1];
+		int maxRow = int((float)_atlasImage->GetSpriteWidth() / m_PixelSize[0]);
+		int maxCol = int((float)_atlasImage->GetSpriteHeight() / m_PixelSize[1]);
 
-		int _row = mouse_pos_in_canvas.x / m_PixelSize[0];
-		int _col = mouse_pos_in_canvas.y / m_PixelSize[1];
+		int _row = int(mouse_pos_in_canvas.x / m_PixelSize[0]);
+		int _col = int(mouse_pos_in_canvas.y / m_PixelSize[1]);
 
 		int _idx = _col * m_Face[0] + _row;
 
@@ -228,8 +228,8 @@ void TilePalette::Canvas(Ptr<Sprite> _atlasImage)
 		int iCol = i / m_Face[0];
 
 		// 현재 스프라이트에 최대 열 최대 행
-		int maxRow = _atlasImage->GetSpriteWidth() / m_PixelSize[0];
-		int maxCol = _atlasImage->GetSpriteHeight() / m_PixelSize[1];
+		int maxRow = int((float)_atlasImage->GetSpriteWidth() / m_PixelSize[0]);
+		int maxCol = int((float)_atlasImage->GetSpriteHeight() / m_PixelSize[1]);
 
 		// 해당 타일 UV 위치
 		int _row = m_TileInfo[i]._TileIdx % maxRow;
@@ -248,14 +248,14 @@ void TilePalette::Canvas(Ptr<Sprite> _atlasImage)
 
 		if (m_TileInfo[i]._ColliderEnabled == 1)
 		{
-			draw_list->AddRectFilled(_posSt, _posEn, IM_COL32(155.f,0.f,0.f,100.f));
+			draw_list->AddRectFilled(_posSt, _posEn, IM_COL32(155.f, 0.f, 0.f, 100.f));
 		}
 	}
 
 	// 그리드 그리기
-	for (UINT _col = 0;_col < m_Face[0];_col++)
+	for (UINT _col = 0;_col < (UINT)m_Face[0];_col++)
 	{
-		for (UINT _row = 0;_row < m_Face[1];_row++)
+		for (UINT _row = 0;_row < (UINT)m_Face[1];_row++)
 		{
 			ImVec2 _posSt = ImVec2(origin.x + m_PixelSize[0] * _row, origin.y + m_PixelSize[1] * _col);
 			ImVec2 _posEn = ImVec2(_posSt.x + m_PixelSize[0], _posSt.y + m_PixelSize[1]);
@@ -270,8 +270,8 @@ void TilePalette::Setting(Ptr<Sprite> _atlasImage)
 	ImGui::SetNextWindowSizeConstraints(ImVec2(0.0f, ImGui::GetTextLineHeightWithSpacing() * 1), ImVec2(500.f, 600.f));
 	if (ImGui::BeginChild("Setting##TilePalette", ImVec2(-FLT_MIN, 600.f), ImGuiChildFlags_Border | ImGuiChildFlags_AutoResizeY | ImGuiChildFlags_AutoResizeX))
 	{
-		m_prevFace[0] = m_Face[0];
-		m_prevFace[1] = m_Face[1];
+		m_prevFace[0] = (float)m_Face[0];
+		m_prevFace[1] = (float)m_Face[1];
 
 		ImGui::Text("Name"); ImGui::SameLine(150.f); ImGui::InputText("##NameInput", &m_TileName);
 		ImGui::Text("Face"); ImGui::SameLine(150.f); ImGui::InputInt2("##FaceInput", m_Face);
@@ -305,15 +305,15 @@ void TilePalette::Palette(Ptr<Sprite> _atlasImage)
 
 		if (ImGui::Button("Collider Box", ImVec2(m_buttonWidth, m_buttonWidth)))
 		{
-			m_ClickedTile._stUV = ImVec2(0.f,0.f);
-			m_ClickedTile._enUV = ImVec2(0.f,0.f);
+			m_ClickedTile._stUV = ImVec2(0.f, 0.f);
+			m_ClickedTile._enUV = ImVec2(0.f, 0.f);
 
 			m_ClickedTile._tileIdx = 0;
 			m_ClickedTile._Collider = 1;
 		}
 
-		UINT _maxRow = _atlasImage->GetSpriteWidth() / m_PixelSize[0];
-		UINT _maxCol = _atlasImage->GetSpriteHeight() / m_PixelSize[1];
+		UINT _maxRow = UINT((float)_atlasImage->GetSpriteWidth() / m_PixelSize[0]);
+		UINT _maxCol = UINT((float)_atlasImage->GetSpriteHeight() / m_PixelSize[1]);
 
 		float _sliceX = m_PixelSize[0] / _atlasImage->GetSpriteWidth();
 		float _sliceY = m_PixelSize[1] / _atlasImage->GetSpriteHeight();

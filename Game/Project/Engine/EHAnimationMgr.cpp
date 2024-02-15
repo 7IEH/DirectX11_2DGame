@@ -14,16 +14,7 @@ AnimationMgr::AnimationMgr()
 
 AnimationMgr::~AnimationMgr()
 {
-	map<wstring, Animation2D*>::iterator iter = m_AnimationInfo.begin();
-
-	for (;iter != m_AnimationInfo.end();iter++)
-	{
-		if (nullptr != iter->second)
-		{
-			delete iter->second;
-			iter->second = nullptr;
-		}
-	}
+	ReleaseMap<wstring,Animation2D*>(m_AnimationInfo);
 }
 
 Animation2D* AnimationMgr::PushAnimation2D(const wstring& _label, Ptr<Sprite> _atlas, vector<tAnimFrameInfo>& _frameInfo)
@@ -130,7 +121,7 @@ void AnimationMgr::Awake()
 
 			_frameInfo.resize(_frameCount);
 
-			for (int i = 0;i < _frameCount;i++)
+			for (UINT i = 0;i < _frameCount;i++)
 			{
 				std::getline(_file, _line);
 				EH::InputVector2(_line, _frameInfo[i]._LeftTop);
@@ -208,7 +199,7 @@ void AnimationMgr::SaveFrame(wstring _path, Animation2D* _anim)
 {
 	std::ofstream _file(_path.data());
 	vector<tAnimFrameInfo> _frameInfo = _anim->GetFrameInfo();
-	UINT _frameCount = _frameInfo.size();
+	UINT _frameCount = UINT(_frameInfo.size());
 	string _atlasName = EH::ConvertString(_anim->GetAtlas()->GetName());
 
 	_file << std::to_string(_frameCount) + '\n';

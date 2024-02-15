@@ -55,7 +55,63 @@ void RendererUI::Render_Update()
 
 void RendererUI::MeshRenderer_Update()
 {
+	ImGui::Text("Mesh");ImGui::SameLine(100.f);
 
+	string _mesh = " ";
+	if (nullptr == GetTargetObject()->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->GetMesh())
+	{
+		_mesh = " ";
+	}
+	else
+	{
+		_mesh = EH::ConvertString(GetTargetObject()->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->GetMesh()->GetName());
+	}
+
+	if (ImGui::BeginCombo("##Mesh", _mesh.c_str()))
+	{
+		map<wstring, Ptr<Asset>> _meshs = AssetMgr::GetInst()->GetMesh();
+		map<wstring, Ptr<Asset>>::iterator iter = _meshs.begin();
+
+		bool _flags = false;
+		for (;iter != _meshs.end();iter++)
+		{
+			if (ImGui::Selectable(EH::ConvertString(iter->first).c_str(), _flags))
+			{
+				GetTargetObject()->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(iter->first));
+			}
+		}
+
+		ImGui::EndCombo();
+	}
+
+	ImGui::Text("Material");ImGui::SameLine(100.f);
+
+	string _material = " ";
+	if (nullptr == GetTargetObject()->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->GetMaterial())
+	{
+		_material = " ";
+	}
+	else
+	{
+		_material = EH::ConvertString(GetTargetObject()->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->GetName());
+	}
+
+	if (ImGui::BeginCombo("##Material", _material.c_str()))
+	{
+		map<wstring, Ptr<Asset>> _materials = AssetMgr::GetInst()->GetMaterial();
+		map<wstring, Ptr<Asset>>::iterator iter = _materials.begin();
+
+		bool _flags = false;
+		for (;iter != _materials.end();iter++)
+		{
+			if (ImGui::Selectable(EH::ConvertString(iter->first).c_str(), _flags))
+			{
+				GetTargetObject()->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(iter->first));
+			}
+		}
+
+		ImGui::EndCombo();
+	}
 }
 
 void RendererUI::TileMap_Update()
@@ -348,15 +404,15 @@ void RendererUI::Particle_Update()
 	ImGui::Checkbox("##NoiseCheck", &m_Noise);ImGui::SameLine();
 	if (ImGui::TreeNode("Noise Velocity"))
 	{
-		ImGui::Text("Noise Scale");ImGui::SameLine(170.f);ImGui::DragFloat("##NoiseScale",&_module.NoiseForceScale);
-		ImGui::Text("Noise Term");ImGui::SameLine(170.f);ImGui::DragFloat("##NoiseTerm",&_module.NoiseForceTerm);
+		ImGui::Text("Noise Scale");ImGui::SameLine(170.f);ImGui::DragFloat("##NoiseScale", &_module.NoiseForceScale);
+		ImGui::Text("Noise Term");ImGui::SameLine(170.f);ImGui::DragFloat("##NoiseTerm", &_module.NoiseForceTerm);
 		ImGui::TreePop();
 	}
 
 	ImGui::Checkbox("##ColorCheck", &m_Color);ImGui::SameLine();
 	if (ImGui::TreeNode("Color Over Lifetime"))
 	{
-		ImGui::Text("Color Type");ImGui::SameLine();ImGui::InputInt("##ColorType",&_module._ColorType);
+		ImGui::Text("Color Type");ImGui::SameLine();ImGui::InputInt("##ColorType", &_module._ColorType);
 		ImGui::TreePop();
 	}
 

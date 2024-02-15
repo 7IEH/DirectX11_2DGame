@@ -1,9 +1,13 @@
 #include "pch.h"
 #include "EHLevel.h"
 
+#include "EHCollisionMgr.h"
 #include "EHAssetMgr.h"
+
 #include "EHGameObject.h"
 #include "EHLayer.h"
+
+#include "Scripts.h"
 
 Level::Level()
 	:m_Layers{}
@@ -12,6 +16,7 @@ Level::Level()
 	{
 		m_Layers[_type] = new Layer;
 		m_Layers[_type]->m_Type = LAYER_TYPE(_type);
+		m_CollistionMatrix[_type] = 0;
 	}
 }
 
@@ -45,7 +50,19 @@ void Level::Load(string _path)
 	if (_file.is_open())
 	{
 		bool _temp = false;
-		string _line;
+		string _line = "";
+
+		std::getline(_file, _line);
+
+		if (_line == "CollisionMatrix")
+		{
+			for (UINT i = 0;i < (UINT)LAYER_TYPE::END;i++)
+			{
+				std::getline(_file, _line);
+				m_CollistionMatrix[i] = std::stoi(_line);
+			}
+		}
+
 		while (std::getline(_file, _line))
 		{
 			if (_line == "object")
@@ -240,6 +257,22 @@ void Level::Load(string _path)
 						AddCollider2D(_obj, _offsetPos, _radius);
 					}
 
+					if (_line.find("Script") != string::npos)
+					{
+						vector<wstring>_script;_script.clear();
+						int _size = 0;
+						std::getline(_file, _line);
+						_size = std::stoi(_line);
+
+						for (int i = 0;i < _size;i++)
+						{
+							std::getline(_file, _line);
+							_script.push_back(EH::ConvertWstring(_line));
+						}
+
+						AddScript(_obj, _script);
+					}
+
 					if (_line.find("endobject") != string::npos)
 					{
 						break;
@@ -253,6 +286,8 @@ void Level::Load(string _path)
 
 void Level::Awake()
 {
+	CollisionMgr::GetInst()->SetCollisionMatrix(m_CollistionMatrix);
+
 	for (UINT _type = 0;_type < (UINT)LAYER_TYPE::END;_type++)
 	{
 		m_Layers[_type]->Awake();
@@ -337,10 +372,6 @@ void Level::AddMeshRenderer(GameObject* _obj, wstring _mesh, wstring _material)
 	_mr->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(_material));
 }
 
-void Level::AddCollisionLayer()
-{
-}
-
 void Level::AddCollider2D(GameObject* _obj, Vec3 _offsetPostion, Vec3 _offsetScale)
 {
 	Collider2D* _col = _obj->AddComponent<Collider2D>();
@@ -365,5 +396,36 @@ void Level::AddAnimator2D(GameObject* _obj, vector<wstring> _aniName)
 		{
 			return;
 		}
+	}
+}
+
+void Level::AddScript(GameObject* _obj, vector<wstring>_script)
+{
+	for (size_t i = 0;i < _script.size();i++)
+	{
+		if (_script[i] == L"PlayerScript")
+		{
+			_obj->AddComponent<PlayerScript>();
+		}
+		else if (_script[i] == L"Light2DScript")
+		{
+			_obj->AddComponent<Light2DScript>();
+		}
+		else if (_script[i] == L"CameraScript")
+		{
+			_obj->AddComponent<CameraScript>();
+		}
+		else if (_script[i] == L"CameraTargetScript")
+		{
+			_obj->AddComponent<CameraTargetScript>();
+		}
+		/*else if (_script[i] == L"OutLineScript")
+		{
+			_obj->AddComponent<OutLineScript>();
+		}
+		else if (_script[i] == L"TriggerScript")
+		{
+			_obj->AddComponent<TriggerScript>();
+		}*/
 	}
 }

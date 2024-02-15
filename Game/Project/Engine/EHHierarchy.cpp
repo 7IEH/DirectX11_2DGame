@@ -34,7 +34,7 @@ void Hierarchy::Render_Update()
 			string _name;
 
 			bool _picking = _objs[_obj]->GetPicking();
-			_name.assign(_name_w.begin(), _name_w.end());
+			_name = EH::ConvertString(_name_w.c_str());
 
 			ImGui::Selectable(_name.c_str(), &_picking);
 

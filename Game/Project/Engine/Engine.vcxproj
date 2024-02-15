@@ -160,6 +160,7 @@ call Copy.bat</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="EHAddComponent.h" />
     <ClInclude Include="EHAnimationMgr.h" />
     <ClInclude Include="EHAnimationUI.h" />
     <ClInclude Include="EHAnimator2DUI.h" />
@@ -220,6 +221,7 @@ call Copy.bat</Command>
     <ClInclude Include="EHSceneCreateUI.h" />
     <ClInclude Include="EHSceneView.h" />
     <ClInclude Include="EHScript.h" />
+    <ClInclude Include="EHScriptUI.h" />
     <ClInclude Include="EHShader.h" />
     <ClInclude Include="EHSprite.h" />
     <ClInclude Include="EHSpriteEditor.h" />
@@ -258,12 +260,14 @@ call Copy.bat</Command>
     <ClInclude Include="pch.h" />
     <ClInclude Include="Ptr.h" />
     <ClInclude Include="EHRendererUI.h" />
+    <ClInclude Include="Scripts.h" />
     <ClInclude Include="SimpleMath.h" />
     <ClInclude Include="singleton.h" />
     <ClInclude Include="struct.h" />
     <ClInclude Include="unAnimation2DUI.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="EHAddComponent.cpp" />
     <ClCompile Include="EHAnimationMgr.cpp" />
     <ClCompile Include="EHAnimationUI.cpp" />
     <ClCompile Include="EHAnimator2DUI.cpp" />
@@ -322,6 +326,7 @@ call Copy.bat</Command>
     <ClCompile Include="EHSceneCreateUI.cpp" />
     <ClCompile Include="EHSceneView.cpp" />
     <ClCompile Include="EHScript.cpp" />
+    <ClCompile Include="EHScriptUI.cpp" />
     <ClCompile Include="EHShader.cpp" />
     <ClCompile Include="EHSprite.cpp" />
     <ClCompile Include="EHSpriteEditor.cpp" />

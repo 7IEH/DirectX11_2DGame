@@ -156,8 +156,8 @@ void AnimationUI::Render_Update()
 			m_Play = FALSE;
 		}
 
-		float _width = _AtlasImage.Get()->GetSpriteWidth();
-		float _height = _AtlasImage.Get()->GetSpriteHeight();
+		float _width = float(_AtlasImage.Get()->GetSpriteWidth());
+		float _height = float(_AtlasImage.Get()->GetSpriteHeight());
 
 		// Ratio 보여질 이미지 크기 고정
 		float _ratio = m_PreViewWidth / m_SliceSize[0];
@@ -195,8 +195,8 @@ void AnimationUI::Render_Update()
 		m_LeftTop[0] = _animinfo[0]._LeftTop.x;
 		m_LeftTop[1] = _animinfo[0]._LeftTop.y;
 
-		float _width = _AtlasImage.Get()->GetSpriteWidth();
-		float _height = _AtlasImage.Get()->GetSpriteHeight();
+		float _width = float(_AtlasImage.Get()->GetSpriteWidth());
+		float _height = float(_AtlasImage.Get()->GetSpriteHeight());
 
 		m_SliceSize[0] = _animinfo[0]._SliceSize.x * _width;
 		m_SliceSize[1] = _animinfo[0]._SliceSize.y * _height;
@@ -248,8 +248,8 @@ void AnimationUI::Render_Update()
 	ImGui::SetNextWindowSizeConstraints(ImVec2(0.0f, ImGui::GetTextLineHeightWithSpacing() * 1), ImVec2(50.f * m_frameCount, 300.f));
 	if (ImGui::BeginChild("SpritePreviewChild", ImVec2(50.f * m_frameCount, 300.f), ImGuiChildFlags_Border | ImGuiChildFlags_AutoResizeY | ImGuiChildFlags_AutoResizeX))
 	{
-		float _width = _AtlasImage.Get()->GetSpriteWidth();
-		float _height = _AtlasImage.Get()->GetSpriteHeight();
+		float _width = float(_AtlasImage.Get()->GetSpriteWidth());
+		float _height = float(_AtlasImage.Get()->GetSpriteHeight());
 
 		float _ratio = m_SpriteWidth / m_SliceSize[0];
 		for (int i = 0;i < m_frameCount;i++)

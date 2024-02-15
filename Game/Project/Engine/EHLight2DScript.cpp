@@ -8,6 +8,7 @@
 
 Light2DScript::Light2DScript()
 {
+	SetName(L"Light2DScript");
 }
 
 Light2DScript::~Light2DScript()

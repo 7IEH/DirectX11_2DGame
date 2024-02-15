@@ -8,6 +8,7 @@
 CameraTargetScript::CameraTargetScript()
 	:m_Target(nullptr)
 {
+	SetName(L"CameraTargetScript");
 }
 
 CameraTargetScript::~CameraTargetScript()

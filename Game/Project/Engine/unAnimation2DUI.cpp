@@ -190,8 +190,8 @@ void unAnimation2DUI::Canvas(Ptr<Sprite> _AtlasImage)
 		m_RectForVisible[0] = ImVec2(0.f, 0.f);
 		m_RectForVisible[1] = ImVec2(0.f, 0.f);
 
-		int mouse_pos_x = mouse_pos_in_canvas.x / 4.f;
-		int mouse_pos_y = mouse_pos_in_canvas.y / 4.f;
+		int mouse_pos_x = int(mouse_pos_in_canvas.x / 4.f);
+		int mouse_pos_y = int(mouse_pos_in_canvas.y / 4.f);
 
 		q.push(make_pair(mouse_pos_y, mouse_pos_x));
 		visited[(int)mouse_pos_y][(int)mouse_pos_x] = true;
@@ -297,8 +297,8 @@ void unAnimation2DUI::Preview(Ptr<Sprite> _AtlasImage)
 
 		ImGui::Separator();
 
-		float _width = _AtlasImage.Get()->GetSpriteWidth();
-		float _height = _AtlasImage.Get()->GetSpriteHeight();
+		float _width = float(_AtlasImage.Get()->GetSpriteWidth());
+		float _height = float(_AtlasImage.Get()->GetSpriteHeight());
 
 		// Ratio 보여질 이미지 크기 고정
 		if (m_AnimationInfo.size() == 0)
@@ -343,8 +343,8 @@ void unAnimation2DUI::Preview(Ptr<Sprite> _AtlasImage)
 
 		if (ImGui::Button("Edit##EditUnanimation2D"))
 		{
-			float _width = _AtlasImage->GetSpriteWidth();
-			float _height = _AtlasImage->GetSpriteHeight();
+			float _width = float(_AtlasImage->GetSpriteWidth());
+			float _height = float(_AtlasImage->GetSpriteHeight());
 
 			m_AnimationInfo[m_Frame]._LeftTop.x = m_EditLeftTop[0] / _width;
 			m_AnimationInfo[m_Frame]._LeftTop.y = m_EditLeftTop[1] / _height;
@@ -415,8 +415,8 @@ void unAnimation2DUI::Setting(Ptr<Sprite> _AtlasImage)
 
 	if (ImGui::Button("Frame Create"))
 	{
-		float _width = _AtlasImage->GetSpriteWidth();
-		float _height = _AtlasImage->GetSpriteHeight();
+		float _width = float(_AtlasImage->GetSpriteWidth());
+		float _height = float(_AtlasImage->GetSpriteHeight());
 		tAnimFrameInfo _info = {};
 		_info._LeftTop.x = m_LeftTop[0] / _width;
 		_info._LeftTop.y = m_LeftTop[1] / _height;
@@ -444,8 +444,8 @@ void unAnimation2DUI::AtlasPreview(Ptr<Sprite> _AtlasImage)
 	ImGui::SetNextWindowSizeConstraints(ImVec2(0.0f, ImGui::GetTextLineHeightWithSpacing() * 1), ImVec2(500.f, 300.f));
 	if (ImGui::BeginChild("SpritePreviewChild", ImVec2(1000.f, 300.f), ImGuiChildFlags_Border | ImGuiChildFlags_AutoResizeY | ImGuiChildFlags_AutoResizeX))
 	{
-		float _width = _AtlasImage.Get()->GetSpriteWidth();
-		float _height = _AtlasImage.Get()->GetSpriteHeight();
+		float _width = float(_AtlasImage.Get()->GetSpriteWidth());
+		float _height = float(_AtlasImage.Get()->GetSpriteHeight());
 
 		float _ratio = m_SpriteWidth / m_SliceSize[0];
 		for (int i = 0;i < m_AnimationInfo.size();i++)

@@ -11,6 +11,7 @@
 #include "EHPathMgr.h"
 #include "EHKeyMgr.h"
 #include "EHAnimationMgr.h"
+#include "EHCollisionMgr.h"
 
 LevelMgr::LevelMgr()
 	:m_CurLevel(nullptr)
@@ -50,8 +51,6 @@ void LevelMgr::Awake()
 
 	if (m_CurLevel == nullptr)
 		return;
-
-	//m_CurLevel->Awake();
 }
 
 void LevelMgr::Start()
@@ -85,7 +84,7 @@ void LevelMgr::Save()
 		string _curName = string(_wcurName.begin(), _wcurName.end());
 		wstring _absolutPath = PATH;
 		string _path = EH::ConvertString(_absolutPath.c_str()) + "\\Assets\\Scenes";
-		
+
 		for (const std::filesystem::directory_entry& _entry :
 			std::filesystem::directory_iterator(_path))
 		{
@@ -104,7 +103,18 @@ void LevelMgr::Save()
 
 				// 새로 쓰기
 				// 각 GameObject 함수 호출
-				// layer 불러오기
+				// layerMatrix
+
+				_fileInfo << "CollisionMatrix\n";
+
+				UINT* _collisionMatrix = CollisionMgr::GetInst()->GetCollisionMatrix();
+				for (UINT i = 0;i < (UINT)LAYER_TYPE::END;i++)
+				{	
+					_fileInfo << std::to_string(_collisionMatrix[i]) + '\n';
+				}
+
+				_fileInfo.close();
+
 				for (UINT _idx = 0;_idx < (UINT)LAYER_TYPE::END;_idx++)
 				{
 					Layer* _layer = m_CurLevel->GetLayer(LAYER_TYPE(_idx));
@@ -116,8 +126,6 @@ void LevelMgr::Save()
 				}
 			}
 		}
-
-		
 		// ANIMATION SAVE
 		AnimationMgr::GetInst()->Save();
 	}

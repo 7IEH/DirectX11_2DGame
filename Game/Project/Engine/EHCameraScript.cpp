@@ -10,9 +10,10 @@
 #include "EHTimeMgr.h"
 
 CameraScript::CameraScript()
-	:m_Target(nullptr)
+	: m_Target(nullptr)
 	, m_CamSpeed(400.f)
 {
+	SetName(L"CameraScript");
 }
 
 CameraScript::~CameraScript()

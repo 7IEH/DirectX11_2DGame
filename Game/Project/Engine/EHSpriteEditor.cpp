@@ -75,8 +75,8 @@ void SpriteEditor::Render_Update()
 		ImGui::Text(_name.c_str());
 		ImGui::Text("SpriteSheet");
 		ImGui::Separator();
-		float _width = iter->second->GetAtlas().Get()->GetSpriteWidth();
-		float _height = iter->second->GetAtlas().Get()->GetSpriteHeight();
+		float _width = float(iter->second->GetAtlas().Get()->GetSpriteWidth());
+		float _height = float(iter->second->GetAtlas().Get()->GetSpriteHeight());
 		ImGui::Image(iter->second->GetAtlas().Get()->GetSRV().Get(),ImVec2(_width,_height));
 		ImGui::Separator();
 		_idx++;

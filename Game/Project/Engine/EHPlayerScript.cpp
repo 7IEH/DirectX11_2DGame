@@ -14,8 +14,9 @@
 #include "EHTestScript.h"
 
 PlayerScript::PlayerScript()
-	:m_Speed(200.f)
+	:m_Speed(200.f)	
 {
+	SetName(L"PlayerScript");
 }
 
 PlayerScript::~PlayerScript()

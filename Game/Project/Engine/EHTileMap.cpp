@@ -98,7 +98,7 @@ void TileMap::Render()
 	GetMaterial()->SetMaterialParam(VEC2_0, m_vSliceSizeUV);
 
 	// 각 타일 정보를 구조화 버퍼로 이동
-	m_TileInfoBuffer->SetData(m_vecTileInfo.data(), m_vecTileInfo.size());
+	m_TileInfoBuffer->SetData(m_vecTileInfo.data(), (UINT)m_vecTileInfo.size());
 
 	// 타일 구조화 버퍼를 t20 에 바인딩
 	m_TileInfoBuffer->UpdateData(20);

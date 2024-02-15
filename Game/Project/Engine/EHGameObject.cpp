@@ -189,6 +189,8 @@ void GameObject::Save(string _path)
 		_file.write(_name.c_str(), _name.size());
 		_file.write(_layer.c_str(), _layer.size());
 		_file.close();
+
+		// Component 정보 저장
 		for (UINT i = 0;i < (UINT)COMPONENT_TYPE::END;i++)
 		{
 			if (nullptr != m_Component[i])
@@ -196,6 +198,14 @@ void GameObject::Save(string _path)
 		}
 
 		_file.open(_path.data(), std::fstream::out | std::fstream::app);
+
+		// Script 정보 저장
+		_file << "Script\n";
+		_file << std::to_string(m_vScripts.size()) + '\n';
+		for (size_t i = 0;i < m_vScripts.size();i++)
+		{
+			_file << EH::ConvertString(m_vScripts[i]->GetName()) + '\n';
+		}
 		_temp = "endobject\n";
 		_file.write(_temp.c_str(), _temp.size());
 	}
