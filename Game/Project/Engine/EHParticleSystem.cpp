@@ -80,6 +80,28 @@ ParticleSystem::ParticleSystem()
 	m_ParticleModuleBuffer->Create(sizeof(tParticleModule) + ModuleAddSize, 1, TRUE, STRUCTURED_TYPE::READ_ONLY);
 }
 
+ParticleSystem::ParticleSystem(const ParticleSystem& _origin)
+	:Renderer(_origin)
+	, m_ParticleBuffer(nullptr)
+	, m_MaxParticleCount(_origin.m_MaxParticleCount)
+	, m_Module(_origin.m_Module)
+	, m_ParticleModuleBuffer(nullptr)
+	, m_SpawnCountBuffer(nullptr)
+	, m_CSParticleUpdate(_origin.m_CSParticleUpdate)
+	, m_ParticleSprite(_origin.m_ParticleSprite)
+	, m_NoiseSprite(_origin.m_NoiseSprite)
+	, m_Time(0.f)
+{
+	if (nullptr != _origin.m_ParticleBuffer)
+		m_ParticleBuffer = _origin.m_ParticleBuffer->Clone();
+
+	if (nullptr != _origin.m_ParticleModuleBuffer)
+		m_ParticleModuleBuffer = _origin.m_ParticleModuleBuffer->Clone();
+
+	if (nullptr != _origin.m_SpawnCountBuffer)
+		m_SpawnCountBuffer = _origin.m_SpawnCountBuffer->Clone();
+}
+
 ParticleSystem::~ParticleSystem()
 {
 	if (nullptr != m_ParticleBuffer)

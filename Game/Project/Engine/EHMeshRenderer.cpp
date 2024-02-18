@@ -78,8 +78,16 @@ void MeshRenderer::Save(string _path)
 	std::ofstream _file(_path.data(), std::fstream::out | std::fstream::app);
 
 	_file << "MESHRENDERER\n";;
-	_file << EH::ConvertString(GetMesh()->GetName()) + '\n';
-	_file << EH::ConvertString(GetMaterial()->GetName()) + '\n';
+
+	if (nullptr != GetMesh())
+	{
+		_file << EH::ConvertString(GetMesh()->GetName()) + '\n';
+	}
+
+	if (nullptr != GetMaterial())
+	{
+		_file << EH::ConvertString(GetMaterial()->GetName()) + '\n';
+	}
 
 	_file.close();
 }

@@ -41,8 +41,11 @@ public:
 	virtual void LateUpdate() override;
 	virtual void Render() override;
 
+	CLONE(ParticleSystem)
+
 public:
 	ParticleSystem();
+	ParticleSystem(const ParticleSystem& _origin);
 	virtual ~ParticleSystem();
 };
 

@@ -26,6 +26,8 @@ public:
 	void			UpdateData();
 	void			UpdateData_CS();
 
+	CLONE_DISABLE(ConstantBuffer)
+
 public:
 	ConstantBuffer();
 	~ConstantBuffer();

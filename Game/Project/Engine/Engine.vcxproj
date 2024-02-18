@@ -166,6 +166,7 @@ call Copy.bat</Command>
     <ClInclude Include="EHAnimator2DUI.h" />
     <ClInclude Include="EHAnimation2D.h" />
     <ClInclude Include="EHAnimator2D.h" />
+    <ClInclude Include="EHAssetUI.h" />
     <ClInclude Include="EHBehaviour.h" />
     <ClInclude Include="EHBoxCollider2DUI.h" />
     <ClInclude Include="EHCamera.h" />
@@ -274,6 +275,7 @@ call Copy.bat</Command>
     <ClCompile Include="EHAnimation2D.cpp" />
     <ClCompile Include="EHAnimator2D.cpp" />
     <ClCompile Include="EHAssetMgr_Init.cpp" />
+    <ClCompile Include="EHAssetUI.cpp" />
     <ClCompile Include="EHBoxCollider2DUI.cpp" />
     <ClCompile Include="EHCamera.cpp" />
     <ClCompile Include="EHCameraScript.cpp" />
@@ -443,6 +445,7 @@ call Copy.bat</Command>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="cpp.hint" />
     <None Include="SimpleMath.inl" />
   </ItemGroup>
   <ItemGroup>

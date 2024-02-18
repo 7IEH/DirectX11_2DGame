@@ -34,7 +34,7 @@ public:
 			m_Asset->AddRef();
 	}
 
-	bool operator ==(const Ptr<T>& _Other)
+	bool operator ==(const Ptr<T>& _Other) const
 	{
 		if (m_Asset == _Other.Asset)
 		{
@@ -46,12 +46,12 @@ public:
 		}
 	}
 
-	bool operator != (const Ptr<T>& _Other)
+	bool operator != (const Ptr<T>& _Other) const
 	{
 		return !(*this == _Other);
 	}
 
-	bool operator ==(const T* _Asset)
+	bool operator ==(const T* _Asset) const
 	{
 		if (m_Asset == _Asset)
 			return true;
@@ -59,7 +59,7 @@ public:
 			return false;
 	}
 
-	bool operator != (const T* _Asset)
+	bool operator != (const T* _Asset) const
 	{
 		return !(*this == _Asset);
 	}

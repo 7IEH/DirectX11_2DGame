@@ -13,6 +13,23 @@ StructuredBuffer::StructuredBuffer()
 {
 }
 
+StructuredBuffer::StructuredBuffer(const StructuredBuffer& _origin)
+	:Entity(_origin)
+	, m_StructuredBuffer(nullptr)
+	, m_StructWriteBuffer(nullptr)
+	, m_StructReadBuffer(nullptr)
+	, m_SV(nullptr)
+	, m_UAV(nullptr)
+	, m_ElementSize(_origin.m_ElementSize)
+	, m_ElementCount(_origin.m_ElementCount)
+	, m_RegentSRV(0)
+	, m_RegentUAV(0)
+	, m_Type(_origin.m_Type)
+	, m_IsUpdate(_origin.m_IsUpdate)
+{
+	Create(m_ElementSize, m_ElementCount, m_IsUpdate , m_Type);
+}
+
 StructuredBuffer::~StructuredBuffer()
 {
 }

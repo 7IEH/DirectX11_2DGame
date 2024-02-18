@@ -60,6 +60,8 @@ public:
 		return _comp;
 	}
 
+	void AddComponent(Component* _comp);
+
 public:
 	LAYER_TYPE		GetLayerType() { return m_LayerType; }
 	void			SetLayerType(LAYER_TYPE _type) { m_LayerType = _type; }
@@ -80,9 +82,11 @@ public:
 	}
 
 	GameObject* GetParent() { return m_Parent; }
+	const vector<GameObject*>& GetChild() { return m_Childs; }
+
 	void AddChild(GameObject* _child);
-	void DisconnectWithParent();
-	void DisconnectWithLayer();
+	int DisconnectWithParent();
+	int DisconnectWithLayer();
 
 	void		SetDead(bool _dead) { m_Dead = _dead; }
 	bool		GetDead() { return m_Dead; }
@@ -99,11 +103,13 @@ public:
 	virtual void LateUpdate();
 	virtual void Render();
 
+	CLONE(GameObject);
 private:
 	void Save(string _path);
 
 public:
 	GameObject();
+	GameObject(const GameObject& _origin);
 	virtual ~GameObject();
 
 	friend class Layer;

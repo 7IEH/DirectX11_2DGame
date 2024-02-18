@@ -43,11 +43,14 @@ void LevelMgr::Awake()
 		_level->Load(string(_path.begin(), _path.end()));
 	}
 
-	AddLevel<TestLevel>(L"TestLevel");
+	TestLevel* _level = AddLevel<TestLevel>(L"TestLevel");
 	AddLevel<IntroLevel>(L"IntroLevel");
 	AddLevel<TitleLevel>(L"TitleLevel");
 	AddLevel<DungeonScene>(L"DungeonScene");
 	SelectLevel(L"TestLevel");
+
+	m_CurLevel = _level->Clone();
+	m_CurLevel->Awake();
 
 	if (m_CurLevel == nullptr)
 		return;

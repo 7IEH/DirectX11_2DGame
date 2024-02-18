@@ -16,4 +16,6 @@ public:
 	virtual void Render() override;
 
 	virtual void Save(string _path)override;
+
+	CLONE(MeshRenderer)
 };

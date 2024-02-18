@@ -1,5 +1,7 @@
 #pragma once
 
+#include "EHImGUIMgr.h"
+
 class UI
 {
 private:

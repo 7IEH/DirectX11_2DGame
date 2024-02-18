@@ -47,6 +47,8 @@ public:
 	void LateUpdate();
 	static void Clear();
 
+	CLONE(Animation2D);
+
 private:
 	void Create(const wstring& _animName, Ptr<Sprite> _atalas, Vec2 _leftTop, Vec2 _offset, Vec2 _sliceSize, Vec2 _BackGround, UINT _FrameCount, float _FPS);
 
@@ -62,6 +64,7 @@ private:
 
 public:
 	Animation2D();
+	Animation2D(const Animation2D& _origin);
 	~Animation2D();
 
 	friend class Animator2D;

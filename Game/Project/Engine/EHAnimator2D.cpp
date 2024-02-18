@@ -13,6 +13,28 @@ Animator2D::Animator2D()
 {
 }
 
+Animator2D::Animator2D(const Animator2D& _origin)
+	:Component(_origin)
+	, m_AnimInfo{}
+	, m_CurAnimation(nullptr)
+	, m_Repeat()
+{
+	map<wstring, Animation2D*>::const_iterator iter = _origin.m_AnimInfo.begin();
+
+	for (;iter != _origin.m_AnimInfo.end();iter++)
+	{
+		Animation2D* _copy = iter->second->Clone();
+
+		_copy->SetAnimator(this);
+		m_AnimInfo.insert(make_pair(iter->first, _copy));
+	}
+
+	if (nullptr != _origin.m_CurAnimation)
+	{
+		m_CurAnimation = FindAnimation(_origin.m_CurAnimation->GetName());
+	}
+}
+
 Animator2D::~Animator2D()
 {
 	map<wstring, Animation2D*>::iterator iter = m_AnimInfo.begin();

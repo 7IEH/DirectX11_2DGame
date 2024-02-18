@@ -13,11 +13,53 @@ int GameObject::m_ObjectID = 0;
 GameObject::GameObject()
 	:m_LayerType(LAYER_TYPE::NON_SELECT)
 	, m_Component{}
+	, m_vScripts{}
 	, m_Renderer(nullptr)
 	, m_Dead(false)
 	, m_Picking(false)
 	, m_Idx(m_ObjectID++)
 {
+}
+
+GameObject::GameObject(const GameObject& _origin)
+	:Entity(_origin)
+	, m_LayerType(_origin.m_LayerType)
+	, m_Component{}
+	, m_vScripts{}
+	, m_Renderer(nullptr)
+	, m_Parent(nullptr)
+	, m_Dead(false)
+	, m_Picking(false)
+	, m_Idx(m_ObjectID++)
+{
+	for (UINT i = 0;i < (UINT)COMPONENT_TYPE::END;i++)
+	{
+		if (nullptr == _origin.m_Component[i])
+			continue;
+		AddComponent(_origin.m_Component[i]->Clone());
+
+		if (COMPONENT_TYPE::CAMERA == COMPONENT_TYPE(i))
+		{
+			Camera* _cam = (Camera*)_origin.m_Component[i];
+
+			if (nullptr != _cam)
+			{
+				CAMERA_TYPE _type = _cam->GetCameraType();
+				this->GetComponent<Camera>(COMPONENT_TYPE::CAMERA)->SetCameraType(_type);
+			}
+		}
+	}
+
+	for (size_t i = 0;i < _origin.m_vScripts.size();i++)
+	{
+		AddComponent(_origin.m_vScripts[i]->Clone());
+	}
+
+	for (size_t i = 0;i < _origin.m_Childs.size();i++)
+	{
+		if (nullptr != m_Childs[i])
+			AddChild(_origin.m_Childs[i]->Clone());
+	}
 }
 
 GameObject::~GameObject()
@@ -29,6 +71,37 @@ GameObject::~GameObject()
 	ReleaseArray<Component, (int)COMPONENT_TYPE::END>(m_Component);
 	ReleaseVector(m_Childs);
 	ReleaseVector(m_vScripts);
+}
+
+void GameObject::AddComponent(Component* _comp)
+{
+	COMPONENT_TYPE _type = _comp->GetType();
+
+	if (_type == COMPONENT_TYPE::SCRIPT)
+	{
+		// Script 타입 Component 가 실제로 Script 클래스가 아닌 경우
+		assert(dynamic_cast<Script*>(_comp));
+
+		m_vScripts.push_back((Script*)_comp);
+		_comp->SetOwner(this);
+	}
+	else
+	{
+		// 이미 해당 타입의 컴포넌트를 보유하고 있는 경우 
+		assert(!m_Component[(UINT)_type]);
+
+		m_Component[(UINT)_type] = _comp;
+		_comp->SetOwner(this);
+
+		Renderer* pRenderCom = dynamic_cast<Renderer*>(_comp);
+		if (nullptr != pRenderCom)
+		{
+			// 이미 한 종류 이상의 RenderComponent 를 보유하고 있는 경우
+			assert(!m_Renderer);
+
+			m_Renderer = pRenderCom;
+		}
+	}
 }
 
 void GameObject::Awake()
@@ -139,13 +212,24 @@ void GameObject::AddChild(GameObject* _child)
 	{
 		_child->DisconnectWithParent();
 	}
+	else
+	{
+		LAYER_TYPE _type = _child->m_LayerType;
+		_child->DisconnectWithLayer();
+		_child->m_LayerType = _type;
+	}
 
 	_child->m_Parent = this;
 	m_Childs.push_back(_child);
 }
 
-void GameObject::DisconnectWithParent()
+int GameObject::DisconnectWithParent()
 {
+	if (nullptr == m_Parent)
+		return -1;
+
+	bool bSuccess = false;
+
 	vector<GameObject*>::iterator iter = m_Parent->m_Childs.begin();
 
 	for (;iter != m_Parent->m_Childs.end();++iter)
@@ -154,21 +238,35 @@ void GameObject::DisconnectWithParent()
 		{
 			m_Parent->m_Childs.erase(iter);
 			m_Parent = nullptr;
-			return;
+			bSuccess = true;
+			break;
 		}
 	}
 
-	assert(nullptr);
+	if (!bSuccess)
+	{
+		assert(nullptr);
+	}
+
+	int layerIdx = int(m_LayerType);
+
+	m_LayerType = LAYER_TYPE::NON_SELECT;
+
+	return layerIdx;
 }
 
-void GameObject::DisconnectWithLayer()
+int GameObject::DisconnectWithLayer()
 {
 	if (LAYER_TYPE::NON_SELECT == m_LayerType)
-		return;
+		return -1;
 
 	Level* _CurLevel = LevelMgr::GetInst()->GetCurLevel();
 	Layer* _CurLayer = _CurLevel->GetLayer(m_LayerType);
+
+	int layerIdx = int(m_LayerType);
 	_CurLayer->DetachGameObject(this);
+
+	return layerIdx;
 }
 
 void GameObject::Save(string _path)

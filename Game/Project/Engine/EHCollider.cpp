@@ -15,6 +15,15 @@ Collider::Collider(COLLIDER_TYPE _type)
 {
 }
 
+Collider::Collider(const Collider& _origin)
+	:Component(_origin)
+	, m_CollisionCount(0)
+	, m_Type(_origin.m_Type)
+	, m_Enabled(_origin.m_Enabled)
+	, m_Absolute(_origin.m_Absolute)
+{
+}
+
 Collider::~Collider()
 {
 }

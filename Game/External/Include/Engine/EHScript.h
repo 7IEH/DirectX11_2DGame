@@ -23,6 +23,8 @@ public:
 	virtual void OnTriggerStay(Collider* _other) {};
 	virtual void OnTriggerExit(Collider* _other) {};
 
+	virtual Script* Clone() = 0;
+
 public:
 	Script();
 	virtual ~Script();

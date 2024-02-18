@@ -630,6 +630,9 @@
     <ClInclude Include="EHScriptUI.h">
       <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\ScriptUI</Filter>
     </ClInclude>
+    <ClInclude Include="EHAssetUI.h">
+      <Filter>04. Manager\ImGUIMgr\UI\InSpector\AssetUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -923,11 +926,15 @@
     <ClCompile Include="EHScriptUI.cpp">
       <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\ScriptUI</Filter>
     </ClCompile>
+    <ClCompile Include="EHAssetUI.cpp">
+      <Filter>04. Manager\ImGUIMgr\UI\InSpector\AssetUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
       <Filter>Module</Filter>
     </None>
+    <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="debug2d.fx">

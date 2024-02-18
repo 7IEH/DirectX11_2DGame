@@ -35,6 +35,7 @@ public:
 	void LayerVisibleSet(LAYER_TYPE _type, bool _visible);
 	void AllVisibleSet(bool _visible);
 	void SetCameraType(CAMERA_TYPE _type);
+	CAMERA_TYPE GetCameraType() { return m_Type; }
 
 	void SetFOV(float _FOV) { m_FOV = _FOV; }
 	float GetFOV() { return m_FOV; }
@@ -58,6 +59,8 @@ public:
 
 	virtual void			Save(string _path)override;
 
+	CLONE(Camera)
+
 private:
 	void Render(vector<GameObject*>& _vecObj);
 	void PostRender(vector<GameObject*>& _vecObj);
@@ -77,6 +80,7 @@ private:
 
 public:
 	Camera();
+	Camera(const Camera& _origin);
 	virtual ~Camera();
 };
 

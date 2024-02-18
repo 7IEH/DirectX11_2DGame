@@ -10,6 +10,8 @@ private:
 public:
 	virtual void Update()override;
 	virtual void LateUpdate() override {};
+	
+	CLONE(PlayerScript)
 
 public:
 	PlayerScript();

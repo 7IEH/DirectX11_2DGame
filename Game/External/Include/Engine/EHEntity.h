@@ -13,8 +13,11 @@ public:
 	void SetName(const wstring& _strName) { m_strName = _strName; }
 	const wstring& GetName() { return m_strName; }
 	UINT GetID() { return m_ID; }
+	
+	virtual Entity* Clone() = 0;
 
 public:
 	Entity();
+	Entity(const Entity& _origin);
 	virtual ~Entity();
 };

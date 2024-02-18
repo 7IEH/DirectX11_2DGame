@@ -29,6 +29,8 @@ void TestLevel::Awake()
 {
 #pragma region Essential Object
 	// Main Camera
+	GameObject* _test = nullptr;
+
 	GameObject* _MainCamera = new GameObject;
 	Transform* tr = _MainCamera->AddComponent<Transform>();
 	Camera* _camera = _MainCamera->AddComponent<Camera>();
@@ -42,7 +44,7 @@ void TestLevel::Awake()
 	tr->SetRelativePosition(Vec4(0.f, 0.f, -10.f, 1.f));
 	tr->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
 
-	Object::Instantiate(_MainCamera, (UINT)LAYER_TYPE::CAMERA);
+	AddObject(_MainCamera,LAYER_TYPE::CAMERA);
 #pragma endregion
 	GameObject* _light = new GameObject;
 	_light->SetName(L"Light");
@@ -50,7 +52,7 @@ void TestLevel::Awake()
 
 	_light->AddComponent<LIght2D>();
 
-	Object::Instantiate(_light, (UINT)LAYER_TYPE::LIGHT2D);
+	AddObject(_light,LAYER_TYPE::LIGHT2D);
 #pragma endregion
 
 	//GameObject* _tile = new GameObject;
@@ -95,12 +97,12 @@ void TestLevel::Awake()
 
 	Collider2D* _playercol = _player->AddComponent<Collider2D>();
 
-	Object::Instantiate(_player, (int)LAYER_TYPE::PLAYER);
-
 	_player->AddComponent<PlayerScript>();
 
 	Animator2D* _animator = _player->AddComponent<Animator2D>();
 	_animator->Play(L"IdleFront");
+
+	AddObject(_player, LAYER_TYPE::PLAYER);
 
 	Level::Awake();
 }

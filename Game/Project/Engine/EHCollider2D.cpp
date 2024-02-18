@@ -11,6 +11,14 @@ Collider2D::Collider2D()
 {
 }
 
+Collider2D::Collider2D(const Collider2D& _origin)
+	:Collider(_origin)
+	, m_OffsetPos(_origin.m_OffsetPos)
+	, m_OffsetSize(_origin.m_OffsetSize)
+	, m_OffsetMat(_origin.m_OffsetMat)
+{
+}
+
 Collider2D::~Collider2D()
 {
 
@@ -62,7 +70,7 @@ void Collider2D::DrawCollider()
 void Collider2D::Save(string _path)
 {
 	// offset scale, offset position
-	std::ofstream _file(_path.data(),std::fstream::out|std::fstream::app);
+	std::ofstream _file(_path.data(), std::fstream::out | std::fstream::app);
 
 	Vec3 _offPos = m_OffsetPos;
 	Vec3 _offScale = m_OffsetSize;

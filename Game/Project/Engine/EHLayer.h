@@ -38,6 +38,8 @@ public:
 	void FixedUpdate();
 	void LateUpdate();
 	
+	CLONE(Layer);
+
 public:
 	vector<GameObject*>& GetLayerObject() { return m_GameObjects; }
 	vector<GameObject*>& GetLayerParent() { return m_Parent; }
@@ -47,6 +49,7 @@ private:
 
 public:
 	Layer();
+	Layer(const Layer& _origin);
 	virtual ~Layer();
 
 	friend class Level;

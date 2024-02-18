@@ -12,6 +12,8 @@ public:
 	virtual void Update() override;
 	virtual void LateUpdate() override {};
 
+	CLONE(CameraScript)
+
 public:
 	void SetTarget(GameObject* _target) { m_Target = _target; }
 

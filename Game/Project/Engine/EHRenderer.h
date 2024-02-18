@@ -25,8 +25,11 @@ public:
 	virtual void Render() = 0;
 	virtual void Save(string _path)override {};
 
+	virtual Renderer* Clone() = 0;
+
 public:
 	Renderer(RENDERER_TYPE _type);
+	Renderer(const Renderer& _origin);
 	~Renderer();
 };
 

@@ -14,6 +14,10 @@
 
 #define DT TimeMgr::GetInst()->GetDeltaTime()
 
+#define CLONE(TYPE)	virtual TYPE* Clone(){return new TYPE(*this);}
+#define CLONE_DISABLE(TYPE) TYPE* Clone(){return nullptr; assert(nullptr);}\
+							TYPE(const TYPE& _originBuffer) = delete;
+
 #define KEY_CHECK(Key, State) KeyMgr::GetInst()->GetKeyState(Key) == State
 #define KEY_TAP(Key) KEY_CHECK(Key, TAP)
 #define KEY_PRESSED(Key) KEY_CHECK(Key, PRESSED)

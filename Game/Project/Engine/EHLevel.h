@@ -36,7 +36,7 @@ public:
 	void AddEmptyObject()
 	{
 		GameObject* _empty = new GameObject;
-		Object::Instantiate(_empty, int(LAYER_TYPE::BACKGROUND));
+		AddObject(_empty, LAYER_TYPE::BACKGROUND);
 	}
 
 public:
@@ -46,13 +46,15 @@ public:
 	virtual void FixedUpdate();
 	virtual void LateUpdate();
 
+	CLONE(Level)
+
 private:
 	void Clear();
 
 private:
 	void AddTrasnform(GameObject* _obj, Vec4 _position, Vec4 _scale, Vec3 _rotation);
 	void AddCamera(GameObject* _obj, PROJECTION_TYPE _proj, CAMERA_TYPE _camtype, UINT _visibleLayer);
-	void AddLight2D(GameObject* _obj, LIGHT_TYPE _lighttype, Vec4 _color, Vec4 _ambient, float _angle);
+	void AddLight2D(GameObject* _obj, LIGHT_TYPE _lighttype, Vec4 _color, Vec4 _ambient, float _angle,float _radius);
 	void AddMeshRenderer(GameObject* _obj, wstring _mesh, wstring _material);
 	void AddCollider2D(GameObject* _obj, Vec3 _offsetPostion, Vec3 _offsetScale);
 	void AddCollider2D(GameObject* _obj, Vec3 _offsetPostion, float _radius);
@@ -61,6 +63,7 @@ private:
 
 public:
 	Level();
+	Level(const Level& _origin);
 	virtual ~Level();
 
 	friend class LevelMgr;

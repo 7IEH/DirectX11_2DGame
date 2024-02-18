@@ -9,6 +9,19 @@ Layer::Layer()
 {
 }
 
+Layer::Layer(const Layer& _origin)
+	:m_Parent{}
+	, m_GameObjects{}
+	, m_Type(_origin.m_Type)
+{
+	for (size_t i = 0;i < _origin.m_Parent.size();i++)
+	{
+		m_Parent.push_back(_origin.m_Parent[i]->Clone());
+	}
+
+	// GameObject ÇØ°á
+}
+
 Layer::~Layer()
 {
 	ReleaseVector(m_Parent);

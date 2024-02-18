@@ -46,6 +46,8 @@ public:
 
     void SetTileIndex(UINT _Row, UINT _Col, UINT _ImgIdx, int _render);
 
+    CLONE(TileMap)
+
 public:
     virtual void LateUpdate() override;
     virtual void UpdateData() override;
@@ -53,6 +55,7 @@ public:
 
 public:
     TileMap();
+    TileMap(const TileMap& _origin);
     ~TileMap();
 };
 

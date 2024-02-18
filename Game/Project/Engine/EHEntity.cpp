@@ -8,6 +8,12 @@ Entity::Entity()
 {
 }
 
+Entity::Entity(const Entity& _origin)
+	:m_ID(g_NextID++)
+	,m_strName(_origin.m_strName)
+{
+}
+
 Entity::~Entity()
 {
 }

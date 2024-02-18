@@ -26,6 +26,8 @@ public:
 
 	void SetTexParam(TEX_PARAM _Param, Ptr<Sprite> _sprite);
 
+	CLONE(Material);
+
 public:
 	Material();
 	virtual ~Material();

@@ -30,6 +30,8 @@ public:
 
 	virtual void Save(string _path)override {};
 
+	virtual Collider* Clone() = 0;
+
 private:
 	virtual void OnTriggerEnter(Collider* _other);
 	virtual void OnTriggerStay(Collider* _other);
@@ -37,6 +39,7 @@ private:
 
 public:
 	Collider(COLLIDER_TYPE _type);
+	Collider(const Collider& _origin);
 	virtual ~Collider();
 
 	friend class CollisionMgr;

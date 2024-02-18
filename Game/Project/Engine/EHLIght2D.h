@@ -49,6 +49,8 @@ public:
 	virtual void LateUpdate() override;
 	
 	virtual void Save(string _path)override;
+
+	CLONE(LIght2D)
 public:
 	LIght2D();
 	virtual ~LIght2D();

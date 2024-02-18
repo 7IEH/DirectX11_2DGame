@@ -17,6 +17,17 @@ Animation2D::Animation2D()
 {
 }
 
+Animation2D::Animation2D(const Animation2D& _origin)
+	:Entity(_origin)
+	,m_FrameInfo(_origin.m_FrameInfo)
+	,m_CurFrame(0)
+	,m_Animator(nullptr)
+	,m_AtlasSprite(_origin.m_AtlasSprite)
+	,m_PlayTime(0.f)
+	,m_Finsih(FALSE)
+{
+}
+
 Animation2D::~Animation2D()
 {
 }

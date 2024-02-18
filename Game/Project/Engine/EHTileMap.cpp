@@ -26,6 +26,26 @@ TileMap::TileMap()
 	SetFace(m_FaceX, m_FaceY);
 }
 
+TileMap::TileMap(const TileMap& _origin)
+	:Renderer(_origin)
+	, m_FaceX(_origin.m_FaceX)
+	, m_FaceY(_origin.m_FaceY)
+	, m_vTileRenderSize(_origin.m_vTileRenderSize)
+	, m_TileAtlas(_origin.m_TileAtlas)
+	, m_vTilePixelSize(_origin.m_vTilePixelSize)
+	, m_vSliceSizeUV(_origin.m_vSliceSizeUV)
+	, m_MaxCol(_origin.m_MaxCol)
+	, m_MaxRow(_origin.m_MaxRow)
+	, m_TileIdx(_origin.m_TileIdx)
+	, m_vecTileInfo(_origin.m_vecTileInfo)
+	, m_TileInfoBuffer(nullptr)
+{
+	if (nullptr != m_TileInfoBuffer)
+	{
+		m_TileInfoBuffer = _origin.m_TileInfoBuffer->Clone();
+	}
+}
+
 TileMap::~TileMap()
 {
 	if (nullptr != m_TileInfoBuffer)
@@ -53,10 +73,10 @@ void TileMap::SetFace(UINT _FaceX, UINT _FaceY)
 	m_vecTileInfo.swap(vecTemp);
 	m_vecTileInfo.resize(_FaceX * _FaceY);
 
-	m_TileInfoBuffer->Create(sizeof(tTileInfo), _FaceX * _FaceY, true,STRUCTURED_TYPE::READ_ONLY);
+	m_TileInfoBuffer->Create(sizeof(tTileInfo), _FaceX * _FaceY, true, STRUCTURED_TYPE::READ_ONLY);
 }
 
-void TileMap::SetTileIndex(UINT _Row, UINT _Col, UINT _ImgIdx ,int _render)
+void TileMap::SetTileIndex(UINT _Row, UINT _Col, UINT _ImgIdx, int _render)
 {
 	if (nullptr == m_TileAtlas)
 		return;
@@ -78,7 +98,7 @@ void TileMap::LateUpdate()
 	// (타일 개수 * 타일 사이즈) 로 사이즈를 변경처리한다.
 	Vec3 vTileMapSize = Vec3(m_FaceX * m_vTileRenderSize.x, m_FaceY * m_vTileRenderSize.y, 1.f);
 
-	GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->SetRelativeScale(Vec4(vTileMapSize.x,vTileMapSize.y,vTileMapSize.z,1.f));
+	GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->SetRelativeScale(Vec4(vTileMapSize.x, vTileMapSize.y, vTileMapSize.z, 1.f));
 }
 
 void TileMap::UpdateData()

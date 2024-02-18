@@ -46,6 +46,8 @@ public:
 	virtual void UpdateData() override;
 
 	virtual void Save(string _path)override;
+
+	CLONE(Transform)
 public:
 	Transform();
 	virtual ~Transform();

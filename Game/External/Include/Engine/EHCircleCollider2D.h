@@ -25,9 +25,10 @@ public:
 	virtual void DrawCollider() override;
 
 	virtual void Save(string _path)override;
-
+	CLONE(CircleCollider2D)
 public:
 	CircleCollider2D();
+	CircleCollider2D(const CircleCollider2D& _origin);
 	virtual ~CircleCollider2D();
 };
 

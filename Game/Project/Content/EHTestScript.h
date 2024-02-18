@@ -8,6 +8,9 @@ class TestScript
 private:
 	virtual void Update() override;
 	float m_AccTime;
+	
+public:
+	CLONE(TestScript)
 
 public:
 	TestScript();

@@ -15,6 +15,8 @@ public:
 public:
 	virtual void Update()override;
 
+	CLONE(CameraTargetScript);
+
 public:
 	CameraTargetScript();
 	virtual ~CameraTargetScript();

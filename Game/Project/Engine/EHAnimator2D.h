@@ -29,8 +29,11 @@ public:
 	virtual void			LateUpdate()override;
 	virtual void			UpdateData()override;
 	virtual void			Save(string _path)override;
+
+	CLONE(Animator2D);
 public:
 	Animator2D();
+	Animator2D(const Animator2D& _origin);
 	virtual ~Animator2D();
 };
 

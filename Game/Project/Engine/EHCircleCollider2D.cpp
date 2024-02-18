@@ -11,6 +11,14 @@ CircleCollider2D::CircleCollider2D()
 {
 }
 
+CircleCollider2D::CircleCollider2D(const CircleCollider2D& _origin)
+	:Collider(_origin)
+	, m_Radius(_origin.m_Radius)
+	, m_OffsetPos(_origin.m_OffsetPos)
+	, m_OffsetMat(_origin.m_OffsetMat)
+{
+}
+
 CircleCollider2D::~CircleCollider2D()
 {
 }

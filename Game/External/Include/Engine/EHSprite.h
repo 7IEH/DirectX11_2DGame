@@ -42,6 +42,7 @@ public:
 	void Clear_CS_SRV();
 	void Clear_CS_UAV();
 
+	CLONE_DISABLE(Sprite)
 
 private:
 	virtual HRESULT Load(const wstring& _strFilePath)override;

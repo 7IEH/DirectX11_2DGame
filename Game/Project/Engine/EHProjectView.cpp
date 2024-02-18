@@ -5,6 +5,7 @@
 #include "EHLevelMgr.h"
 
 #include "EHImGUIMgr.h"
+#include "EHHierarchy.h"
 
 ProjectView::ProjectView()
 	:UI("ProjectView", "##ProjectView")
@@ -126,6 +127,8 @@ void ProjectView::Render_FileIcon()
 
 void ProjectView::Mouse_Event()
 {
+	Hierarchy* _hier = (Hierarchy*)ImGUIMgr::GetInst()->FindUI("Hierarchy");
+
 	if (ImGui::IsMouseClicked(ImGuiMouseButton_Right) || m_DefaultMouseFlags)
 	{
 		ImGui::OpenPopup("ProjectViewOption1");
@@ -145,6 +148,7 @@ void ProjectView::Mouse_Event()
 				{
 					Create_Object();
 					m_DefaultMouseFlags = FALSE;
+					_hier->ResetCurrentLevel();
 				}
 				ImGui::EndMenu();
 			}
@@ -161,6 +165,7 @@ void ProjectView::Mouse_Event()
 				{
 					Delete_Object();
 					m_DefaultMouseFlags = FALSE;
+					_hier->ResetCurrentLevel();
 				}
 				ImGui::EndMenu();
 			}
@@ -176,10 +181,12 @@ void ProjectView::Create_SceneFile()
 
 void ProjectView::Load_Scene(string _sceneName)
 {
+	Hierarchy* _hier = (Hierarchy*)ImGUIMgr::GetInst()->FindUI("Hierarchy");
 	wstring _wsceneName = wstring(_sceneName.begin(), _sceneName.end());
 	_wsceneName = _wsceneName.substr(0, _wsceneName.find(L"."));
 
 	LevelMgr::GetInst()->SelectLevel(_wsceneName);
+	_hier->ResetCurrentLevel();
 }
 
 void ProjectView::Create_Object()

@@ -14,6 +14,8 @@ public:
 public:
 	virtual void Update() override;
 
+	CLONE(OutLineScript)
+
 public:
 	OutLineScript();
 	virtual ~OutLineScript();

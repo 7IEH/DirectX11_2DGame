@@ -10,6 +10,8 @@ protected:
 public:
     virtual HRESULT UpdateData() = 0;
 
+    CLONE_DISABLE(Shader)
+
 public:
     Shader(ASSET_TYPE _type);
     virtual ~Shader();

@@ -1,13 +1,11 @@
 #pragma once
 
-#include "EHRenderer.h"
-
 class SpriteRenderer
-	: public Renderer
 {
 private:
 
 
+public:
 
 public:
 	SpriteRenderer();

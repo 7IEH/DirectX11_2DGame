@@ -20,6 +20,21 @@ Level::Level()
 	}
 }
 
+Level::Level(const Level& _origin)
+	: m_Layers{}
+	, m_CollistionMatrix{}
+{
+	for (UINT i = 0;i < (UINT)LAYER_TYPE::END;i++)
+	{
+		m_Layers[i] = _origin.m_Layers[i]->Clone();
+	}
+
+	for (UINT i = 0;i < (UINT)LAYER_TYPE::END;i++)
+	{
+		m_CollistionMatrix[i] = _origin.m_CollistionMatrix[i];
+	}
+}
+
 Level::~Level()
 {
 	ReleaseArray(m_Layers);
@@ -121,8 +136,9 @@ void Level::Load(string _path)
 						Vec4 _color = Vec4(0.f);
 						Vec4 _ambient = Vec4(0.f);
 						float _angle = 0.f;
+						float _radius = 0.f;
 
-						for (int i = 0;i < 4;i++)
+						for (int i = 0;i < 5;i++)
 						{
 							std::getline(_file, _line);
 							if (i == 0)
@@ -137,13 +153,17 @@ void Level::Load(string _path)
 							{
 								EH::InputVector4(_line, _ambient);
 							}
-							else
+							else if (i == 3)
 							{
 								_angle = stof(_line);
 							}
+							else
+							{
+								_radius = stof(_line);
+							}
 						}
 
-						AddLight2D(_obj, _type, _color, _ambient, _angle);
+						AddLight2D(_obj, _type, _color, _ambient, _angle, _radius);
 					}
 
 					if (_line.find("CAMERA") != string::npos)
@@ -355,7 +375,7 @@ void Level::AddCamera(GameObject* _obj, PROJECTION_TYPE _proj, CAMERA_TYPE _camt
 	}
 }
 
-void Level::AddLight2D(GameObject* _obj, LIGHT_TYPE _lighttype, Vec4 _color, Vec4 _ambient, float _angle)
+void Level::AddLight2D(GameObject* _obj, LIGHT_TYPE _lighttype, Vec4 _color, Vec4 _ambient, float _angle, float _radius)
 {
 	LIght2D* _light = _obj->AddComponent<LIght2D>();
 	_obj->AddComponent<Light2DScript>();
@@ -363,6 +383,7 @@ void Level::AddLight2D(GameObject* _obj, LIGHT_TYPE _lighttype, Vec4 _color, Vec
 	_light->SetColor(_color);
 	_light->SetAmbient(_ambient);
 	_light->SetAngle(_angle);
+	_light->SetRadius(_radius);
 }
 
 void Level::AddMeshRenderer(GameObject* _obj, wstring _mesh, wstring _material)

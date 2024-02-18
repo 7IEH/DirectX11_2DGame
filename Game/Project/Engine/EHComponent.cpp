@@ -7,6 +7,13 @@ Component::Component(COMPONENT_TYPE _type)
 {
 }
 
+Component::Component(const Component& _originComp)
+	: Entity(_originComp)
+	, m_Type(_originComp.m_Type)
+	, m_Owner(nullptr)
+{
+}
+
 Component::~Component()
 {
 }

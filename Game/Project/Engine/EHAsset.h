@@ -45,6 +45,8 @@ public:
     Asset(ASSET_TYPE _type);
     virtual ~Asset();
 
+    virtual Asset* Clone() = 0;
+
     friend class AssetMgr;
 
     template<typename T>

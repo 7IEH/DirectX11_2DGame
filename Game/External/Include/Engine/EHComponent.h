@@ -23,8 +23,11 @@ public:
     virtual void UpdateData() {};
 
     virtual void Save(string _path) = 0;
+
+    virtual Component* Clone() = 0;
 public:
     Component(COMPONENT_TYPE _type);
+    Component(const Component& _originComp);
     virtual ~Component();
 };
 

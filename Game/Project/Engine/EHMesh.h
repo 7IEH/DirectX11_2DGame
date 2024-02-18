@@ -21,6 +21,8 @@ public:
 	void Create(void* _VBData, UINT _VertexCount, void* _IBData, UINT _IndexCount);
 	void UpdateData();
 
+	CLONE_DISABLE(Mesh)
+
 public:
 	void Render();
 	void Render_Instancing(UINT _particleCount);

@@ -22,6 +22,8 @@ public:
 	void SetPlayerPos(Vec4 _playerpos) { m_PlayerPos = _playerpos; }
 	void SetCameraPos(Vec4 _campos) { m_CamPos = _campos; }
 
+	CLONE(TriggerScript)
+
 public:
 	virtual void Awake() override;
 	

@@ -23,8 +23,11 @@ public:
 	void    SetOffsetPos(Vec3 _OffsetPos) { m_OffsetPos = _OffsetPos; }
 	void    SetoffSetScale(Vec3 _OffsetSize) { m_OffsetSize = _OffsetSize; }
 
+	CLONE(Collider2D);
+
 public:
 	Collider2D();
+	Collider2D(const Collider2D& _origin);
 	virtual ~Collider2D();
 
 
