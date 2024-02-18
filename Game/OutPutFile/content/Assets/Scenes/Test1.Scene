@@ -1,3 +1,12 @@
+CollisionMatrix
+0
+0
+0
+0
+0
+0
+0
+0
 
 object
 NAME:MainCamera
@@ -10,6 +19,8 @@ CAMERA
 perspective
 0
 255
+Script
+0
 endobject
 
 object
@@ -25,16 +36,21 @@ LIGHT2D
 0.427764 0.410376 0.612372 0.612372
 0.000000
 0.000000
+Script
+0
 endobject
 
 object
 NAME:TestObject
 LAYER:3
 TRANSFORM
--247.000000 0.000000 0.000000
+354.645386 -49.836590 0.000000
 100.000000 100.000000 1.000000
 0.000000 0.000000 0.000000
 MESHRENDERER
 DefaultRectMesh
 PlayerMaterial
+Script
+1
+PlayerScript
 endobject

@@ -7,10 +7,14 @@
 #include "EHGameObject.h"
 #include "EHLayer.h"
 
+#include "EHScriptMgr.h"
 #include "Scripts.h"
+#include "EHLevelMgr.h"
 
 Level::Level()
 	:m_Layers{}
+	, m_CollistionMatrix{}
+	, m_CopyCount(0)
 {
 	for (UINT _type = 0;_type < (UINT)LAYER_TYPE::END;_type++)
 	{
@@ -52,6 +56,15 @@ GameObject* Level::FindObjectByName(const wstring& _strName)
 	}
 
 	return _obj;
+}
+
+Level* Level::CopyLevel()
+{
+	Level* _copyLevel = this->Clone();
+	wstring _copyName = this->GetName() + std::to_wstring(m_CopyCount++);
+	LevelMgr::GetInst()->AddLevel(_copyName, _copyLevel);
+
+	return _copyLevel;
 }
 
 void Level::FindObjectsByName(const wstring& _strName, vector<GameObject*>& _vecObj)
@@ -420,33 +433,14 @@ void Level::AddAnimator2D(GameObject* _obj, vector<wstring> _aniName)
 	}
 }
 
-void Level::AddScript(GameObject* _obj, vector<wstring>_script)
+void Level::AddScript(GameObject* _obj, vector<wstring>_scripts)
 {
-	for (size_t i = 0;i < _script.size();i++)
+	Script* _script = nullptr;
+	for (size_t i = 0;i < _scripts.size();i++)
 	{
-		if (_script[i] == L"PlayerScript")
-		{
-			_obj->AddComponent<PlayerScript>();
-		}
-		else if (_script[i] == L"Light2DScript")
-		{
-			_obj->AddComponent<Light2DScript>();
-		}
-		else if (_script[i] == L"CameraScript")
-		{
-			_obj->AddComponent<CameraScript>();
-		}
-		else if (_script[i] == L"CameraTargetScript")
-		{
-			_obj->AddComponent<CameraTargetScript>();
-		}
-		/*else if (_script[i] == L"OutLineScript")
-		{
-			_obj->AddComponent<OutLineScript>();
-		}
-		else if (_script[i] == L"TriggerScript")
-		{
-			_obj->AddComponent<TriggerScript>();
-		}*/
+		_script = ScriptMgr::GetInst()->FindScript(_scripts[i]);
+		assert(_script);
+		_script = _script->Clone();
+		_obj->AddComponent(_script);
 	}
 }

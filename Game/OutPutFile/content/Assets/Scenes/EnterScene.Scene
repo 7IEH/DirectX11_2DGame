@@ -37,12 +37,7 @@ LIGHT2D
 0.000000
 0.000000
 Script
-5
-Light2DScript
-Light2DScript
-Light2DScript
-Light2DScript
-Light2DScript
+0
 endobject
 
 object
@@ -59,11 +54,7 @@ LIGHT2D
 90.000000
 900.000000
 Script
-4
-Light2DScript
-Light2DScript
-Light2DScript
-Light2DScript
+0
 endobject
 
 object

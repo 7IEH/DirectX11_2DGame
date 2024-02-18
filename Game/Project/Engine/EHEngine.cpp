@@ -16,6 +16,7 @@
 #include "EHGarbageCollector.h"
 #include "EHDebugMgr.h"
 #include "EHAnimationMgr.h"
+#include "EHScriptMgr.h"
 
 #include "EHCamera.h"
 
@@ -64,6 +65,7 @@ void Engine::AwakeManager()
 	KeyMgr::GetInst()->Awake();
 	AssetMgr::GetInst()->Awake();
 	AnimationMgr::GetInst()->Awake();
+	ScriptMgr::GetInst()->Awake();
 	LevelMgr::GetInst()->Awake();
 	RenderMgr::GetInst()->Awake();
 	if (FALSE == ImGUIMgr::GetInst()->Awake())

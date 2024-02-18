@@ -47,7 +47,6 @@ Animator2D::~Animator2D()
 			iter->second = nullptr;
 		}
 	}
-
 }
 
 Animation2D* Animator2D::FindAnimation(const wstring& _strName)
@@ -84,6 +83,8 @@ HRESULT Animator2D::AddAnimation2D(const wstring& _strName)
 {
 	Animation2D* _anim = nullptr;
 	_anim = AnimationMgr::GetInst()->Find(_strName);
+
+	_anim = _anim->Clone();
 
 	if (_anim == nullptr)
 	{

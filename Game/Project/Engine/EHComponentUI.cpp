@@ -2,11 +2,12 @@
 #include "EHComponentUI.h"
 
 #include "EHGameObject.h"
+#include "EHScriptUI.h"
 
 ComponentUI::ComponentUI(const string& _label, const string& _strID, COMPONENT_TYPE _type)
-	:UI(_label,_strID)
-	,m_TargetObject(nullptr)
-	,m_Type(_type)
+	:UI(_label, _strID)
+	, m_TargetObject(nullptr)
+	, m_Type(_type)
 {
 }
 
@@ -39,7 +40,7 @@ void ComponentUI::SetTargetObject(GameObject* _target)
 			else
 				Enabled(TRUE);
 		}
-			break;
+		break;
 		case COMPONENT_TYPE::LIGHT2D:
 		{
 			LIght2D* _light2d = m_TargetObject->GetComponent<LIght2D>(COMPONENT_TYPE::LIGHT2D);
@@ -49,7 +50,7 @@ void ComponentUI::SetTargetObject(GameObject* _target)
 			else
 				Enabled(TRUE);
 		}
-			break;
+		break;
 		case COMPONENT_TYPE::COLLIDER2D:
 		{
 			Collider2D* _col2d = m_TargetObject->GetComponent<Collider2D>(COMPONENT_TYPE::COLLIDER2D);
@@ -69,7 +70,7 @@ void ComponentUI::SetTargetObject(GameObject* _target)
 				Enabled(TRUE);
 			}
 		}
-			break;
+		break;
 		case COMPONENT_TYPE::ANIMATOR2D:
 		{
 			Animator2D* _anim2d = m_TargetObject->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D);
@@ -79,7 +80,7 @@ void ComponentUI::SetTargetObject(GameObject* _target)
 			else
 				Enabled(TRUE);
 		}
-			break;
+		break;
 		case COMPONENT_TYPE::RENDERER:
 		{
 			Renderer* _render = m_TargetObject->GetComponent<Renderer>(COMPONENT_TYPE::RENDERER);
@@ -96,14 +97,14 @@ void ComponentUI::SetTargetObject(GameObject* _target)
 				{
 					this->SetLabel("TileMapRenderer");
 				}
-				else 
+				else
 				{
 					this->SetLabel("ParticleSystem");
 				}
 				Enabled(TRUE);
 			}
 		}
-			break;
+		break;
 		case COMPONENT_TYPE::CAMERA:
 		{
 			Camera* _cam = m_TargetObject->GetComponent<Camera>(COMPONENT_TYPE::CAMERA);
@@ -113,7 +114,7 @@ void ComponentUI::SetTargetObject(GameObject* _target)
 			else
 				Enabled(TRUE);
 		}
-			break;
+		break;
 		case COMPONENT_TYPE::RIGIDBODY:
 		{
 			Enabled(FALSE);
@@ -123,8 +124,31 @@ void ComponentUI::SetTargetObject(GameObject* _target)
 			break;
 		case COMPONENT_TYPE::SCRIPT:
 		{
+			ScriptUI* _this = dynamic_cast<ScriptUI*>(this);
+			string _scriptName = _this->GetName();
+
+			vector<Script*> _scripts = m_TargetObject->GetScript();
+
+			bool _flag = FALSE;
+			for (size_t i = 0;i < _scripts.size();i++)
+			{
+				if (_scriptName == EH::ConvertString(_scripts[i]->GetName()))
+				{
+					_flag = TRUE;
+					break;
+				}
+			}
+
+			if (_flag)
+			{
+				Enabled(TRUE);
+			}
+			else
+			{
+				Enabled(FALSE);
+			}
 		}
-			break;
+		break;
 		default:
 			break;
 		}

@@ -16,6 +16,8 @@
 #include "EHGameObject.h"
 #include "EHAddComponent.h"
 
+#include "EHScriptMgr.h"
+
 Inspector::Inspector()
 	:UI("Inspector", "##Insepctor")
 	, m_TargetObject(nullptr)
@@ -41,6 +43,16 @@ Inspector::Inspector()
 
 	m_arrComUI[(UINT)COMPONENT_TYPE::LIGHT2D] = new Light2DUI;
 	AddChildUI(m_arrComUI[(UINT)COMPONENT_TYPE::LIGHT2D]);
+	
+	map<wstring, Script*> _scripts = ScriptMgr::GetInst()->GetScripts();
+	map<wstring, Script*>::iterator iter = _scripts.begin();
+	for (;iter != _scripts.end();iter++)
+	{
+		ScriptUI* _scriptUI = new ScriptUI(EH::ConvertString(iter->first));
+		_scriptUI->SetCollapsing(TRUE);
+		m_ScriptUI.push_back(_scriptUI);
+		AddChildUI(_scriptUI);
+	}
 
 	m_AddCompoentUI = new AddComponent;
 	AddChildUI(m_AddCompoentUI);
@@ -116,6 +128,14 @@ void Inspector::SetTargetObject(GameObject* _obj)
 		if (nullptr != m_arrComUI[_idx])
 		{
 			m_arrComUI[_idx]->SetTargetObject(_obj);
+		}
+	}
+
+	for (size_t _idx = 0;_idx < m_ScriptUI.size();_idx++)
+	{
+		if (nullptr != m_ScriptUI[_idx])
+		{
+			m_ScriptUI[_idx]->SetTargetObject(_obj);
 		}
 	}
 

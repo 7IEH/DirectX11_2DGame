@@ -28,6 +28,18 @@ LevelMgr::~LevelMgr()
 	}
 }
 
+void LevelMgr::AddLevel(wstring _levelName, Level* _level)
+{
+	map<wstring, Level*>::iterator iter = m_Levels.find(_levelName);
+	_level->SetName(_levelName);
+	if (m_Levels.end() != iter)
+	{
+		HandleError(MAIN_HWND, L"LevelMgr AddLevelFunc Duplication Error!", 2);
+		return;
+	}
+	m_Levels.insert(make_pair(_levelName, _level));
+}
+
 void LevelMgr::Awake()
 {
 	string _path = EH::ConvertString(PATH) + "\\Assets\\Scenes";
@@ -44,12 +56,13 @@ void LevelMgr::Awake()
 	}
 
 	TestLevel* _level = AddLevel<TestLevel>(L"TestLevel");
+	_level->Awake();
 	AddLevel<IntroLevel>(L"IntroLevel");
 	AddLevel<TitleLevel>(L"TitleLevel");
 	AddLevel<DungeonScene>(L"DungeonScene");
-	SelectLevel(L"TestLevel");
+	//SelectLevel(L"TestLevel");
 
-	m_CurLevel = _level->Clone();
+	m_CurLevel = _level->CopyLevel();
 	m_CurLevel->Awake();
 
 	if (m_CurLevel == nullptr)

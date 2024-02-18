@@ -222,6 +222,7 @@ call Copy.bat</Command>
     <ClInclude Include="EHSceneCreateUI.h" />
     <ClInclude Include="EHSceneView.h" />
     <ClInclude Include="EHScript.h" />
+    <ClInclude Include="EHScriptMgr.h" />
     <ClInclude Include="EHScriptUI.h" />
     <ClInclude Include="EHShader.h" />
     <ClInclude Include="EHSprite.h" />
@@ -328,6 +329,7 @@ call Copy.bat</Command>
     <ClCompile Include="EHSceneCreateUI.cpp" />
     <ClCompile Include="EHSceneView.cpp" />
     <ClCompile Include="EHScript.cpp" />
+    <ClCompile Include="EHScriptMgr.cpp" />
     <ClCompile Include="EHScriptUI.cpp" />
     <ClCompile Include="EHShader.cpp" />
     <ClCompile Include="EHSprite.cpp" />

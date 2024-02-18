@@ -29,6 +29,8 @@ public:
 		return _level;
 	}
 
+	void AddLevel(wstring _levelName, Level* _level);
+
 	void SelectLevel(wstring _levelName)
 	{
 		map<wstring, Level*>::iterator iter = m_Levels.find(_levelName);

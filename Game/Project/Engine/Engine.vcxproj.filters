@@ -313,6 +313,9 @@
     <Filter Include="04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\ScriptUI">
       <UniqueIdentifier>{e8ab9d72-feae-4ed4-85be-4d458892f76d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Manager\ScriptMgr">
+      <UniqueIdentifier>{1cb078f9-e2fa-4a54-8516-f606f84add8a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -633,6 +636,9 @@
     <ClInclude Include="EHAssetUI.h">
       <Filter>04. Manager\ImGUIMgr\UI\InSpector\AssetUI</Filter>
     </ClInclude>
+    <ClInclude Include="EHScriptMgr.h">
+      <Filter>04. Manager\ScriptMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -928,6 +934,9 @@
     </ClCompile>
     <ClCompile Include="EHAssetUI.cpp">
       <Filter>04. Manager\ImGUIMgr\UI\InSpector\AssetUI</Filter>
+    </ClCompile>
+    <ClCompile Include="EHScriptMgr.cpp">
+      <Filter>04. Manager\ScriptMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

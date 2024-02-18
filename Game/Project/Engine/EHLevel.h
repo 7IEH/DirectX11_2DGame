@@ -14,6 +14,8 @@ private:
 
 	UINT   m_CollistionMatrix[(UINT)LAYER_TYPE::END];
 
+	UINT m_CopyCount;
+
 public:
 	void AddObject(GameObject* _obj, LAYER_TYPE _type, bool _bChildMove = true)
 	{
@@ -39,6 +41,8 @@ public:
 		AddObject(_empty, LAYER_TYPE::BACKGROUND);
 	}
 
+	Level* CopyLevel();
+
 public:
 	virtual void Awake();
 	virtual void Start();
@@ -59,7 +63,7 @@ private:
 	void AddCollider2D(GameObject* _obj, Vec3 _offsetPostion, Vec3 _offsetScale);
 	void AddCollider2D(GameObject* _obj, Vec3 _offsetPostion, float _radius);
 	void AddAnimator2D(GameObject* _obj, vector<wstring>_aniName);
-	void AddScript(GameObject* _obj, vector<wstring>_script);
+	void AddScript(GameObject* _obj, vector<wstring>_scripts);
 
 public:
 	Level();

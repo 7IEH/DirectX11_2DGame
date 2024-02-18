@@ -7,6 +7,8 @@
 #include "EHBehaviour.h"
 #include "EHInspector.h"
 
+#include "EHScriptMgr.h"
+
 AddComponent::AddComponent()
 	:UI("AddCompnentUI", "##AddCompnentUI")
 {
@@ -90,10 +92,17 @@ void AddComponent::Render_Update()
 				_inspc->SetTargetObject(m_TargetObject);
 			}
 
-			if (ImGui::MenuItem("Script"))
+			map<wstring, Script*> m_Scripts = ScriptMgr::GetInst()->GetScripts();
+			map<wstring, Script*>::iterator iter = m_Scripts.begin();
+			for (;iter!=m_Scripts.end();iter++)
 			{
-				/*m_TargetObject->AddComponent<Transform>();
-				m_Open = FALSE;*/
+				if (ImGui::MenuItem(EH::ConvertString(iter->first).c_str()))
+				{
+					Script* _script = iter->second->Clone();
+					m_TargetObject->AddComponent(_script);
+					_inspc->SetTargetObject(m_TargetObject);
+					m_Open = FALSE;
+				}
 			}
 
 			if (ImGui::MenuItem("EXIT"))
