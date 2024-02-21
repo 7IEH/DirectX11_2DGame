@@ -37,16 +37,7 @@ Animator2D::Animator2D(const Animator2D& _origin)
 
 Animator2D::~Animator2D()
 {
-	map<wstring, Animation2D*>::iterator iter = m_AnimInfo.begin();
-
-	for (;iter != m_AnimInfo.end();iter++)
-	{
-		if (iter->second != nullptr)
-		{
-			delete iter->second;
-			iter->second = nullptr;
-		}
-	}
+	ReleaseMap(m_AnimInfo);
 }
 
 Animation2D* Animator2D::FindAnimation(const wstring& _strName)
@@ -82,8 +73,13 @@ Animation2D* Animator2D::CreateAnimation(const wstring& _animName, Ptr<Sprite> _
 HRESULT Animator2D::AddAnimation2D(const wstring& _strName)
 {
 	Animation2D* _anim = nullptr;
-	_anim = AnimationMgr::GetInst()->Find(_strName);
 
+	_anim = FindAnimation(_strName);
+
+	if (nullptr != _anim)
+		return S_OK;
+
+	_anim = AnimationMgr::GetInst()->Find(_strName);
 	_anim = _anim->Clone();
 
 	if (_anim == nullptr)

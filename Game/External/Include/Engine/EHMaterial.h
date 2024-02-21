@@ -73,6 +73,9 @@ void Material::SetMaterialParam(SCALAR_PARAM _paramType, const T& _value)
 	case REFLECT:
 		m_tMaterial.vLightMat.Reflect = *((Vec4*)pValue);
 		break;
+	case COLOR:
+		m_tMaterial.vLightMat.Color = *((Vec4*)pValue);
+		break;
 
 	case MAT_0:
 	case MAT_1:

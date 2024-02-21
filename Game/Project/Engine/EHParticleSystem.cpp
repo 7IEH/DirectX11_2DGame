@@ -64,7 +64,7 @@ ParticleSystem::ParticleSystem()
 	m_Module.NoiseForceScale = 500.f;
 	m_Module.NoiseForceTerm = 0.3f;
 
-	// Calculate Forec
+	// Calculate Force
 	m_Module._arrModuleCheck[(UINT)PARTICLE_MODULE::CALCULATE_FORCE] = 1;
 
 	m_Module._arrModuleCheck[(UINT)PARTICLE_MODULE::COLOR_OVER_LIFETIME] = 1;
@@ -182,4 +182,13 @@ void ParticleSystem::Render()
 	GetMesh()->Render_Instancing(m_MaxParticleCount);
 
 	m_ParticleBuffer->Clear(20);
+}
+
+void ParticleSystem::Save(string _path)
+{
+	std::ofstream _file(_path.data(), std::fstream::out | std::fstream::app);
+
+	_file << "PARTILESYSTEM\n";
+
+
 }

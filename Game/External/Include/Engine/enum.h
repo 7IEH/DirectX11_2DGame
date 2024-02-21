@@ -22,6 +22,24 @@ enum class TASK_TYPE
 
 	// Param1 : Level , Param2 : Path
 	LOAD_LEVEL,
+
+	// Param1 : Object Address Param2 : Time
+	FADE_IN,
+
+	// Param1 : Object Address Param2 : Time
+	FADE_OUT,
+
+	// Param1 : Object Address Param2 : Time
+	FADE_IN_LIGHT_COLOR,
+
+	// Param1 : Object Address Param2 : Time
+	FADE_OUT_LIGHT_COLOR,
+
+	// Param1 : Object Address Param2 : Time
+	FADE_IN_LIGHT_RADIUS,
+
+	// Param1 : Object Address Param2 : Time
+	FADE_OUT_LIGHT_RADIUS
 };
 
 // Key Type
@@ -119,6 +137,7 @@ enum class COMPONENT_TYPE
 	RENDERER,
 	CAMERA,
 	RIGIDBODY,
+	BUTTON,
 	TILEMAP,
 	TILEMAPCOLLIDER,
 	END,
@@ -288,6 +307,7 @@ enum SCALAR_PARAM
 	DIFFUSE,
 	SPECULAR,
 	REFLECT,
+	COLOR,
 
 	MAT_0,
 	MAT_1,

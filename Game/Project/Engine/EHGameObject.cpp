@@ -18,6 +18,7 @@ GameObject::GameObject()
 	, m_Dead(false)
 	, m_Picking(false)
 	, m_Idx(m_ObjectID++)
+	, m_bEnabled(TRUE)
 {
 }
 
@@ -31,6 +32,7 @@ GameObject::GameObject(const GameObject& _origin)
 	, m_Dead(false)
 	, m_Picking(false)
 	, m_Idx(m_ObjectID++)
+	, m_bEnabled(TRUE)
 {
 	for (UINT i = 0;i < (UINT)COMPONENT_TYPE::END;i++)
 	{
@@ -111,32 +113,47 @@ void GameObject::Awake()
 		if (m_Component[_comp] != nullptr)
 			m_Component[_comp]->Awake();
 	}
+
+	for (size_t _script = 0;_script < m_vScripts.size();_script++)
+	{
+		if(nullptr != m_vScripts[_script])
+			m_vScripts[_script]->Awake();
+	}
 }
 
 void GameObject::Start()
 {
 	for (UINT _comp = 0;_comp < (UINT)COMPONENT_TYPE::END;_comp++)
 	{
-		if (m_Component[_comp] == nullptr)
+		if (m_Component[_comp] != nullptr)
 			m_Component[_comp]->Start();
+	}
+
+	for (size_t _script = 0;_script < m_vScripts.size();_script++)
+	{
+		if (nullptr != m_vScripts[_script])
+			m_vScripts[_script]->Start();
 	}
 }
 
 void GameObject::Update()
 {
-	for (UINT _comp = 0;_comp < (UINT)COMPONENT_TYPE::END;_comp++)
+	if (m_bEnabled)
 	{
-		if (m_Component[_comp] != nullptr)
+		for (UINT _comp = 0;_comp < (UINT)COMPONENT_TYPE::END;_comp++)
 		{
-			m_Component[_comp]->Update();
+			if (m_Component[_comp] != nullptr)
+			{
+				m_Component[_comp]->Update();
+			}
 		}
-	}
 
-	if (!m_vScripts.empty())
-	{
-		for (Script* _script : m_vScripts)
+		if (!m_vScripts.empty())
 		{
-			_script->Update();
+			for (Script* _script : m_vScripts)
+			{
+				_script->Update();
+			}
 		}
 	}
 
@@ -148,28 +165,34 @@ void GameObject::Update()
 
 void GameObject::FixedUpdate()
 {
-	for (UINT _comp = 0;_comp < (UINT)COMPONENT_TYPE::END;_comp++)
+	if (m_bEnabled)
 	{
-		if (m_Component[_comp] == nullptr)
-			m_Component[_comp]->FixedUpdate();
+		for (UINT _comp = 0;_comp < (UINT)COMPONENT_TYPE::END;_comp++)
+		{
+			if (m_Component[_comp] == nullptr)
+				m_Component[_comp]->FixedUpdate();
+		}
 	}
 }
 
 void GameObject::LateUpdate()
 {
-	for (UINT _comp = 0;_comp < (UINT)COMPONENT_TYPE::END;_comp++)
+	if (m_bEnabled)
 	{
-		if (m_Component[_comp] != nullptr)
+		for (UINT _comp = 0;_comp < (UINT)COMPONENT_TYPE::END;_comp++)
 		{
-			m_Component[_comp]->LateUpdate();
+			if (m_Component[_comp] != nullptr)
+			{
+				m_Component[_comp]->LateUpdate();
+			}
 		}
-	}
 
-	if (!m_vScripts.empty())
-	{
-		for (Script* _script : m_vScripts)
+		if (!m_vScripts.empty())
 		{
-			_script->LateUpdate();
+			for (Script* _script : m_vScripts)
+			{
+				_script->LateUpdate();
+			}
 		}
 	}
 
@@ -196,13 +219,16 @@ void GameObject::LateUpdate()
 
 void GameObject::Render()
 {
-	Renderer* _renderer = dynamic_cast<Renderer*>(m_Renderer);
-	if (_renderer != nullptr)
-		_renderer->Render();
-
-	for (size_t i = 0; i < m_Childs.size();i++)
+	if (m_bEnabled)
 	{
-		m_Childs[i]->Render();
+		Renderer* _renderer = dynamic_cast<Renderer*>(m_Renderer);
+		if (_renderer != nullptr)
+			_renderer->Render();
+
+		for (size_t i = 0; i < m_Childs.size();i++)
+		{
+			m_Childs[i]->Render();
+		}
 	}
 }
 

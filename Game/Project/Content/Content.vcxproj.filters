@@ -43,6 +43,21 @@
     <Filter Include="02. Script\TestScript">
       <UniqueIdentifier>{b8c1db21-9a97-48b3-a6fd-0c1d395b098b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Script\11. DungeonScript">
+      <UniqueIdentifier>{3207a9c0-e6d8-4a11-a8d6-172779a5e096}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\12. UIScript">
+      <UniqueIdentifier>{7b36700a-c0ff-4d9d-a162-256a1a2eea5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\1. PlayerScript">
+      <UniqueIdentifier>{ffb405f3-fd34-4824-a632-466d3fa1d259}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\2. CameraScript">
+      <UniqueIdentifier>{0ea22ca3-06c6-43b2-86dc-d85e416574fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\12. UIScript\MenuScript">
+      <UniqueIdentifier>{b55f5c42-b562-4492-bf54-70f6347322ab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -81,6 +96,9 @@
     <ClInclude Include="EHTestScript.h">
       <Filter>02. Script\TestScript</Filter>
     </ClInclude>
+    <ClInclude Include="EHTitleScript.h">
+      <Filter>02. Script\12. UIScript\MenuScript</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -109,6 +127,9 @@
     </ClCompile>
     <ClCompile Include="EHTestScript.cpp">
       <Filter>02. Script\TestScript</Filter>
+    </ClCompile>
+    <ClCompile Include="EHTitleScript.cpp">
+      <Filter>02. Script\12. UIScript\MenuScript</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

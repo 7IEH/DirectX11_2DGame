@@ -12,6 +12,7 @@ struct EHTask
 	TASK_TYPE _Type;
 	UINT_PTR  Param_1;
 	UINT_PTR  Param_2;
+	UINT_PTR  Param_3;
 };
 
 // Vertex Struct
@@ -60,6 +61,7 @@ struct LightMateiral
 	Vec4	Diffuse;
 	Vec4	Specular;
 	Vec4	Reflect;
+	Vec4	Color;
 };
 
 // 주변광(global illmination을 표현하기 위해 일정한 값으로 표현), 표면의 거침(난반사), 반사율

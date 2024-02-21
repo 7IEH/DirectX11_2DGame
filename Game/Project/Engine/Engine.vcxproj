@@ -123,7 +123,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -145,7 +145,7 @@ call Copy.bat</Command>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -169,6 +169,7 @@ call Copy.bat</Command>
     <ClInclude Include="EHAssetUI.h" />
     <ClInclude Include="EHBehaviour.h" />
     <ClInclude Include="EHBoxCollider2DUI.h" />
+    <ClInclude Include="EHButton.h" />
     <ClInclude Include="EHCamera.h" />
     <ClInclude Include="EHCameraScript.h" />
     <ClInclude Include="EHCameraTargetScript.h" />
@@ -278,6 +279,7 @@ call Copy.bat</Command>
     <ClCompile Include="EHAssetMgr_Init.cpp" />
     <ClCompile Include="EHAssetUI.cpp" />
     <ClCompile Include="EHBoxCollider2DUI.cpp" />
+    <ClCompile Include="EHButton.cpp" />
     <ClCompile Include="EHCamera.cpp" />
     <ClCompile Include="EHCameraScript.cpp" />
     <ClCompile Include="EHCameraTargetScript.cpp" />

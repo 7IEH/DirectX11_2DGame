@@ -9,6 +9,8 @@ class GameObject
 	: public Entity
 {
 private:
+	bool						m_bEnabled;
+
 	LAYER_TYPE					m_LayerType;
 
 	Component*					m_Component[(UINT)COMPONENT_TYPE::END];
@@ -95,6 +97,8 @@ public:
 	bool		GetPicking() { return m_Picking; }
 
 	int		GetIdx() { return m_Idx; }
+
+	void Enabled(bool _flag) { m_bEnabled = _flag; }
 public:
 	virtual void Awake();
 	virtual void Start();

@@ -77,7 +77,7 @@ void MeshRenderer::Save(string _path)
 	// 1. Mesh 2. Material
 	std::ofstream _file(_path.data(), std::fstream::out | std::fstream::app);
 
-	_file << "MESHRENDERER\n";;
+	_file << "MESHRENDERER\n";
 
 	if (nullptr != GetMesh())
 	{

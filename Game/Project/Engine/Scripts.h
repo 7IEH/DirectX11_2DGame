@@ -8,3 +8,4 @@
 #include "EHCameraTargetScript.h"
 #include <EHOutLineScript.h>
 #include <EHTriggerScript.h>
+#include "EHTitleScript.h""

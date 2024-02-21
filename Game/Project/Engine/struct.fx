@@ -88,6 +88,7 @@ struct LightMaterial
     float4 Diffuse;
     float4 Specular;
     float4 Reflect;
+    float4 Color;
 };
 
 struct Material

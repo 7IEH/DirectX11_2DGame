@@ -47,12 +47,11 @@ void LevelMgr::Awake()
 	for (const std::filesystem::directory_entry& _entry :
 		std::filesystem::directory_iterator(_path))
 	{
-		wstring _path = _entry.path().native();
-		wstring _levelName = _entry.path().native();
+		wstring _levelName = _entry.path().native().c_str();
 		_levelName = _levelName.substr(_levelName.find_last_of('\\') + 1,
 			_levelName.find_last_of('.') - _levelName.find_last_of('\\') - 1);
 		Level* _level = AddLevel<Level>(_levelName);
-		_level->Load(string(_path.begin(), _path.end()));
+		_level->Load(string(_entry.path().native().begin(), _entry.path().native().end()));
 	}
 
 	TestLevel* _level = AddLevel<TestLevel>(L"TestLevel");

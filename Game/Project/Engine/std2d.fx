@@ -106,6 +106,7 @@ float4 PS_Std2D(VS_OUT _in) : SV_Target
     }
 
     color.rgb *= (lightColor.Ambient.rgb + lightColor.Color.rgb);
+    color *= gMatrial._LightMat.Color;
     
     if(0.f == color.a)
         discard;

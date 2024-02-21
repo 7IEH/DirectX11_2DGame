@@ -34,6 +34,7 @@ void ScriptMgr::Awake()
 	AddScript<CameraTargetScript>(L"CameraTargetScript");
 	AddScript<TriggerScript>(L"TriggerScript");
 	AddScript<OutLineScript>(L"OutLineScript");
+	AddScript<TitleScript>(L"TitleScript");
 
 	SaveScriptFile();
 }

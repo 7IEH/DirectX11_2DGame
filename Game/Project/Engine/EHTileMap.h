@@ -53,6 +53,8 @@ public:
     virtual void UpdateData() override;
     virtual void Render() override;
 
+    virtual void Save(string _path)override;
+
 public:
     TileMap();
     TileMap(const TileMap& _origin);

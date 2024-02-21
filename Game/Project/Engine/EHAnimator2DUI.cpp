@@ -73,9 +73,12 @@ void Animator2DUI::Render_Update()
 
 	if (m_prevAnimation2D != _curAnimation2D)
 	{
-		_animator->AddAnimation2D(_wcurAnimation2D);
-		_animator->Play(_wcurAnimation2D, TRUE);
-		m_prevAnimation2D = _curAnimation2D;
+		if (" " != _curAnimation2D)
+		{
+			_animator->AddAnimation2D(_wcurAnimation2D);
+			_animator->Play(_wcurAnimation2D, TRUE);
+			m_prevAnimation2D = _curAnimation2D;
+		}
 	}
 
 	/*************************

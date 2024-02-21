@@ -316,6 +316,9 @@
     <Filter Include="04. Manager\ScriptMgr">
       <UniqueIdentifier>{1cb078f9-e2fa-4a54-8516-f606f84add8a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="07. Component\Button">
+      <UniqueIdentifier>{5d13dd87-6319-4623-86af-fc8a978ad803}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -639,6 +642,9 @@
     <ClInclude Include="EHScriptMgr.h">
       <Filter>04. Manager\ScriptMgr</Filter>
     </ClInclude>
+    <ClInclude Include="EHButton.h">
+      <Filter>07. Component\Button</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -937,6 +943,9 @@
     </ClCompile>
     <ClCompile Include="EHScriptMgr.cpp">
       <Filter>04. Manager\ScriptMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="EHButton.cpp">
+      <Filter>07. Component\Button</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

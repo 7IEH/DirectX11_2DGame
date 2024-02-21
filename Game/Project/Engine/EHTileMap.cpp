@@ -130,3 +130,7 @@ void TileMap::Render()
 
 	GetMesh()->Render();
 }
+
+void TileMap::Save(string _path)
+{
+}

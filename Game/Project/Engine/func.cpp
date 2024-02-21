@@ -21,6 +21,62 @@ void Object::Destroy(GameObject* _target)
 	TaskMgr::GetInst()->AddTask(_task);
 }
 
+void Object::FadeIn(GameObject* _target, float _time)
+{
+	EHTask _task = {};
+	_task._Type = TASK_TYPE::FADE_IN;
+	_task.Param_1 = (UINT_PTR)_target;
+	_task.Param_2 = (UINT_PTR)_time;
+	TaskMgr::GetInst()->AddTask(_task);
+}
+
+void Object::FadeOut(GameObject* _target, float _time)
+{
+	EHTask _task = {};
+	_task._Type = TASK_TYPE::FADE_OUT;
+	_task.Param_1 = (UINT_PTR)_target;
+	_task.Param_2 = (UINT_PTR)_time;
+	TaskMgr::GetInst()->AddTask(_task);
+}
+
+void Object::FadeInLightColor(GameObject* _target, float _time)
+{
+	EHTask _task = {};
+	_task._Type = TASK_TYPE::FADE_IN_LIGHT_COLOR;
+	_task.Param_1 = (UINT_PTR)_target;
+	_task.Param_2 = (UINT_PTR)_time;
+	TaskMgr::GetInst()->AddTask(_task);
+}
+
+void Object::FadeOutLightColor(GameObject* _target, float _time)
+{
+	EHTask _task = {};
+	_task._Type = TASK_TYPE::FADE_OUT_LIGHT_COLOR;
+	_task.Param_1 = (UINT_PTR)_target;
+	_task.Param_2 = (UINT_PTR)_time;
+	TaskMgr::GetInst()->AddTask(_task);
+}
+
+void Object::FadeInLightRadius(GameObject* _target, float _radius, float _time)
+{
+	EHTask _task = {};
+	_task._Type = TASK_TYPE::FADE_IN_LIGHT_RADIUS;
+	_task.Param_1 = (UINT_PTR)_target;
+	_task.Param_2 = (UINT_PTR)_time;
+	_task.Param_3 = (UINT_PTR)_radius;
+	TaskMgr::GetInst()->AddTask(_task);
+}
+
+void Object::FadeOutLightRadius(GameObject* _target, float _radius, float _time)
+{
+	EHTask _task = {};
+	_task._Type = TASK_TYPE::FADE_OUT_LIGHT_RADIUS;
+	_task.Param_1 = (UINT_PTR)_target;
+	_task.Param_2 = (UINT_PTR)_time;
+	_task.Param_3 = (UINT_PTR)_radius;
+	TaskMgr::GetInst()->AddTask(_task);
+}
+
 
 void Object::DrawDebugRect(const Matrix& _WorldMat, Vec3 _Color, bool _bDepthTest, float _Duration)
 {
@@ -208,7 +264,7 @@ void EH::InputVector4(string _line, OUT Vec4& _output)
 		{
 			_output.y = stof(_temp);
 		}
-		else if(j==2)
+		else if (j == 2)
 		{
 			_output.z = stof(_temp);
 		}

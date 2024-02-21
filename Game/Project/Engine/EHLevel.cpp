@@ -325,11 +325,16 @@ void Level::Awake()
 	{
 		m_Layers[_type]->Awake();
 	}
+
+	Start();
 }
 
 void Level::Start()
 {
-
+	for (UINT _type = 0;_type < (UINT)LAYER_TYPE::END;_type++)
+	{
+		m_Layers[_type]->Start();
+	}
 }
 
 void Level::Update()
@@ -438,6 +443,9 @@ void Level::AddScript(GameObject* _obj, vector<wstring>_scripts)
 	Script* _script = nullptr;
 	for (size_t i = 0;i < _scripts.size();i++)
 	{
+		if (L"Light2DScript" == _scripts[i])
+			continue;
+
 		_script = ScriptMgr::GetInst()->FindScript(_scripts[i]);
 		assert(_script);
 		_script = _script->Clone();

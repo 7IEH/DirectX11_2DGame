@@ -12,6 +12,7 @@ Material::Material()
 	:Asset(ASSET_TYPE::MATERIAL)
 	,m_tMaterial{}
 {
+	m_tMaterial.vLightMat.Color = Vec4(1.f, 1.f, 1.f, 1.f);
 }
 
 Material::~Material()

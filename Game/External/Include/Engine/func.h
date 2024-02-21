@@ -9,6 +9,15 @@ namespace Object
 	void Instantiate(GameObject* _target, int _LayerIdx);
 	void Destroy(GameObject* _target);
 
+	void FadeIn(GameObject* _target, float _time);
+	void FadeOut(GameObject* _target, float _time);
+
+	void FadeInLightColor(GameObject* _target, float _time);
+	void FadeOutLightColor(GameObject* _target, float _time);
+
+	void FadeInLightRadius(GameObject* _target, float _radius, float _time);
+	void FadeOutLightRadius(GameObject* _target, float _radius, float _time);
+
 	void DrawDebugRect(const Matrix& _WorldMat, Vec3 _Color, bool _bDepthTest, float _Duration = 0.f);
 	void DrawDebugRect(Vec3 _vWorldPos, Vec3 _vWorldScale, Vec3 _vWorldRot, Vec3 _Color, bool _bDepthTest, float _Duration = 0.f);
 	void DrawDebugCircle(const Matrix& _WorldMat, Vec3 _Color, bool _bDepthTest, float _Duration = 0.f);
