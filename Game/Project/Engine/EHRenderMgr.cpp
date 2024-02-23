@@ -25,6 +25,8 @@
 
 #include "EHKeyMgr.h"
 
+#include "EHFontMgr.h"
+
 extern transform e_MatrixData;
 
 RenderMgr::RenderMgr()
@@ -54,8 +56,10 @@ void RenderMgr::Update()
 	// RenderTarget, DepthStencil ÃÊ±âÈ­
 	Device::GetInst()->OMSetRT();
 
-	float ClearColor[4] = { 0.3f,0.3f,0.3f,0.3f };
+	float ClearColor[4] = { 0.f,0.f,0.f,0.f };
 	Device::GetInst()->ClearRenderTarget(ClearColor);
+
+
 
 	for (int i = 0;i < 2;i++)
 	{
@@ -72,6 +76,8 @@ void RenderMgr::Update()
 			Render();
 		}
 	}
+
+	FontMgr::GetInst()->DrawingText(L"De");
 
 	PickingRender();
 

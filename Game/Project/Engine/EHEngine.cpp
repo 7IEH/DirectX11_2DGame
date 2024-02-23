@@ -17,6 +17,7 @@
 #include "EHDebugMgr.h"
 #include "EHAnimationMgr.h"
 #include "EHScriptMgr.h"
+#include "EHFontMgr.h"
 
 #include "EHCamera.h"
 
@@ -68,6 +69,8 @@ void Engine::AwakeManager()
 	ScriptMgr::GetInst()->Awake();
 	LevelMgr::GetInst()->Awake();
 	RenderMgr::GetInst()->Awake();
+	FontMgr::GetInst()->Awake();
+
 	if (FALSE == ImGUIMgr::GetInst()->Awake())
 	{
 		HandleError(MAIN_HWND, L"ImGUI InitailizeError", 1);

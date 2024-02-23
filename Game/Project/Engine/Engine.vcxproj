@@ -73,13 +73,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)External\Library\Engine\</OutDir>
     <TargetName>$(ProjectName)_Debug</TargetName>
-    <ExternalIncludePath>$(SolutionDir)External\Include\Content\;$(ExternalIncludePath)</ExternalIncludePath>
-    <LibraryPath>$(SolutionDir)External\Library\Content\;$(LibraryPath)</LibraryPath>
+    <ExternalIncludePath>$(SolutionDir)External\Include\Content\;$(SolutionDir)External\Include\FontEngine\;$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>$(SolutionDir)External\Library\Content\;$(SolutionDir)External\Library\FontEngine\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)External\Library\Engine\</OutDir>
-    <ExternalIncludePath>$(SolutionDir)External\Include\Content\;$(ExternalIncludePath)</ExternalIncludePath>
-    <LibraryPath>$(SolutionDir)External\Library\Content\;$(LibraryPath)</LibraryPath>
+    <ExternalIncludePath>$(SolutionDir)External\Include\Content\;$(SolutionDir)External\Include\FontEngine\;$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>$(SolutionDir)External\Library\Content\;$(SolutionDir)External\Library\FontEngine\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -124,6 +124,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -146,6 +147,7 @@ call Copy.bat</Command>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -195,6 +197,7 @@ call Copy.bat</Command>
     <ClInclude Include="EHEngine.h" />
     <ClInclude Include="EHEngineUI.h" />
     <ClInclude Include="EHEntity.h" />
+    <ClInclude Include="EHFontMgr.h" />
     <ClInclude Include="EHGameView.h" />
     <ClInclude Include="EHGarbageCollector.h" />
     <ClInclude Include="EHGraphicShader.h" />
@@ -235,6 +238,7 @@ call Copy.bat</Command>
     <ClInclude Include="EHTestComputeShader.h" />
     <ClInclude Include="EHTestLevel.h" />
     <ClInclude Include="EHTestUI.h" />
+    <ClInclude Include="EHText.h" />
     <ClInclude Include="EHThreadMgr.h" />
     <ClInclude Include="EHThreadTask.h" />
     <ClInclude Include="EHTileMap.h" />
@@ -303,6 +307,7 @@ call Copy.bat</Command>
     <ClCompile Include="EHDevice.cpp" />
     <ClCompile Include="EHEngine.cpp" />
     <ClCompile Include="EHEntity.cpp" />
+    <ClCompile Include="EHFontMgr.cpp" />
     <ClCompile Include="EHGameView.cpp" />
     <ClCompile Include="EHGarbageCollector.cpp" />
     <ClCompile Include="EHGraphicShader.cpp" />
@@ -343,6 +348,7 @@ call Copy.bat</Command>
     <ClCompile Include="EHTestComputeShader.cpp" />
     <ClCompile Include="EHTestLevel.cpp" />
     <ClCompile Include="EHTestUI.cpp" />
+    <ClCompile Include="EHText.cpp" />
     <ClCompile Include="EHThreadMgr.cpp" />
     <ClCompile Include="EHThreadTask.cpp" />
     <ClCompile Include="EHTileMap.cpp" />

@@ -31,7 +31,7 @@ TitleScript::TitleScript()
 	, m_fAcctime2(0.f)
 	, m_fAcctime3(0.f)
 	, m_fFrequency(50.f)
-	, m_fAmplitude(1.5f)
+	, m_fAmplitude(3.f)
 	, m_bStart(TRUE)
 	, m_Radius1(0.f)
 	, m_Radius2(0.f)
@@ -114,6 +114,9 @@ void TitleScript::Update()
 	Vec4 _rightPos = _rightDoorTr->GetRelativePosition();
 	Vec4 _leftPos = _leftDoorTr->GetRelativePosition();
 
+	Transform* _logoTr = m_GameLogo->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
+	Vec4 _logoPos = _logoTr->GetRelativePosition();
+
 	if (m_bOpen)
 	{
 		// 1.첫 Open
@@ -171,6 +174,9 @@ void TitleScript::Update()
 			}
 			else
 			{
+				// Logo 이동
+				_logoPos.z = 10.f;
+
 				_rightPos.x = 1000.f;
 				_rightPos.y = 0.f;
 				m_fAcctime2 = 0.f;
@@ -221,6 +227,9 @@ void TitleScript::Update()
 				_leftPos.y = 0.f;
 				m_fAcctime2 = 0.f;
 				m_bSecond = TRUE;
+
+				Object::FadeInLightRadius(m_PointLight1, m_Radius1, 1.f);
+				Object::FadeInLightRadius(m_PointLight2, m_Radius2, 1.f);
 			}
 		}
 
@@ -267,11 +276,11 @@ void TitleScript::Update()
 				m_fAcctime2 = 0.f;
 
 				m_StartLine->Enabled(TRUE);
-				m_PointLight1->Enabled(TRUE);
-				m_PointLight2->Enabled(TRUE);
 			}
 		}
 	}
+
+	_logoTr->SetRelativePosition(_logoPos);
 
 	_rightDoorTr->SetRelativePosition(_rightPos);
 	_leftDoorTr->SetRelativePosition(_leftPos);
@@ -293,9 +302,6 @@ void TitleScript::LateUpdate()
 
 			// Logo 이동
 			_logoPos.z = -5.f;
-
-			Object::FadeInLightRadius(m_PointLight1, m_Radius1, 1.f);
-			Object::FadeInLightRadius(m_PointLight2, m_Radius2, 1.f);
 		}
 		// 문이 닫혀있을 때
 		else
@@ -303,13 +309,6 @@ void TitleScript::LateUpdate()
 			// 문 열기
 			m_bOpen = TRUE;
 			m_bFirst = TRUE;
-
-			// Logo 이동
-			_logoPos.z = 10.f;
-
-			// NoActive light
-			m_PointLight1->Enabled(FALSE);
-			m_PointLight2->Enabled(FALSE);
 
 			// NoActive start line
 			m_StartLine->Enabled(FALSE);

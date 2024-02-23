@@ -316,8 +316,17 @@
     <Filter Include="04. Manager\ScriptMgr">
       <UniqueIdentifier>{1cb078f9-e2fa-4a54-8516-f606f84add8a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="07. Component\Button">
+    <Filter Include="07. Component\UIComponent">
+      <UniqueIdentifier>{867c2d80-17ca-45ef-8044-e60c8ed51780}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Component\UIComponent\Button">
       <UniqueIdentifier>{5d13dd87-6319-4623-86af-fc8a978ad803}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Component\UIComponent\Text">
+      <UniqueIdentifier>{671060d3-4f30-4483-b91d-150e4a31831d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\TextMgr">
+      <UniqueIdentifier>{d37ff651-7d22-4ca9-9c25-77073c371e62}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -643,7 +652,13 @@
       <Filter>04. Manager\ScriptMgr</Filter>
     </ClInclude>
     <ClInclude Include="EHButton.h">
-      <Filter>07. Component\Button</Filter>
+      <Filter>07. Component\UIComponent\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="EHText.h">
+      <Filter>07. Component\UIComponent\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="EHFontMgr.h">
+      <Filter>04. Manager\TextMgr</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -945,7 +960,13 @@
       <Filter>04. Manager\ScriptMgr</Filter>
     </ClCompile>
     <ClCompile Include="EHButton.cpp">
-      <Filter>07. Component\Button</Filter>
+      <Filter>07. Component\UIComponent\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="EHText.cpp">
+      <Filter>07. Component\UIComponent\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="EHFontMgr.cpp">
+      <Filter>04. Manager\TextMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -4,6 +4,13 @@
 |	Global Header
 ********************/
 
+// Text
+#ifdef _DEBUG
+#pragma comment(lib,"FW1FontWrapper.lib")
+#else
+#pragma comment(lib,"FW1FontWrapper.lib")
+#endif
+
 // 여기에 미리 컴파일하려는 헤더 추가
 #include "framework.h"
 
@@ -68,8 +75,6 @@ typedef Vector4 Vec4;
 
 // Error Function
 void HandleError(HWND _hWnd, wstring _content, int flag);
-
-// Debug Function
 
 // Content Library
 #ifdef _DEBUG
