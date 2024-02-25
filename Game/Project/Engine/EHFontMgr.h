@@ -7,13 +7,12 @@ class FontMgr
 {
 	Single(FontMgr)
 private:
-	IFW1FontWrapper*		m_FontWrapper;
-	IFW1TextGeometry*		m_TextGeoMetry;
-	IDWriteFactory*			m_WriteFactory;
+	IFW1FontWrapper* m_FontWrapper;
+	IDWriteFactory* m_WriteFactory;
 	
 public:
 	void Awake();
-	void DrawingText(wstring _str);
+	void DrawingText(wstring _str, UINT32 _color, wstring _font, DWRITE_FONT_WEIGHT _fontweight, float _x, float _y, float _fontsize = 32.0f);
 
 private:
 	HRESULT FontWrapperInit();

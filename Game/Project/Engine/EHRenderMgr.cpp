@@ -59,8 +59,6 @@ void RenderMgr::Update()
 	float ClearColor[4] = { 0.f,0.f,0.f,0.f };
 	Device::GetInst()->ClearRenderTarget(ClearColor);
 
-
-
 	for (int i = 0;i < 2;i++)
 	{
 		if (i == 0)
@@ -76,8 +74,6 @@ void RenderMgr::Update()
 			Render();
 		}
 	}
-
-	FontMgr::GetInst()->DrawingText(L"De");
 
 	PickingRender();
 

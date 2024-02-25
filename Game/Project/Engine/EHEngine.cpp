@@ -80,8 +80,6 @@ void Engine::AwakeManager()
 
 void Engine::Start()
 {
-	// Script 초기화 후 Start 시작
-	//
 }
 
 void Engine::Update()

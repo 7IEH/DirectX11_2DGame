@@ -5,6 +5,8 @@ transform e_MatrixData = {};
 
 tGlobalData e_Global = {};
 
+wstring e_Font = {};
+
 const char* ASSET_TYPE_STRING[(UINT)ASSET_TYPE::END]
 {
 	"MESH",

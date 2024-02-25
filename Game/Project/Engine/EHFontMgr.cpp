@@ -21,37 +21,36 @@ void FontMgr::Awake()
 		HandleError(MAIN_HWND, L"FontMgr Awake Error", 0);
 		assert(nullptr);
 	}
+
+	e_Font = L"DroidSansFallback";
 }
 
-void FontMgr::DrawingText(wstring _str)
+void FontMgr::DrawingText(wstring _str, UINT32 _color, wstring _font, DWRITE_FONT_WEIGHT _fontweight, float _x, float _y, float _fontsize)
 {
-	IDWriteTextFormat* pTextFormat;
-	HRESULT hResult = m_WriteFactory->CreateTextFormat(
-		L"Arial",
+	IDWriteTextFormat* _textFormat;
+	HRESULT _result = m_WriteFactory->CreateTextFormat(
+		e_Font.c_str(),
 		NULL,
-		DWRITE_FONT_WEIGHT_BOLD,
-		DWRITE_FONT_STYLE_OBLIQUE,
+		_fontweight,
+		DWRITE_FONT_STYLE_NORMAL,
 		DWRITE_FONT_STRETCH_NORMAL,
-		32.0f,
+		_fontsize,
 		L"",
-		&pTextFormat
+		&_textFormat
 	);
 
-	IDWriteTextLayout* pTextLayout;
-	const WCHAR str[] = L"\"My Text Layout String\"\n\n123 !!!\n~~\n__ test";
-	hResult = m_WriteFactory->CreateTextLayout(
-		str,
-		sizeof(str) / sizeof(str[0]),
-		pTextFormat,
+	IDWriteTextLayout* pTextLayout = nullptr;
+	HRESULT hResult = m_WriteFactory->CreateTextLayout(
+		_str.c_str(),
+		_str.size(),
+		_textFormat,
 		0.0f,
 		0.0f,
 		&pTextLayout
 	);
 	pTextLayout->SetWordWrapping(DWRITE_WORD_WRAPPING_NO_WRAP);
 
-
-	m_FontWrapper->DrawTextLayout(CONTEXT, pTextLayout, 0.5, 0.5, 0xffffffff, 0);
-
+	m_FontWrapper->DrawTextLayout(CONTEXT, pTextLayout, _x, _y, _color, 0);
 }
 
 HRESULT FontMgr::FontWrapperInit()
@@ -73,25 +72,6 @@ HRESULT FontMgr::FontWrapperInit()
 	_FontFactory->Release();
 
 	hResult = m_FontWrapper->GetDWriteFactory(&m_WriteFactory);
-
-	// Create the default DWrite text format for the text layout
-	IDWriteTextFormat* pTextFormat;
-	hResult = m_WriteFactory->CreateTextFormat(
-		L"Arial",
-		NULL,
-		DWRITE_FONT_WEIGHT_BOLD,
-		DWRITE_FONT_STYLE_OBLIQUE,
-		DWRITE_FONT_STRETCH_NORMAL,
-		32.0f,
-		L"",
-		&pTextFormat
-	);
-
-	// Create a text layout for a string
-
-
-
-	m_WriteFactory->Release();
 
 	return S_OK;
 }

@@ -33,16 +33,16 @@ Camera::Camera(const Camera& _origin)
 	:Component(_origin)
 	, m_Projection(_origin.m_Projection)
 	, m_FOV(_origin.m_FOV)
-    , m_Width(_origin.m_Width)
-    , m_Height(_origin.m_Height)
-    , m_Scale(_origin.m_Scale)
-    , m_AspectRatio(_origin.m_AspectRatio)
-    , m_Far(_origin.m_Far)
+	, m_Width(_origin.m_Width)
+	, m_Height(_origin.m_Height)
+	, m_Scale(_origin.m_Scale)
+	, m_AspectRatio(_origin.m_AspectRatio)
+	, m_Far(_origin.m_Far)
 	, m_ViewMat{}
 	, m_ProjMat{}
-    , m_LayerVisible(_origin.m_LayerVisible)
-    , m_Type(CAMERA_TYPE::MAIN_CAMERA)
-    , m_DomainSortingObjects{}
+	, m_LayerVisible(_origin.m_LayerVisible)
+	, m_Type(CAMERA_TYPE::MAIN_CAMERA)
+	, m_DomainSortingObjects{}
 {
 }
 

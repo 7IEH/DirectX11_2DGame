@@ -104,6 +104,18 @@ void TestLevel::Awake()
 
 	AddObject(_player, LAYER_TYPE::PLAYER);
 
+
+	GameObject* _testObject = new GameObject();
+	tr = _testObject->AddComponent<Transform>();
+
+	_testObject->AddComponent<CanvasRenderer>();
+
+	Text* _text = _testObject->AddComponent<Text>();
+	_text->SetText(L"Hello,World");
+
+
+	AddObject(_testObject, LAYER_TYPE::PARTICLE);
+
 	Level::Awake();
 }
 

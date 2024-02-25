@@ -328,6 +328,9 @@
     <Filter Include="04. Manager\TextMgr">
       <UniqueIdentifier>{d37ff651-7d22-4ca9-9c25-77073c371e62}</UniqueIdentifier>
     </Filter>
+    <Filter Include="07. Component\Renderer\CanvasRenderer">
+      <UniqueIdentifier>{89c071ef-a4c0-411e-a4a2-07273de4dc80}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -660,6 +663,9 @@
     <ClInclude Include="EHFontMgr.h">
       <Filter>04. Manager\TextMgr</Filter>
     </ClInclude>
+    <ClInclude Include="EHCanvasRenderer.h">
+      <Filter>07. Component\Renderer\CanvasRenderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -967,6 +973,9 @@
     </ClCompile>
     <ClCompile Include="EHFontMgr.cpp">
       <Filter>04. Manager\TextMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="EHCanvasRenderer.cpp">
+      <Filter>07. Component\Renderer\CanvasRenderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
