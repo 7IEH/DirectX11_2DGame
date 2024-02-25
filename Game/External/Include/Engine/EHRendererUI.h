@@ -29,6 +29,7 @@ private:
     void MeshRenderer_Update();
     void TileMap_Update();
     void Particle_Update();
+    void Canvas_Update();
 
 public:
     RendererUI();

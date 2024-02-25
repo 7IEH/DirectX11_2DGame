@@ -26,4 +26,9 @@ void CanvasRenderer::Render()
 
 void CanvasRenderer::Save(string _path)
 {
+	std::ofstream _file(_path, std::fstream::out | std::fstream::app);
+	
+	_file << "CANVASRENDERER\n";
+
+	_file.close();
 }

@@ -97,9 +97,13 @@ void ComponentUI::SetTargetObject(GameObject* _target)
 				{
 					this->SetLabel("TileMapRenderer");
 				}
-				else
+				else if(RENDERER_TYPE::PARTICLESYSTEM == _render->GetRenderType())
 				{
 					this->SetLabel("ParticleSystem");
+				}
+				else
+				{
+					this->SetLabel("CavasRenderer");
 				}
 				Enabled(TRUE);
 			}
@@ -110,6 +114,26 @@ void ComponentUI::SetTargetObject(GameObject* _target)
 			Camera* _cam = m_TargetObject->GetComponent<Camera>(COMPONENT_TYPE::CAMERA);
 
 			if (_cam == nullptr)
+				Enabled(FALSE);
+			else
+				Enabled(TRUE);
+		}
+		break;
+		case COMPONENT_TYPE::TEXT:
+		{
+			Text* _text = m_TargetObject->GetComponent<Text>(COMPONENT_TYPE::TEXT);
+
+			if (_text == nullptr)
+				Enabled(FALSE);
+			else
+				Enabled(TRUE);
+		}
+		break;
+		case COMPONENT_TYPE::BUTTON:
+		{
+			Button* _button = m_TargetObject->GetComponent<Button>(COMPONENT_TYPE::BUTTON);
+
+			if (_button == nullptr)
 				Enabled(FALSE);
 			else
 				Enabled(TRUE);

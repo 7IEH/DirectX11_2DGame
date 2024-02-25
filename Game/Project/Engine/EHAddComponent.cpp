@@ -71,6 +71,13 @@ void AddComponent::Render_Update()
 				_inspc->SetTargetObject(m_TargetObject);
 			}
 
+			if (ImGui::MenuItem("CanvasRenderer"))
+			{
+				m_TargetObject->AddComponent<CanvasRenderer>();
+				m_Open = FALSE;
+				_inspc->SetTargetObject(m_TargetObject);
+			}
+
 			if (ImGui::MenuItem("TileMap"))
 			{
 				m_TargetObject->AddComponent<TileMap>();
@@ -90,6 +97,18 @@ void AddComponent::Render_Update()
 				m_TargetObject->AddComponent<Animator2D>();
 				m_Open = FALSE;
 				_inspc->SetTargetObject(m_TargetObject);
+			}
+
+			if (ImGui::MenuItem("Text"))
+			{
+				m_TargetObject->AddComponent<Text>();
+				m_Open = FALSE;
+				_inspc->SetTargetObject(m_TargetObject);
+			}
+
+			if (ImGui::MenuItem("Button"))
+			{
+				m_Open = FALSE;
 			}
 
 			map<wstring, Script*> m_Scripts = ScriptMgr::GetInst()->GetScripts();

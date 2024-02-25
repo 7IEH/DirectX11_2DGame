@@ -111,8 +111,10 @@ void TestLevel::Awake()
 	_testObject->AddComponent<CanvasRenderer>();
 
 	Text* _text = _testObject->AddComponent<Text>();
-	_text->SetText(L"Hello,World");
-
+	_text->SetText(L"»õ °ÔÀÓ");
+	_text->SetFont(L"DroidSansFallback");
+	_text->SetFontWeight(DWRITE_FONT_WEIGHT_SEMI_BOLD);
+	_text->SetFontSize(24.f);
 
 	AddObject(_testObject, LAYER_TYPE::PARTICLE);
 

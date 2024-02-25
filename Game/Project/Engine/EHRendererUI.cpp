@@ -46,6 +46,11 @@ void RendererUI::Render_Update()
 		Particle_Update();
 	}
 	break;
+	case RENDERER_TYPE::CANVAS:
+	{
+		Canvas_Update();
+	}
+	break;
 	case RENDERER_TYPE::END:
 		break;
 	default:
@@ -423,4 +428,9 @@ void RendererUI::Particle_Update()
 	_module._arrModuleCheck[(UINT)PARTICLE_MODULE::COLOR_OVER_LIFETIME] = m_Color;
 
 	_particle->SetModule(_module);
+}
+
+void RendererUI::Canvas_Update()
+{
+
 }

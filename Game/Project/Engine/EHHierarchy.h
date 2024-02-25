@@ -25,7 +25,7 @@ private:
 	void DragDropObject(DWORD_PTR _dest, DWORD_PTR _source);
 
 public:
-	virtual void Render_Update();
+	virtual void Render_Update() {};
 
 public:
 	Hierarchy();

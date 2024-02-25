@@ -58,6 +58,17 @@ namespace EH
 	string WriteVector3(Vec3 _data);
 
 	string WriteVector4(Vec4 _data);
+
+	void InputVector2(wstring _line, OUT Vec2& _output);
+
+	// 메모장에서 가져온 숫자 변환
+	void InputVector3(wstring _line, OUT Vec3& _output);
+
+	// 메모장에서 가져온 숫자 변환
+	void InputVector3(wstring _line, OUT Vec4& _output);
+
+	// 메모장에서 가져온 숫자 변환
+	void InputVector4(wstring _line, OUT Vec4& _output);
 }
 
 // 메모리 해제 ( 배열용 )

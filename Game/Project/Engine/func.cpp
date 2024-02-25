@@ -309,3 +309,107 @@ string EH::WriteVector4(Vec4 _data)
 	_result += std::to_string(_data.w);
 	return _result;
 }
+
+void EH::InputVector2(wstring _line, OUT Vec2& _output)
+{
+	int _prev = 0;
+	int _next = 0;
+	wstring _temp = L"";
+
+	for (int j = 0;j < 2;j++)
+	{
+		_next = (int)_line.find(L" ", _prev + 1);
+		_temp = _line.substr(_prev, _next - _prev);
+		_prev = _next;
+		if (j == 0)
+		{
+			_output.x = stof(_temp);
+		}
+		else
+		{
+			_output.y = stof(_temp);
+		}
+	}
+}
+
+void EH::InputVector3(wstring _line, OUT Vec3& _output)
+{
+	int _prev = 0;
+	int _next = 0;
+	wstring _temp = L"";
+
+	for (int j = 0;j < 2;j++)
+	{
+		_next = (int)_line.find(L" ", _prev + 1);
+		_temp = _line.substr(_prev, _next - _prev);
+		_prev = _next;
+		if (j == 0)
+		{
+			_output.x = stof(_temp);
+		}
+		else if (j == 1)
+		{
+			_output.y = stof(_temp);
+		}
+		else
+		{
+			_output.z = stof(_temp);
+		}
+	}
+}
+
+void EH::InputVector3(wstring _line, OUT Vec4& _output)
+{
+	int _prev = 0;
+	int _next = 0;
+	wstring _temp = L"";
+
+	for (int j = 0;j < 3;j++)
+	{
+		_next = (int)_line.find(L" ", _prev + 1);
+		_temp = _line.substr(_prev, _next - _prev);
+		_prev = _next;
+		if (j == 0)
+		{
+			_output.x = stof(_temp);
+		}
+		else if (j == 1)
+		{
+			_output.y = stof(_temp);
+		}
+		else
+		{
+			_output.z = stof(_temp);
+		}
+	}
+}
+
+void EH::InputVector4(wstring _line, OUT Vec4& _output)
+{
+	int _prev = 0;
+	int _next = 0;
+	wstring _temp = L"";
+
+	for (int j = 0;j < 3;j++)
+	{
+		_next = (int)_line.find(L" ", _prev + 1);
+		_temp = _line.substr(_prev, _next - _prev);
+		_prev = _next;
+		if (j == 0)
+		{
+			_output.x = stof(_temp);
+		}
+		else if (j == 1)
+		{
+			_output.y = stof(_temp);
+		}
+		else if (j == 2)
+		{
+			_output.z = stof(_temp);
+		}
+		else
+		{
+			_output.w = stof(_temp);
+		}
+	}
+}

@@ -11,6 +11,7 @@
 #include "Scripts.h"
 #include "EHLevelMgr.h"
 
+
 Level::Level()
 	:m_Layers{}
 	, m_CollistionMatrix{}
@@ -73,16 +74,18 @@ void Level::FindObjectsByName(const wstring& _strName, vector<GameObject*>& _vec
 
 void Level::Load(string _path)
 {
-	std::ifstream _file(string(_path.begin(), _path.end()).data());
+	std::locale::global(std::locale(".UTF-8"));
+
+	std::wifstream _file(string(_path.begin(), _path.end()).data());
 
 	if (_file.is_open())
 	{
 		bool _temp = false;
-		string _line = "";
+		wstring _line = L"";
 
 		std::getline(_file, _line);
 
-		if (_line == "CollisionMatrix")
+		if (_line == L"CollisionMatrix")
 		{
 			for (UINT i = 0;i < (UINT)LAYER_TYPE::END;i++)
 			{
@@ -93,27 +96,27 @@ void Level::Load(string _path)
 
 		while (std::getline(_file, _line))
 		{
-			if (_line == "object")
+			if (_line == L"object")
 			{
 				GameObject* _obj = new GameObject;
 				while (1)
 				{
 					std::getline(_file, _line);
 
-					if (_line.find("NAME") != string::npos)
+					if (_line.find(L"NAME") != string::npos)
 					{
-						_line = _line.substr(_line.find(":") + 1);
+						_line = _line.substr(_line.find(L":") + 1);
 						_obj->SetName(wstring(_line.begin(), _line.end()));
 					}
 
-					if (_line.find("LAYER") != string::npos)
+					if (_line.find(L"LAYER") != string::npos)
 					{
-						_line = _line.substr(_line.find(":") + 1);
+						_line = _line.substr(_line.find(L":") + 1);
 						LAYER_TYPE _type = LAYER_TYPE(std::stoi(_line));
 						AddObject(_obj, _type);
 					}
 
-					if (_line.find("TRANSFORM") != string::npos)
+					if (_line.find(L"TRANSFORM") != string::npos)
 					{
 						Vec4 _postion = (Vec4)0.f;
 						Vec4 _scale = (Vec4)1.f;
@@ -143,7 +146,7 @@ void Level::Load(string _path)
 						AddTrasnform(_obj, _postion, _scale, _rotation);
 					}
 
-					if (_line.find("LIGHT2D") != string::npos)
+					if (_line.find(L"LIGHT2D") != string::npos)
 					{
 						LIGHT_TYPE _type = LIGHT_TYPE::DIRECTIONAL;
 						Vec4 _color = Vec4(0.f);
@@ -179,7 +182,7 @@ void Level::Load(string _path)
 						AddLight2D(_obj, _type, _color, _ambient, _angle, _radius);
 					}
 
-					if (_line.find("CAMERA") != string::npos)
+					if (_line.find(L"CAMERA") != string::npos)
 					{
 						PROJECTION_TYPE _type = PROJECTION_TYPE::PERSPECTIVE;
 						CAMERA_TYPE _camType = CAMERA_TYPE::MAIN_CAMERA;
@@ -190,7 +193,7 @@ void Level::Load(string _path)
 							std::getline(_file, _line);
 							if (i == 0)
 							{
-								if ("perspective" != _line)
+								if (L"perspective" != _line)
 								{
 									_type = PROJECTION_TYPE::ORTHOGRAPHIC;
 								}
@@ -208,7 +211,7 @@ void Level::Load(string _path)
 						AddCamera(_obj, _type, _camType, _visibleLayer);
 					}
 
-					if (_line.find("MESHRENDERER") != string::npos)
+					if (_line.find(L"MESHRENDERER") != string::npos)
 					{
 						wstring _mesh = L"";;
 						wstring _material = L"";
@@ -218,18 +221,23 @@ void Level::Load(string _path)
 							std::getline(_file, _line);
 							if (i == 0)
 							{
-								_mesh = EH::ConvertWstring(_line);
+								_mesh = _line;
 							}
 							else
 							{
-								_material = EH::ConvertWstring(_line);
+								_material = _line;
 							}
 						}
 
 						AddMeshRenderer(_obj, _mesh, _material);
 					}
 
-					if (_line.find("ANIMATOR2D") != string::npos)
+					if (_line.find(L"CANVASRENDERER") != string::npos)
+					{
+						_obj->AddComponent<CanvasRenderer>();
+					}
+
+					if (_line.find(L"ANIMATOR2D") != string::npos)
 					{
 						size_t _size = 0;
 						vector<wstring>_aniName; _aniName.clear();
@@ -242,13 +250,13 @@ void Level::Load(string _path)
 						for (size_t i = 0;i < _size;i++)
 						{
 							std::getline(_file, _line);
-							_aniName.push_back(EH::ConvertWstring(_line));
+							_aniName.push_back(_line);
 						}
 
 						AddAnimator2D(_obj, _aniName);
 					}
 
-					if (_line.find("BOXCOLLIDER2D") != string::npos)
+					if (_line.find(L"BOXCOLLIDER2D") != string::npos)
 					{
 						Vec3 _offsetPos = Vec3(0.f);
 						Vec3 _offsetSize = Vec3(0.f);
@@ -269,7 +277,7 @@ void Level::Load(string _path)
 						AddCollider2D(_obj, _offsetPos, _offsetSize);
 					}
 
-					if (_line.find("CIRCLECOLLIDER2D") != string::npos)
+					if (_line.find(L"CIRCLECOLLIDER2D") != string::npos)
 					{
 						Vec3 _offsetPos = Vec3(0.f);
 						float _radius = 0.f;
@@ -290,7 +298,7 @@ void Level::Load(string _path)
 						AddCollider2D(_obj, _offsetPos, _radius);
 					}
 
-					if (_line.find("Script") != string::npos)
+					if (_line.find(L"Script") != string::npos)
 					{
 						vector<wstring>_script;_script.clear();
 						int _size = 0;
@@ -300,13 +308,39 @@ void Level::Load(string _path)
 						for (int i = 0;i < _size;i++)
 						{
 							std::getline(_file, _line);
-							_script.push_back(EH::ConvertWstring(_line));
+							_script.push_back(_line);
 						}
 
 						AddScript(_obj, _script);
 					}
 
-					if (_line.find("endobject") != string::npos)
+					if (_line.find(L"TEXT") != string::npos)
+					{
+						wstring _str = {};
+						wstring _font = {}; wstring _fontweitght = {};
+						UINT32 _color = 0; float _size = 0.f;
+
+						std::getline(_file, _line);
+						_str = _line;
+
+						std::getline(_file, _line);
+						_font = _line;
+						std::getline(_file, _line);
+						_fontweitght = _line;
+						std::getline(_file, _line);
+						_color = 0xffffffff;
+						std::getline(_file, _line);
+						_size = std::stof(_line);
+
+						AddText(_obj, _str, _font, _fontweitght, _color, _size);
+					}
+
+					if (_line.find(L"BUTTON") != string::npos)
+					{
+
+					}
+
+					if (_line.find(L"endobject") != string::npos)
 					{
 						break;
 					}
@@ -451,4 +485,36 @@ void Level::AddScript(GameObject* _obj, vector<wstring>_scripts)
 		_script = _script->Clone();
 		_obj->AddComponent(_script);
 	}
+}
+
+void Level::AddText(GameObject* _obj, wstring _str, wstring _font, wstring _fontweitght, UINT32 _color, float _size)
+{
+	Text* _text = _obj->AddComponent<Text>();
+	_text->SetText(_str);
+	_text->SetFont(_font);
+
+	DWRITE_FONT_WEIGHT _weight;
+	if (L"BOLD" == _fontweitght)
+	{
+		_weight = DWRITE_FONT_WEIGHT_BOLD;
+	}
+	else if (L"NORMAL" == _fontweitght)
+	{
+		_weight = DWRITE_FONT_WEIGHT_NORMAL;
+	}
+	else
+	{
+		_weight = DWRITE_FONT_WEIGHT_THIN;
+	}
+
+	_text->SetFontWeight(_weight);
+	_text->SetColor(_color);
+	_text->SetFontSize(_size);
+}
+
+void Level::AddButton(GameObject* _obj)
+{
+	/*Button* _button = _obj->AddComponent<Button>();*/
+
+
 }

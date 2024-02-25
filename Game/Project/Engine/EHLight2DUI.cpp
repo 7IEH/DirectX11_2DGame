@@ -74,7 +74,7 @@ void Light2DUI::Render_Update()
 
 		ImGui::Text("LightSetting");
 		ImGui::Text("Radius");
-		ImGui::SameLine(30.f);
+		ImGui::SameLine(100.f);
 		ImGui::DragFloat("##Radius",&_Radius, 0.3f);
 
 		_light2d->SetRadius(_Radius);

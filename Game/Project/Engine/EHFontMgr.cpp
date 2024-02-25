@@ -44,7 +44,7 @@ void FontMgr::DrawingText(wstring _str, UINT32 _color, wstring _font, DWRITE_FON
 		_str.c_str(),
 		_str.size(),
 		_textFormat,
-		0.0f,
+		0.f,
 		0.0f,
 		&pTextLayout
 	);

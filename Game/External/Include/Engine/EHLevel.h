@@ -58,12 +58,14 @@ private:
 private:
 	void AddTrasnform(GameObject* _obj, Vec4 _position, Vec4 _scale, Vec3 _rotation);
 	void AddCamera(GameObject* _obj, PROJECTION_TYPE _proj, CAMERA_TYPE _camtype, UINT _visibleLayer);
-	void AddLight2D(GameObject* _obj, LIGHT_TYPE _lighttype, Vec4 _color, Vec4 _ambient, float _angle,float _radius);
+	void AddLight2D(GameObject* _obj, LIGHT_TYPE _lighttype, Vec4 _color, Vec4 _ambient, float _angle, float _radius);
 	void AddMeshRenderer(GameObject* _obj, wstring _mesh, wstring _material);
 	void AddCollider2D(GameObject* _obj, Vec3 _offsetPostion, Vec3 _offsetScale);
 	void AddCollider2D(GameObject* _obj, Vec3 _offsetPostion, float _radius);
 	void AddAnimator2D(GameObject* _obj, vector<wstring>_aniName);
 	void AddScript(GameObject* _obj, vector<wstring>_scripts);
+	void AddText(GameObject* _obj, wstring _str, wstring _font, wstring _fontweitght, UINT32 _color, float _size);
+	void AddButton(GameObject* _obj);
 
 public:
 	Level();

@@ -17,6 +17,10 @@ public:
 	virtual void Update();
 	virtual void Render();
 
+	virtual void LateUpdate() {};
+
+	virtual void Save(string _path);
+
 public:
 	void SetText(wstring _str) { m_sTextInput = _str; }
 	void SetColor(UINT32 _color) { m_Color = _color; }
@@ -24,9 +28,11 @@ public:
 	void SetFont(wstring _font) { m_sFont = _font; }
 	void SetFontSize(float _size) { m_fFontSize = _size; }
 
-	virtual void LateUpdate() {};
-
-	virtual void Save(string _path) {};
+	wstring GetText() { return  m_sTextInput; }
+	UINT32 GetColor() { return m_Color; }
+	DWRITE_FONT_WEIGHT GetFontWeight() { return m_eWeight; }
+	wstring GetFont() { return m_sFont; }
+	float GetFontSize() { return m_fFontSize; }
 
 	CLONE(Text)
 

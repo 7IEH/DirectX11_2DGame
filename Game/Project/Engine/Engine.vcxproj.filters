@@ -331,6 +331,15 @@
     <Filter Include="07. Component\Renderer\CanvasRenderer">
       <UniqueIdentifier>{89c071ef-a4c0-411e-a4a2-07273de4dc80}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Text">
+      <UniqueIdentifier>{c731e525-baa2-4d5d-9a3f-5347ba5296f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\VideoPlayer">
+      <UniqueIdentifier>{3990810e-4ab5-40c6-aa96-79745187a5f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Button">
+      <UniqueIdentifier>{774610ac-dc9b-4f74-9a24-706c05b849b7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -666,6 +675,12 @@
     <ClInclude Include="EHCanvasRenderer.h">
       <Filter>07. Component\Renderer\CanvasRenderer</Filter>
     </ClInclude>
+    <ClInclude Include="EHTextUI.h">
+      <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="EHButtonUI.h">
+      <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Button</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -976,6 +991,12 @@
     </ClCompile>
     <ClCompile Include="EHCanvasRenderer.cpp">
       <Filter>07. Component\Renderer\CanvasRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="EHTextUI.cpp">
+      <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="EHButtonUI.cpp">
+      <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Button</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

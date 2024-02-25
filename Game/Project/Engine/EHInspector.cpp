@@ -13,6 +13,9 @@
 #include "EHColliderUI.h"
 #include "EHScriptUI.h"
 
+#include "EHTextUI.h"
+#include "EHButtonUI.h"
+
 #include "EHGameObject.h"
 #include "EHAddComponent.h"
 
@@ -44,6 +47,12 @@ Inspector::Inspector()
 	m_arrComUI[(UINT)COMPONENT_TYPE::LIGHT2D] = new Light2DUI;
 	AddChildUI(m_arrComUI[(UINT)COMPONENT_TYPE::LIGHT2D]);
 	
+	m_arrComUI[(UINT)COMPONENT_TYPE::TEXT] = new TextUI;
+	AddChildUI(m_arrComUI[(UINT)COMPONENT_TYPE::TEXT]);
+
+	m_arrComUI[(UINT)COMPONENT_TYPE::BUTTON] = new ButtonUI;
+	AddChildUI(m_arrComUI[(UINT)COMPONENT_TYPE::BUTTON]);
+
 	map<wstring, Script*> _scripts = ScriptMgr::GetInst()->GetScripts();
 	map<wstring, Script*>::iterator iter = _scripts.begin();
 	for (;iter != _scripts.end();iter++)

@@ -123,7 +123,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
@@ -146,7 +146,7 @@ call Copy.bat</Command>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
@@ -172,6 +172,7 @@ call Copy.bat</Command>
     <ClInclude Include="EHBehaviour.h" />
     <ClInclude Include="EHBoxCollider2DUI.h" />
     <ClInclude Include="EHButton.h" />
+    <ClInclude Include="EHButtonUI.h" />
     <ClInclude Include="EHCamera.h" />
     <ClInclude Include="EHCameraScript.h" />
     <ClInclude Include="EHCameraTargetScript.h" />
@@ -240,6 +241,7 @@ call Copy.bat</Command>
     <ClInclude Include="EHTestLevel.h" />
     <ClInclude Include="EHTestUI.h" />
     <ClInclude Include="EHText.h" />
+    <ClInclude Include="EHTextUI.h" />
     <ClInclude Include="EHThreadMgr.h" />
     <ClInclude Include="EHThreadTask.h" />
     <ClInclude Include="EHTileMap.h" />
@@ -285,6 +287,7 @@ call Copy.bat</Command>
     <ClCompile Include="EHAssetUI.cpp" />
     <ClCompile Include="EHBoxCollider2DUI.cpp" />
     <ClCompile Include="EHButton.cpp" />
+    <ClCompile Include="EHButtonUI.cpp" />
     <ClCompile Include="EHCamera.cpp" />
     <ClCompile Include="EHCameraScript.cpp" />
     <ClCompile Include="EHCameraTargetScript.cpp" />
@@ -351,6 +354,7 @@ call Copy.bat</Command>
     <ClCompile Include="EHTestLevel.cpp" />
     <ClCompile Include="EHTestUI.cpp" />
     <ClCompile Include="EHText.cpp" />
+    <ClCompile Include="EHTextUI.cpp" />
     <ClCompile Include="EHThreadMgr.cpp" />
     <ClCompile Include="EHThreadTask.cpp" />
     <ClCompile Include="EHTileMap.cpp" />
