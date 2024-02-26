@@ -108,7 +108,9 @@ void AddComponent::Render_Update()
 
 			if (ImGui::MenuItem("Button"))
 			{
+				m_TargetObject->AddComponent<Button>();
 				m_Open = FALSE;
+				_inspc->SetTargetObject(m_TargetObject);
 			}
 
 			map<wstring, Script*> m_Scripts = ScriptMgr::GetInst()->GetScripts();

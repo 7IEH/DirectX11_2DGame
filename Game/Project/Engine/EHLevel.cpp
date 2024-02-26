@@ -74,6 +74,7 @@ void Level::FindObjectsByName(const wstring& _strName, vector<GameObject*>& _vec
 
 void Level::Load(string _path)
 {
+	// UTF-8 ÇÑ±Û ±úÁü ÇØ°á
 	std::locale::global(std::locale(".UTF-8"));
 
 	std::wifstream _file(string(_path.begin(), _path.end()).data());
@@ -337,7 +338,12 @@ void Level::Load(string _path)
 
 					if (_line.find(L"BUTTON") != string::npos)
 					{
-
+						Button* _btn = _obj->AddComponent<Button>();
+						for (UINT i = 0;i < (UINT)BUTTON_STATE::END;i++)
+						{
+							std::getline(_file, _line);
+							_btn->SetImage(BUTTON_STATE(i),AssetMgr::GetInst()->FindAsset<Sprite>(_line));
+						}
 					}
 
 					if (_line.find(L"endobject") != string::npos)

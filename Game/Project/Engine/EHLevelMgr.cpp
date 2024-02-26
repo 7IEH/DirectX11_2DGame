@@ -64,6 +64,8 @@ void LevelMgr::Awake()
 	m_CurLevel = _level->CopyLevel();
 	m_CurLevel->Awake();
 
+	//SelectLevel(L"EnterScene");
+
 	if (m_CurLevel == nullptr)
 		return;
 }

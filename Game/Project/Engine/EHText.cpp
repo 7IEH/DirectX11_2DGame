@@ -31,13 +31,14 @@ void Text::Render()
 
 void Text::Save(string _path)
 {
-	std::ofstream _file(_path, std::fstream::out | std::fstream::app);
+	std::locale::global(std::locale(".UTF-8"));
+	std::wofstream _file(_path, std::fstream::out | std::fstream::app);
 
 	_file << "TEXT\n";
 
-	_file << EH::ConvertString(m_sTextInput.c_str()) + '\n';
+	_file << m_sTextInput + L'\n';
 
-	_file << EH::ConvertString(m_sFont.c_str()) + '\n';
+	_file << m_sFont + L'\n';
 
 	wstring _weight = {};
 
@@ -54,11 +55,11 @@ void Text::Save(string _path)
 		_weight = L"THIN";
 	}
 
-	_file << EH::ConvertString(_weight.c_str()) + '\n';
+	_file << _weight + L'\n';
 
-	_file << std::to_string(m_Color) + '\n';
+	_file << std::to_wstring(m_Color) + L'\n';
 
-	_file << std::to_string(m_fFontSize) + '\n';
+	_file << std::to_wstring(m_fFontSize) + L'\n';
 
 	_file.close();
 }
