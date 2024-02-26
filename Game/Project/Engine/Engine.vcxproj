@@ -133,7 +133,9 @@
     </Link>
     <PreBuildEvent>
       <Command>cd $(SolutionDir)
-call Copy.bat</Command>
+call Copy.bat
+cd $(SolutionDir)ScriptGenerator\
+call ScriptGenerator.exe</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -158,7 +160,9 @@ call Copy.bat</Command>
     </Link>
     <PreBuildEvent>
       <Command>cd $(SolutionDir)
-call Copy.bat</Command>
+call Copy.bat
+cd $(SolutionDir)ScriptGenerator\
+call ScriptGenerator.exe</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -174,8 +178,6 @@ call Copy.bat</Command>
     <ClInclude Include="EHButton.h" />
     <ClInclude Include="EHButtonUI.h" />
     <ClInclude Include="EHCamera.h" />
-    <ClInclude Include="EHCameraScript.h" />
-    <ClInclude Include="EHCameraTargetScript.h" />
     <ClInclude Include="EHCameraUI.h" />
     <ClInclude Include="EHCanvasRenderer.h" />
     <ClInclude Include="EHCircleCollider2D.h" />
@@ -211,7 +213,6 @@ call Copy.bat</Command>
     <ClInclude Include="EHLevel.h" />
     <ClInclude Include="EHLevelMgr.h" />
     <ClInclude Include="EHLIght2D.h" />
-    <ClInclude Include="EHLight2DScript.h" />
     <ClInclude Include="EHLight2DUI.h" />
     <ClInclude Include="EHMapGenerator.h" />
     <ClInclude Include="EHMaterial.h" />
@@ -220,7 +221,6 @@ call Copy.bat</Command>
     <ClInclude Include="EHParticleSystem.h" />
     <ClInclude Include="EHParticleUpdate.h" />
     <ClInclude Include="EHPathMgr.h" />
-    <ClInclude Include="EHPlayerScript.h" />
     <ClInclude Include="EHProjectView.h" />
     <ClInclude Include="EHRenderer.h" />
     <ClInclude Include="EHRenderMgr.h" />
@@ -289,8 +289,6 @@ call Copy.bat</Command>
     <ClCompile Include="EHButton.cpp" />
     <ClCompile Include="EHButtonUI.cpp" />
     <ClCompile Include="EHCamera.cpp" />
-    <ClCompile Include="EHCameraScript.cpp" />
-    <ClCompile Include="EHCameraTargetScript.cpp" />
     <ClCompile Include="EHCameraUI.cpp" />
     <ClCompile Include="EHCanvasRenderer.cpp" />
     <ClCompile Include="EHCircleCollider2D.cpp" />
@@ -324,7 +322,6 @@ call Copy.bat</Command>
     <ClCompile Include="EHLevel.cpp" />
     <ClCompile Include="EHLevelMgr.cpp" />
     <ClCompile Include="EHLIght2D.cpp" />
-    <ClCompile Include="EHLight2DScript.cpp" />
     <ClCompile Include="EHLight2DUI.cpp" />
     <ClCompile Include="EHMapGenerator.cpp" />
     <ClCompile Include="EHMaterial.cpp" />
@@ -333,7 +330,6 @@ call Copy.bat</Command>
     <ClCompile Include="EHParticleSystem.cpp" />
     <ClCompile Include="EHParticleUpdate.cpp" />
     <ClCompile Include="EHPathMgr.cpp" />
-    <ClCompile Include="EHPlayerScript.cpp" />
     <ClCompile Include="EHProjectView.cpp" />
     <ClCompile Include="EHRenderer.cpp" />
     <ClCompile Include="EHRenderMgr.cpp" />

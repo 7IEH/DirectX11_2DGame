@@ -58,6 +58,9 @@
     <Filter Include="02. Script\12. UIScript\MenuScript">
       <UniqueIdentifier>{b55f5c42-b562-4492-bf54-70f6347322ab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Script\3. LightScript">
+      <UniqueIdentifier>{94e4c05e-7a55-49c6-8061-452a44ed96cd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -99,6 +102,21 @@
     <ClInclude Include="EHTitleScript.h">
       <Filter>02. Script\12. UIScript\MenuScript</Filter>
     </ClInclude>
+    <ClInclude Include="EHPlayerScript.h">
+      <Filter>02. Script\1. PlayerScript</Filter>
+    </ClInclude>
+    <ClInclude Include="EHLight2DScript.h">
+      <Filter>02. Script\3. LightScript</Filter>
+    </ClInclude>
+    <ClInclude Include="EHCameraScript.h">
+      <Filter>02. Script\2. CameraScript</Filter>
+    </ClInclude>
+    <ClInclude Include="EHCameraTargetScript.h">
+      <Filter>02. Script\2. CameraScript</Filter>
+    </ClInclude>
+    <ClInclude Include="EHDungeonScript.h">
+      <Filter>02. Script\11. DungeonScript</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -130,6 +148,21 @@
     </ClCompile>
     <ClCompile Include="EHTitleScript.cpp">
       <Filter>02. Script\12. UIScript\MenuScript</Filter>
+    </ClCompile>
+    <ClCompile Include="EHPlayerScript.cpp">
+      <Filter>02. Script\1. PlayerScript</Filter>
+    </ClCompile>
+    <ClCompile Include="EHLight2DScript.cpp">
+      <Filter>02. Script\3. LightScript</Filter>
+    </ClCompile>
+    <ClCompile Include="EHCameraScript.cpp">
+      <Filter>02. Script\2. CameraScript</Filter>
+    </ClCompile>
+    <ClCompile Include="EHCameraTargetScript.cpp">
+      <Filter>02. Script\2. CameraScript</Filter>
+    </ClCompile>
+    <ClCompile Include="EHDungeonScript.cpp">
+      <Filter>02. Script\11. DungeonScript</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
