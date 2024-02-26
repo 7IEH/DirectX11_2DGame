@@ -132,7 +132,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PreBuildEvent>
-      <Command>cd $(SolutionDir)ScriptGenerator\
+      <Command>cd $(SolutionDir)
+call Copy.bat
+cd $(SolutionDir)ScriptGenerator\
 call ScriptGenerator.exe</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
@@ -157,7 +159,9 @@ call ScriptGenerator.exe</Command>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PreBuildEvent>
-      <Command>cd $(SolutionDir)ScriptGenerator\
+      <Command>cd $(SolutionDir)
+call Copy.bat
+cd $(SolutionDir)ScriptGenerator\
 call ScriptGenerator.exe</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>

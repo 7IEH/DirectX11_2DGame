@@ -12,6 +12,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Project\Engine\Engine.vcxproj", "{153C828C-FC55-4439-B674-B7C2FAD93D78}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Content", "Project\Content\Content.vcxproj", "{2012A4EF-3824-4387-BDA3-0EAD38835A20}"
+	ProjectSection(ProjectDependencies) = postProject
+		{153C828C-FC55-4439-B674-B7C2FAD93D78} = {153C828C-FC55-4439-B674-B7C2FAD93D78}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ScriptGenerator", "Project\ScriptGenerator\ScriptGenerator.vcxproj", "{6BEE9675-B26D-4BB8-A9CC-4A345F242A4A}"
 EndProject
