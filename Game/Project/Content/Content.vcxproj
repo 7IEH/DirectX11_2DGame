@@ -131,6 +131,10 @@
       </SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PreBuildEvent>
+      <Command>cd $(SolutionDir)ScriptGenerator\
+call ScriptGenerator.exe</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -152,6 +156,10 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PreBuildEvent>
+      <Command>cd $(SolutionDir)ScriptGenerator\
+call ScriptGenerator.exe</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="EHCameraScript.h" />
@@ -163,6 +171,7 @@
     <ClInclude Include="EHOutLineScript.h" />
     <ClInclude Include="EHPlayerScript.h" />
     <ClInclude Include="EHRoomManager.h" />
+    <ClInclude Include="EHScriptMgr.h" />
     <ClInclude Include="EHTestScript.h" />
     <ClInclude Include="EHTitleScene.h" />
     <ClInclude Include="Content_enum.h" />
@@ -172,6 +181,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="content_struct.h" />
     <ClInclude Include="EHTriggerScript.h" />
+    <ClInclude Include="Scripts.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Content.cpp" />
@@ -184,6 +194,7 @@
     <ClCompile Include="EHOutLineScript.cpp" />
     <ClCompile Include="EHPlayerScript.cpp" />
     <ClCompile Include="EHRoomManager.cpp" />
+    <ClCompile Include="EHScriptMgr.cpp" />
     <ClCompile Include="EHTestScript.cpp" />
     <ClCompile Include="EHTitleScene.cpp" />
     <ClCompile Include="EHTitleScript.cpp" />

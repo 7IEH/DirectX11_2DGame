@@ -304,9 +304,6 @@
     <Filter Include="04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\ScriptUI">
       <UniqueIdentifier>{e8ab9d72-feae-4ed4-85be-4d458892f76d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04. Manager\ScriptMgr">
-      <UniqueIdentifier>{1cb078f9-e2fa-4a54-8516-f606f84add8a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="07. Component\UIComponent">
       <UniqueIdentifier>{867c2d80-17ca-45ef-8044-e60c8ed51780}</UniqueIdentifier>
     </Filter>
@@ -630,17 +627,11 @@
     <ClInclude Include="EHAddComponent.h">
       <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\AddComponent</Filter>
     </ClInclude>
-    <ClInclude Include="Scripts.h">
-      <Filter>01. Header</Filter>
-    </ClInclude>
     <ClInclude Include="EHScriptUI.h">
       <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\ScriptUI</Filter>
     </ClInclude>
     <ClInclude Include="EHAssetUI.h">
       <Filter>04. Manager\ImGUIMgr\UI\InSpector\AssetUI</Filter>
-    </ClInclude>
-    <ClInclude Include="EHScriptMgr.h">
-      <Filter>04. Manager\ScriptMgr</Filter>
     </ClInclude>
     <ClInclude Include="EHButton.h">
       <Filter>07. Component\UIComponent\Button</Filter>
@@ -943,9 +934,6 @@
     </ClCompile>
     <ClCompile Include="EHAssetUI.cpp">
       <Filter>04. Manager\ImGUIMgr\UI\InSpector\AssetUI</Filter>
-    </ClCompile>
-    <ClCompile Include="EHScriptMgr.cpp">
-      <Filter>04. Manager\ScriptMgr</Filter>
     </ClCompile>
     <ClCompile Include="EHButton.cpp">
       <Filter>07. Component\UIComponent\Button</Filter>

@@ -22,9 +22,6 @@
     <Filter Include="01. Scene\04. Dungeon">
       <UniqueIdentifier>{f385a871-5529-4787-9751-bdbf26dd7019}</UniqueIdentifier>
     </Filter>
-    <Filter Include="NewFilter1">
-      <UniqueIdentifier>{2ab025f0-5ee3-4ea0-ac82-f2fca6c0ae6c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03. Util">
       <UniqueIdentifier>{fe2fc1bb-eb87-4c26-aa37-c52baa97829d}</UniqueIdentifier>
     </Filter>
@@ -60,6 +57,9 @@
     </Filter>
     <Filter Include="02. Script\3. LightScript">
       <UniqueIdentifier>{94e4c05e-7a55-49c6-8061-452a44ed96cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Util\ScriptMgr">
+      <UniqueIdentifier>{badd7bdd-1c9f-4405-9f1f-15c6bd620321}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -117,6 +117,12 @@
     <ClInclude Include="EHDungeonScript.h">
       <Filter>02. Script\11. DungeonScript</Filter>
     </ClInclude>
+    <ClInclude Include="EHScriptMgr.h">
+      <Filter>03. Util\ScriptMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts.h">
+      <Filter>Default</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -163,6 +169,9 @@
     </ClCompile>
     <ClCompile Include="EHDungeonScript.cpp">
       <Filter>02. Script\11. DungeonScript</Filter>
+    </ClCompile>
+    <ClCompile Include="EHScriptMgr.cpp">
+      <Filter>03. Util\ScriptMgr</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -7,8 +7,8 @@ int main()
 {
 	PathMgr::init();
 	wstring strProjPath = PathMgr::GetProjectPath();
-	wstring strHeaderPath = strProjPath + L"Engine\\Scripts.h";
-	wstring strCppPath = strProjPath + L"Engine\\EHScriptMgr.cpp";
+	wstring strHeaderPath = strProjPath + L"Content\\Scripts.h";
+	wstring strCppPath = strProjPath + L"Content\\EHScriptMgr.cpp";
 
 	// 1. 현재 존재하는 모든 스크립트를 알아내야함.
 	wstring strScriptIncludePath = PathMgr::GetIncludePath();
@@ -114,13 +114,13 @@ int main()
 	_wfopen_s(&pFile, strHeaderPath.c_str(), L"w");
 
 	fwprintf_s(pFile, L"#pragma once\n");
-	fwprintf_s(pFile, L"#include <Content_enum.h>\n");
+	fwprintf_s(pFile, L"#include \"Content_enum.h\"\n");
 
 	for (UINT i = 0; i < g_vecName.size(); ++i)
 	{
-		fwprintf_s(pFile, L"#include <");
+		fwprintf_s(pFile, L"#include \"");
 		fwprintf_s(pFile, g_vecName[i].c_str());
-		fwprintf_s(pFile, L".h>\n");
+		fwprintf_s(pFile, L".h\"\n");
 	}
 
 	std::fclose(pFile);

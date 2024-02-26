@@ -16,7 +16,7 @@
 #include "EHGarbageCollector.h"
 #include "EHDebugMgr.h"
 #include "EHAnimationMgr.h"
-#include "EHScriptMgr.h"
+#include <EHScriptMgr.h>
 #include "EHFontMgr.h"
 
 #include "EHCamera.h"

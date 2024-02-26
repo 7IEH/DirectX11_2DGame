@@ -36,9 +36,11 @@ void ScriptMgr::Awake()
 	AddScript<Light2DScript>(L"Light2DScript");
 	AddScript<OutLineScript>(L"OutLineScript");
 	AddScript<PlayerScript>(L"PlayerScript");
+	AddScript<ScriptMgr>(L"ScriptMgr");
 	AddScript<TestScript>(L"TestScript");
 	AddScript<TitleScript>(L"TitleScript");
 	AddScript<TriggerScript>(L"TriggerScript");
+	AddScript<ripts>(L"ripts");
 	SaveScriptFile();
 }
 
