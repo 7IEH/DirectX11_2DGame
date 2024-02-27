@@ -10,12 +10,13 @@ class Level
 	:public Entity
 {
 private:
-	Layer* m_Layers[(UINT)LAYER_TYPE::END];
+	Layer*	m_Layers[(UINT)LAYER_TYPE::END];
 
-	UINT   m_CollistionMatrix[(UINT)LAYER_TYPE::END];
+	UINT	m_CollistionMatrix[(UINT)LAYER_TYPE::END];
 
-	UINT m_CopyCount;
+	UINT	m_CopyCount;
 
+	bool	m_bEditor;
 public:
 	void AddObject(GameObject* _obj, LAYER_TYPE _type, bool _bChildMove = true)
 	{
@@ -53,6 +54,7 @@ public:
 	CLONE(Level)
 
 private:
+	void SetCamera();
 	void Clear();
 
 private:

@@ -64,6 +64,9 @@ void Layer::LateUpdate()
 	vector<GameObject*>::iterator iter = m_Parent.begin();
 	for (;iter != m_Parent.end();)
 	{
+		if (nullptr == (*iter))
+			continue;
+
 		(*iter)->LateUpdate();
 
 		if ((*iter)->m_Dead)

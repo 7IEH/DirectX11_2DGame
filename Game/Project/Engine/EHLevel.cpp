@@ -11,11 +11,14 @@
 #include "Scripts.h"
 #include "EHLevelMgr.h"
 
+#include "EHImGUIMgr.h"
+#include "EHHierarchy.h"
 
 Level::Level()
 	:m_Layers{}
 	, m_CollistionMatrix{}
 	, m_CopyCount(0)
+	, m_bEditor(TRUE)
 {
 	for (UINT _type = 0;_type < (UINT)LAYER_TYPE::END;_type++)
 	{
@@ -357,15 +360,48 @@ void Level::Load(string _path)
 	}
 }
 
+void Level::SetCamera()
+{
+	Layer* _camLayer = m_Layers[(UINT)LAYER_TYPE::CAMERA];
+	vector<GameObject*> _objs = _camLayer->GetLayerParent();
+
+	for (size_t i = 0;i < _objs.size();i++)
+	{
+		Camera* _cam = _objs[i]->GetComponent<Camera>(COMPONENT_TYPE::CAMERA);
+		if (nullptr == _cam)
+			continue;
+		
+		_cam->SetCameraType(_cam->GetCameraType());
+		_cam->AllVisibleSet(TRUE);
+	}
+}
+
 void Level::Awake()
 {
+#ifdef _DEBUG
+	if (m_bEditor)
+	{
+		GameObject* _editorCam = new GameObject;
+		_editorCam->AddComponent<Transform>();
+		Camera* _cam = _editorCam->AddComponent<Camera>();
+		_cam->SetCameraType(CAMERA_TYPE::WORLD_CAMERA);
+		_cam->AllVisibleSet(TRUE);
+		_cam->SetPorjectionType(PROJECTION_TYPE::PERSPECTIVE);
+
+		_editorCam->AddComponent<CameraScript>();
+
+		AddObject(_editorCam, LAYER_TYPE::CAMERA, FALSE);
+		m_bEditor = FALSE;
+	}
+#endif
+	SetCamera();
+
 	CollisionMgr::GetInst()->SetCollisionMatrix(m_CollistionMatrix);
 
 	for (UINT _type = 0;_type < (UINT)LAYER_TYPE::END;_type++)
 	{
 		m_Layers[_type]->Awake();
 	}
-
 	Start();
 }
 
@@ -375,6 +411,10 @@ void Level::Start()
 	{
 		m_Layers[_type]->Start();
 	}
+
+#ifdef _DEBUG
+	static_cast<Hierarchy*>(ImGUIMgr::GetInst()->FindUI("Hierarchy"))->ResetCurrentLevel();
+#endif
 }
 
 void Level::Update()

@@ -11,7 +11,6 @@ class LevelMgr
 private:
 	map<wstring, Level*> m_Levels;
 	Level* m_CurLevel;
-
 public:
 	template <typename T>
 	T* AddLevel(wstring _levelName)

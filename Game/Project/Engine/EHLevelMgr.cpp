@@ -54,17 +54,14 @@ void LevelMgr::Awake()
 		_level->Load(string(_entry.path().native().begin(), _entry.path().native().end()));
 	}
 
-	TestLevel* _level = AddLevel<TestLevel>(L"TestLevel");
+	/*TestLevel* _level = AddLevel<TestLevel>(L"TestLevel");
 	_level->Awake();
 	AddLevel<IntroLevel>(L"IntroLevel");
 	AddLevel<TitleLevel>(L"TitleLevel");
 	AddLevel<DungeonScene>(L"DungeonScene");
-	//SelectLevel(L"TestLevel");
 
 	m_CurLevel = _level->CopyLevel();
-	m_CurLevel->Awake();
-
-	//SelectLevel(L"EnterScene");
+	m_CurLevel->Awake();*/
 
 	if (m_CurLevel == nullptr)
 		return;
@@ -89,7 +86,10 @@ void LevelMgr::Update()
 	m_CurLevel->LateUpdate();
 
 	// 이거 나중에 UI 켜저있을때만 하게 만들기
+
+#ifdef _DEBUG
 	Save();
+#endif
 }
 
 void LevelMgr::Save()

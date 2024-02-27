@@ -56,9 +56,10 @@ void RenderMgr::Update()
 	// RenderTarget, DepthStencil ÃÊ±âÈ­
 	Device::GetInst()->OMSetRT();
 
-	float ClearColor[4] = { 0.f,0.f,0.f,0.f };
+	float ClearColor[4] = { 0.3f,0.3f,0.3f,0.3f };
 	Device::GetInst()->ClearRenderTarget(ClearColor);
 
+#ifdef _DEBUG
 	for (int i = 0;i < 2;i++)
 	{
 		if (i == 0)
@@ -78,12 +79,21 @@ void RenderMgr::Update()
 	PickingRender();
 
 	DebugRender();
+#else
+
+	UpdateData();
+	Render();
+
+#endif
 
 	Clear();
 
 	CopyResourceView();
 
+#ifdef _DEBUG
 	ImGUIMgr::GetInst()->Render();
+#endif
+
 	Device::GetInst()->Present();
 }
 
@@ -93,7 +103,7 @@ void RenderMgr::Render()
 	{
 		if (i == (UINT)CAMERA_TYPE::WORLD_CAMERA)
 			continue;
-		if (m_Cam[i] == nullptr)
+		if (nullptr == m_Cam[i])
 			continue;
 
 		Camera* _cam = m_Cam[i]->GetComponent<Camera>(COMPONENT_TYPE::CAMERA);
@@ -104,7 +114,7 @@ void RenderMgr::Render()
 
 void RenderMgr::Multi_Render()
 {
-	if (m_Cam[(UINT)CAMERA_TYPE::WORLD_CAMERA] == nullptr)
+	if (nullptr == m_Cam[(UINT)CAMERA_TYPE::WORLD_CAMERA])
 		return;
 
 	Camera* _cam = m_Cam[(UINT)CAMERA_TYPE::WORLD_CAMERA]->GetComponent<Camera>(COMPONENT_TYPE::CAMERA);

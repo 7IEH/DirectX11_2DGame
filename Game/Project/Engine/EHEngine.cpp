@@ -75,7 +75,12 @@ void Engine::AwakeManager()
 	{
 		HandleError(MAIN_HWND, L"ImGUI InitailizeError", 1);
 	}
-	//ThreadMgr::GetInst()->Awake();
+
+#ifdef _DEBUG
+	LevelMgr::GetInst()->SelectLevel(L"EnterScene");
+#else
+	LevelMgr::GetInst()->SelectLevel(L"EnterScene");
+#endif
 }
 
 void Engine::Start()
@@ -92,7 +97,7 @@ void Engine::Update()
 	LevelMgr::GetInst()->Update();
 	CollisionMgr::GetInst()->Update();
 
-	if(RenderMgr::GetInst()->GetRender())
+	if (RenderMgr::GetInst()->GetRender())
 		RenderMgr::GetInst()->Update();
 
 	DebugMgr::GetInst()->LateUpdate();

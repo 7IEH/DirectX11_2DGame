@@ -39,6 +39,9 @@ void Hierarchy::ResetCurrentLevel()
 
 	Level* _curScene = LevelMgr::GetInst()->GetCurLevel();
 
+	if (nullptr == _curScene)
+		return;
+
 	for (UINT i = 0;i < (UINT)LAYER_TYPE::END;i++)
 	{
 		Layer* _layer = _curScene->GetLayer(LAYER_TYPE(i));
