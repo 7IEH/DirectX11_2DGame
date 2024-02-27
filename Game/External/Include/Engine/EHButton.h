@@ -23,6 +23,9 @@ public:
 	void SetImage(BUTTON_STATE _state, Ptr<Sprite>_image) { m_Images[(UINT)_state] = _image; }
 	Ptr<Sprite> GetImage(BUTTON_STATE _state) { return m_Images[(UINT)_state]; }
 
+	void SetState(BUTTON_STATE _state) { m_State = _state; }
+	BUTTON_STATE GetState() { return m_State; }
+
 public:
 	virtual void Update()override;
 	virtual void LateUpdate()override {};

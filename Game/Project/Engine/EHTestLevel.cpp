@@ -37,7 +37,7 @@ void TestLevel::Awake()
 	CameraScript* _cameraScript = _MainCamera->AddComponent<CameraScript>();
 
 	_camera->AllVisibleSet(TRUE);
-	_camera->LayerVisibleSet(LAYER_TYPE::BACKGROUND, TRUE);
+	_camera->LayerVisibleSet(LAYER_TYPE::BACKGROUND1, TRUE);
 	_camera->SetCameraType(CAMERA_TYPE::MAIN_CAMERA);
 
 	tr->SetRelativeScale(Vec4(1.f, 1.f, 1.f, 1.f));

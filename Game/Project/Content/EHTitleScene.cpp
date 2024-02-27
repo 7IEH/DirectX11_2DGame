@@ -42,7 +42,7 @@ void TitleLevel::Awake()
 	CameraScript* _cameraScript = _MainCamera->AddComponent<CameraScript>();
 
 	_camera->AllVisibleSet(TRUE);
-	_camera->LayerVisibleSet(LAYER_TYPE::BACKGROUND, TRUE);
+	_camera->LayerVisibleSet(LAYER_TYPE::BACKGROUND1, TRUE);
 	_camera->SetCameraType(CAMERA_TYPE::MAIN_CAMERA);
 
 	tr->SetRelativeScale(Vec4(1.f, 1.f, 1.f, 1.f));
@@ -141,12 +141,12 @@ void TitleLevel::Awake()
 	_playerRenderer->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"GameLogoMat"));
 
 
-	Object::Instantiate(_backGround, (UINT)LAYER_TYPE::BACKGROUND);
-	Object::Instantiate(_backGround2, (UINT)LAYER_TYPE::BACKGROUND);
-	Object::Instantiate(RightDoor, (UINT)LAYER_TYPE::BACKGROUND);
+	Object::Instantiate(_backGround, (UINT)LAYER_TYPE::BACKGROUND1);
+	Object::Instantiate(_backGround2, (UINT)LAYER_TYPE::BACKGROUND1);
+	Object::Instantiate(RightDoor, (UINT)LAYER_TYPE::BACKGROUND1);
 	//Object::Instantiate(startLine, (UINT)LAYER_TYPE::BACKGROUND);
-	Object::Instantiate(LeftDoor, (UINT)LAYER_TYPE::BACKGROUND);
-	Object::Instantiate(GameLogo, (UINT)LAYER_TYPE::BACKGROUND);
+	Object::Instantiate(LeftDoor, (UINT)LAYER_TYPE::BACKGROUND1);
+	Object::Instantiate(GameLogo, (UINT)LAYER_TYPE::BACKGROUND1);
 
 
 	GameObject* _light = new GameObject;
@@ -178,7 +178,7 @@ void TitleLevel::Update()
 {
 	Level::Update();
 
-	Layer* layer = this->GetLayer(LAYER_TYPE::BACKGROUND);
+	Layer* layer = this->GetLayer(LAYER_TYPE::BACKGROUND1);
 
 
 	if (KEY_TAP(KEY::J))

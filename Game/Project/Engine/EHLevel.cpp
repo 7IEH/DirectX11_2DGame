@@ -208,7 +208,7 @@ void Level::Load(string _path)
 							}
 							else
 							{
-								_visibleLayer = (UINT)stoi(_line);
+								_visibleLayer = 0xffffffff;//(UINT)stoi(_line);
 							}
 						}
 
@@ -322,7 +322,7 @@ void Level::Load(string _path)
 					{
 						wstring _str = {};
 						wstring _font = {}; wstring _fontweitght = {};
-						UINT32 _color = 0; float _size = 0.f;
+						Vec4 _color = Vec4(0.f); float _size = 0.f;
 
 						std::getline(_file, _line);
 						_str = _line;
@@ -332,7 +332,7 @@ void Level::Load(string _path)
 						std::getline(_file, _line);
 						_fontweitght = _line;
 						std::getline(_file, _line);
-						_color = 0xffffffff;
+						_color = Vec4(255.f, 255.f, 255.f, 255.f);
 						std::getline(_file, _line);
 						_size = std::stof(_line);
 
@@ -533,7 +533,7 @@ void Level::AddScript(GameObject* _obj, vector<wstring>_scripts)
 	}
 }
 
-void Level::AddText(GameObject* _obj, wstring _str, wstring _font, wstring _fontweitght, UINT32 _color, float _size)
+void Level::AddText(GameObject* _obj, wstring _str, wstring _font, wstring _fontweitght, Vec4 _color, float _size)
 {
 	Text* _text = _obj->AddComponent<Text>();
 	_text->SetText(_str);
@@ -543,6 +543,14 @@ void Level::AddText(GameObject* _obj, wstring _str, wstring _font, wstring _font
 	if (L"BOLD" == _fontweitght)
 	{
 		_weight = DWRITE_FONT_WEIGHT_BOLD;
+	}
+	else if (L"SEMI_BOLD" == _fontweitght)
+	{
+		_weight = DWRITE_FONT_WEIGHT_SEMI_BOLD;
+	}
+	else if (L"MEDIUM" == _fontweitght)
+	{
+		_weight = DWRITE_FONT_WEIGHT_MEDIUM;
 	}
 	else if (L"NORMAL" == _fontweitght)
 	{

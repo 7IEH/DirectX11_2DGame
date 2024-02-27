@@ -23,6 +23,7 @@ void TextUI::Render_Update()
 	ImGui::Text("Input Text");
 	ImGui::Separator();
 	wstring _wstr = _text->GetText();
+
 	string _inputtext = string(_wstr.begin(), _wstr.end());
 	ImGui::InputText("##TextInput", &_inputtext);
 	_text->SetText(EH::ConvertWstring(_inputtext));

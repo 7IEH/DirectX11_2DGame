@@ -70,7 +70,7 @@ void PlayerScript::Update()
 
 		_outline->AddComponent<TestScript>();
 
-		Object::Instantiate(_outline, (UINT)LAYER_TYPE::BACKGROUND);
+		Object::Instantiate(_outline, (UINT)LAYER_TYPE::BACKGROUND1);
 	}
 
 	_transform->SetRelativePosition(_pos);

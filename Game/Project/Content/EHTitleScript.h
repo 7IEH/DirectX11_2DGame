@@ -46,6 +46,7 @@ public:
 	void StartGame();
 	void LoadGame();
 	void Option();
+	void Exit();
 
 public:
 	virtual void Start();

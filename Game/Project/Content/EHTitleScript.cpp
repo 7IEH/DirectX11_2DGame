@@ -7,6 +7,8 @@
 #include "EHTimeMgr.h"
 #include "EHTaskMgr.h"
 
+#include <EHButton.h>
+
 TitleScript::TitleScript()
 	: m_bOpen(FALSE)
 	, m_PointLight1(nullptr)
@@ -58,9 +60,9 @@ void TitleScript::Start()
 	m_TitleBG1 = _curLevel->FindObjectByName(L"TitleBG1");
 	m_TitleBG2 = _curLevel->FindObjectByName(L"TitleBG2");
 
-	//m_StartButton  = _curLevel->FindObjectByName(L"StartButton");
-	//m_OptionButton = _curLevel->FindObjectByName(L"OptionButton");
-	//m_ExitButton = _curLevel->FindObjectByName(L"ExitButton");
+	m_StartButton = _curLevel->FindObjectByName(L"Start Button");
+	m_OptionButton = _curLevel->FindObjectByName(L"Option Button");
+	m_ExitButton = _curLevel->FindObjectByName(L"Exit Button");
 
 	assert(m_PointLight1);
 	assert(m_PointLight2);
@@ -70,9 +72,13 @@ void TitleScript::Start()
 	assert(m_LeftDoor);
 	assert(m_GameLogo);
 
-	//assert(m_StartButton);
-	//assert(m_OptionButton);
-	//assert(m_ExitButton);
+	assert(m_StartButton);
+	assert(m_OptionButton);
+	assert(m_ExitButton);
+
+	m_StartButton->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetColor(Vec4(255.f, 255.f, 255.f, 0.f));
+	m_OptionButton->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetColor(Vec4(255.f, 255.f, 255.f, 0.f));
+	m_ExitButton->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetColor(Vec4(255.f, 255.f, 255.f, 0.f));
 
 	m_TitleBG1->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->Play(L"TitleBG1Animation");
 	m_TitleBG2->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->Play(L"TitleBG2Animation");
@@ -161,6 +167,10 @@ void TitleScript::Update()
 			m_bSecond = FALSE;
 			m_bThird = TRUE;
 			m_fAcctime = 0.f;
+
+			Object::FadeInText(m_StartButton, 1.f);
+			Object::FadeInText(m_OptionButton, 1.f);
+			Object::FadeInText(m_ExitButton, 1.f);
 		}
 
 		if (m_bThird)
@@ -244,6 +254,10 @@ void TitleScript::Update()
 			m_bSecond = FALSE;
 			m_bThird = TRUE;
 			m_fAcctime = 0.f;
+
+			Object::FadeOutText(m_StartButton, 0.8f);
+			Object::FadeOutText(m_OptionButton, 0.8f);
+			Object::FadeOutText(m_ExitButton, 0.8f);
 		}
 
 		// 2. µÎ¹øÂ° Close
@@ -318,6 +332,21 @@ void TitleScript::LateUpdate()
 		}
 	}
 
+	if (BUTTON_STATE::PRESSED == m_StartButton->GetComponent<Button>(COMPONENT_TYPE::BUTTON)->GetState())
+	{
+
+	}
+
+	if (BUTTON_STATE::PRESSED == m_OptionButton->GetComponent<Button>(COMPONENT_TYPE::BUTTON)->GetState())
+	{
+
+	}
+
+	if (BUTTON_STATE::PRESSED == m_ExitButton->GetComponent<Button>(COMPONENT_TYPE::BUTTON)->GetState())
+	{
+
+	}
+
 	_logoTr->SetRelativePosition(_logoPos);
 }
 
@@ -366,4 +395,10 @@ void TitleScript::LoadGame()
 void TitleScript::Option()
 {
 	// Option Screen On
+}
+
+void TitleScript::Exit()
+{
+	// Window Exit
+
 }

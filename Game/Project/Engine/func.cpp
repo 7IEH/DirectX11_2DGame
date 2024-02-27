@@ -77,6 +77,24 @@ void Object::FadeOutLightRadius(GameObject* _target, float _radius, float _time)
 	TaskMgr::GetInst()->AddTask(_task);
 }
 
+void Object::FadeInText(GameObject* _target, float _time)
+{
+	EHTask _task = {};
+	_task._Type = TASK_TYPE::FADE_IN_TEXT_COLOR;
+	_task.Param_1 = (UINT_PTR)_target;
+	_task.Param_2 = (UINT_PTR)_time;
+	TaskMgr::GetInst()->AddTask(_task);
+}
+
+void Object::FadeOutText(GameObject* _target, float _time)
+{
+	EHTask _task = {};
+	_task._Type = TASK_TYPE::FADE_OUT_TEXT_COLOR;
+	_task.Param_1 = (UINT_PTR)_target;
+	_task.Param_2 = (UINT_PTR)_time;
+	TaskMgr::GetInst()->AddTask(_task);
+}
+
 
 void Object::DrawDebugRect(const Matrix& _WorldMat, Vec3 _Color, bool _bDepthTest, float _Duration)
 {

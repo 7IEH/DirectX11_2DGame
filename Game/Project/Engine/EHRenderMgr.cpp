@@ -77,10 +77,9 @@ void RenderMgr::Update()
 	}
 
 	PickingRender();
-
 	DebugRender();
 #else
-
+	Device::GetInst()->CreateViewPort(Vec2(0.f, 0.f), Vec2(Device::GetInst()->GetResolution().x, Device::GetInst()->GetResolution().y));
 	UpdateData();
 	Render();
 

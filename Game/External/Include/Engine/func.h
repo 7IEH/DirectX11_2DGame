@@ -18,6 +18,9 @@ namespace Object
 	void FadeInLightRadius(GameObject* _target, float _radius, float _time);
 	void FadeOutLightRadius(GameObject* _target, float _radius, float _time);
 
+	void FadeInText(GameObject* _target, float _time);
+	void FadeOutText(GameObject* _target, float _time);
+
 	void DrawDebugRect(const Matrix& _WorldMat, Vec3 _Color, bool _bDepthTest, float _Duration = 0.f);
 	void DrawDebugRect(Vec3 _vWorldPos, Vec3 _vWorldScale, Vec3 _vWorldRot, Vec3 _Color, bool _bDepthTest, float _Duration = 0.f);
 	void DrawDebugCircle(const Matrix& _WorldMat, Vec3 _Color, bool _bDepthTest, float _Duration = 0.f);

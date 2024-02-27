@@ -46,7 +46,7 @@ Inspector::Inspector()
 
 	m_arrComUI[(UINT)COMPONENT_TYPE::LIGHT2D] = new Light2DUI;
 	AddChildUI(m_arrComUI[(UINT)COMPONENT_TYPE::LIGHT2D]);
-	
+
 	m_arrComUI[(UINT)COMPONENT_TYPE::TEXT] = new TextUI;
 	AddChildUI(m_arrComUI[(UINT)COMPONENT_TYPE::TEXT]);
 
@@ -76,7 +76,9 @@ Inspector::Inspector()
 
 	m_LayerByName.insert(make_pair(LAYER_TYPE::CAMERA, "Camera"));
 	m_LayerByName.insert(make_pair(LAYER_TYPE::LIGHT2D, "Light"));
-	m_LayerByName.insert(make_pair(LAYER_TYPE::BACKGROUND, "BackGround"));
+	m_LayerByName.insert(make_pair(LAYER_TYPE::BACKGROUND1, "BackGround1"));
+	m_LayerByName.insert(make_pair(LAYER_TYPE::STARTTEXT, "StartText"));
+	m_LayerByName.insert(make_pair(LAYER_TYPE::BACKGROUND2, "BackGround2"));
 	m_LayerByName.insert(make_pair(LAYER_TYPE::PLAYER, "Player"));
 	m_LayerByName.insert(make_pair(LAYER_TYPE::MONSTER, "Monster"));
 	m_LayerByName.insert(make_pair(LAYER_TYPE::TRIGGER, "Trigger"));
@@ -85,7 +87,9 @@ Inspector::Inspector()
 
 	m_NameByLayer.insert(make_pair("Camera", LAYER_TYPE::CAMERA));
 	m_NameByLayer.insert(make_pair("Light", LAYER_TYPE::LIGHT2D));
-	m_NameByLayer.insert(make_pair("BackGround", LAYER_TYPE::BACKGROUND));
+	m_NameByLayer.insert(make_pair("BackGround1", LAYER_TYPE::BACKGROUND1));
+	m_NameByLayer.insert(make_pair("StartText", LAYER_TYPE::STARTTEXT));
+	m_NameByLayer.insert(make_pair("BackGround2", LAYER_TYPE::BACKGROUND2));
 	m_NameByLayer.insert(make_pair("Player", LAYER_TYPE::PLAYER));
 	m_NameByLayer.insert(make_pair("Monster", LAYER_TYPE::MONSTER));
 	m_NameByLayer.insert(make_pair("Trigger", LAYER_TYPE::TRIGGER));
@@ -94,7 +98,9 @@ Inspector::Inspector()
 
 	m_LayerSelect.insert(make_pair("Camera", FALSE));
 	m_LayerSelect.insert(make_pair("Light", FALSE));
-	m_LayerSelect.insert(make_pair("BackGround", FALSE));
+	m_LayerSelect.insert(make_pair("BackGround1", FALSE));
+	m_LayerSelect.insert(make_pair("StartText", FALSE));
+	m_LayerSelect.insert(make_pair("BackGround2", FALSE));
 	m_LayerSelect.insert(make_pair("Player", FALSE));
 	m_LayerSelect.insert(make_pair("Monster", FALSE));
 	m_LayerSelect.insert(make_pair("Trigger", FALSE));
@@ -103,7 +109,9 @@ Inspector::Inspector()
 
 	m_LayerName.push_back("Camera");
 	m_LayerName.push_back("Light");
-	m_LayerName.push_back("BackGround");
+	m_LayerName.push_back("BackGround1");
+	m_LayerName.push_back("StartText");
+	m_LayerName.push_back("BackGround2");
 	m_LayerName.push_back("Player");
 	m_LayerName.push_back("Monster");
 	m_LayerName.push_back("Trigger");
@@ -161,10 +169,10 @@ void Inspector::ShowName()
 	string _strName = string(m_TargetObject->GetName().begin(), m_TargetObject->GetName().end());
 
 	string _label = "##" + _strName;
-	
+
 	ImGui::InputText(_label.c_str(), &_strName);
 
-	m_TargetObject->SetName(wstring(_strName.begin(),_strName.end()));
+	m_TargetObject->SetName(wstring(_strName.begin(), _strName.end()));
 }
 
 void Inspector::ShowLayer()

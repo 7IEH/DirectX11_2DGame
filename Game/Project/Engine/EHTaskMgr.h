@@ -29,6 +29,7 @@ private:
 
 	vector<Fade_Effect> m_FadeTasks;
 	vector<Light_Effect> m_LightTasks;
+	vector<Fade_Effect> m_FontTasks;
 
 public:
 	void Update();
@@ -41,5 +42,6 @@ public:
 private:
 	void FadeUpdate();
 	void LightUpdate();
+	void FontUpdate();
 };
 

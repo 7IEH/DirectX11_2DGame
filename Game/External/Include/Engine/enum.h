@@ -39,7 +39,13 @@ enum class TASK_TYPE
 	FADE_IN_LIGHT_RADIUS,
 
 	// Param1 : Object Address Param2 : Time
-	FADE_OUT_LIGHT_RADIUS
+	FADE_OUT_LIGHT_RADIUS,
+
+	// Param1 : Object Address Param2 : Time
+	FADE_IN_TEXT_COLOR,
+
+	// Param1 : Object Address Param2 : Time
+	FADE_OUT_TEXT_COLOR
 };
 
 // Key Type
@@ -206,7 +212,9 @@ enum class LAYER_TYPE
 {
 	CAMERA,
 	LIGHT2D,
-	BACKGROUND,
+	BACKGROUND1,
+	STARTTEXT,
+	BACKGROUND2,
 	PLAYER,
 	MONSTER,
 	TRIGGER,

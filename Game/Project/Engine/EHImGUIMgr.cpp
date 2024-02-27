@@ -51,7 +51,6 @@ HRESULT ImGUIMgr::Awake()
 {
 	ImGui_ImplDX11_Init(DEVICE, CONTEXT);
 	ChangeFont(FONT_TYPE::Maple);
-	
 	CreateUI();
 
 	return TRUE;
@@ -84,7 +83,7 @@ void ImGUIMgr::ChangeFont(FONT_TYPE _type)
 
 void ImGUIMgr::ChangeFontIndividual(string _type, float _size)
 {
-	ImFont* _font = m_io.Fonts->AddFontFromFileTTF(_type.c_str(), _size);
+	ImFont* _font = m_io.Fonts->AddFontFromFileTTF(_type.c_str(), _size,NULL, m_io.Fonts->GetGlyphRangesKorean());
 }
 
 void ImGUIMgr::Frame()
@@ -99,17 +98,14 @@ void ImGUIMgr::Render()
 	Frame();
 	ShowDockSpace();
 
-	/*Frame();
-	ImGui::ShowDemoWindow();*/
-
 	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-	//ImGuiIO& io = ImGui::GetIO(); (void)io;
-	/*if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
 	{
 		ImGui::UpdatePlatformWindows();
 		ImGui::RenderPlatformWindowsDefault();
-	}*/
+	}
 }
 
 void ImGUIMgr::CreateUI()

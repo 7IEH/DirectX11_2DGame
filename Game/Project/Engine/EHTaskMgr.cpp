@@ -8,6 +8,7 @@
 #include "EHComponent.h"
 
 #include "EHTimeMgr.h"
+#include "EHText.h"
 
 TaskMgr::TaskMgr()
 {
@@ -142,6 +143,26 @@ void TaskMgr::Update()
 			m_LightTasks.push_back(_effect);
 		}
 		break;
+		case TASK_TYPE::FADE_IN_TEXT_COLOR:
+		{
+			Fade_Effect _effect = {};
+			_effect._tTask = TASK_TYPE::FADE_IN_TEXT_COLOR;
+			_effect._fAcctime = 0.f;
+			_effect._pObject = (GameObject*)m_Tasks[i].Param_1;
+			_effect._fMaxTime = (float)m_Tasks[i].Param_2;
+			m_FontTasks.push_back(_effect);
+		}
+		break;
+		case TASK_TYPE::FADE_OUT_TEXT_COLOR:
+		{
+			Fade_Effect _effect = {};
+			_effect._tTask = TASK_TYPE::FADE_OUT_TEXT_COLOR;
+			_effect._fAcctime = 0.f;
+			_effect._pObject = (GameObject*)m_Tasks[i].Param_1;
+			_effect._fMaxTime = (float)m_Tasks[i].Param_2;
+			m_FontTasks.push_back(_effect);
+		}
+		break;
 		case TASK_TYPE::DISCONNECT_PARENT:
 			break;
 		default:
@@ -152,6 +173,7 @@ void TaskMgr::Update()
 
 	FadeUpdate();
 	LightUpdate();
+	FontUpdate();
 }
 
 void TaskMgr::FadeUpdate()
@@ -249,6 +271,53 @@ void TaskMgr::LightUpdate()
 		if (_fRatio >= 1.f)
 		{
 			iter = m_LightTasks.erase(iter);
+		}
+		else
+		{
+			iter++;
+		}
+	}
+}
+
+void TaskMgr::FontUpdate()
+{
+	vector<Fade_Effect>::iterator iter = m_FontTasks.begin();
+	for (;iter != m_FontTasks.end();)
+	{
+		Text* _text = iter->_pObject->GetComponent<Text>(COMPONENT_TYPE::TEXT);
+
+		float _fAlpha = 0.f;
+
+		float _dt = DT;
+		if (_dt >= 1.f)
+		{
+			return;
+		}
+		iter->_fAcctime += _dt;
+
+		float _fRatio = iter->_fAcctime / iter->_fMaxTime;
+		if (_fRatio >= 1.f)
+		{
+			_fRatio = 1.f;
+		}
+
+		if (iter->_tTask == TASK_TYPE::FADE_IN_TEXT_COLOR)
+		{
+			_fAlpha = 0.f;
+			_fAlpha = _fRatio;
+		}
+		else
+		{
+			_fAlpha = 1.f;
+			_fAlpha = (1.f - _fRatio);
+		}
+
+		Vec4 _color = _text->GetColor();
+		_text->SetColor(Vec4(_color.x, _color.y, _color.z, _fAlpha * 255.f));
+
+		if (_fRatio >= 1.f)
+		{
+			iter = m_FontTasks.erase(iter);
 		}
 		else
 		{

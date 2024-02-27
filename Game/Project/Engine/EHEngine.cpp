@@ -59,6 +59,16 @@ int Engine::Awake(Vec2 _vResolution, HWND _hWnd)
 	return S_OK;
 }
 
+void Engine::ChangeResoultion(Vec2 _resolution)
+{
+	m_vResolution = _resolution;
+
+	RECT rt = { 0,0,(int)m_vResolution.x,(int)m_vResolution.y };
+
+	AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, false);
+	SetWindowPos(m_hWnd, nullptr, 10, 10, rt.right - rt.left, rt.bottom - rt.top, 0);
+}
+
 void Engine::AwakeManager()
 {
 	TimeMgr::GetInst()->Awake();

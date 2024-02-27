@@ -19,7 +19,7 @@ CameraUI::CameraUI()
 	m_LayerSelect.insert(make_pair("Perspective", FALSE));
 	m_LayerSelect.insert(make_pair("Orthographic", FALSE));
 
-	m_VisibleLayer.insert(make_pair((UINT)LAYER_TYPE::BACKGROUND, "BackGround"));
+	m_VisibleLayer.insert(make_pair((UINT)LAYER_TYPE::BACKGROUND1, "BackGround"));
 	m_VisibleLayer.insert(make_pair((UINT)LAYER_TYPE::PLAYER, "Player"));
 	m_VisibleLayer.insert(make_pair((UINT)LAYER_TYPE::MONSTER, "Monster"));
 	m_VisibleLayer.insert(make_pair((UINT)LAYER_TYPE::TRIGGER, "Trigger"));

@@ -39,7 +39,7 @@ public:
 	void AddEmptyObject()
 	{
 		GameObject* _empty = new GameObject;
-		AddObject(_empty, LAYER_TYPE::BACKGROUND);
+		AddObject(_empty, LAYER_TYPE::BACKGROUND1);
 	}
 
 	Level* CopyLevel();
@@ -66,7 +66,7 @@ private:
 	void AddCollider2D(GameObject* _obj, Vec3 _offsetPostion, float _radius);
 	void AddAnimator2D(GameObject* _obj, vector<wstring>_aniName);
 	void AddScript(GameObject* _obj, vector<wstring>_scripts);
-	void AddText(GameObject* _obj, wstring _str, wstring _font, wstring _fontweitght, UINT32 _color, float _size);
+	void AddText(GameObject* _obj, wstring _str, wstring _font, wstring _fontweitght, Vec4 _color, float _size);
 	void AddButton(GameObject* _obj);
 
 public:

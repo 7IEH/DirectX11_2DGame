@@ -11,6 +11,10 @@ private:
 public:
 	HWND		GetMainWind() { return m_hWnd; }
 
+	Vec2		GetResolution() { return m_vResolution; }
+public:
+	void		ChangeResoultion(Vec2	_resolution);
+
 private:
 	void		AwakeManager();
 

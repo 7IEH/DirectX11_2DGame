@@ -4,6 +4,8 @@
 #include "EHGameObject.h"
 #include "EHKeyMgr.h"
 
+#include "EHEngine.h"
+
 Button::Button()
 	:Component(COMPONENT_TYPE::BUTTON)
 	, m_State(BUTTON_STATE::NONE)
@@ -23,9 +25,12 @@ void Button::Update()
 	Text* _btn = GetOwner()->GetComponent<Text>(COMPONENT_TYPE::TEXT);
 
 	assert(_tr);
+	Vec2 _resolution = Engine::GetInst()->GetResolution();
+	Vec4 _originPos = _tr->GetRelativePosition();
+	Vec4 _buttonPos = Vec4((_originPos.x * -1.f) + _resolution.x / 2.f, (_originPos.y * -1.f) + _resolution.y / 2.f, 0.f, 0.f);
 
-	Vec4 _buttonPos = _tr->GetRelativePosition();
 	Vec4 _buttonScale = _tr->GetRelativeScale();
+
 	// 마우스가 버튼 on
 	if ((_buttonPos.x - _buttonScale.x / 2.f <= _mousePos.x && _buttonPos.x + _buttonScale.x / 2.f >= _mousePos.x)
 		&& (_buttonPos.y - _buttonScale.y / 2.f <= _mousePos.y && _buttonPos.y + _buttonScale.y / 2.f >= _mousePos.y))

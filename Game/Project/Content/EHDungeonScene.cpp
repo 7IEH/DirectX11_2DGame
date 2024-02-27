@@ -38,7 +38,7 @@ void DungeonScene::Awake()
 	CameraScript* _cameraScript = _MainCamera->AddComponent<CameraScript>();
 
 	_camera->AllVisibleSet(TRUE);
-	_camera->LayerVisibleSet(LAYER_TYPE::BACKGROUND, TRUE);
+	_camera->LayerVisibleSet(LAYER_TYPE::BACKGROUND1, TRUE);
 	_camera->SetCameraType(CAMERA_TYPE::MAIN_CAMERA);
 
 	_tr->SetRelativeScale(Vec4(1.f, 1.f, 1.f, 1.f));
@@ -53,7 +53,7 @@ void DungeonScene::Awake()
 	_camera = _WorldCamera->AddComponent<Camera>();
 
 	_camera->AllVisibleSet(TRUE);
-	_camera->LayerVisibleSet(LAYER_TYPE::BACKGROUND, TRUE);
+	_camera->LayerVisibleSet(LAYER_TYPE::BACKGROUND1, TRUE);
 	_camera->SetCameraType(CAMERA_TYPE::WORLD_CAMERA);
 
 	_tr->SetRelativeScale(Vec4(1.f, 1.f, 1.f, 1.f));
@@ -97,7 +97,7 @@ void DungeonScene::Awake()
 	_render->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"DefaultRectMesh"));
 	_render->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"dungeonBGMat"));
 
-	Object::Instantiate(_EntryRoom, (int)LAYER_TYPE::BACKGROUND);
+	Object::Instantiate(_EntryRoom, (int)LAYER_TYPE::BACKGROUND1);
 
 	_entry->_This = _EntryRoom;
 	_entry->Type = ROOM_TYPE::ENTRY_ROOM;
@@ -200,7 +200,7 @@ void DungeonScene::Awake()
 
 				m_MapInfo.push_back(_obj);
 				m_MapRoomInfo.push_back(_nxtRoom);
-				Object::Instantiate(_obj, (int)LAYER_TYPE::BACKGROUND);
+				Object::Instantiate(_obj, (int)LAYER_TYPE::BACKGROUND1);
 				q.push(_nxtRoom);
 				break;
 			case SPAWN_TYPE::LEFT:
@@ -273,7 +273,7 @@ void DungeonScene::Awake()
 
 				m_MapInfo.push_back(_obj);
 				m_MapRoomInfo.push_back(_nxtRoom);
-				Object::Instantiate(_obj, (int)LAYER_TYPE::BACKGROUND);
+				Object::Instantiate(_obj, (int)LAYER_TYPE::BACKGROUND1);
 				q.push(_nxtRoom);
 				break;
 			case SPAWN_TYPE::BOTTOM:
@@ -343,7 +343,7 @@ void DungeonScene::Awake()
 				_CurRoom->_Child[(UINT)SPAWN_TYPE::BOTTOM] = _obj;
 				m_MapInfo.push_back(_obj);
 				m_MapRoomInfo.push_back(_nxtRoom);
-				Object::Instantiate(_obj, (int)LAYER_TYPE::BACKGROUND);
+				Object::Instantiate(_obj, (int)LAYER_TYPE::BACKGROUND1);
 				_nxtRoom->_This = _obj;
 				q.push(_nxtRoom);
 				break;
@@ -409,7 +409,7 @@ void DungeonScene::Awake()
 				_CurRoom->_Child[(UINT)SPAWN_TYPE::TOP] = _obj;
 				m_MapRoomInfo.push_back(_nxtRoom);
 				m_MapInfo.push_back(_obj);
-				Object::Instantiate(_obj, (int)LAYER_TYPE::BACKGROUND);
+				Object::Instantiate(_obj, (int)LAYER_TYPE::BACKGROUND1);
 				_nxtRoom->_This = _obj;
 				q.push(_nxtRoom);
 				break;
@@ -691,7 +691,7 @@ void DungeonScene::Awake()
 	_posttr->SetRelativePosition(Vec4(0.f, -150.f, -5.f, 0.f));
 	_posttr->SetRelativeScale(Vec4(400.f, 200.f, 0.f, 0.f));
 
-	Object::Instantiate(_postprocess, (UINT)LAYER_TYPE::BACKGROUND);
+	Object::Instantiate(_postprocess, (UINT)LAYER_TYPE::BACKGROUND1);
 
 	CollisionMgr::GetInst()->LayerCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::TRIGGER,true);
 	Level::Awake();
