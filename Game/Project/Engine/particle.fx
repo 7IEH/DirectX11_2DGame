@@ -43,7 +43,7 @@ VS_OUT VS_Particle(VS_IN _in)
 void GS_Particle(point VS_OUT _in[1], inout TriangleStream<GS_OUT> _OutStream)
 {
     GS_OUT output[4] = { (GS_OUT) 0.f, (GS_OUT) 0.f, (GS_OUT) 0.f, (GS_OUT) 0.f };
-
+    
     // GS 가 담당하는 파티클 정보를 가져온다.
     tParticle particle = g_ParticleBuffer[(int) _in[0].InstID];
     
@@ -66,15 +66,20 @@ void GS_Particle(point VS_OUT _in[1], inout TriangleStream<GS_OUT> _OutStream)
     output[2].vPosition = vViewPos + float4((particle._WorldScale.x * 0.5f), (particle._WorldScale.y * -0.5f), 0.f, 0.f);
     output[3].vPosition = vViewPos + float4((particle._WorldScale.x * -0.5f), (particle._WorldScale.y * -0.5f), 0.f, 0.f);
     
-    output[0].vPosition = mul(Projection,output[0].vPosition);
-    output[1].vPosition = mul(Projection,output[1].vPosition);
-    output[2].vPosition = mul(Projection,output[2].vPosition);
-    output[3].vPosition = mul(Projection,output[3].vPosition);
+    output[0].vPosition = mul(Projection, output[0].vPosition);
+    output[1].vPosition = mul(Projection, output[1].vPosition);
+    output[2].vPosition = mul(Projection, output[2].vPosition);
+    output[3].vPosition = mul(Projection, output[3].vPosition);
     
     output[0].vUV = float2(0.f, 0.f);
     output[1].vUV = float2(1.f, 0.f);
     output[2].vUV = float2(1.f, 1.f);
     output[3].vUV = float2(0.f, 1.f);
+    
+    output[0].InstID = _in[0].InstID;
+    output[1].InstID = _in[0].InstID;
+    output[2].InstID = _in[0].InstID;
+    output[3].InstID = _in[0].InstID;
     
     _OutStream.Append(output[0]);
     _OutStream.Append(output[2]);
