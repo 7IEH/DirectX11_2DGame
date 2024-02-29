@@ -59,7 +59,7 @@ void CS_ParticleUpdate(uint3 id : SV_DispatchThreadID)
                     
                     Particle._LocalPos.xyz = float3(cos(RandomAngle), sin(RandomAngle), 0.f) * RandomRadius;
                 }
-                else
+                else if (1 == Module.spawnShape)
                 {
                     Particle._LocalPos.x = vRand[0] * Module._spawnBoxScale.x - (Module._spawnBoxScale.x / 2.f);
                     Particle._LocalPos.y = vRand[1] * Module._spawnBoxScale.y - (Module._spawnBoxScale.y / 2.f);
@@ -70,8 +70,9 @@ void CS_ParticleUpdate(uint3 id : SV_DispatchThreadID)
     
                 // 스폰 크기 설정
                 // 최대 크기 - 최소 크기 * (0~1)까지의 랜덤값 즉, (0~(최대크기-최소크기)) -> (최대 크기 ~ 최소 크기) 까지의 영역이 나옴
+ 
                 Particle._WorldInitScale = Particle._WorldScale = (Module._vSpawnMaxScale - Module._vSpawnMinScale) * vRand[2] + Module._vSpawnMinScale;
-                
+               
                 // 스폰 Life 설정
                 Particle._Age = 0.f;
                 Particle._Life = (Module.MaxLife - Module.MinLife) * vRand[0] + Module.MinLife;
@@ -123,8 +124,11 @@ void CS_ParticleUpdate(uint3 id : SV_DispatchThreadID)
        Particle._Age += gDt;
         if (Particle._Life < Particle._Age)
         {
-            Particle._Active = 0;
-            return;
+            if (0 == Module._iLoop)
+            {
+                Particle._Active = 0;
+                return;
+            }
         }
         
         // 랜덤값 추출
@@ -168,10 +172,30 @@ void CS_ParticleUpdate(uint3 id : SV_DispatchThreadID)
         
         if (Module._arrModuleCheck[6])
         {
-            // 색깔 점점 밝아짐
             if (0 == Module._ColorType)
             {
-               Particle._Color = Module._vSpawnColor * (1.f + (Module._vScaleRatio - 1.f) * Particle._NomarlizedAge);
+                 // 색깔 점점 어두워짐
+                if (0 == Particle._iFadeVariable)
+                {
+                    Particle._Color = Module._vSpawnColor * (1.f + (Module._vScaleRatio - 1.f) * Particle._NomarlizedAge);
+                    Particle._Color.a = 1.f;
+                    if (1.f <= Particle._NomarlizedAge)
+                    {
+                        Particle._Age = 0.f;
+                        Particle._iFadeVariable = 1;
+                    }
+                }
+                 // 색깔 점점 밝아짐
+                else
+                {
+                    Particle._Color = Module._vSpawnColor * Particle._NomarlizedAge;
+                    Particle._Color.a = 1.f;
+                    if (1.f <= Particle._NomarlizedAge)
+                    {
+                        Particle._Age = 0.f;
+                        Particle._iFadeVariable = 0;
+                    }
+                }
             }
         }
         

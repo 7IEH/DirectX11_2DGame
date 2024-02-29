@@ -44,7 +44,7 @@ void TestLevel::Awake()
 	tr->SetRelativePosition(Vec4(0.f, 0.f, -10.f, 1.f));
 	tr->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
 
-	AddObject(_MainCamera,LAYER_TYPE::CAMERA);
+	AddObject(_MainCamera, LAYER_TYPE::CAMERA);
 #pragma endregion
 	GameObject* _light = new GameObject;
 	_light->SetName(L"Light");
@@ -52,7 +52,7 @@ void TestLevel::Awake()
 
 	_light->AddComponent<LIght2D>();
 
-	AddObject(_light,LAYER_TYPE::LIGHT2D);
+	AddObject(_light, LAYER_TYPE::LIGHT2D);
 #pragma endregion
 
 	//GameObject* _tile = new GameObject;
@@ -73,16 +73,60 @@ void TestLevel::Awake()
 
 	//Object::Instantiate(_tile, int(LAYER_TYPE::TILE));
 
+	GameObject* _paritcle = new GameObject;
+	_paritcle->SetName(L"Particle");
+	tr = _paritcle->AddComponent<Transform>();
+	ParticleSystem* _particleSys = _paritcle->AddComponent<ParticleSystem>();
+	_particleSys->SetParticleSprite(AssetMgr::GetInst()->FindAsset<Sprite>(L"TitleParticle"));
+	_particleSys->GetMaterial()->SetMaterialParam(INT_0, 1);
+	_particleSys->SetNoiseSprite(AssetMgr::GetInst()->FindAsset<Sprite>(L"Noise5"));
 
-	//GameObject* _paritcle = new GameObject;
-	//_paritcle->SetName(L"Particle");
-	//tr = _paritcle->AddComponent<Transform>();
-	//ParticleSystem* _particleSys = _paritcle->AddComponent<ParticleSystem>();
+	tParticleModule _module = {};
+	_module._arrModuleCheck[(UINT)PARTICLE_MODULE::SPAWN] = 1;
+	_module._SpawnShape = 2;
+	_module._SpawnColor = Vec4(1.f, 0.f, 0.f, 1.f);
+	_module._SpawnMinScale = Vec4(12.f, 12.f, 1.f, 1.f);
+	_module._SpawnMaxScale = Vec4(12.f, 12.f, 1.f, 1.f);
+	_module._SpaceType = 0;
+	_module._SpawnRate = 100;
+	_module._MinLife = 5.f;
+	_module._MaxLife = 20.f;
+	_module._iLoop = 1;
 
-	//tr->SetRelativePosition(Vec4(0.f, 0.f, 0.f, 0.f));
+	_module._arrModuleCheck[(UINT)PARTICLE_MODULE::COLOR_OVER_LIFETIME] = 1;
+	_module._ColorType = 0;
 
-	//Object::Instantiate(_paritcle, int(LAYER_TYPE::PLAYER));
-	
+	_particleSys->SetModule(_module);
+
+	tParticle _arrParticle[14] = {};
+	_arrParticle[0]._LocalPos = Vec4(100.f, 100.f, 1.f, 0.f);
+	_arrParticle[0]._iFadeVariable = 1;
+	_arrParticle[1]._LocalPos = Vec4(-100.f, 200.f, 1.f, 0.f);
+	_arrParticle[2]._LocalPos = Vec4(500.f, -10.f, 1.f, 0.f);
+	_arrParticle[2]._iFadeVariable = 1;
+	_arrParticle[3]._LocalPos = Vec4(-200.f, -200.f, 1.f, 0.f);
+	_arrParticle[4]._LocalPos = Vec4(300.f, -50.f, 1.f, 0.f);
+	_arrParticle[4]._iFadeVariable = 1;
+	_arrParticle[5]._LocalPos = Vec4(-100.f, -200.f, 1.f, 0.f);
+	_arrParticle[6]._LocalPos = Vec4(-200.f, 100.f, 1.f, 0.f);
+	_arrParticle[6]._iFadeVariable = 1;
+
+	_arrParticle[7]._LocalPos = Vec4(500.f, 100.f, 1.f, 0.f);
+	_arrParticle[8]._LocalPos = Vec4(-400.f, 200.f, 1.f, 0.f);
+	_arrParticle[8]._iFadeVariable = 1;
+	_arrParticle[9]._LocalPos = Vec4(300.f, -100.f, 1.f, 0.f);
+	_arrParticle[10]._LocalPos = Vec4(-200.f, -200.f, 1.f, 0.f);
+	_arrParticle[11]._LocalPos = Vec4(300.f, -500.f, 1.f, 0.f);
+	_arrParticle[12]._LocalPos = Vec4(-100.f, -500.f, 1.f, 0.f);
+	_arrParticle[12]._iFadeVariable = 1;
+	_arrParticle[13]._LocalPos = Vec4(-200.f, 300.f, 1.f, 0.f);
+
+	_particleSys->GetParticleBuffer()->SetData((void*)&_arrParticle, 14);
+
+	tr->SetRelativePosition(Vec4(0.f, 0.f, 0.f, 0.f));
+
+	AddObject(_paritcle, LAYER_TYPE::PARTICLE);
+
 	// Player
 	GameObject* _player = new GameObject();
 	_player->SetName(L"Player");

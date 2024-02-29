@@ -199,11 +199,13 @@ struct tParticle
 	Vec3	vNoiseForce;	// NoiseForce 모듈로 인한 랜덤 힘
 	float	NoiseForceTime;
 
+	int		_iFadeVariable;
 	float	_normalizeAge;
 	float	_Mass;			// 질량
 	float	_Age;			// 현재 나이
 	float	_Life;			// 수명
 	int		_Active;		// 활성화, 비활성화 여부
+	int     _padding[3];
 };
 
 struct tParticleModule
@@ -212,6 +214,8 @@ struct tParticleModule
 	Vec4	_SpawnColor;	// 초기 컬러
 	Vec4	_SpawnMinScale;	// 초기 최소 크기
 	Vec4	_SpawnMaxScale;	// 초기 최대 크기
+
+	int     _iLoop;
 
 	float	_MinLife;		// 최소 수명
 	float	_MaxLife;		// 최대 수명
@@ -239,6 +243,7 @@ struct tParticleModule
 	int		_ColorType;
 
 	int		_arrModuleCheck[(UINT)PARTICLE_MODULE::END];
+	int		_padding[3];
 };
 
 struct tSpawnCount

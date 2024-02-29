@@ -38,3 +38,5 @@ Noise6
 \\resource\\Noise\\Noise6.jpg
 PlayerTestSprite
 \\resource\\NPC_Commander0.png
+TitleParticle
+\\resource\\Title\\GUI_StartScreen_particle.png

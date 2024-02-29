@@ -18,14 +18,14 @@ struct VS_OUT
 {
     float3 vPos : POSITION;
     float2 vUV : TEXCOORD;
-    float InstID : FOG;
+    uint InstID : FOG;
 };
 
 struct GS_OUT
 {
     float4 vPosition : SV_Position;
     float2 vUV : TEXCOORD;
-    float InstID : FOG;
+    uint InstID : FOG;
 };
 
 VS_OUT VS_Particle(VS_IN _in)

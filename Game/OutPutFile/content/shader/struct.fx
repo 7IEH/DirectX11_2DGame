@@ -151,11 +151,13 @@ struct tParticle
     float3 _NoiseForce;
     float _NoiseForceTime;
     
+    int _iFadeVariable;
     float _NomarlizedAge;
     float _Mass;
     float _Age;
     float _Life;
-    int   _Active;
+    int _Active;
+    int _padding[3];
 };
 
 struct tParticleModule
@@ -164,7 +166,9 @@ struct tParticleModule
     float4 _vSpawnColor; // 초기 컬러
     float4 _vSpawnMinScale; // 초기 최소 크기
     float4 _vSpawnMaxScale; // 초기 최대 크기
-
+    
+    int _iLoop;
+    
     float MinLife; // 최소 수명
     float MaxLife; // 최대 수명
     float MinMass;
@@ -190,6 +194,7 @@ struct tParticleModule
     int _ColorType;
     
     int _arrModuleCheck[7];
+    int _padding[3];
 };
 
 struct tSpawnCount
@@ -227,12 +232,12 @@ cbuffer Normal : register(b2)
 
 cbuffer tAnimationInfo : register(b3)
 {
-    float2  gOffsetSize;
-    float2  gLeftTop;
-    float2  gSliceSize;
-    float2  gBackground;
-    int     gAnimUse;
-    float3  gPadding;
+    float2 gOffsetSize;
+    float2 gLeftTop;
+    float2 gSliceSize;
+    float2 gBackground;
+    int gAnimUse;
+    float3 gPadding;
 }
 
 cbuffer tGlobalData : register(b4)

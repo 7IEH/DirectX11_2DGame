@@ -8,19 +8,19 @@ class ParticleSystem
 {
 private:
 	StructuredBuffer* m_ParticleBuffer;
-	UINT				m_MaxParticleCount;
+	UINT						m_MaxParticleCount;
 
-	tParticleModule		m_Module;
+	tParticleModule				m_Module;
 	StructuredBuffer* m_ParticleModuleBuffer;
 
 	StructuredBuffer* m_SpawnCountBuffer;
 
-	Ptr<ParticleUpdate>	m_CSParticleUpdate;
+	Ptr<ParticleUpdate>			m_CSParticleUpdate;
 
-	Ptr<Sprite>			m_ParticleSprite;
-	Ptr<Sprite>			m_NoiseSprite;
+	Ptr<Sprite>					m_ParticleSprite;
+	Ptr<Sprite>					m_NoiseSprite;
 
-	float				m_Time;
+	float						m_Time;
 
 public:
 	tParticleModule	GetModule() { return m_Module; }
@@ -32,9 +32,10 @@ public:
 	void SetNoiseSprite(Ptr<Sprite> _noiseSprite) { m_NoiseSprite = _noiseSprite; }
 	Ptr<Sprite> GetNoiseSprite() { return m_NoiseSprite; }
 
-
 	void SetTime(float _time) { m_Time = _time; }
 	float GetTime() { return m_Time; }
+
+	StructuredBuffer* GetParticleBuffer() { return m_ParticleBuffer; }
 
 public:
 	virtual void UpdateData() override;
@@ -42,7 +43,7 @@ public:
 	virtual void Render() override;
 
 	virtual void Save(string _path)override;
-	
+
 	CLONE(ParticleSystem)
 
 public:

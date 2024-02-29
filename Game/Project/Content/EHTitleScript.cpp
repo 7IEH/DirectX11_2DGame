@@ -84,6 +84,8 @@ void TitleScript::Start()
 	m_TitleBG2->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->Play(L"TitleBG2Animation");
 
 	m_GameLogo->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(COLOR, Vec4(1.f, 1.f, 1.f, 0.f));
+	m_TitleBG1->Enabled(FALSE);
+	m_TitleBG2->Enabled(FALSE);
 
 	m_Radius1 = m_PointLight1->GetComponent<LIght2D>(COMPONENT_TYPE::LIGHT2D)->GetRadius();
 	m_Radius2 = m_PointLight2->GetComponent<LIght2D>(COMPONENT_TYPE::LIGHT2D)->GetRadius();
@@ -92,9 +94,6 @@ void TitleScript::Start()
 
 	Object::FadeIn(m_RightDoor, 1.f);
 	Object::FadeIn(m_LeftDoor, 1.f);
-
-	Object::FadeIn(m_TitleBG1, 1.f);
-	Object::FadeIn(m_TitleBG2, 1.f);
 
 	Object::FadeInLightRadius(m_PointLight1, m_Radius1, 1.f);
 	Object::FadeInLightRadius(m_PointLight2, m_Radius2, 1.f);
@@ -107,11 +106,14 @@ void TitleScript::Update()
 		m_fAcctime3 += DT;
 	}
 
-	if (m_fAcctime3 >= 2.f)
+	if (m_fAcctime3 >= 3.f)
 	{
 		m_bStart = FALSE;
 		Object::FadeIn(m_GameLogo, 1.2f);
 		m_fAcctime3 = 0.f;
+
+		m_TitleBG1->Enabled(TRUE);
+		m_TitleBG2->Enabled(TRUE);
 	}
 
 	Transform* _rightDoorTr = m_RightDoor->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);

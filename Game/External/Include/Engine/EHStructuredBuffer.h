@@ -28,8 +28,8 @@ public:
 													STRUCTURED_TYPE _type = STRUCTURED_TYPE::READ_ONLY, void* _memData = nullptr);
 
 	void									UpdateData(UINT	_resgisterNumber);
-	HRESULT										UpdateData_CS_SRV(UINT _RegisterNum);
-	HRESULT										UpdateData_CS_UAV(UINT _RegisterNum);
+	HRESULT									UpdateData_CS_SRV(UINT _RegisterNum);
+	HRESULT									UpdateData_CS_UAV(UINT _RegisterNum);
 
 	void									Clear(UINT	_registerNum);
 	void									Clear_CS_SRV();
