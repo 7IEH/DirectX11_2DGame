@@ -216,14 +216,15 @@ struct tParticleModule
 	Vec4	_SpawnMaxScale;	// 초기 최대 크기
 
 	int     _iLoop;
-
 	float	_MinLife;		// 최소 수명
 	float	_MaxLife;		// 최대 수명
 	float	_MinMass;
+
 	float	_MaxMass;
 	int		_SpawnRate;		// 초당 생성 개수
 	int		_SpaceType;		// 좌표계(0 : LocalSpace, 1 : WorldSpace)
 	int		_SpawnShape;
+
 	float	_Radius;
 	Vec4	_SpawnBoxScale;
 
@@ -233,8 +234,8 @@ struct tParticleModule
 	// Noise Force
 	float	NoiseForceScale;
 	float	NoiseForceTerm;
-
 	int		_AddVelocityType;
+
 	float	_MinSpeed;
 	float	_MaxSpeed;
 	float	_FixedAngle;
@@ -243,7 +244,7 @@ struct tParticleModule
 	int		_ColorType;
 
 	int		_arrModuleCheck[(UINT)PARTICLE_MODULE::END];
-	int		_padding[3];
+	int		_padding;
 };
 
 struct tSpawnCount

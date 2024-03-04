@@ -186,6 +186,8 @@ void StructuredBuffer::SetData(void* _memData, UINT _elementCount)
 
 	if (_elementCount == 0)
 		_elementCount = m_ElementCount;
+	else
+		m_iCurElementCount = _elementCount;
 
 	D3D11_MAPPED_SUBRESOURCE tSub = {};
 	CONTEXT->Map(m_StructWriteBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &tSub);

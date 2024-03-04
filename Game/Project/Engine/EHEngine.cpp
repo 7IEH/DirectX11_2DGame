@@ -87,7 +87,7 @@ void Engine::AwakeManager()
 	}
 
 #ifdef _DEBUG
-	LevelMgr::GetInst()->SelectLevel(L"TestLevel");
+	LevelMgr::GetInst()->SelectLevel(L"EnterScene");
 #else
 	LevelMgr::GetInst()->SelectLevel(L"EnterScene");
 #endif

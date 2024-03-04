@@ -84,10 +84,10 @@ void TestLevel::Awake()
 	tParticleModule _module = {};
 	_module._arrModuleCheck[(UINT)PARTICLE_MODULE::SPAWN] = 1;
 	_module._SpawnShape = 2;
-	_module._SpawnColor = Vec4(1.f, 0.f, 0.f, 1.f);
+	_module._SpawnColor = Vec4(0.4f, 1.f, 1.f, 1.f);
 	_module._SpawnMinScale = Vec4(12.f, 12.f, 1.f, 1.f);
 	_module._SpawnMaxScale = Vec4(12.f, 12.f, 1.f, 1.f);
-	_module._SpaceType = 1;
+	_module._SpaceType = 0;
 	_module._SpawnRate = 100;
 	_module._MinLife = 5.f;
 	_module._MaxLife = 20.f;

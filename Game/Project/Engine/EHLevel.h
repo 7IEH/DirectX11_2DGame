@@ -10,7 +10,7 @@ class Level
 	:public Entity
 {
 private:
-	Layer*	m_Layers[(UINT)LAYER_TYPE::END];
+	Layer* m_Layers[(UINT)LAYER_TYPE::END];
 
 	UINT	m_CollistionMatrix[(UINT)LAYER_TYPE::END];
 
@@ -68,6 +68,7 @@ private:
 	void AddScript(GameObject* _obj, vector<wstring>_scripts);
 	void AddText(GameObject* _obj, wstring _str, wstring _font, wstring _fontweitght, Vec4 _color, float _size);
 	void AddButton(GameObject* _obj);
+	void AddParticleSystem(GameObject* _obj, wstring _noiseTex, wstring _sprite, tParticleModule _module, tParticle* _particle,UINT _count);
 
 public:
 	Level();

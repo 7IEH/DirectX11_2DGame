@@ -16,6 +16,8 @@ private:
 
 	UINT									m_ElementSize;
 	UINT									m_ElementCount;
+	
+	UINT									m_iCurElementCount;
 
 	UINT									m_RegentSRV;
 	UINT									m_RegentUAV;
@@ -40,6 +42,8 @@ public:
 
 	UINT									GetElementSize() { return m_ElementSize; }
 	UINT									GetElementCount() { return m_ElementCount; }
+	
+	UINT									GetCurElementCount() { return m_iCurElementCount; }
 
 	CLONE(StructuredBuffer)
 public:

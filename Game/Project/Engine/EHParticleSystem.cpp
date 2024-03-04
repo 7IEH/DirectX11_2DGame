@@ -16,7 +16,7 @@
 ParticleSystem::ParticleSystem()
 	:Renderer(RENDERER_TYPE::PARTICLESYSTEM)
 	, m_ParticleBuffer(nullptr)
-	, m_MaxParticleCount(14)
+	, m_MaxParticleCount(1000)
 {
 	SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"PointMesh"));
 	SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"ParticleMat"));
@@ -33,12 +33,12 @@ ParticleSystem::ParticleSystem()
 
 	// 파티클 모듈 정보를 저장하는 구조화버
 	m_ParticleModuleBuffer = new StructuredBuffer;
-	UINT ModuleAddSize = 0;
+	/*UINT ModuleAddSize = 0;
 	if (sizeof(tParticleModule) % 16 != 0)
 	{
 		ModuleAddSize = 16 - (sizeof(tParticleModule) % 16);
-	}
-	m_ParticleModuleBuffer->Create(sizeof(tParticleModule) + ModuleAddSize, 1, TRUE, STRUCTURED_TYPE::READ_ONLY);
+	}*/
+	m_ParticleModuleBuffer->Create(sizeof(tParticleModule), 1, TRUE, STRUCTURED_TYPE::READ_ONLY);
 }
 
 ParticleSystem::ParticleSystem(const ParticleSystem& _origin)
@@ -107,10 +107,10 @@ void ParticleSystem::LateUpdate()
 
 	// Test
 	tParticle arrParticle[14] = {};
-	m_ParticleBuffer->GetData(arrParticle);
+	m_ParticleBuffer->GetData(arrParticle, 14);
 
-	/*tParticleModule _module = {};
-	m_ParticleModuleBuffer->GetData(&_module);*/
+	tParticleModule _module = {};
+	m_ParticleModuleBuffer->GetData(&_module);
 }
 
 void ParticleSystem::Render()
@@ -148,7 +148,53 @@ void ParticleSystem::Save(string _path)
 {
 	std::ofstream _file(_path.data(), std::fstream::out | std::fstream::app);
 
-	_file << "PARTILESYSTEM\n";
+	_file << "PARTICLESYSTEM\n";
 
+	// Module
+	string _line;
+	_file << EH::ConvertString(m_NoiseSprite.Get()->GetName()) + '\n';
+	_file << EH::ConvertString(m_ParticleSprite.Get()->GetName()) + '\n';
 
+	_file << EH::WriteVector4(m_Module._SpawnColor) + '\n';
+	_file << EH::WriteVector4(m_Module._SpawnMinScale) + '\n';
+	_file << EH::WriteVector4(m_Module._SpawnMaxScale) + '\n';
+
+	_file << std::to_string(m_Module._iLoop) + '\n';
+	_file << std::to_string(m_Module._MinLife) + '\n';
+	_file << std::to_string(m_Module._MaxLife) + '\n';
+	_file << std::to_string(m_Module._MinMass) + '\n';
+	_file << std::to_string(m_Module._MaxMass) + '\n';
+	_file << std::to_string(m_Module._SpawnRate) + '\n';
+	_file << std::to_string(m_Module._SpaceType) + '\n';
+	_file << std::to_string(m_Module._SpawnShape) + '\n';
+	_file << std::to_string(m_Module._Radius) + '\n';
+	_file << EH::WriteVector4(m_Module._SpawnBoxScale) + '\n';
+	_file << EH::WriteVector4(m_Module._ScaleRatio) + '\n';
+	_file << std::to_string(m_Module.NoiseForceScale) + '\n';
+	_file << std::to_string(m_Module.NoiseForceTerm) + '\n';
+	_file << std::to_string(m_Module._AddVelocityType) + '\n';
+	_file << std::to_string(m_Module._MinSpeed) + '\n';
+	_file << std::to_string(m_Module._MaxSpeed) + '\n';
+	_file << std::to_string(m_Module._FixedAngle) + '\n';
+	_file << EH::WriteVector4(m_Module._FixedDirection) + '\n';
+
+	_file << std::to_string(m_Module._ColorType);
+
+	for (UINT i = 0;i < (UINT)PARTICLE_MODULE::END;i++)
+	{
+		_file << std::to_string(m_Module._arrModuleCheck[i]) + '\n';
+	}
+
+	// Buffer
+	tParticle _paricleBuffer[1000];
+	UINT	_particleCount = m_ParticleBuffer->GetCurElementCount();
+	m_ParticleBuffer->GetData(_paricleBuffer, _particleCount);
+
+	_file << _particleCount + '\n';
+
+	for (UINT i = 0;i < _particleCount;i++)
+	{
+		_file << EH::WriteVector4(_paricleBuffer[i]._LocalPos) + '\n';
+		_file << std::to_string(_paricleBuffer[i]._iFadeVariable) + '\n';
+	}
 }

@@ -194,7 +194,7 @@ struct tParticleModule
     int _ColorType;
     
     int _arrModuleCheck[7];
-    int _padding[3];
+    int _padding;
 };
 
 struct tSpawnCount

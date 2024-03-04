@@ -7,13 +7,14 @@ class ParticleSystem
 	:public Renderer
 {
 private:
-	StructuredBuffer* m_ParticleBuffer;
+	StructuredBuffer*			m_ParticleBuffer;
 	UINT						m_MaxParticleCount;
+	UINT						m_CurParticleCount;
 
 	tParticleModule				m_Module;
-	StructuredBuffer* m_ParticleModuleBuffer;
+	StructuredBuffer*			m_ParticleModuleBuffer;
 
-	StructuredBuffer* m_SpawnCountBuffer;
+	StructuredBuffer*			m_SpawnCountBuffer;
 
 	Ptr<ParticleUpdate>			m_CSParticleUpdate;
 

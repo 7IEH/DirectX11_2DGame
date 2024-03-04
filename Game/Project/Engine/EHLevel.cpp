@@ -67,12 +67,13 @@ Level* Level::CopyLevel()
 	Level* _copyLevel = this->Clone();
 	wstring _copyName = this->GetName() + std::to_wstring(m_CopyCount++);
 	LevelMgr::GetInst()->AddLevel(_copyName, _copyLevel);
-
+	
 	return _copyLevel;
 }
 
 void Level::FindObjectsByName(const wstring& _strName, vector<GameObject*>& _vecObj)
 {
+
 }
 
 void Level::Load(string _path)
@@ -241,6 +242,87 @@ void Level::Load(string _path)
 						_obj->AddComponent<CanvasRenderer>();
 					}
 
+					if (_line.find(L"PARTICLESYSTEM") != string::npos)
+					{
+						wstring _noiseTex;_noiseTex.clear();
+						wstring _sprite; _sprite.clear();
+						tParticleModule _module = {};
+						tParticle _particle[1000] = {};
+						UINT _count = 0;
+
+						std::getline(_file, _line);
+						_noiseTex = _line;
+						std::getline(_file, _line);
+						_sprite = _line;
+
+						std::getline(_file, _line);
+						EH::InputVector4(_line, _module._SpawnColor);
+						std::getline(_file, _line);
+						EH::InputVector4(_line, _module._SpawnMinScale);
+						std::getline(_file, _line);
+						EH::InputVector4(_line, _module._SpawnMaxScale);
+						std::getline(_file, _line);
+						_module._iLoop = std::stoi(_line);
+						std::getline(_file, _line);
+						_module._MinLife = std::stof(_line);
+						std::getline(_file, _line);
+						_module._MaxLife = std::stof(_line);
+						std::getline(_file, _line);
+						_module._MinMass = std::stof(_line);
+						std::getline(_file, _line);
+						_module._MaxMass = std::stof(_line);
+						std::getline(_file, _line);
+						_module._SpawnRate = std::stoi(_line);
+						std::getline(_file, _line);
+						_module._SpaceType = std::stoi(_line);
+						std::getline(_file, _line);
+						_module._SpawnShape = std::stoi(_line);
+						std::getline(_file, _line);
+						_module._Radius = std::stof(_line);
+						std::getline(_file, _line);
+						EH::InputVector4(_line, _module._SpawnBoxScale);
+						std::getline(_file, _line);
+						EH::InputVector4(_line, _module._ScaleRatio);
+
+						std::getline(_file, _line);
+						_module.NoiseForceScale = std::stof(_line);
+						std::getline(_file, _line);
+						_module.NoiseForceTerm = std::stof(_line);
+						std::getline(_file, _line);
+						_module._AddVelocityType = std::stoi(_line);
+						std::getline(_file, _line);
+						_module._MinSpeed = std::stof(_line);
+						std::getline(_file, _line);
+						_module._MaxSpeed = std::stof(_line);
+						std::getline(_file, _line);
+						_module._FixedAngle = std::stof(_line);
+
+						std::getline(_file, _line);
+						EH::InputVector4(_line, _module._FixedDirection);
+
+						std::getline(_file, _line);
+						_module._ColorType = std::stoi(_line);
+
+						for (UINT i = 0;i < (UINT)PARTICLE_MODULE::END;i++)
+						{
+							std::getline(_file, _line);
+							_module._arrModuleCheck[i] = std::stoi(_line);
+						}
+
+						std::getline(_file, _line);
+						_count = std::stoi(_line);
+
+						for (UINT i = 0;i < _count;i++)
+						{
+							std::getline(_file, _line);
+							EH::InputVector4(_line, _particle[i]._LocalPos);
+							std::getline(_file, _line);
+							_particle[i]._iFadeVariable = std::stoi(_line);
+						}
+
+						AddParticleSystem(_obj, _noiseTex, _sprite, _module, _particle, _count);
+					}
+
 					if (_line.find(L"ANIMATOR2D") != string::npos)
 					{
 						size_t _size = 0;
@@ -345,7 +427,7 @@ void Level::Load(string _path)
 						for (UINT i = 0;i < (UINT)BUTTON_STATE::END;i++)
 						{
 							std::getline(_file, _line);
-							_btn->SetImage(BUTTON_STATE(i),AssetMgr::GetInst()->FindAsset<Sprite>(_line));
+							_btn->SetImage(BUTTON_STATE(i), AssetMgr::GetInst()->FindAsset<Sprite>(_line));
 						}
 					}
 
@@ -370,7 +452,7 @@ void Level::SetCamera()
 		Camera* _cam = _objs[i]->GetComponent<Camera>(COMPONENT_TYPE::CAMERA);
 		if (nullptr == _cam)
 			continue;
-		
+
 		_cam->SetCameraType(_cam->GetCameraType());
 		_cam->AllVisibleSet(TRUE);
 	}
@@ -569,6 +651,19 @@ void Level::AddText(GameObject* _obj, wstring _str, wstring _font, wstring _font
 void Level::AddButton(GameObject* _obj)
 {
 	/*Button* _button = _obj->AddComponent<Button>();*/
+}
 
+void Level::AddParticleSystem(GameObject* _obj, wstring _noiseTex, wstring _sprite, tParticleModule _module, tParticle* _particle, UINT _count)
+{
+	ParticleSystem* _sys = _obj->AddComponent<ParticleSystem>();
 
+	_sys->SetNoiseSprite(AssetMgr::GetInst()->FindAsset<Sprite>(_noiseTex));
+	_sys->SetParticleSprite(AssetMgr::GetInst()->FindAsset<Sprite>(_sprite));
+
+	_sys->SetModule(_module);
+
+	if (2 == _module._SpawnShape)
+	{
+		_sys->GetParticleBuffer()->SetData(_particle, _count);
+	}
 }
