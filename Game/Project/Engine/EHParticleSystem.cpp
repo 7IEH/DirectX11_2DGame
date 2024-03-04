@@ -106,8 +106,8 @@ void ParticleSystem::LateUpdate()
 	m_CSParticleUpdate->SetParticleWorldPos(Vec3(GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativePosition()));
 
 	// Test
-	tParticle arrParticle[14] = {};
-	m_ParticleBuffer->GetData(arrParticle, 14);
+	tParticle arrParticle[26] = {};
+	m_ParticleBuffer->GetData(arrParticle, 26);
 
 	tParticleModule _module = {};
 	m_ParticleModuleBuffer->GetData(&_module);
@@ -139,7 +139,7 @@ void ParticleSystem::Render()
 	//GetMaterial()->SetMaterialParam(INT_0, 0);
 	GetMaterial()->SetTexParam(TEX_0, m_ParticleSprite);
 	GetMaterial()->UpdateData();
-	GetMesh()->Render_Instancing(m_MaxParticleCount);
+	GetMesh()->Render_Instancing(m_ParticleBuffer->GetCurElementCount());
 
 	m_ParticleBuffer->Clear(20);
 }

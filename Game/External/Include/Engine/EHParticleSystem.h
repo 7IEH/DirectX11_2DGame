@@ -9,7 +9,6 @@ class ParticleSystem
 private:
 	StructuredBuffer*			m_ParticleBuffer;
 	UINT						m_MaxParticleCount;
-	UINT						m_CurParticleCount;
 
 	tParticleModule				m_Module;
 	StructuredBuffer*			m_ParticleModuleBuffer;
