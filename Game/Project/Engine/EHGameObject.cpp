@@ -356,6 +356,8 @@ void GameObject::Load(std::wifstream* _file, Level* _level)
 	{
 		std::getline(*_file, _line);
 
+		Component* _comp = nullptr;
+
 		if (_line.find(L"NAME") != wstring::npos)
 		{
 			_line = _line.substr(_line.find(L":") + 1);
@@ -371,56 +373,47 @@ void GameObject::Load(std::wifstream* _file, Level* _level)
 
 		if (_line.find(L"TRANSFORM") != string::npos)
 		{
-			Transform* _tr = AddComponent<Transform>();
-			_tr->Load(_file);
+			_comp = AddComponent<Transform>();
 		}
 
 		if (_line.find(L"LIGHT2D") != string::npos)
 		{
-			LIght2D* _light = AddComponent<LIght2D>();
-			_light->Load(_file);
+			_comp = AddComponent<LIght2D>();
 		}
 
 		if (_line.find(L"CAMERA") != string::npos)
 		{
-			Camera* _cam = AddComponent<Camera>();
-			_cam->Load(_file);
+			_comp = AddComponent<Camera>();
 		}
 
 		if (_line.find(L"MESHRENDERER") != string::npos)
 		{
-			MeshRenderer* _render = AddComponent<MeshRenderer>();
-			_render->Load(_file);
+			_comp = AddComponent<MeshRenderer>();
 		}
 
 		if (_line.find(L"CANVASRENDERER") != string::npos)
 		{
-			CanvasRenderer* _render = AddComponent<CanvasRenderer>();
-			_render->Load(_file);
+			_comp = AddComponent<CanvasRenderer>();
 		}
 
 		if (_line.find(L"PARTICLESYSTEM") != string::npos)
 		{
-			ParticleSystem* _render = AddComponent<ParticleSystem>();
-			_render->Load(_file);
+			_comp = AddComponent<ParticleSystem>();
 		}
 
 		if (_line.find(L"ANIMATOR2D") != string::npos)
 		{
-			Animator2D* _animator = AddComponent<Animator2D>();
-			_animator->Load(_file);
+			_comp = AddComponent<Animator2D>();
 		}
 
 		if (_line.find(L"BOXCOLLIDER2D") != string::npos)
 		{
-			Collider2D* _col = AddComponent<Collider2D>();
-			_col->Load(_file);
+			_comp = AddComponent<Collider2D>();
 		}
 
 		if (_line.find(L"CIRCLECOLLIDER2D") != string::npos)
 		{
-			CircleCollider2D* _col = AddComponent<CircleCollider2D>();
-			_col->Load(_file);
+			_comp = AddComponent<CircleCollider2D>();
 		}
 
 		if (_line.find(L"Script") != string::npos)
@@ -444,19 +437,20 @@ void GameObject::Load(std::wifstream* _file, Level* _level)
 
 		if (_line.find(L"TEXT") != string::npos)
 		{
-			Text* _txt = AddComponent<Text>();
-			_txt->Load(_file);
+			_comp = AddComponent<Text>();
 		}
 
 		if (_line.find(L"BUTTON") != string::npos)
 		{
-			Button* _btn = AddComponent<Button>();
-			_btn->Load(_file);
+			_comp = AddComponent<Button>();
 		}
 
 		if (_line.find(L"endobject") != wstring::npos)
 		{
 			break;
 		}
+
+		if (nullptr != _comp)
+			_comp->Load(_file);
 	}
 }
