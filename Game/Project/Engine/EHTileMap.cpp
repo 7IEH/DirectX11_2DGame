@@ -131,6 +131,6 @@ void TileMap::Render()
 	GetMesh()->Render();
 }
 
-void TileMap::Save(string _path)
+void TileMap::Save(std::wofstream* _file)
 {
 }

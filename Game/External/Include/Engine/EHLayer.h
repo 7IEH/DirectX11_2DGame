@@ -45,7 +45,7 @@ public:
 	vector<GameObject*>& GetLayerParent() { return m_Parent; }
 
 private:
-	void Save(string _path);
+	void Save(std::wofstream* _file);
 
 public:
 	Layer();

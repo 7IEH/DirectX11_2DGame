@@ -53,24 +53,20 @@ void Button::Update()
 	}
 }
 
-void Button::Save(string _path)
+void Button::Save(std::wofstream* _file)
 {
-	std::wofstream _file(_path, std::fstream::out | std::fstream::app);
-
-	_file << L"BUTTON\n";
+	*_file << "BUTTON\n";
 	for (UINT i = 0;i < (UINT)BUTTON_STATE::END;i++)
 	{
 		if (nullptr != m_Images[i])
 		{
-			_file << m_Images[i]->GetName() + L'\n';
+			*_file << m_Images[i]->GetName() + L'\n';
 		}
 		else
 		{
-			_file << L" \n";
+			*_file << L" \n";
 		}
 	}
-
-	_file.close();
 }
 
 void Button::Load(std::wifstream* _file)

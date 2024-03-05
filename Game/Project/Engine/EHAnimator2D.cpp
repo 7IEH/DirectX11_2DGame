@@ -135,22 +135,18 @@ void Animator2D::Clear()
 	Animation2D::Clear();
 }
 
-void Animator2D::Save(string _path)
+void Animator2D::Save(std::wofstream* _file)
 {
 	// 1. Animation Size 2. Animation Name 3. 현재 애니메이션
-	std::ofstream _file(_path.data(), std::fstream::out | std::fstream::app);
-
 	size_t _size = m_AnimInfo.size();
 	map<wstring, Animation2D*>::iterator iter = m_AnimInfo.begin();
 
-	_file << "ANIMATOR2D\n";
-	_file << std::to_string(_size) + '\n';
+	*_file << "ANIMATOR2D\n";
+	*_file << std::to_wstring(_size) + L'\n';
 	for (;iter != m_AnimInfo.end();iter++)
 	{
-		_file << EH::ConvertString(iter->first) + '\n';
+		*_file << iter->first + L'\n';
 	}
-
-	_file.close();
 }
 
 void Animator2D::Load(std::wifstream* _file)

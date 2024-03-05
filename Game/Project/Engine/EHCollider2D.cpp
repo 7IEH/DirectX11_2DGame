@@ -67,20 +67,16 @@ void Collider2D::DrawCollider()
 	}
 }
 
-void Collider2D::Save(string _path)
+void Collider2D::Save(std::wofstream* _file)
 {
 	// offset scale, offset position
-	std::ofstream _file(_path.data(), std::fstream::out | std::fstream::app);
-
 	Vec3 _offPos = m_OffsetPos;
 	Vec3 _offScale = m_OffsetSize;
 
-	_file << "BOXCOLLIDER2D\n";
+	*_file << L"BOXCOLLIDER2D\n";
 
-	_file << EH::WriteVector3(_offScale) + "\n";
-	_file << EH::WriteVector3(_offPos) + "\n";
-
-	_file.close();
+	*_file << EH::wWriteVector3(_offScale) + L"\n";
+	*_file << EH::wWriteVector3(_offPos) + L"\n";
 }
 
 void Collider2D::Load(std::wifstream* _file)

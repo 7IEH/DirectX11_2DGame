@@ -74,24 +74,20 @@ void MeshRenderer::Render()
 	GetMesh()->Render();
 }
 
-void MeshRenderer::Save(string _path)
+void MeshRenderer::Save(std::wofstream* _file)
 {
 	// 1. Mesh 2. Material
-	std::ofstream _file(_path.data(), std::fstream::out | std::fstream::app);
-
-	_file << "MESHRENDERER\n";
+	*_file << L"MESHRENDERER\n";
 
 	if (nullptr != GetMesh())
 	{
-		_file << EH::ConvertString(GetMesh()->GetName()) + '\n';
+		*_file << GetMesh()->GetName() + L'\n';
 	}
 
 	if (nullptr != GetMaterial())
 	{
-		_file << EH::ConvertString(GetMaterial()->GetName()) + '\n';
+		*_file << GetMaterial()->GetName() + L'\n';
 	}
-
-	_file.close();
 }
 
 void MeshRenderer::Load(std::wifstream* _file)

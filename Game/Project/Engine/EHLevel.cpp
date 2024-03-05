@@ -102,7 +102,7 @@ void Level::Load(string _path)
 			if (_line == L"object")
 			{
 				GameObject* _obj = new GameObject;
-				_obj->Load(&_file, this);
+				_obj->Load(&_file, this, FALSE);
 			}
 		}
 		_file.close();

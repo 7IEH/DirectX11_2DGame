@@ -28,8 +28,8 @@ public:
 	virtual void DrawCollider() = 0;
 	virtual void LateUpdate()override {};
 
-	virtual void Save(string _path)override {};
-	virtual void Load(std::wifstream* _file) {};
+	virtual void Save(std::wofstream* _file) override {};
+	virtual void Load(std::wifstream* _file) override {};
 
 	virtual Collider* Clone() = 0;
 

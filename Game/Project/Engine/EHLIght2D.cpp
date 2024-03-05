@@ -27,25 +27,21 @@ void LIght2D::LateUpdate()
 	RenderMgr::GetInst()->RegisterLight2D(GetOwner());
 }
 
-void LIght2D::Save(string _path)
+void LIght2D::Save(std::wofstream* _file)
 {
 	// 1. LightType 2. LightColor 3. LightAmbient 4. LightAngle 5. LightRadius
-	std::ofstream _file(_path.data(), std::fstream::out | std::fstream::app);
-
 	int _lightType = m_LightInfo._LightType;
 	Vec4 _lightColor = m_LightInfo._Color;
 	Vec4 _lightAmbient = m_LightInfo._Ambient;
 	float _angle = m_LightInfo._Angle;
 	float _radius = m_LightInfo._Radius;
 
-	_file << "LIGHT2D\n";
-	_file << std::to_string(_lightType) + '\n';
-	_file << EH::WriteVector4(_lightColor) + '\n';
-	_file << EH::WriteVector4(_lightAmbient) + '\n';
-	_file << std::to_string(_angle) + '\n';
-	_file << std::to_string(_radius) + '\n';
-
-	_file.close();
+	*_file << L"LIGHT2D\n";
+	*_file << std::to_wstring(_lightType) + L'\n';
+	*_file << EH::wWriteVector4(_lightColor) + L'\n';
+	*_file << EH::wWriteVector4(_lightAmbient) + L'\n';
+	*_file << std::to_wstring(_angle) + L'\n';
+	*_file << std::to_wstring(_radius) + L'\n';
 }
 
 void LIght2D::Load(std::wifstream* _file)

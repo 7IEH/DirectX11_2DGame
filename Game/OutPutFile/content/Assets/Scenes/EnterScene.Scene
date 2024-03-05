@@ -23,6 +23,8 @@ orthographic
 4294967295
 Script
 0
+Childs
+0
 endobject
 
 object
@@ -39,6 +41,8 @@ perspective
 Script
 1
 CameraScript
+Childs
+0
 endobject
 
 object
@@ -55,6 +59,8 @@ perspective
 Script
 1
 CameraScript
+Childs
+0
 endobject
 
 object
@@ -71,6 +77,62 @@ perspective
 Script
 1
 CameraScript
+Childs
+0
+endobject
+
+object
+NAME:GameObject22
+LAYER:0
+TRANSFORM
+0.000000 0.000000 0.000000
+1.000000 1.000000 1.000000
+0.000000 0.000000 0.000000
+CAMERA
+perspective
+3
+4294967295
+Script
+1
+CameraScript
+Childs
+0
+endobject
+
+object
+NAME:GameObject23
+LAYER:0
+TRANSFORM
+0.000000 0.000000 0.000000
+1.000000 1.000000 1.000000
+0.000000 0.000000 0.000000
+CAMERA
+perspective
+3
+4294967295
+Script
+1
+CameraScript
+Childs
+0
+endobject
+
+object
+NAME:GameObject24
+LAYER:0
+TRANSFORM
+0.000000 0.000000 0.000000
+1.000000 1.000000 1.000000
+0.000000 0.000000 0.000000
+CAMERA
+perspective
+3
+4294967295
+Script
+1
+CameraScript
+Childs
+0
 endobject
 
 object
@@ -87,8 +149,9 @@ LIGHT2D
 14.098455
 0.000000
 Script
-1
-Light2DScript
+0
+Childs
+0
 endobject
 
 object
@@ -105,8 +168,9 @@ LIGHT2D
 97.238533
 1174.000000
 Script
-1
-Light2DScript
+0
+Childs
+0
 endobject
 
 object
@@ -120,6 +184,8 @@ MESHRENDERER
 DefaultRectMesh
 GameLogoMat
 Script
+0
+Childs
 0
 endobject
 
@@ -137,8 +203,9 @@ LIGHT2D
 7.238541
 380.000000
 Script
-1
-Light2DScript
+0
+Childs
+0
 endobject
 
 object
@@ -155,8 +222,9 @@ LIGHT2D
 14.098455
 300.000000
 Script
-1
-Light2DScript
+0
+Childs
+0
 endobject
 
 object
@@ -165,6 +233,8 @@ LAYER:2
 Script
 1
 TitleScript
+Childs
+0
 endobject
 
 object
@@ -182,6 +252,8 @@ DefaultRectMesh
 BackGroundMaterial
 Script
 0
+Childs
+0
 endobject
 
 object
@@ -198,6 +270,8 @@ MESHRENDERER
 DefaultRectMesh
 BackGroundMaterial
 Script
+0
+Childs
 0
 endobject
 
@@ -223,6 +297,8 @@ MEDIUM
 24.000000
 Script
 0
+Childs
+0
 endobject
 
 object
@@ -246,6 +322,8 @@ MEDIUM
 0
 24.000000
 Script
+0
+Childs
 0
 endobject
 
@@ -271,6 +349,8 @@ MEDIUM
 24.000000
 Script
 0
+Childs
+0
 endobject
 
 object
@@ -284,6 +364,8 @@ MESHRENDERER
 DefaultRectMesh
 StartLineMat
 Script
+0
+Childs
 0
 endobject
 
@@ -299,21 +381,8 @@ DefaultRectMesh
 StartRightDoorMat
 Script
 0
-endobject
-
-object
-NAME:LeftDoor
-LAYER:4
-TRANSFORM
--400.000000 0.000000 0.000000
-800.000000 906.000000 1.000000
-0.000000 0.000000 0.000000
-MESHRENDERER
-DefaultRectMesh
-StartLeftDoorMat
-Script
-0
-endobject
+Childs
+1
 
 object
 NAME:Particle1
@@ -356,29 +425,29 @@ TitleParticle
 1
 22
 -58.000000 386.000000 1.000000 0.000000
-0
+1
 -96.000000 371.000000 1.000000 0.000000
-1
+0
 -86.000000 363.000000 1.000000 0.000000
-0
+1
 -70.000000 356.000000 1.000000 0.000000
-1
+0
 -223.000000 220.000000 1.000000 0.000000
-0
+1
 -178.000000 206.000000 1.000000 0.000000
-1
+0
 -250.000000 3.000000 1.000000 0.000000
-1
+0
 -68.000000 -182.000000 1.000000 0.000000
-0
+1
 -88.000000 -229.000000 1.000000 0.000000
-1
+0
 -108.000000 -257.000000 1.000000 0.000000
-0
--93.000000 -314.000000 1.000000 0.000000
-0
--208.000000 -327.000000 1.000000 0.000000
 1
+-93.000000 -314.000000 1.000000 0.000000
+1
+-208.000000 -327.000000 1.000000 0.000000
+0
 -78.000000 -354.000000 1.000000 0.000000
 0
 -53.000000 -477.000000 1.000000 0.000000
@@ -400,6 +469,25 @@ TitleParticle
 -75.000000 1.000000 1.000000 0.000000
 1
 Script
+0
+Childs
+0
+endobject
+endobject
+
+object
+NAME:LeftDoor
+LAYER:4
+TRANSFORM
+-400.000000 0.000000 0.000000
+800.000000 906.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+StartLeftDoorMat
+Script
+0
+Childs
 0
 endobject
 
@@ -444,23 +532,23 @@ TitleParticle
 1
 26
 165.000000 353.000000 1.000000 0.000000
-1
+0
 86.000000 300.000000 1.000000 0.000000
-0
+1
 64.000000 285.000000 1.000000 0.000000
-1
+0
 138.000000 155.000000 1.000000 0.000000
-1
+0
 126.000000 90.000000 1.000000 0.000000
-0
+1
 51.000000 -22.000000 1.000000 0.000000
-1
-46.000000 -32.000000 1.000000 0.000000
-1
-66.000000 -37.000000 1.000000 0.000000
-1
-86.000000 -102.000000 1.000000 0.000000
 0
+46.000000 -32.000000 1.000000 0.000000
+0
+66.000000 -37.000000 1.000000 0.000000
+0
+86.000000 -102.000000 1.000000 0.000000
+1
 66.000000 -127.000000 1.000000 0.000000
 1
 59.000000 -141.000000 1.000000 0.000000
@@ -496,5 +584,7 @@ TitleParticle
 43.000000 183.000000 1.000000 0.000000
 1
 Script
+0
+Childs
 0
 endobject

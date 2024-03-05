@@ -48,16 +48,15 @@ void Text::Render()
 		, _position.y - m_fFontSize / 2.f, m_fFontSize);
 }
 
-void Text::Save(string _path)
+void Text::Save(std::wofstream* _file)
 {
 	std::locale::global(std::locale(".UTF-8"));
-	std::wofstream _file(_path, std::fstream::out | std::fstream::app);
 
-	_file << "TEXT\n";
+	*_file << L"TEXT\n";
 
-	_file << m_sTextInput + L'\n';
+	*_file << m_sTextInput + L'\n';
 
-	_file << m_sFont + L'\n';
+	*_file << m_sFont + L'\n';
 
 	wstring _weight = {};
 
@@ -82,14 +81,12 @@ void Text::Save(string _path)
 		_weight = L"THIN";
 	}
 
-	_file << _weight + L'\n';
+	*_file << _weight + L'\n';
 
 	UINT32 _color = 0;
-	_file << std::to_wstring(_color) + L'\n';
+	*_file << std::to_wstring(_color) + L'\n';
 
-	_file << std::to_wstring(m_fFontSize) + L'\n';
-
-	_file.close();
+	*_file << std::to_wstring(m_fFontSize) + L'\n';
 }
 
 void Text::Load(std::wifstream* _file)

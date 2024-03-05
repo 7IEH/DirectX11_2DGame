@@ -30,7 +30,7 @@ public:
 	virtual void Update()override;
 	virtual void LateUpdate()override {};
 
-	virtual void Save(string _path) override;
+	virtual void Save(std::wofstream* _file) override;
 	virtual void Load(std::wifstream* _file) override;
 
 	CLONE(Button)

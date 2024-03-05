@@ -103,7 +103,7 @@ void ParticleSystem::LateUpdate()
 	m_CSParticleUpdate->SetParticleSpawnCount(m_SpawnCountBuffer);
 
 	m_CSParticleUpdate->Execute();
-	
+
 	XMMATRIX _matrix = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetMatWorld();
 	Vec3 _position = Vec3(_matrix.r[3].m128_f32[0], _matrix.r[3].m128_f32[1], _matrix.r[3].m128_f32[2]);
 
@@ -148,45 +148,43 @@ void ParticleSystem::Render()
 	m_ParticleBuffer->Clear(20);
 }
 
-void ParticleSystem::Save(string _path)
+void ParticleSystem::Save(std::wofstream* _file)
 {
-	std::ofstream _file(_path.data(), std::fstream::out | std::fstream::app);
-
-	_file << "PARTICLESYSTEM\n";
+	*_file << L"PARTICLESYSTEM\n";
 
 	// Module
 	string _line;
-	_file << EH::ConvertString(m_NoiseSprite.Get()->GetName()) + '\n';
-	_file << EH::ConvertString(m_ParticleSprite.Get()->GetName()) + '\n';
+	*_file << m_NoiseSprite.Get()->GetName() + L'\n';
+	*_file << m_ParticleSprite.Get()->GetName() + L'\n';
 
-	_file << EH::WriteVector4(m_Module._SpawnColor) + '\n';
-	_file << EH::WriteVector4(m_Module._SpawnMinScale) + '\n';
-	_file << EH::WriteVector4(m_Module._SpawnMaxScale) + '\n';
+	*_file << EH::wWriteVector4(m_Module._SpawnColor) + L'\n';
+	*_file << EH::wWriteVector4(m_Module._SpawnMinScale) + L'\n';
+	*_file << EH::wWriteVector4(m_Module._SpawnMaxScale) + L'\n';
 
-	_file << std::to_string(m_Module._iLoop) + '\n';
-	_file << std::to_string(m_Module._MinLife) + '\n';
-	_file << std::to_string(m_Module._MaxLife) + '\n';
-	_file << std::to_string(m_Module._MinMass) + '\n';
-	_file << std::to_string(m_Module._MaxMass) + '\n';
-	_file << std::to_string(m_Module._SpawnRate) + '\n';
-	_file << std::to_string(m_Module._SpaceType) + '\n';
-	_file << std::to_string(m_Module._SpawnShape) + '\n';
-	_file << std::to_string(m_Module._Radius) + '\n';
-	_file << EH::WriteVector4(m_Module._SpawnBoxScale) + '\n';
-	_file << EH::WriteVector4(m_Module._ScaleRatio) + '\n';
-	_file << std::to_string(m_Module.NoiseForceScale) + '\n';
-	_file << std::to_string(m_Module.NoiseForceTerm) + '\n';
-	_file << std::to_string(m_Module._AddVelocityType) + '\n';
-	_file << std::to_string(m_Module._MinSpeed) + '\n';
-	_file << std::to_string(m_Module._MaxSpeed) + '\n';
-	_file << std::to_string(m_Module._FixedAngle) + '\n';
-	_file << EH::WriteVector4(m_Module._FixedDirection) + '\n';
+	*_file << std::to_wstring(m_Module._iLoop) + L'\n';
+	*_file << std::to_wstring(m_Module._MinLife) + L'\n';
+	*_file << std::to_wstring(m_Module._MaxLife) + L'\n';
+	*_file << std::to_wstring(m_Module._MinMass) + L'\n';
+	*_file << std::to_wstring(m_Module._MaxMass) + L'\n';
+	*_file << std::to_wstring(m_Module._SpawnRate) + L'\n';
+	*_file << std::to_wstring(m_Module._SpaceType) + L'\n';
+	*_file << std::to_wstring(m_Module._SpawnShape) + L'\n';
+	*_file << std::to_wstring(m_Module._Radius) + L'\n';
+	*_file << EH::wWriteVector4(m_Module._SpawnBoxScale) + L'\n';
+	*_file << EH::wWriteVector4(m_Module._ScaleRatio) + L'\n';
+	*_file << std::to_wstring(m_Module.NoiseForceScale) + L'\n';
+	*_file << std::to_wstring(m_Module.NoiseForceTerm) + L'\n';
+	*_file << std::to_wstring(m_Module._AddVelocityType) + L'\n';
+	*_file << std::to_wstring(m_Module._MinSpeed) + L'\n';
+	*_file << std::to_wstring(m_Module._MaxSpeed) + L'\n';
+	*_file << std::to_wstring(m_Module._FixedAngle) + L'\n';
+	*_file << EH::wWriteVector4(m_Module._FixedDirection) + L'\n';
 
-	_file << std::to_string(m_Module._ColorType) + '\n';
+	*_file << std::to_wstring(m_Module._ColorType) + L'\n';
 
 	for (UINT i = 0;i < (UINT)PARTICLE_MODULE::END;i++)
 	{
-		_file << std::to_string(m_Module._arrModuleCheck[i]) + '\n';
+		*_file << std::to_wstring(m_Module._arrModuleCheck[i]) + L'\n';
 	}
 
 	// Buffer
@@ -194,12 +192,12 @@ void ParticleSystem::Save(string _path)
 	UINT	_particleCount = m_ParticleBuffer->GetCurElementCount();
 	m_ParticleBuffer->GetData(_paricleBuffer, _particleCount);
 
-	_file << std::to_string(_particleCount) + '\n';
+	*_file << std::to_wstring(_particleCount) + L'\n';
 
 	for (UINT i = 0;i < _particleCount;i++)
 	{
-		_file << EH::WriteVector4(_paricleBuffer[i]._LocalPos) + '\n';
-		_file << std::to_string(_paricleBuffer[i]._iFadeVariable) + '\n';
+		*_file << EH::wWriteVector4(_paricleBuffer[i]._LocalPos) + L'\n';
+		*_file << std::to_wstring(_paricleBuffer[i]._iFadeVariable) + L'\n';
 	}
 }
 

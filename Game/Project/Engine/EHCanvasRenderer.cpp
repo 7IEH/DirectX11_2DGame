@@ -24,16 +24,11 @@ void CanvasRenderer::Render()
 		_text->Render();
 }
 
-void CanvasRenderer::Save(string _path)
+void CanvasRenderer::Save(std::wofstream* _file)
 {
-	std::ofstream _file(_path, std::fstream::out | std::fstream::app);
-	
-	_file << "CANVASRENDERER\n";
-
-	_file.close();
+	*_file << L"CANVASRENDERER\n";
 }
 
 void CanvasRenderer::Load(std::wifstream* _file)
 {
-
 }

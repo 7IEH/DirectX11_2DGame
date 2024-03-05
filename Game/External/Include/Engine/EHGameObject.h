@@ -109,10 +109,10 @@ public:
 
 	CLONE(GameObject);
 
-	void Load(std::wifstream* _file,Level* _level);
+	void Load(std::wifstream* _file,Level* _level,bool _bParent);
 
 private:
-	void Save(string _path);
+	void Save(std::wofstream* _file);
 	
 public:
 	GameObject();

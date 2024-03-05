@@ -289,66 +289,54 @@ int GameObject::DisconnectWithLayer()
 		return -1;
 
 	Level* _CurLevel = LevelMgr::GetInst()->GetCurLevel();
-	Layer* _CurLayer = _CurLevel->GetLayer(m_LayerType);
 
 	int layerIdx = int(m_LayerType);
-	_CurLayer->DetachGameObject(this);
+	if (nullptr != _CurLevel)
+	{
+		Layer* _CurLayer = _CurLevel->GetLayer(m_LayerType);
+		_CurLayer->DetachGameObject(this);
+	}
 
 	return layerIdx;
 }
 
-void GameObject::Save(string _path)
+void GameObject::Save(std::wofstream* _file)
 {
-	std::ofstream _file;
-	_file.open(_path.data(), std::fstream::out | std::fstream::app);
-
-	std::ofstream _filename;
-
-	if (_file.is_open())
+	if (_file->is_open())
 	{
-		string _name = "NAME:" + EH::ConvertString(GetName()) + '\n';
-		string _layer = "LAYER:" + std::to_string(int(GetLayerType())) + '\n';
-		string _temp = "";
-		_temp = "object\n";
-		_file.write("\n", 1);
-		_file.write(_temp.c_str(), _temp.size());
-		_file.write(_name.c_str(), _name.size());
-		_file.write(_layer.c_str(), _layer.size());
-		_file.close();
+		*_file << L'\n';
+		*_file << L"object\n";
+		*_file << L"NAME:" + GetName() + L'\n';
+		*_file << L"LAYER:" + std::to_wstring(int(GetLayerType())) + L'\n';
 
 		// Component 정보 저장
 		for (UINT i = 0;i < (UINT)COMPONENT_TYPE::END;i++)
 		{
 			if (nullptr != m_Component[i])
-				m_Component[i]->Save(_path);
+				m_Component[i]->Save(_file);
 		}
-
-		_file.open(_path.data(), std::fstream::out | std::fstream::app);
 
 		// Script 정보 저장
-		_file << "Script\n";
-		_file << std::to_string(m_vScripts.size()) + '\n';
+		*_file << L"Script\n";
+		*_file << std::to_wstring(m_vScripts.size()) + L'\n';
 		for (size_t i = 0;i < m_vScripts.size();i++)
 		{
-			_file << EH::ConvertString(m_vScripts[i]->GetName()) + '\n';
+			*_file << m_vScripts[i]->GetName() + L'\n';
 		}
-		_temp = "endobject\n";
-		_file.write(_temp.c_str(), _temp.size());
+
+		*_file << L"Childs\n";
+		*_file << std::to_wstring(m_Childs.size()) + L'\n';
+
+		for (size_t i = 0;i < m_Childs.size();i++)
+		{
+			m_Childs[i]->Save(_file);
+		}
+
+		*_file << L"endobject\n";
 	}
-
-	_file << "Childs\n";
-	_file << std::to_string(m_Childs.size()) + '\n';
-
-	_file.close();
-
-	for (size_t i = 0;i < m_Childs.size();i++)
-	{
-		m_Childs[i]->Save(_path);
-	}
-
 }
 
-void GameObject::Load(std::wifstream* _file, Level* _level)
+void GameObject::Load(std::wifstream* _file, Level* _level, bool _bParent)
 {
 	wstring _line = L"";
 
@@ -367,8 +355,7 @@ void GameObject::Load(std::wifstream* _file, Level* _level)
 		if (_line.find(L"LAYER") != wstring::npos)
 		{
 			_line = _line.substr(_line.find(L":") + 1);
-			LAYER_TYPE _type = LAYER_TYPE(std::stoi(_line));
-			_level->AddObject(this, _type, FALSE);
+			m_LayerType = LAYER_TYPE(std::stoi(_line));
 		}
 
 		if (_line.find(L"TRANSFORM") != string::npos)
@@ -445,8 +432,26 @@ void GameObject::Load(std::wifstream* _file, Level* _level)
 			_comp = AddComponent<Button>();
 		}
 
+		if (_line.find(L"Childs") != wstring::npos)
+		{
+			std::getline(*_file, _line);
+			int _size = std::stoi(_line);
+
+			for (int i = 0;i < _size;i++)
+			{
+				GameObject* _child = new GameObject;
+				_child->Load(_file, _level, TRUE);
+				AddChild(_child);
+			}
+		}
+
 		if (_line.find(L"endobject") != wstring::npos)
 		{
+			if (!_bParent)
+			{
+				_level->AddObject(this, this->GetLayerType(), FALSE);
+			}
+
 			break;
 		}
 

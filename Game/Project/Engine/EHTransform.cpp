@@ -141,24 +141,18 @@ void Transform::InitializeDir()
 	m_RelativeTransform._Rotation = { 0.f,0.f,0.f };
 }
 
-void Transform::Save(string _path)
+void Transform::Save(std::wofstream* _file)
 {
 	// 1.Pos 2. Scale 3. Rotation
-	std::ofstream _file(_path, std::fstream::out | std::fstream::app);
-
-	_file << "TRANSFORM\n";
+	*_file << L"TRANSFORM\n";
 
 	Vec3 _Pos = Vec3(m_RelativeTransform._Position);
 	Vec3 _Scale = Vec3(m_RelativeTransform._Scale);
 	Vec3 _rotation = m_RelativeTransform._Rotation;
 
-	_file << EH::WriteVector3(_Pos) + '\n';
-	EH::WriteVector3(_Scale);
-	_file << EH::WriteVector3(_Scale) + '\n';
-	EH::WriteVector3(_rotation);
-	_file << EH::WriteVector3(_rotation) + '\n';
-
-	_file.close();
+	*_file << EH::wWriteVector3(_Pos) + L'\n';
+	*_file << EH::wWriteVector3(_Scale) + L'\n';
+	*_file << EH::wWriteVector3(_rotation) + L'\n';
 }
 
 void Transform::Load(std::wifstream* _file)

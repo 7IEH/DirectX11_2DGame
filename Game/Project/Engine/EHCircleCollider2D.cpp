@@ -63,20 +63,16 @@ void CircleCollider2D::DrawCollider()
 	}
 }
 
-void CircleCollider2D::Save(string _path)
+void CircleCollider2D::Save(std::wofstream* _file)
 {
 	// offset scale, offset radius
-	std::ofstream _file(_path.data(), std::fstream::out | std::fstream::app);
-
 	Vec3 _offPos = m_OffsetPos;
 	float _radius = m_Radius;
 
-	_file << "CIRCLECOLLIDER2D\n";
+	*_file << L"CIRCLECOLLIDER2D\n";
 
-	_file << std::to_string(_radius) + "\n";
-	_file << EH::WriteVector3(_offPos) + "\n";
-
-	_file.close();
+	*_file << std::to_wstring(_radius) + L"\n";
+	*_file << EH::wWriteVector3(_offPos) + L"\n";
 }
 
 void CircleCollider2D::Load(std::wifstream* _file)

@@ -14,7 +14,7 @@ public:
 	virtual void LateUpdate() override;
 	virtual void DrawCollider() override;
 
-	virtual void Save(string _path) override;
+	virtual void Save(std::wofstream* _file) override;
 	virtual void Load(std::wifstream* _file) override;
 public:
 	Vec3    GetOffsetPos() { return m_OffsetPos; }

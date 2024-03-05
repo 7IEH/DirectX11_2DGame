@@ -19,8 +19,8 @@ public:
 
 	virtual void LateUpdate() {};
 
-	virtual void Save(string _path);
-	virtual void Load(std::wifstream* _file);
+	virtual void Save(std::wofstream* _file) override;
+	virtual void Load(std::wifstream* _file) override;
 
 public:
 	void SetText(wstring _str) { m_sTextInput = _str; }

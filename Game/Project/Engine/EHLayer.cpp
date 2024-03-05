@@ -152,11 +152,11 @@ void Layer::DetachGameObject(GameObject* _obj)
 	assert(nullptr);
 }
 
-void Layer::Save(string _path)
+void Layer::Save(std::wofstream* _file)
 {
 	for (size_t i = 0;i < m_Parent.size();i++)
 	{
 		if (m_Parent[i] != nullptr)
-			m_Parent[i]->Save(_path);
+			m_Parent[i]->Save(_file);
 	}
 }

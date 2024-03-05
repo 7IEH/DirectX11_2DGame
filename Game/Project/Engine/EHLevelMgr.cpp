@@ -115,7 +115,7 @@ void LevelMgr::Save()
 			// scene은 이미 생성한 후에 만들기 때문
 			if (_curName == _fileName)
 			{
-				std::ofstream _fileInfo(_entry.path().native().data());
+				std::wofstream _fileInfo(_entry.path().native().data());
 				// file 기록 삭제
 				_fileInfo.clear();
 
@@ -128,10 +128,8 @@ void LevelMgr::Save()
 				UINT* _collisionMatrix = CollisionMgr::GetInst()->GetCollisionMatrix();
 				for (UINT i = 0;i < (UINT)LAYER_TYPE::END;i++)
 				{	
-					_fileInfo << std::to_string(_collisionMatrix[i]) + '\n';
+					_fileInfo << std::to_wstring(_collisionMatrix[i]) + L'\n';
 				}
-
-				_fileInfo.close();
 
 				for (UINT _idx = 0;_idx < (UINT)LAYER_TYPE::END;_idx++)
 				{
@@ -139,9 +137,10 @@ void LevelMgr::Save()
 					if (_layer->GetLayerParent().size() != 0)
 					{
 						// Save Layer 하기
-						_layer->Save(string(_entry.path().native().begin(), _entry.path().native().end()));
+						_layer->Save(&_fileInfo);
 					}
 				}
+				_fileInfo.close();
 			}
 		}
 		// ANIMATION SAVE

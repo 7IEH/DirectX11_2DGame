@@ -328,6 +328,42 @@ string EH::WriteVector4(Vec4 _data)
 	return _result;
 }
 
+wstring EH::wWriteVector2(Vec2 _data)
+{
+	wstring _result = L"";
+
+	_result += std::to_wstring(_data.x);
+	_result += L" ";
+	_result += std::to_wstring(_data.y);
+	return _result;
+}
+
+wstring EH::wWriteVector3(Vec3 _data)
+{
+	wstring _result = L"";
+
+	_result += std::to_wstring(_data.x);
+	_result += L" ";
+	_result += std::to_wstring(_data.y);
+	_result += L" ";
+	_result += std::to_wstring(_data.z);
+	return _result;
+}
+
+wstring EH::wWriteVector4(Vec4 _data)
+{
+	wstring _result = L"";
+
+	_result += std::to_wstring(_data.x);
+	_result += L" ";
+	_result += std::to_wstring(_data.y);
+	_result += L" ";
+	_result += std::to_wstring(_data.z);
+	_result += L" ";
+	_result += std::to_wstring(_data.w);
+	return _result;
+}
+
 void EH::InputVector2(wstring _line, OUT Vec2& _output)
 {
 	int _prev = 0;

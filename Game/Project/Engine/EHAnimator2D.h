@@ -28,7 +28,7 @@ public:
 public:
 	virtual void			LateUpdate()override;
 	virtual void			UpdateData()override;
-	virtual void			Save(string _path)override;
+	virtual void			Save(std::wofstream* _file)override;
 	virtual void			Load(std::wifstream* _file)override;
 
 	CLONE(Animator2D);

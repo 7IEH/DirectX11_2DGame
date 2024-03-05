@@ -183,27 +183,23 @@ void Camera::Render()
 	}
 }
 
-void Camera::Save(string _path)
+void Camera::Save(std::wofstream* _file)
 {
 	// 1.Proj Type 2. Camera Type 3. VisibleLayer
-	std::ofstream _file(_path.data(), std::fstream::out | std::fstream::app);
-
-	_file << "CAMERA\n";
+	*_file << L"CAMERA\n";
 
 	if (m_Projection == PROJECTION_TYPE::PERSPECTIVE)
 	{
-		_file << "perspective\n";
+		*_file << L"perspective\n";
 	}
 	else
 	{
-		_file << "orthographic\n";
+		*_file << L"orthographic\n";
 	}
 
-	_file << std::to_string(int(m_Type)) + '\n';
+	*_file << std::to_wstring(int(m_Type)) + L'\n';
 
-	_file << std::to_string(m_LayerVisible) + '\n';
-
-	_file.close();
+	*_file << std::to_wstring(m_LayerVisible) + L'\n';
 }
 
 void Camera::Load(std::wifstream* _file)

@@ -55,12 +55,17 @@ namespace EH
 	void InputVector4(string _line, OUT Vec4& _output);
 
 	// 메모장에 들어갈 숫자 형식 변환
-
 	string WriteVector2(Vec2 _data);
 
 	string WriteVector3(Vec3 _data);
 
 	string WriteVector4(Vec4 _data);
+
+	wstring wWriteVector2(Vec2 _data);
+
+	wstring wWriteVector3(Vec3 _data);
+
+	wstring wWriteVector4(Vec4 _data);
 
 	void InputVector2(wstring _line, OUT Vec2& _output);
 
