@@ -78,3 +78,20 @@ void CircleCollider2D::Save(string _path)
 
 	_file.close();
 }
+
+void CircleCollider2D::Load(std::wifstream* _file)
+{
+	wstring _line = L"";
+	for (int i = 0;i < 2;i++)
+	{
+		std::getline(*_file, _line);
+		if (i == 0)
+		{
+			m_Radius = std::stof(_line);
+		}
+		else
+		{
+			EH::InputVector3(_line, m_OffsetPos);
+		}
+	}
+}

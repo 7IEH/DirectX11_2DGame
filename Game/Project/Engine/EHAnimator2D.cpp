@@ -152,3 +152,18 @@ void Animator2D::Save(string _path)
 
 	_file.close();
 }
+
+void Animator2D::Load(std::wifstream* _file)
+{
+	wstring _line = L"";
+
+	//size name
+	std::getline(*_file, _line);
+	size_t _size = std::stoi(_line);
+
+	for (size_t i = 0;i < _size;i++)
+	{
+		std::getline(*_file, _line);
+		AddAnimation2D(_line);
+	}
+}

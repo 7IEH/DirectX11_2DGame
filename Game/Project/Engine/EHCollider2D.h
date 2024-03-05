@@ -11,10 +11,11 @@ private:
 	Matrix					m_OffsetMat;
 
 public:
-	virtual void LateUpdate()override;
-	virtual void DrawCollider()override;
+	virtual void LateUpdate() override;
+	virtual void DrawCollider() override;
 
-	virtual void Save(string _path)override;
+	virtual void Save(string _path) override;
+	virtual void Load(std::wifstream* _file) override;
 public:
 	Vec3    GetOffsetPos() { return m_OffsetPos; }
 	Vec3    GetOffsetScale() { return m_OffsetSize; }

@@ -6,6 +6,8 @@
 
 #include "EHEngine.h"
 
+#include "EHAssetMgr.h"
+
 Button::Button()
 	:Component(COMPONENT_TYPE::BUTTON)
 	, m_State(BUTTON_STATE::NONE)
@@ -69,4 +71,14 @@ void Button::Save(string _path)
 	}
 
 	_file.close();
+}
+
+void Button::Load(std::wifstream* _file)
+{
+	wstring _line = L"";
+	for (UINT i = 0;i < (UINT)BUTTON_STATE::END;i++)
+	{
+		std::getline(*_file, _line);
+		SetImage(BUTTON_STATE(i), AssetMgr::GetInst()->FindAsset<Sprite>(_line));
+	}
 }

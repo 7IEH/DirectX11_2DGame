@@ -8,6 +8,8 @@
 #include "EHLevelMgr.h"
 #include "EHLevel.h"
 
+#include "EHScriptMgr.h"
+
 int GameObject::m_ObjectID = 0;
 
 GameObject::GameObject()
@@ -116,7 +118,7 @@ void GameObject::Awake()
 
 	for (size_t _script = 0;_script < m_vScripts.size();_script++)
 	{
-		if(nullptr != m_vScripts[_script])
+		if (nullptr != m_vScripts[_script])
 			m_vScripts[_script]->Awake();
 	}
 }
@@ -334,5 +336,127 @@ void GameObject::Save(string _path)
 		_file.write(_temp.c_str(), _temp.size());
 	}
 
+	_file << "Childs\n";
+	_file << std::to_string(m_Childs.size()) + '\n';
+
 	_file.close();
+
+	for (size_t i = 0;i < m_Childs.size();i++)
+	{
+		m_Childs[i]->Save(_path);
+	}
+
+}
+
+void GameObject::Load(std::wifstream* _file, Level* _level)
+{
+	wstring _line = L"";
+
+	while (1)
+	{
+		std::getline(*_file, _line);
+
+		if (_line.find(L"NAME") != wstring::npos)
+		{
+			_line = _line.substr(_line.find(L":") + 1);
+			SetName(wstring(_line.begin(), _line.end()));
+		}
+
+		if (_line.find(L"LAYER") != wstring::npos)
+		{
+			_line = _line.substr(_line.find(L":") + 1);
+			LAYER_TYPE _type = LAYER_TYPE(std::stoi(_line));
+			_level->AddObject(this, _type, FALSE);
+		}
+
+		if (_line.find(L"TRANSFORM") != string::npos)
+		{
+			Transform* _tr = AddComponent<Transform>();
+			_tr->Load(_file);
+		}
+
+		if (_line.find(L"LIGHT2D") != string::npos)
+		{
+			LIght2D* _light = AddComponent<LIght2D>();
+			_light->Load(_file);
+		}
+
+		if (_line.find(L"CAMERA") != string::npos)
+		{
+			Camera* _cam = AddComponent<Camera>();
+			_cam->Load(_file);
+		}
+
+		if (_line.find(L"MESHRENDERER") != string::npos)
+		{
+			MeshRenderer* _render = AddComponent<MeshRenderer>();
+			_render->Load(_file);
+		}
+
+		if (_line.find(L"CANVASRENDERER") != string::npos)
+		{
+			CanvasRenderer* _render = AddComponent<CanvasRenderer>();
+			_render->Load(_file);
+		}
+
+		if (_line.find(L"PARTICLESYSTEM") != string::npos)
+		{
+			ParticleSystem* _render = AddComponent<ParticleSystem>();
+			_render->Load(_file);
+		}
+
+		if (_line.find(L"ANIMATOR2D") != string::npos)
+		{
+			Animator2D* _animator = AddComponent<Animator2D>();
+			_animator->Load(_file);
+		}
+
+		if (_line.find(L"BOXCOLLIDER2D") != string::npos)
+		{
+			Collider2D* _col = AddComponent<Collider2D>();
+			_col->Load(_file);
+		}
+
+		if (_line.find(L"CIRCLECOLLIDER2D") != string::npos)
+		{
+			CircleCollider2D* _col = AddComponent<CircleCollider2D>();
+			_col->Load(_file);
+		}
+
+		if (_line.find(L"Script") != string::npos)
+		{
+			std::getline(*_file, _line);
+			size_t _size = std::stoi(_line);
+
+			for (size_t i = 0;i < _size;i++)
+			{
+				Script* _script = nullptr;
+				std::getline(*_file, _line);
+				if (L"Light2DScript" == _line)
+					continue;
+
+				_script = ScriptMgr::GetInst()->FindScript(_line);
+				assert(_script);
+				_script = _script->Clone();
+				AddComponent(_script);
+			}
+		}
+
+		if (_line.find(L"TEXT") != string::npos)
+		{
+			Text* _txt = AddComponent<Text>();
+			_txt->Load(_file);
+		}
+
+		if (_line.find(L"BUTTON") != string::npos)
+		{
+			Button* _btn = AddComponent<Button>();
+			_btn->Load(_file);
+		}
+
+		if (_line.find(L"endobject") != wstring::npos)
+		{
+			break;
+		}
+	}
 }

@@ -82,3 +82,20 @@ void Collider2D::Save(string _path)
 
 	_file.close();
 }
+
+void Collider2D::Load(std::wifstream* _file)
+{
+	wstring _line = L"";
+	for (int i = 0;i < 2;i++)
+	{
+		std::getline(*_file, _line);
+		if (i == 0)
+		{
+			EH::InputVector3(_line, m_OffsetSize);
+		}
+		else
+		{
+			EH::InputVector3(_line, m_OffsetPos);
+		}
+	}
+}

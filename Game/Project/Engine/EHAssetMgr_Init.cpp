@@ -335,7 +335,7 @@ void AssetMgr::CreateDefaultShader()
 	particleShader->Custom_Create(_path, _GsEntry, _HuEntry, _DmEntry);
 	particleShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);
 	particleShader->SetCullType(CULL_TYPE::NONE);
-	particleShader->SetDSType(DS_TYPE::N0_WRITE);
+	particleShader->SetDSType(DS_TYPE::LESS);
 	particleShader->SetBlendType(BLEND_TYPE::ALPHABLENDING);
 	particleShader->SetDomain(SHADER_DOMAIN::DOMAIN_TRANSPARENT);
 

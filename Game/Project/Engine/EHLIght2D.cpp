@@ -47,3 +47,33 @@ void LIght2D::Save(string _path)
 
 	_file.close();
 }
+
+void LIght2D::Load(std::wifstream* _file)
+{
+	wstring _line = L"";
+
+	for (int i = 0;i < 5;i++)
+	{
+		std::getline(*_file, _line);
+		if (i == 0)
+		{
+			m_LightInfo._LightType = stoi(_line);
+		}
+		else if (i == 1)
+		{
+			EH::InputVector4(_line, m_LightInfo._Color);
+		}
+		else if (i == 2)
+		{
+			EH::InputVector4(_line, m_LightInfo._Ambient);
+		}
+		else if (i == 3)
+		{
+			m_LightInfo._Angle = stof(_line);
+		}
+		else
+		{
+			m_LightInfo._Radius = stof(_line);
+		}
+	}
+}

@@ -4,7 +4,7 @@
 
 class Component;
 class Script;
-
+class Level;
 class GameObject
 	: public Entity
 {
@@ -108,9 +108,12 @@ public:
 	virtual void Render();
 
 	CLONE(GameObject);
+
+	void Load(std::wifstream* _file,Level* _level);
+
 private:
 	void Save(string _path);
-
+	
 public:
 	GameObject();
 	GameObject(const GameObject& _origin);

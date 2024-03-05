@@ -24,6 +24,7 @@ public:
 public:
 	virtual void Render() = 0;
 	virtual void Save(string _path)override {};
+	virtual void Load(std::wifstream* _file) {};
 
 	virtual Renderer* Clone() = 0;
 

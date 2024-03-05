@@ -160,3 +160,26 @@ void Transform::Save(string _path)
 
 	_file.close();
 }
+
+void Transform::Load(std::wifstream* _file)
+{
+	wstring _line = L"";
+
+	for (int i = 0;i < 3;i++)
+	{
+		std::getline(*_file, _line);
+
+		if (i == 0)
+		{
+			EH::InputVector3(_line, m_RelativeTransform._Position);
+		}
+		else if (i == 1)
+		{
+			EH::InputVector3(_line, m_RelativeTransform._Scale);
+		}
+		else
+		{
+			EH::InputVector3(_line, m_RelativeTransform._Rotation);
+		}
+	}
+}

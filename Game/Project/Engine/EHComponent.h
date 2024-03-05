@@ -23,6 +23,7 @@ public:
     virtual void UpdateData() {};
 
     virtual void Save(string _path) = 0;
+    virtual void Load(std::wifstream* _file) = 0;
 
     virtual Component* Clone() = 0;
 public:

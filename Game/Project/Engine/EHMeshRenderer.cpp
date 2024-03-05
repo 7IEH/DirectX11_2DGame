@@ -14,6 +14,8 @@
 #include "EHCamera.h"
 #include "EHAnimator2D.h"
 
+#include "EHAssetMgr.h"
+
 MeshRenderer::MeshRenderer()
 	:Renderer(RENDERER_TYPE::MESHRENDERER)
 {
@@ -90,4 +92,22 @@ void MeshRenderer::Save(string _path)
 	}
 
 	_file.close();
+}
+
+void MeshRenderer::Load(std::wifstream* _file)
+{
+	wstring _line = L"";
+
+	for (int i = 0;i < 2;i++)
+	{
+		std::getline(*_file, _line);
+		if (i == 0)
+		{
+			SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(_line));
+		}
+		else
+		{
+			SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(_line));
+		}
+	}
 }

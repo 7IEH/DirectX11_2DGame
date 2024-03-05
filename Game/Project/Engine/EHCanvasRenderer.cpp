@@ -32,3 +32,8 @@ void CanvasRenderer::Save(string _path)
 
 	_file.close();
 }
+
+void CanvasRenderer::Load(std::wifstream* _file)
+{
+
+}

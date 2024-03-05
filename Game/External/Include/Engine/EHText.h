@@ -20,6 +20,7 @@ public:
 	virtual void LateUpdate() {};
 
 	virtual void Save(string _path);
+	virtual void Load(std::wifstream* _file);
 
 public:
 	void SetText(wstring _str) { m_sTextInput = _str; }

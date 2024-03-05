@@ -60,7 +60,7 @@ void Text::Save(string _path)
 	_file << m_sFont + L'\n';
 
 	wstring _weight = {};
-	
+
 	if (DWRITE_FONT_WEIGHT_BOLD == m_eWeight)
 	{
 		_weight = L"BOLD";
@@ -90,4 +90,39 @@ void Text::Save(string _path)
 	_file << std::to_wstring(m_fFontSize) + L'\n';
 
 	_file.close();
+}
+
+void Text::Load(std::wifstream* _file)
+{
+	wstring _line = L"";
+
+	std::getline(*_file, _line);
+	m_sTextInput = _line;
+	std::getline(*_file, _line);
+	m_sFont = _line;
+	std::getline(*_file, _line);
+	if (L"BOLD" == _line)
+	{
+		m_eWeight = DWRITE_FONT_WEIGHT_BOLD;
+	}
+	else if (L"SEMI_BOLD" == _line)
+	{
+		m_eWeight = DWRITE_FONT_WEIGHT_SEMI_BOLD;
+	}
+	else if (L"MEDIUM" == _line)
+	{
+		m_eWeight = DWRITE_FONT_WEIGHT_MEDIUM;
+	}
+	else if (L"NORMAL" == _line)
+	{
+		m_eWeight = DWRITE_FONT_WEIGHT_NORMAL;
+	}
+	else
+	{
+		m_eWeight = DWRITE_FONT_WEIGHT_THIN;
+	}
+	std::getline(*_file, _line);
+	m_Color = Vec4(255.f, 255.f, 255.f, 255.f);
+	std::getline(*_file, _line);
+	m_fFontSize = std::stof(_line);
 }

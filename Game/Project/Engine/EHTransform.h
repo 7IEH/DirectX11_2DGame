@@ -20,8 +20,8 @@ public:
 	XMMATRIX GetMatWorld() { return m_RelativeWorld; }
 
 	void SetRelativeScale(Vec4 _scale) { m_RelativeTransform._Scale = _scale; }
-	void SetRelativeRotation(Vec3 _rotation){ m_RelativeTransform._Rotation = _rotation; }
-	void SetRelativePosition(Vec4 _position){ m_RelativeTransform._Position = _position; }
+	void SetRelativeRotation(Vec3 _rotation) { m_RelativeTransform._Rotation = _rotation; }
+	void SetRelativePosition(Vec4 _position) { m_RelativeTransform._Position = _position; }
 
 	Vec4 GetRelativeScale() { return m_RelativeTransform._Scale; }
 	Vec3 GetRelativeRotation() { return m_RelativeTransform._Rotation; }
@@ -46,6 +46,7 @@ public:
 	virtual void UpdateData() override;
 
 	virtual void Save(string _path)override;
+	virtual void Load(std::wifstream* _file)override;
 
 	CLONE(Transform)
 public:

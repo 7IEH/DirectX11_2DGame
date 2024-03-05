@@ -103,9 +103,13 @@ void ParticleSystem::LateUpdate()
 	m_CSParticleUpdate->SetParticleSpawnCount(m_SpawnCountBuffer);
 
 	m_CSParticleUpdate->Execute();
-	m_CSParticleUpdate->SetParticleWorldPos(Vec3(GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativePosition()));
+	
+	XMMATRIX _matrix = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetMatWorld();
+	Vec3 _position = Vec3(_matrix.r[3].m128_f32[0], _matrix.r[3].m128_f32[1], _matrix.r[3].m128_f32[2]);
 
-	// Test
+	m_CSParticleUpdate->SetParticleWorldPos(_position);
+
+	//Test
 	tParticle arrParticle[26] = {};
 	m_ParticleBuffer->GetData(arrParticle, 26);
 
@@ -178,7 +182,7 @@ void ParticleSystem::Save(string _path)
 	_file << std::to_string(m_Module._FixedAngle) + '\n';
 	_file << EH::WriteVector4(m_Module._FixedDirection) + '\n';
 
-	_file << std::to_string(m_Module._ColorType);
+	_file << std::to_string(m_Module._ColorType) + '\n';
 
 	for (UINT i = 0;i < (UINT)PARTICLE_MODULE::END;i++)
 	{
@@ -190,11 +194,90 @@ void ParticleSystem::Save(string _path)
 	UINT	_particleCount = m_ParticleBuffer->GetCurElementCount();
 	m_ParticleBuffer->GetData(_paricleBuffer, _particleCount);
 
-	_file << _particleCount + '\n';
+	_file << std::to_string(_particleCount) + '\n';
 
 	for (UINT i = 0;i < _particleCount;i++)
 	{
 		_file << EH::WriteVector4(_paricleBuffer[i]._LocalPos) + '\n';
 		_file << std::to_string(_paricleBuffer[i]._iFadeVariable) + '\n';
 	}
+}
+
+void ParticleSystem::Load(std::wifstream* _file)
+{
+	wstring _line = L"";
+
+	std::getline(*_file, _line);
+	m_NoiseSprite = AssetMgr::GetInst()->FindAsset<Sprite>(_line);
+	std::getline(*_file, _line);
+	m_ParticleSprite = AssetMgr::GetInst()->FindAsset<Sprite>(_line);
+
+	std::getline(*_file, _line);
+	EH::InputVector4(_line, m_Module._SpawnColor);
+	std::getline(*_file, _line);
+	EH::InputVector4(_line, m_Module._SpawnMinScale);
+	std::getline(*_file, _line);
+	EH::InputVector4(_line, m_Module._SpawnMaxScale);
+	std::getline(*_file, _line);
+	m_Module._iLoop = std::stoi(_line);
+	std::getline(*_file, _line);
+	m_Module._MinLife = std::stof(_line);
+	std::getline(*_file, _line);
+	m_Module._MaxLife = std::stof(_line);
+	std::getline(*_file, _line);
+	m_Module._MinMass = std::stof(_line);
+	std::getline(*_file, _line);
+	m_Module._MaxMass = std::stof(_line);
+	std::getline(*_file, _line);
+	m_Module._SpawnRate = std::stoi(_line);
+	std::getline(*_file, _line);
+	m_Module._SpaceType = std::stoi(_line);
+	std::getline(*_file, _line);
+	m_Module._SpawnShape = std::stoi(_line);
+	std::getline(*_file, _line);
+	m_Module._Radius = std::stof(_line);
+	std::getline(*_file, _line);
+	EH::InputVector4(_line, m_Module._SpawnBoxScale);
+	std::getline(*_file, _line);
+	EH::InputVector4(_line, m_Module._ScaleRatio);
+
+	std::getline(*_file, _line);
+	m_Module.NoiseForceScale = std::stof(_line);
+	std::getline(*_file, _line);
+	m_Module.NoiseForceTerm = std::stof(_line);
+	std::getline(*_file, _line);
+	m_Module._AddVelocityType = std::stoi(_line);
+	std::getline(*_file, _line);
+	m_Module._MinSpeed = std::stof(_line);
+	std::getline(*_file, _line);
+	m_Module._MaxSpeed = std::stof(_line);
+	std::getline(*_file, _line);
+	m_Module._FixedAngle = std::stof(_line);
+
+	std::getline(*_file, _line);
+	EH::InputVector4(_line, m_Module._FixedDirection);
+
+	std::getline(*_file, _line);
+	m_Module._ColorType = std::stoi(_line);
+
+	for (UINT i = 0;i < (UINT)PARTICLE_MODULE::END;i++)
+	{
+		std::getline(*_file, _line);
+		m_Module._arrModuleCheck[i] = std::stoi(_line);
+	}
+
+	std::getline(*_file, _line);
+	UINT _count = std::stoi(_line);
+
+	tParticle _particle[1000] = {};
+
+	for (UINT i = 0;i < _count;i++)
+	{
+		std::getline(*_file, _line);
+		EH::InputVector4(_line, _particle[i]._LocalPos);
+		std::getline(*_file, _line);
+		_particle[i]._iFadeVariable = std::stoi(_line);
+	}
+
+	m_ParticleBuffer->SetData(_particle, _count);
 }

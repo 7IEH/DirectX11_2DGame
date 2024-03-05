@@ -206,6 +206,35 @@ void Camera::Save(string _path)
 	_file.close();
 }
 
+void Camera::Load(std::wifstream* _file)
+{
+	wstring _line = L"";
+
+	for (int i = 0;i < 3;i++)
+	{
+		std::getline(*_file, _line);
+		if (i == 0)
+		{
+			if (L"perspective" != _line)
+			{
+				m_Projection = PROJECTION_TYPE::ORTHOGRAPHIC;
+			}
+			else
+			{
+				m_Projection = PROJECTION_TYPE::PERSPECTIVE;
+			}
+		}
+		else if (i == 1)
+		{
+			m_Type = CAMERA_TYPE(stoi(_line));
+		}
+		else
+		{
+			m_LayerVisible = 0xffffffff;//(UINT)stoi(_line);
+		}
+	}
+}
+
 void Camera::Render(vector<GameObject*>& _vecObj)
 {
 	for (size_t _idx = 0;_idx < _vecObj.size();_idx++)
