@@ -12,20 +12,17 @@
 #include "EHGameObject.h"
 #include "EHSprite.h"
 
+// Component Header
 #include "EHBehaviour.h"
+// UI Header
 #include "EHEngineUI.h"
 
-#include "EHProjectView.h"
-#include "EHSceneCreateUI.h"
-#include "EHDeleteUI.h"
+
 
 ImGUIMgr::ImGUIMgr()
 	: m_Enabled(TRUE)
 	, m_DockSpace(TRUE)
 	, m_io(ImGui::GetIO())
-	, m_SpriteEditor(FALSE)
-	, m_CollisionMatrix(FALSE)
-	, m_TilePalette(FALSE)
 {
 }
 
@@ -83,7 +80,7 @@ void ImGUIMgr::ChangeFont(FONT_TYPE _type)
 
 void ImGUIMgr::ChangeFontIndividual(string _type, float _size)
 {
-	ImFont* _font = m_io.Fonts->AddFontFromFileTTF(_type.c_str(), _size,NULL, m_io.Fonts->GetGlyphRangesKorean());
+	ImFont* _font = m_io.Fonts->AddFontFromFileTTF(_type.c_str(), _size, NULL, m_io.Fonts->GetGlyphRangesKorean());
 }
 
 void ImGUIMgr::Frame()
@@ -115,8 +112,6 @@ void ImGUIMgr::CreateUI()
 	pUI = new Hierarchy;
 	AddUI("Hierarchy", pUI);
 
-	m_Hierarchy = pUI;
-
 	// 2. Console
 	pUI = new Console;
 	AddUI("Console", pUI);
@@ -135,25 +130,23 @@ void ImGUIMgr::CreateUI()
 
 	// 6. SpriteEditor
 	pUI = new SpriteEditor;
+	pUI->Enabled(FALSE);
 	AddUI("SpriteEditor", pUI);
-
-	m_Sprite = pUI;
 
 	// 7. CollisionMatrix
 	pUI = new CollisionMatrix;
+	pUI->Enabled(FALSE);
 	AddUI("CollisionMatrix", pUI);
-	
-	m_CollisionMat = pUI;
 
 	// 8. AnimationCrate
 	pUI = new AnimationUI;
+	pUI->Enabled(FALSE);
 	AddUI("AnimationCreateUI", pUI);
-	m_AnimationCreateUI = pUI;
 
 	// 9. SpriteLoader
 	pUI = new SpriteLoader;
+	pUI->Enabled(FALSE);
 	AddUI("SpriteLoader", pUI);
-	m_SpriteLoader = pUI;
 
 	//// 10. TestUI
 	//pUI = new TestUI();
@@ -161,27 +154,29 @@ void ImGUIMgr::CreateUI()
 
 	// 11. UnSortingAnimation
 	pUI = new unAnimation2DUI;
+	pUI->Enabled(FALSE);
 	AddUI("UnAnimationUI", pUI);
-
-	m_unAnimationCreateUI = pUI;
 
 	// 12. TileMapPallete
 	pUI = new TilePalette;
+	pUI->Enabled(FALSE);
 	AddUI("TilePalette", pUI);
-
-	m_TilePalette = pUI;
 
 	// 13. ProjectView
 	pUI = new ProjectView;
 	AddUI("ProjectView", pUI);
 
 	pUI = new DeleteUI;
+	pUI->Enabled(FALSE);
 	AddUI("DeleteUI", pUI);
-	m_DeleteUI = pUI;
 
 	pUI = new SceneCreateUI;
+	pUI->Enabled(FALSE);
 	AddUI("SceneCreateUI", pUI);
-	m_CreateSceneUI = pUI;
+
+	pUI = new MaterialCreator;
+	pUI->Enabled(FALSE);
+	AddUI("MaterialCreator", pUI);
 
 	// Inspector apply
 	dynamic_cast<Hierarchy*>(FindUI("Hierarchy"))->SetInspector(dynamic_cast<Inspector*>(FindUI("Inspector")));
@@ -268,30 +263,24 @@ void ImGUIMgr::ShowDockSpace()
 		ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
 	}
 
+	// Utility ¸Þ´º
 	if (ImGui::BeginMenuBar())
 	{
 		if (ImGui::BeginMenu("Utility"))
 		{
-			ImGui::MenuItem("SpriteRenderer", "", &m_SpriteEditor);
+			ImGui::MenuItem("SpriteRenderer", "", &FindUI("SpriteEditor")->m_bActive);
 
-			ImGui::MenuItem("CollsionMatrix", "", &m_CollisionMatrix);
+			ImGui::MenuItem("CollsionMatrix", "", &FindUI("CollisionMatrix")->m_bActive);
 
-			ImGui::MenuItem("TileMapPalette", "", &m_bTilePalette);
+			ImGui::MenuItem("TileMapPalette", "", &FindUI("TilePalette")->m_bActive);
+
+			ImGui::MenuItem("MaterialCreator", "", &FindUI("MaterialCreator")->m_bActive);
 
 			ImGui::EndMenu();
 		}
 
 		ImGui::EndMenuBar();
 	}
-
-	m_Sprite->Enabled(m_SpriteEditor);
-	m_CollisionMat->Enabled(m_CollisionMatrix);
-	m_AnimationCreateUI->Enabled(m_bAnimationUI);
-	m_SpriteLoader->Enabled(m_bSpriteLoader);
-	m_unAnimationCreateUI->Enabled(m_bunAnimationCreateUI);
-	m_TilePalette->Enabled(m_bTilePalette);
-	m_CreateSceneUI->Enabled(m_bCreateSceneUI);
-	m_DeleteUI->Enabled(m_bDeleteUI);
 
 	for (const auto& pair : m_mapUI)
 	{

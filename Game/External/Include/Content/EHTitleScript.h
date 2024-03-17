@@ -1,5 +1,13 @@
 #pragma once
 #include "EHScript.h"
+
+enum
+{
+	start,
+	option,
+	end
+};
+
 class TitleScript :
 	public Script
 {
@@ -42,6 +50,8 @@ private:
 	float m_Radius1;
 	float m_Radius2;
 
+	GameObject* m_iButtonPosition;
+
 public:
 	void StartGame();
 	void LoadGame();
@@ -58,6 +68,7 @@ public:
 
 private:
 	Vec4 DoorMove(Vec4 _src, Vec4 _dest, float _speed, bool _flag);
+	void SwitchMove();
 
 public:
 	TitleScript();

@@ -3,11 +3,20 @@
 #include "EHInspector.h"
 #include "EHConsole.h"
 #include "EHSceneView.h"
-#include "EHSpriteEditor.h"
+
 #include "EHCollisionMatrix.h"
-#include "EHAnimationUI.h"
-#include "EHSpriteLoader.h"
+
 #include "EHTestUI.h"
+
+#include "EHProjectView.h"
+#include "EHSceneCreateUI.h"
+#include "EHDeleteUI.h"
+
+// Utility Header UI
+#include "EHSpriteEditor.h"
+#include "EHSpriteLoader.h"
+#include "EHAnimationUI.h"
 #include "unAnimation2DUI.h"
+#include "EHMaterialCreator.h"
 #include "EHTileMap.h"
 #include "EHTilePalette.h"

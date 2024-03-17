@@ -176,7 +176,7 @@ void ProjectView::Mouse_Event()
 
 void ProjectView::Create_SceneFile()
 {
-	ImGUIMgr::GetInst()->SetCreateSceneUI(TRUE);
+	ImGUIMgr::GetInst()->FindUI("SceneCreateUI")->Enabled(TRUE);
 }
 
 void ProjectView::Load_Scene(string _sceneName)
@@ -196,10 +196,10 @@ void ProjectView::Create_Object()
 
 void ProjectView::Delete_Scene()
 {
-	ImGUIMgr::GetInst()->SetCreateSceneUI(TRUE);
+	ImGUIMgr::GetInst()->FindUI("SceneCreateUI")->Enabled(TRUE);
 }
 
 void ProjectView::Delete_Object()
 {
-	ImGUIMgr::GetInst()->SetDeleteUI(TRUE);
+	ImGUIMgr::GetInst()->FindUI("DeleteUI")->Enabled(TRUE);
 }

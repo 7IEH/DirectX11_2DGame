@@ -45,13 +45,6 @@ void TilePalette::Render_Update()
 		TileMgr::GetInst()->AddTileInfo(_label, m_TileInfo);
 	}
 
-	ImGui::SameLine();
-
-	if (ImGui::Button("Exit##TilePalette"))
-	{
-		ImGUIMgr::GetInst()->SetTilePalette(FALSE);
-	}
-
 	map<wstring, Ptr<Asset>> _spriteInfo = AssetMgr::GetInst()->GetSprite();
 	map<wstring, Ptr<Asset>>::iterator iter = _spriteInfo.begin();
 

@@ -53,12 +53,6 @@ void unAnimation2DUI::Render_Update()
 		}
 	}
 
-	ImGui::SameLine();
-	if (ImGui::Button("Exit##unAnimation2DExit"))
-	{
-		ImGUIMgr::GetInst()->SetunAnimationCreateUI(FALSE);
-	}
-
 	// 현재 AssetMgr가 가지고 있는 Sprite 가져옴
 	map<wstring, Ptr<Asset>> _spriteInfo = AssetMgr::GetInst()->GetSprite();
 	map<wstring, Ptr<Asset>>::iterator iter = _spriteInfo.begin();

@@ -135,7 +135,7 @@ void Level::Awake()
 		Camera* _cam = _editorCam->AddComponent<Camera>();
 		_cam->SetCameraType(CAMERA_TYPE::WORLD_CAMERA);
 		_cam->AllVisibleSet(TRUE);
-		_cam->SetPorjectionType(PROJECTION_TYPE::PERSPECTIVE);
+		_cam->SetProjectionType(PROJECTION_TYPE::PERSPECTIVE);
 
 		_editorCam->AddComponent<CameraScript>();
 

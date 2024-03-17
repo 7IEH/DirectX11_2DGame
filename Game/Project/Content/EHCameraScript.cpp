@@ -30,11 +30,11 @@ void CameraScript::Update()
 		if (_type == PROJECTION_TYPE::PERSPECTIVE)
 		{
 			_camera->InitializeDir();
-			_camera->SetPorjectionType(PROJECTION_TYPE::ORTHOGRAPHIC);
+			_camera->SetProjectionType(PROJECTION_TYPE::ORTHOGRAPHIC);
 		}
 		else
 		{
-			_camera->SetPorjectionType(PROJECTION_TYPE::PERSPECTIVE);
+			_camera->SetProjectionType(PROJECTION_TYPE::PERSPECTIVE);
 		}
 	}
 

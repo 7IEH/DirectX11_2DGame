@@ -20,6 +20,7 @@ public:
 	map<wstring, Ptr<Asset>> GetSprite() { return m_Assets[(UINT)ASSET_TYPE::SPRITE]; }
 	map<wstring, Ptr<Asset>> GetMesh() { return m_Assets[(UINT)ASSET_TYPE::MESH]; }
 	map<wstring, Ptr<Asset>> GetMaterial() { return m_Assets[(UINT)ASSET_TYPE::MATERIAL]; }
+	map<wstring, Ptr<Asset>> GetGraphicShader() { return m_Assets[(UINT)ASSET_TYPE::GRAPHIC_SHADER]; }
 
 public:
 	template <typename T>
@@ -116,7 +117,7 @@ Ptr<T> AssetMgr::Load(const wstring& _strFilePath, const wstring _name)
 		_asset = nullptr;
 		return nullptr;
 	}
-	
+
 	_asset->SetName(_name);
 	_asset->SetKey(_name);
 	_asset->SetRelativePath(_strFilePath);

@@ -68,7 +68,7 @@ private:
 
 public:
 	PROJECTION_TYPE GetProjectionType() { return m_Projection; }
-	void            SetPorjectionType(PROJECTION_TYPE _projection) { m_Projection = _projection; }
+	void            SetProjectionType(PROJECTION_TYPE _projection) { m_Projection = _projection; }
 
 	void            InitializeDir();
 

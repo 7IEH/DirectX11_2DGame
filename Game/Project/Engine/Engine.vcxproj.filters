@@ -328,6 +328,9 @@
     <Filter Include="04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Button">
       <UniqueIdentifier>{774610ac-dc9b-4f74-9a24-706c05b849b7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Manager\ImGUIMgr\UI\Utility\MaterialCreator">
+      <UniqueIdentifier>{0c215907-6159-42ae-b3b1-885db6c9e193}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -651,6 +654,9 @@
     <ClInclude Include="EHButtonUI.h">
       <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Button</Filter>
     </ClInclude>
+    <ClInclude Include="EHMaterialCreator.h">
+      <Filter>04. Manager\ImGUIMgr\UI\Utility\MaterialCreator</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -952,6 +958,9 @@
     </ClCompile>
     <ClCompile Include="EHButtonUI.cpp">
       <Filter>04. Manager\ImGUIMgr\UI\InSpector\ComponentUI\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="EHMaterialCreator.cpp">
+      <Filter>04. Manager\ImGUIMgr\UI\Utility\MaterialCreator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

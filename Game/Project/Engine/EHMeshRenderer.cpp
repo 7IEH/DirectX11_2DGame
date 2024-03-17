@@ -103,7 +103,8 @@ void MeshRenderer::Load(std::wifstream* _file)
 		}
 		else
 		{
-			SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(_line));
+			Ptr<Material> _mtrl = AssetMgr::GetInst()->FindAsset<Material>(_line);
+			SetMaterial(_mtrl->Clone());
 		}
 	}
 }

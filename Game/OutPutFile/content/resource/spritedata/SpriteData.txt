@@ -40,3 +40,7 @@ PlayerTestSprite
 \\resource\\NPC_Commander0.png
 TitleParticle
 \\resource\\Title\\GUI_StartScreen_particle.png
+SlotBG
+\\resource\\Title\\Slot\\slotBG.png
+SlotBG2
+\\resource\\Title\\Slot\\GUI_Options_bgNoise.png

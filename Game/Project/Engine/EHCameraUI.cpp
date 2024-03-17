@@ -62,7 +62,7 @@ void CameraUI::Render_Update()
 
 	map<string, PROJECTION_TYPE>::iterator iter3 = m_NameByLayer.find(_curProejction);
 
-	_cam->SetPorjectionType(iter3->second);
+	_cam->SetProjectionType(iter3->second);
 
 	// Both
 	float _Far = _cam->GetFar();

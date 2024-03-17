@@ -37,6 +37,7 @@ TitleScript::TitleScript()
 	, m_bStart(TRUE)
 	, m_Radius1(0.f)
 	, m_Radius2(0.f)
+	, m_iButtonPosition(nullptr)
 {
 	SetName(L"TitleScript");
 }
@@ -79,6 +80,8 @@ void TitleScript::Start()
 	m_StartButton->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetColor(Vec4(255.f, 255.f, 255.f, 0.f));
 	m_OptionButton->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetColor(Vec4(255.f, 255.f, 255.f, 0.f));
 	m_ExitButton->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetColor(Vec4(255.f, 255.f, 255.f, 0.f));
+
+	m_iButtonPosition = m_StartButton;
 
 	m_TitleBG1->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->Play(L"TitleBG1Animation");
 	m_TitleBG2->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->Play(L"TitleBG2Animation");
@@ -300,6 +303,8 @@ void TitleScript::Update()
 
 	_rightDoorTr->SetRelativePosition(_rightPos);
 	_leftDoorTr->SetRelativePosition(_leftPos);
+
+	SwitchMove();
 }
 
 void TitleScript::LateUpdate()
@@ -333,22 +338,6 @@ void TitleScript::LateUpdate()
 			Object::FadeOutLightRadius(m_PointLight2, m_Radius2, 1.f);
 		}
 	}
-
-	if (BUTTON_STATE::PRESSED == m_StartButton->GetComponent<Button>(COMPONENT_TYPE::BUTTON)->GetState())
-	{
-
-	}
-
-	if (BUTTON_STATE::PRESSED == m_OptionButton->GetComponent<Button>(COMPONENT_TYPE::BUTTON)->GetState())
-	{
-
-	}
-
-	if (BUTTON_STATE::PRESSED == m_ExitButton->GetComponent<Button>(COMPONENT_TYPE::BUTTON)->GetState())
-	{
-
-	}
-
 	_logoTr->SetRelativePosition(_logoPos);
 }
 
@@ -380,6 +369,62 @@ Vec4 TitleScript::DoorMove(Vec4 _src, Vec4 _dest, float _speed, bool _flag)
 	}
 
 	return _src;
+}
+
+void TitleScript::SwitchMove()
+{
+	// 버튼 이동
+	if (L"Start Button" == m_iButtonPosition->GetName())
+	{
+		if (KEY_TAP(S))
+		{
+			m_iButtonPosition->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetColor(Vec4(255.f, 255.f, 255.f, 255.f));
+			m_iButtonPosition = m_OptionButton;
+		}
+	}
+	else if (L"Option Button" == m_iButtonPosition->GetName())
+	{
+		if (KEY_TAP(W))
+		{
+			m_iButtonPosition->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetColor(Vec4(255.f, 255.f, 255.f, 255.f));
+			m_iButtonPosition = m_StartButton;
+		}
+
+		if (KEY_TAP(S))
+		{
+			m_iButtonPosition->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetColor(Vec4(255.f, 255.f, 255.f, 255.f));
+			m_iButtonPosition = m_ExitButton;
+		}
+	}
+	else
+	{
+		if (KEY_TAP(W))
+		{
+			m_iButtonPosition->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetColor(Vec4(255.f, 255.f, 255.f, 255.f));
+			m_iButtonPosition = m_OptionButton;
+		}
+	}
+
+	// 해당 키가 선택된 경우
+	m_iButtonPosition->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetColor(Vec4(255.f, 0.f, 0.f, 255.f));
+
+	// 해당 키가 선택될 경우
+	if (KEY_PRESSED(J))
+	{
+		if (m_StartButton == m_iButtonPosition)
+		{
+			// save load scene
+		}
+		else if (m_OptionButton == m_iButtonPosition)
+		{
+			// option scene
+		}
+		else
+		{
+			// exit
+			PostQuitMessage(0);
+		}
+	}
 }
 
 void TitleScript::StartGame()

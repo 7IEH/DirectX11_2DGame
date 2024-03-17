@@ -40,10 +40,6 @@ void SceneCreateUI::Render_Update()
 		m_SceneName = "";
 	}
 	ImGui::SameLine();
-	if (ImGui::Button("Exit"))
-	{
-		ImGUIMgr::GetInst()->SetCreateSceneUI(FALSE);
-	}
 }
 
 void SceneCreateUI::File_Create(string _filepath)

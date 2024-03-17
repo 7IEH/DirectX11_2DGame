@@ -26,7 +26,7 @@
 #pragma comment(lib,"vfw32.lib")
 
 IntroLevel::IntroLevel()
-	:m_PlayTime(0.f)
+	: m_PlayTime(0.f)
 	, m_video(nullptr)
 {
 }
@@ -38,7 +38,7 @@ IntroLevel::~IntroLevel()
 void IntroLevel::Awake()
 {
 	// Main Camera
-	GameObject* _MainCamera = new GameObject;
+	/*GameObject* _MainCamera = new GameObject;
 	Transform* tr = _MainCamera->AddComponent<Transform>();
 	Camera* _camera = _MainCamera->AddComponent<Camera>();
 	CameraScript* _cameraScript = _MainCamera->AddComponent<CameraScript>();
@@ -51,7 +51,7 @@ void IntroLevel::Awake()
 	tr->SetRelativePosition(Vec4(0.f, 0.f, -10.f, 1.f));
 	tr->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
 
-	Object::Instantiate(_MainCamera, (UINT)LAYER_TYPE::CAMERA);
+	Object::Instantiate(_MainCamera, (UINT)LAYER_TYPE::CAMERA);*/
 
 	wstring _finalpath = PATH;
 	wstring _relativePath = L"\\resource\\Intro\\Video\\Intro.mp4";
@@ -76,7 +76,7 @@ void IntroLevel::Update()
 		MCIWndStop(m_video);
 		MCIWndClose(m_video);
 		MCIWndDestroy(m_video);
-		SceneManager::LoadScene(L"TitleLevel");
+		SceneManager::LoadScene(L"EnterScene");
 		RenderMgr::GetInst()->SetRender(TRUE);
 		m_PlayTime = 0.f;
 	}

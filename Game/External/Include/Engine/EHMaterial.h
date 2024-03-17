@@ -26,6 +26,20 @@ public:
 
 	void SetTexParam(TEX_PARAM _Param, Ptr<Sprite> _sprite);
 
+	void operator = (const Material& _OtherMtrl)
+	{
+		SetName(_OtherMtrl.GetName());
+
+		m_tMaterial = _OtherMtrl.m_tMaterial;
+
+		for (UINT i = 0; i < (UINT)TEX_PARAM::END; ++i)
+		{
+			m_Sprite[i] = _OtherMtrl.m_Sprite[i];
+		}
+
+		m_GraphicShader = _OtherMtrl.m_GraphicShader;
+	}
+
 	CLONE(Material);
 
 public:

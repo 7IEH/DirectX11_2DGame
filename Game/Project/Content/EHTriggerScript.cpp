@@ -27,8 +27,9 @@ void TriggerScript::OnTriggerEnter(Collider* _other)
 	GameObject* _player = _other->GetOwner();
 	if (_player->GetLayerType() != LAYER_TYPE::PLAYER)
 		return;
-	Transform* _playertr = _player->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
 
+	Transform* _playertr = _player->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
+	
 	switch (m_TriggerType)
 	{
 	case TRIGGER_TYPE::MOVE_TRIGGER:

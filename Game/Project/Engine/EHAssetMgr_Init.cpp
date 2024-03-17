@@ -344,119 +344,55 @@ void AssetMgr::CreateDefaultShader()
 
 void AssetMgr::CreateDefaultMaterial()
 {
-	/******************
-	| BackGround Material
-	******************/
-	Material* _backgroundMaterial = new Material;
-	_backgroundMaterial->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"DefaultShader"));
-	//_backgroundMaterial->SetTexParam(TEX_0, AssetMgr::GetInst()->FindAsset<Sprite>(L"BackGroundSprite"));
+	wstring _path = PATH;
+	_path += L"\\resource\\materialdata\\Material.txt";
+	std::wifstream _pFile(_path.c_str());
 
-	/******************
-	| Player Material
-	******************/
-	Material* _playerMaterial = new Material;
-	_playerMaterial->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"DefaultShader"));
-	_playerMaterial->SetTexParam(TEX_0, AssetMgr::GetInst()->FindAsset<Sprite>(L"PlayerTestSprite"));
-	_playerMaterial->SetMaterialParam(INT_0, 1);
+	if (_pFile.is_open())
+	{
+		bool _temp = false;
+		wstring _line = {};
+		wstring _wName = {};
+		wstring _WShader = {};
+		wstring _wSpritePath = {};
+		while (std::getline(_pFile, _line))
+		{
+			for (int i = 0;i < 3;i++)
+			{
+				if (i == 0)
+				{
+					_wName = _line;
+				}
+				else if (i == 1)
+				{
+					std::getline(_pFile, _line);
+					_WShader = _line;
+				}
+				else
+				{
+					std::getline(_pFile, _line);
+					_wSpritePath = _line;
 
-	/****************************
-	| Player OutLine Material
-	****************************/
-	Material* _OutLineMat = new Material;
-	_OutLineMat->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"OutlineFilterShader"));
+					Material* _mat = new Material;
+					_mat->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(_WShader));
+					_mat->SetTexParam(TEX_0, AssetMgr::GetInst()->FindAsset<Sprite>(_wSpritePath));
+					AddAsset<Material>(_mat, _wName);
+				}
+			}
+		}
+	}
 
-	/******************
-	| Right Door Material
-	******************/
-	Material* _rightDoorMat = new Material;
-	_rightDoorMat->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"DefaultShader"));
-	_rightDoorMat->SetTexParam(TEX_0, AssetMgr::GetInst()->FindAsset<Sprite>(L"StartRightDoor"));
+	Ptr<Material> _mat = FindAsset<Material>(L"DebugMaterial");
+	_mat->SetMaterialParam(AMBIENT, Vec4(0.5f, 0.4f, 0.3f, 1.f));
 
-	/******************
-	| Left Door Material
-	******************/
-	Material* _leftDoorMat = new Material;
-	_leftDoorMat->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"DefaultShader"));
-	_leftDoorMat->SetTexParam(TEX_0, AssetMgr::GetInst()->FindAsset<Sprite>(L"StartLeftDoor"));
-
-	/******************
-	| Center Door Material
-	******************/
-	Material* centerLineMat = new Material;
-	centerLineMat->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"DefaultShader"));
-	centerLineMat->SetTexParam(TEX_0, AssetMgr::GetInst()->FindAsset<Sprite>(L"StartLine"));
-
-	/******************
-	| Logo Door Material
-	******************/
-	Material* LogoMat = new Material;
-	LogoMat->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"DefaultShader"));
-	LogoMat->SetTexParam(TEX_0, AssetMgr::GetInst()->FindAsset<Sprite>(L"GameLogo"));
-
-
-	Material* dungeonBG = new Material;
-	dungeonBG->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"DefaultShader"));
-	dungeonBG->SetTexParam(TEX_0, AssetMgr::GetInst()->FindAsset<Sprite>(L"DungeonBG"));
-
-	/******************
-	| Debug Material
-	******************/
-	Material* _debugMaterial = new Material;
-	_debugMaterial->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"DebugShader"));
-	_debugMaterial->SetMaterialParam(AMBIENT, Vec4(0.5f, 0.4f, 0.3f, 1.f));
-
-	/******************
-	| WaterGround
-	******************/
-	Material* _waterGround = new Material;
-	_waterGround->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"DefaultShader"));
-	_waterGround->SetTexParam(TEX_0, AssetMgr::GetInst()->FindAsset<Sprite>(L"WaterSprite"));
-
-	/***************************
-	| PostProcess TEST Material
-	***************************/
-	Material* _postProcess = new Material;
-	_postProcess->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"GrayFilterShader"));
-
-	/***************************
-	| DistortionFilter Material
-	****************************/
-	Material* _distortionMat = new Material;
-	_distortionMat->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"DistortionFilterShader"));
-	_distortionMat->SetTexParam(TEX_0, AssetMgr::GetInst()->FindAsset<Sprite>(L"WaterSprite"));
-	_distortionMat->SetMaterialParam(INT_0, 1);
-	_distortionMat->SetTexParam(TEX_1, AssetMgr::GetInst()->FindAsset<Sprite>(L"Noise3"));
-
-	/***************************
-	| TileMap Material
-	***************************/
-	Material* _tileMap = new Material;
-	_tileMap->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"TileMapShader"));
-	AddAsset(_tileMap, L"TileMapMat");
-
-	/***************************
-	| Particle Material
-	***************************/
-	Material* _particleMat = new Material;
-	_particleMat->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"ParticleShader"));
-	AddAsset(_particleMat, L"ParticleMat");
-
-
-	AddAsset(_postProcess, L"GrayFilterMat");
-	AddAsset(_distortionMat, L"DistortionFilterMat");
-	AddAsset(_waterGround, L"WaterGroundMat");
-	AddAsset(_OutLineMat, L"OutLineMat");
-
-	AddAsset(_backgroundMaterial, L"BackGroundMaterial");
-	AddAsset(_playerMaterial, L"PlayerMaterial");
-	AddAsset(_debugMaterial, L"DebugMaterial");
-
-	AddAsset(_rightDoorMat, L"StartRightDoorMat");
-	AddAsset(_leftDoorMat, L"StartLeftDoorMat");
-	AddAsset(centerLineMat, L"StartLineMat");
-	AddAsset(LogoMat, L"GameLogoMat");
-
-	AddAsset(dungeonBG, L"dungeonBGMat");
+	///***************************
+	//| DistortionFilter Material
+	//****************************/
+	//Material* _distortionMat = new Material;
+	//_distortionMat->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"DistortionFilterShader"));
+	//_distortionMat->SetTexParam(TEX_0, AssetMgr::GetInst()->FindAsset<Sprite>(L"WaterSprite"));
+	//_distortionMat->SetMaterialParam(INT_0, 1);
+	//_distortionMat->SetTexParam(TEX_1, AssetMgr::GetInst()->FindAsset<Sprite>(L"Noise3"));
 }
 
 #include "EHTestComputeShader.h"

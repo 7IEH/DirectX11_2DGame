@@ -121,9 +121,4 @@ void CollisionMatrix::Render_Update()
 		}
 		ImGui::Text("");
 	}
-
-	if (ImGui::Button("Exit"))
-	{
-		ImGUIMgr::GetInst()->SetCol(FALSE);
-	}
 }

@@ -222,7 +222,7 @@ void Camera::Load(std::wifstream* _file)
 		}
 		else if (i == 1)
 		{
-			m_Type = CAMERA_TYPE(stoi(_line));
+			SetCameraType(CAMERA_TYPE(stoi(_line)));
 		}
 		else
 		{

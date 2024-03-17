@@ -27,27 +27,22 @@ void SpriteEditor::Render_Update()
 
 	if (ImGui::Button("SortingAtlas##AnimationUI", ImVec2(200.f, 30.f)))
 	{
-		ImGUIMgr::GetInst()->SetAnimationUI(TRUE);
-		AnimationUI* _ui = dynamic_cast<AnimationUI*>(ImGUIMgr::GetInst()->GetAnimationUI());
+		UI* _animUI = ImGUIMgr::GetInst()->FindUI("AnimationCreateUI");
+		_animUI->Enabled(TRUE);
+		AnimationUI* _ui = dynamic_cast<AnimationUI*>(_animUI);
 		_ui->SetType(ANIMATION_UI::CREATE);
 	}
 	ImGui::SameLine();
 
 	if (ImGui::Button("UnSortingAtlas##AnimationUIunsorting", ImVec2(200.f, 30.f)))
 	{
-		ImGUIMgr::GetInst()->SetunAnimationCreateUI(TRUE);
+		ImGUIMgr::GetInst()->FindUI("UnAnimationUI")->Enabled(TRUE);
 	}
 
 	ImGui::SameLine();
 	if (ImGui::Button("Load##LoadSpriteImage", ImVec2(80.f, 30.f)))
 	{
-		ImGUIMgr::GetInst()->SetSpriteLoader(TRUE);
-	}
-
-	ImGui::SameLine();
-	if (ImGui::Button("Exit##ExitSpriteImage",ImVec2(80.f, 30.f)))
-	{
-		ImGUIMgr::GetInst()->SetSprite(FALSE);
+		ImGUIMgr::GetInst()->FindUI("SpriteLoader")->Enabled(TRUE);
 	}
 
 	ImVec2 _winsize = ImGui::GetWindowSize();
@@ -62,8 +57,8 @@ void SpriteEditor::Render_Update()
 
 		if (ImGui::Selectable(_label.c_str(), &flags))
 		{
-			ImGUIMgr::GetInst()->SetAnimationUI(TRUE);
-			AnimationUI* _ui = dynamic_cast<AnimationUI*>(ImGUIMgr::GetInst()->GetAnimationUI());
+			UI* _animUI = ImGUIMgr::GetInst()->FindUI("AnimationCreateUI");
+			AnimationUI* _ui = dynamic_cast<AnimationUI*>(_animUI);
 			_ui->SetType(ANIMATION_UI::EDIT);
 
 			Animation2D* _anim = AnimationMgr::GetInst()->Find(wstring(_name.begin(), _name.end()));
@@ -77,7 +72,7 @@ void SpriteEditor::Render_Update()
 		ImGui::Separator();
 		float _width = float(iter->second->GetAtlas().Get()->GetSpriteWidth());
 		float _height = float(iter->second->GetAtlas().Get()->GetSpriteHeight());
-		ImGui::Image(iter->second->GetAtlas().Get()->GetSRV().Get(),ImVec2(_width,_height));
+		ImGui::Image(iter->second->GetAtlas().Get()->GetSRV().Get(), ImVec2(_width, _height));
 		ImGui::Separator();
 		_idx++;
 	}

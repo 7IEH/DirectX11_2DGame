@@ -36,7 +36,7 @@ public:
 
 	bool operator ==(const Ptr<T>& _Other) const
 	{
-		if (m_Asset == _Other.Asset)
+		if (m_Asset == _Other.Get())
 		{
 			return true;
 		}

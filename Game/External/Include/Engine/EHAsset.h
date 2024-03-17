@@ -43,6 +43,7 @@ private:
 
 public:
     Asset(ASSET_TYPE _type);
+    Asset(const Asset& _origin);
     virtual ~Asset();
 
     virtual Asset* Clone() = 0;

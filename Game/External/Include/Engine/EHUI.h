@@ -39,5 +39,7 @@ public:
 public:
 	UI(const string& _strName, const string& _strID);
 	virtual ~UI();
+
+	friend class ImGUIMgr;
 };
 

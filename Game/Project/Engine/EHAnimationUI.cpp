@@ -81,11 +81,6 @@ void AnimationUI::Render_Update()
 			}
 		}
 	}
-	ImGui::SameLine();
-	if (ImGui::Button("Exit##Animation2DExit"))
-	{
-		ImGUIMgr::GetInst()->SetAnimationCreate(FALSE);
-	}
 
 	// 현재 AssetMgr가 가지고 있는 Sprite 가져옴
 	map<wstring, Ptr<Asset>> _spriteInfo = AssetMgr::GetInst()->GetSprite();

@@ -27,9 +27,4 @@ void DeleteUI::Render_Update()
 		if(nullptr != _obj)
 			Object::Destroy(_obj);
 	}
-	ImGui::SameLine();
-	if (ImGui::Button("Exit"))
-	{
-		ImGUIMgr::GetInst()->SetDeleteUI(FALSE);
-	}
 }

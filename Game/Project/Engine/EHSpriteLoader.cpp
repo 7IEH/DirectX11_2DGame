@@ -47,9 +47,4 @@ void SpriteLoader::Render_Update()
 		m_Name = "";
 		m_Address = "";
 	}
-	ImGui::SameLine();
-	if (ImGui::Button("Exit##SpriteLoaderExit"))
-	{
-		ImGUIMgr::GetInst()->SetSpriteLoader(FALSE);
-	}
 }

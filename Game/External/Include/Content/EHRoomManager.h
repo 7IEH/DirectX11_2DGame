@@ -1,4 +1,6 @@
 #pragma once
+
+class GameObject;
 class RoomManager
 	:public Singleton<RoomManager>
 {

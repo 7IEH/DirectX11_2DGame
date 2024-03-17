@@ -212,6 +212,7 @@ call Copy.bat</Command>
     <ClInclude Include="EHLight2DUI.h" />
     <ClInclude Include="EHMapGenerator.h" />
     <ClInclude Include="EHMaterial.h" />
+    <ClInclude Include="EHMaterialCreator.h" />
     <ClInclude Include="EHMesh.h" />
     <ClInclude Include="EHGameObject.h" />
     <ClInclude Include="EHParticleSystem.h" />
@@ -319,6 +320,7 @@ call Copy.bat</Command>
     <ClCompile Include="EHLight2DUI.cpp" />
     <ClCompile Include="EHMapGenerator.cpp" />
     <ClCompile Include="EHMaterial.cpp" />
+    <ClCompile Include="EHMaterialCreator.cpp" />
     <ClCompile Include="EHMesh.cpp" />
     <ClCompile Include="EHGameObject.cpp" />
     <ClCompile Include="EHParticleSystem.cpp" />

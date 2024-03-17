@@ -29,7 +29,7 @@ void Button::Update()
 	assert(_tr);
 	Vec2 _resolution = Engine::GetInst()->GetResolution();
 	Vec4 _originPos = _tr->GetRelativePosition();
-	Vec4 _buttonPos = Vec4((_originPos.x * -1.f) + _resolution.x / 2.f, (_originPos.y * -1.f) + _resolution.y / 2.f, 0.f, 0.f);
+	Vec4 _buttonPos = Vec4((_originPos.x * 1.f) + _resolution.x / 2.f, (_originPos.y * -1.f) + _resolution.y / 2.f, 0.f, 0.f);
 
 	Vec4 _buttonScale = _tr->GetRelativeScale();
 
