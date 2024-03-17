@@ -3,6 +3,7 @@
 #include "EHCameraScript.h"
 #include "EHCameraTargetScript.h"
 #include "EHDungeonScript.h"
+#include "EHGUI_LineScript.h"
 #include "EHLight2DScript.h"
 #include "EHOutLineScript.h"
 #include "EHPlayerScript.h"

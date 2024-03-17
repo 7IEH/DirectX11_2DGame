@@ -21,6 +21,8 @@
 
 #include "EHCamera.h"
 
+#include "EHHierarchy.h"
+
 Engine::Engine()
 	: m_vResolution{}
 	, m_hWnd(nullptr)
@@ -81,15 +83,19 @@ void Engine::AwakeManager()
 	RenderMgr::GetInst()->Awake();
 	FontMgr::GetInst()->Awake();
 
+#ifdef _DEBUG
+	LevelMgr::GetInst()->SelectLevel(L"SlotScene");
+#else
+	LevelMgr::GetInst()->SelectLevel(L"SlotScene");
+#endif
+
 	if (FALSE == ImGUIMgr::GetInst()->Awake())
 	{
 		HandleError(MAIN_HWND, L"ImGUI InitailizeError", 1);
 	}
 
 #ifdef _DEBUG
-	LevelMgr::GetInst()->SelectLevel(L"SlotScene");
-#else
-	LevelMgr::GetInst()->SelectLevel(L"SlotScene");
+	static_cast<Hierarchy*>(ImGUIMgr::GetInst()->FindUI("Hierarchy"))->ResetCurrentLevel();
 #endif
 }
 

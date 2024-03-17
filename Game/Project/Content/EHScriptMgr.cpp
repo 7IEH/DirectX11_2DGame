@@ -33,6 +33,7 @@ void ScriptMgr::Awake()
 	AddScript<CameraScript>(L"CameraScript");
 	AddScript<CameraTargetScript>(L"CameraTargetScript");
 	AddScript<DungeonScript>(L"DungeonScript");
+	AddScript<GUI_LineScript>(L"GUI_LineScript");
 	AddScript<Light2DScript>(L"Light2DScript");
 	AddScript<OutLineScript>(L"OutLineScript");
 	AddScript<PlayerScript>(L"PlayerScript");

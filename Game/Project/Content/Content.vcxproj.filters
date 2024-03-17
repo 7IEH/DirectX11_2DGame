@@ -64,6 +64,12 @@
     <Filter Include="02. Script\12. UIScript\SlotScript">
       <UniqueIdentifier>{73e27e41-13db-4d8b-8c50-9baec6ee0bd2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Script\12. UIScript\GUIScript">
+      <UniqueIdentifier>{cb6b1023-5149-4e0d-9368-1350f4f159b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\12. UIScript\GUIScript\LineScript">
+      <UniqueIdentifier>{67d8d39d-094f-4b1e-9e41-1085d9f09729}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -129,6 +135,9 @@
     <ClInclude Include="EHSlotScript.h">
       <Filter>02. Script\12. UIScript\SlotScript</Filter>
     </ClInclude>
+    <ClInclude Include="EHGUI_LineScript.h">
+      <Filter>02. Script\12. UIScript\GUIScript\LineScript</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -181,6 +190,9 @@
     </ClCompile>
     <ClCompile Include="EHSlotScript.cpp">
       <Filter>02. Script\12. UIScript\SlotScript</Filter>
+    </ClCompile>
+    <ClCompile Include="EHGUI_LineScript.cpp">
+      <Filter>02. Script\12. UIScript\GUIScript\LineScript</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

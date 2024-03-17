@@ -151,7 +151,7 @@ void ComponentUI::SetTargetObject(GameObject* _target)
 			ScriptUI* _this = dynamic_cast<ScriptUI*>(this);
 			string _scriptName = _this->GetName();
 
-			vector<Script*> _scripts = m_TargetObject->GetScript();
+			vector<Script*> _scripts = m_TargetObject->GetScripts();
 
 			bool _flag = FALSE;
 			for (size_t i = 0;i < _scripts.size();i++)

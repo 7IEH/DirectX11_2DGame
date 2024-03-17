@@ -170,6 +170,7 @@ call ScriptGenerator.exe</Command>
     <ClInclude Include="EHCameraTargetScript.h" />
     <ClInclude Include="EHDungeonScene.h" />
     <ClInclude Include="EHDungeonScript.h" />
+    <ClInclude Include="EHGUI_LineScript.h" />
     <ClInclude Include="EHIntroScene.h" />
     <ClInclude Include="EHLight2DScript.h" />
     <ClInclude Include="EHOutLineScript.h" />
@@ -194,6 +195,7 @@ call ScriptGenerator.exe</Command>
     <ClCompile Include="EHCameraTargetScript.cpp" />
     <ClCompile Include="EHDungeonScene.cpp" />
     <ClCompile Include="EHDungeonScript.cpp" />
+    <ClCompile Include="EHGUI_LineScript.cpp" />
     <ClCompile Include="EHIntroScene.cpp" />
     <ClCompile Include="EHLight2DScript.cpp" />
     <ClCompile Include="EHOutLineScript.cpp" />

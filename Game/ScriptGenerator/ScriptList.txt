@@ -1,6 +1,7 @@
 EHCameraScript
 EHCameraTargetScript
 EHDungeonScript
+EHGUI_LineScript
 EHLight2DScript
 EHOutLineScript
 EHPlayerScript

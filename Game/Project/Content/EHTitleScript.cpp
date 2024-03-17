@@ -48,6 +48,9 @@ TitleScript::~TitleScript()
 
 void TitleScript::Start()
 {
+	if (nullptr != m_PointLight1)
+		return;
+
 	Level* _curLevel = LevelMgr::GetInst()->GetCurLevel();
 
 	m_PointLight1 = _curLevel->FindObjectByName(L"PointLight1");
@@ -373,6 +376,8 @@ Vec4 TitleScript::DoorMove(Vec4 _src, Vec4 _dest, float _speed, bool _flag)
 
 void TitleScript::SwitchMove()
 {
+	if (!m_bOpen)
+		return;
 	// 버튼 이동
 	if (L"Start Button" == m_iButtonPosition->GetName())
 	{
@@ -431,7 +436,7 @@ void TitleScript::SwitchMove()
 void TitleScript::StartGame()
 {
 	// Load StartScene
-	// LevelMgr::GetInst()->SelectLevel();
+	LevelMgr::GetInst()->SelectLevel(L"SlotScene");
 }
 
 void TitleScript::LoadGame()

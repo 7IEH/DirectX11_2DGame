@@ -13,13 +13,13 @@ private:
 
 	LAYER_TYPE					m_LayerType;
 
-	Component*					m_Component[(UINT)COMPONENT_TYPE::END];
-	Component*					m_Renderer;
+	Component* m_Component[(UINT)COMPONENT_TYPE::END];
+	Component* m_Renderer;
 
 	vector<Script*>				m_vScripts;
 	vector<GameObject*>			m_Childs;
 
-	GameObject*					m_Parent;
+	GameObject* m_Parent;
 
 	bool						m_Dead;
 	bool						m_Picking;
@@ -78,9 +78,24 @@ public:
 		return _comp;
 	}
 
-	vector<Script*>& GetScript()
+	vector<Script*>& GetScripts()
 	{
 		return m_vScripts;
+	}
+
+	template<typename T>
+	T* GetScript(const wstring& _wScriptName)const
+	{
+		vector<Script*>::const_iterator iter = m_vScripts.begin();
+		for (;iter != m_vScripts.end();iter++)
+		{
+			if (_wScriptName == (*iter)->GetName())
+			{
+				return dynamic_cast<T*>((*iter));
+			}
+		}
+
+		return nullptr;
 	}
 
 	GameObject* GetParent() { return m_Parent; }
@@ -109,11 +124,11 @@ public:
 
 	CLONE(GameObject);
 
-	void Load(std::wifstream* _file,Level* _level,bool _bParent);
+	void Load(std::wifstream* _file, Level* _level, bool _bParent);
 
 private:
 	void Save(std::wofstream* _file);
-	
+
 public:
 	GameObject();
 	GameObject(const GameObject& _origin);

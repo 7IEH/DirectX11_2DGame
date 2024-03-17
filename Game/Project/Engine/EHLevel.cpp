@@ -130,17 +130,20 @@ void Level::Awake()
 #ifdef _DEBUG
 	if (m_bEditor)
 	{
-		GameObject* _editorCam = new GameObject;
-		_editorCam->AddComponent<Transform>();
-		Camera* _cam = _editorCam->AddComponent<Camera>();
-		_cam->SetCameraType(CAMERA_TYPE::WORLD_CAMERA);
-		_cam->AllVisibleSet(TRUE);
-		_cam->SetProjectionType(PROJECTION_TYPE::PERSPECTIVE);
+		if (nullptr == GetLayer(LAYER_TYPE::CAMERA)->FindObject(L"EditorCamera"))
+		{
+			GameObject* _editorCam = new GameObject;
+			_editorCam->SetName(L"EditorCamera");
+			_editorCam->AddComponent<Transform>();
+			Camera* _cam = _editorCam->AddComponent<Camera>();
+			_cam->SetCameraType(CAMERA_TYPE::WORLD_CAMERA);
+			_cam->AllVisibleSet(TRUE);
+			_cam->SetProjectionType(PROJECTION_TYPE::PERSPECTIVE);
 
-		_editorCam->AddComponent<CameraScript>();
+			_editorCam->AddComponent<CameraScript>();
 
-		AddObject(_editorCam, LAYER_TYPE::CAMERA, FALSE);
-		m_bEditor = FALSE;
+			AddObject(_editorCam, LAYER_TYPE::CAMERA, FALSE);
+		}
 	}
 #endif
 	SetCamera();
@@ -160,10 +163,6 @@ void Level::Start()
 	{
 		m_Layers[_type]->Start();
 	}
-
-#ifdef _DEBUG
-	static_cast<Hierarchy*>(ImGUIMgr::GetInst()->FindUI("Hierarchy"))->ResetCurrentLevel();
-#endif
 }
 
 void Level::Update()

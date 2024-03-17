@@ -30,7 +30,7 @@ Collider::~Collider()
 
 void Collider::OnTriggerEnter(Collider* _other)
 {
-	vector<Script*>& _script = GetOwner()->GetScript();
+	vector<Script*>& _script = GetOwner()->GetScripts();
 	if (_script.empty())
 	{
 		return;
@@ -44,7 +44,7 @@ void Collider::OnTriggerEnter(Collider* _other)
 
 void Collider::OnTriggerStay(Collider* _other)
 {
-	vector<Script*>& _script = GetOwner()->GetScript();
+	vector<Script*>& _script = GetOwner()->GetScripts();
 	if (_script.empty())
 	{
 		return;
@@ -58,7 +58,7 @@ void Collider::OnTriggerStay(Collider* _other)
 
 void Collider::OnTriggerExit(Collider* _other)
 {
-	vector<Script*>& _script = GetOwner()->GetScript();
+	vector<Script*>& _script = GetOwner()->GetScripts();
 	if (_script.empty())
 	{
 		return;
