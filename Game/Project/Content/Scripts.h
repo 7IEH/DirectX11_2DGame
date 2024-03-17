@@ -6,6 +6,7 @@
 #include "EHLight2DScript.h"
 #include "EHOutLineScript.h"
 #include "EHPlayerScript.h"
+#include "EHSlotScript.h"
 #include "EHTestScript.h"
 #include "EHTitleScript.h"
 #include "EHTriggerScript.h"

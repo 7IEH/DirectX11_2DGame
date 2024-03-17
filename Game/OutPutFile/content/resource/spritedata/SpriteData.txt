@@ -44,3 +44,17 @@ SlotBG
 \\resource\\Title\\Slot\\slotBG.png
 SlotBG2
 \\resource\\Title\\Slot\\GUI_Options_bgNoise.png
+ShaderTest
+\\resource\\Grandpa_Scene9_23.png
+GUI_PopUpDetail
+\\resource\\Title\\Slot\\GUI_PopUp_Detail.png
+GUI_OtherLine
+\\resource\\Title\\Slot\\GUI_Options_Underline.png
+GUI_GameSlot
+\\resource\\Title\\Slot\\GUI_GameSlots_SlotNum.png
+GUI_GameSlotPanel
+\\resource\\Title\\Slot\\GUI_SlotPanel.png
+GUI_SlotUnderLine2
+\\resource\\Title\\Slot\\GUI_SlotUnderline2.png
+GUI_GameSelectIcon1
+\\resource\\Title\\Slot\\GUI_SelectButton.png

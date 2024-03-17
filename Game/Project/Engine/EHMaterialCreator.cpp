@@ -5,6 +5,12 @@
 
 MaterialCreator::MaterialCreator()
 	:UI("MaterialCreator", "##MaterialCreator")
+	, m_sName{}
+	, m_sShader{}
+	, m_sSprite{}
+	, m_wName{}
+	, m_wShader{}
+	, m_wSprite{}
 {
 }
 
@@ -14,29 +20,25 @@ MaterialCreator::~MaterialCreator()
 
 void MaterialCreator::Render_Update()
 {
-	string _name = {};
-	string _shader = {};
-	string _sprite = {};
-
-	wstring _wName = {};
-	wstring _wShader = {};
-	wstring _wSprite = {};
-
 	if (ImGui::Button("Create"))
 	{
 		wstring _wrealtivePath = PATH;
-		wstring _wPath = _wrealtivePath + L"\\resource\\Material\\materialdata\\Material.txt";
-		std::wofstream _pFile(_wPath.c_str(), std::ios::app);
+		wstring _wPath = _wrealtivePath + L"\\resource\\materialdata\\Material.txt";
+		std::wofstream _pFile(_wPath.c_str(), std::ios::out | std::ios::app);
 
-		_pFile << _wName;
-		_pFile << _wShader;
-		_pFile << _wSprite;
+		m_wName = EH::ConvertWstring(m_sName);
+		m_wShader = EH::ConvertWstring(m_sShader);
+		m_wSprite = EH::ConvertWstring(m_sSprite);
+
+		_pFile << m_wName + L'\n';
+		_pFile << m_wShader + L"\n";
+		_pFile << m_wSprite + L"\n";
 
 		// assetmgr 실행 시 material 만들기도 바꿈
 		Material* _mat = new Material;
-		_mat->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(EH::ConvertWstring(_shader).c_str()));
-		_mat->SetTexParam(TEX_0, AssetMgr::GetInst()->FindAsset<Sprite>(EH::ConvertWstring(_sprite).c_str()));
-		AssetMgr::GetInst()->AddAsset<Material>(_mat, EH::ConvertWstring(_name).c_str());
+		_mat->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(m_wShader));
+		_mat->SetTexParam(TEX_0, AssetMgr::GetInst()->FindAsset<Sprite>(m_wSprite));
+		AssetMgr::GetInst()->AddAsset<Material>(_mat, m_wName);
 	}
 
 	if (ImGui::Button("Exit"))
@@ -44,11 +46,11 @@ void MaterialCreator::Render_Update()
 		// 나가기
 	}
 
-	ImGui::Text("Name");ImGui::SameLine(150.f);ImGui::InputText("##MaterialName", &_name);
+	ImGui::Text("Name");ImGui::SameLine(150.f);ImGui::InputText("##MaterialName", &m_sName);
 
 	bool _flag = false;
 	ImGui::Text("GraphicShader");ImGui::SameLine(150.f);
-	if (ImGui::BeginCombo("##shaderCombo", _shader.c_str()))
+	if (ImGui::BeginCombo("##shaderCombo", m_sShader.c_str()))
 	{
 		map<wstring, Ptr<Asset>> _shaders = AssetMgr::GetInst()->GetGraphicShader();
 		map<wstring, Ptr<Asset>>::iterator iter = _shaders.begin();
@@ -56,14 +58,14 @@ void MaterialCreator::Render_Update()
 		{
 			if (ImGui::Selectable(EH::ConvertString(iter->first).c_str(), _flag))
 			{
-				_shader = EH::ConvertString(iter->first);
+				m_sShader = EH::ConvertString(iter->first);
 			}
 		}
 		ImGui::EndCombo();
 	}
 
 	ImGui::Text("Sprite 0");ImGui::SameLine(150.f);
-	if (ImGui::BeginCombo("##Sprite0", _shader.c_str()))
+	if (ImGui::BeginCombo("##Sprite0", m_sSprite.c_str()))
 	{
 		map<wstring, Ptr<Asset>> _sprites = AssetMgr::GetInst()->GetSprite();
 		map<wstring, Ptr<Asset>>::iterator iter = _sprites.begin();
@@ -71,7 +73,7 @@ void MaterialCreator::Render_Update()
 		{
 			if (ImGui::Selectable(EH::ConvertString(iter->first).c_str(), _flag))
 			{
-				_sprite = EH::ConvertString(iter->first);
+				m_sSprite = EH::ConvertString(iter->first);
 			}
 		}
 		ImGui::EndCombo();

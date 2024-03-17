@@ -4,6 +4,7 @@ EHDungeonScript
 EHLight2DScript
 EHOutLineScript
 EHPlayerScript
+EHSlotScript
 EHTestScript
 EHTitleScript
 EHTriggerScript

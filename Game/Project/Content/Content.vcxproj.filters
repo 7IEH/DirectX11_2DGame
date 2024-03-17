@@ -61,6 +61,9 @@
     <Filter Include="03. Util\ScriptMgr">
       <UniqueIdentifier>{badd7bdd-1c9f-4405-9f1f-15c6bd620321}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Script\12. UIScript\SlotScript">
+      <UniqueIdentifier>{73e27e41-13db-4d8b-8c50-9baec6ee0bd2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -123,6 +126,9 @@
     <ClInclude Include="Scripts.h">
       <Filter>Default</Filter>
     </ClInclude>
+    <ClInclude Include="EHSlotScript.h">
+      <Filter>02. Script\12. UIScript\SlotScript</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -172,6 +178,9 @@
     </ClCompile>
     <ClCompile Include="EHScriptMgr.cpp">
       <Filter>03. Util\ScriptMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="EHSlotScript.cpp">
+      <Filter>02. Script\12. UIScript\SlotScript</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

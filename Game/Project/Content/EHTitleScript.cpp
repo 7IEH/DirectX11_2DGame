@@ -414,6 +414,7 @@ void TitleScript::SwitchMove()
 		if (m_StartButton == m_iButtonPosition)
 		{
 			// save load scene
+			LevelMgr::GetInst()->SelectLevel(L"SlotScene");
 		}
 		else if (m_OptionButton == m_iButtonPosition)
 		{

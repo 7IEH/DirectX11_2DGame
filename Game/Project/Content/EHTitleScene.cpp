@@ -22,9 +22,10 @@
 #include "EHTaskMgr.h"
 
 TitleLevel::TitleLevel()
-	:m_LeftDoor(nullptr)
+	: m_LeftDoor(nullptr)
 	, m_RightDoor(nullptr)
 	, m_bOpen(FALSE)
+	, m_StartLine(nullptr)
 {
 }
 
