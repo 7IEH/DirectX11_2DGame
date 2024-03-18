@@ -3,12 +3,13 @@
 
 #include <EHLevelMgr.h>
 #include <EHKeyMgr.h>
-#include <EHPathMgr.h>
 
+#include "EHRecordManager.h"
 #include "EHGUI_LineScript.h"
 
 SlotScript::SlotScript()
-	:m_pUnderLine1(nullptr)
+	: m_bTrans(FALSE)
+	, m_pUnderLine1(nullptr)
 	, m_pUnderLine2(nullptr)
 	, m_pSelectIcon1(nullptr)
 	, m_pSelectIcon2(nullptr)
@@ -121,8 +122,6 @@ void SlotScript::Start()
 
 void SlotScript::Update()
 {
-
-
 	if (KEY_TAP(KEY::W))
 	{
 		if (0 < m_iCurSlot)
@@ -205,7 +204,7 @@ void SlotScript::Update()
 			_script->SetEvent(Vec4(m_vUnderLinePos2.x, m_vUnderLinePos2.y - 100.f, m_vUnderLinePos2.z, m_vUnderLinePos2.w),
 				m_vUnderLinePos2, 500.f, GUI_STYLE::MOVEUP);*/
 
-			// 2번
+				// 2번
 			_script = m_pUnderLine1->GetScript<GUI_LineScript>(L"GUI_LineScript");
 			_script->SetEvent(Vec4{ 1.f,m_vUnderLineScale1.y,m_vUnderLineScale1.z,m_vUnderLineScale1.w },
 				m_vUnderLineScale1, 4000.f, GUI_STYLE::GROW);
@@ -215,7 +214,7 @@ void SlotScript::Update()
 				m_vUnderLineScale2, 4000.f, GUI_STYLE::GROW);
 
 			// 3번
-			/*m_vUnderLinePos1.y = _vSelectPos.y + 51.f;
+		/*	m_vUnderLinePos1.y = _vSelectPos.y + 51.f;
 			_script = m_pUnderLine1->GetScript<GUI_LineScript>(L"GUI_LineScript");
 			_script->SetEvent(Vec4(m_vUnderLinePos1.x - 600.f, m_vUnderLinePos1.y, m_vUnderLinePos1.z, m_vUnderLinePos1.w),
 				m_vUnderLinePos1, 2000.f, GUI_STYLE::MOVERIGHT);
@@ -230,11 +229,22 @@ void SlotScript::Update()
 	if (KEY_TAP(KEY::J))
 	{
 		// 해당 slot 실행
-		/*wstring _wPath = PATH;
-		_wPath += L"\\Saved\\";*/
-
-
 		// 난이도 추가
+		RecordManager::GetInst()->CreateSaveFile(m_iCurSlot);
+
+		PlayerPref* _pref = RecordManager::GetInst()->GetCurrentPlayerPref();
+
+		if (_pref->_bTutorial == 0 && _pref->_ePlace == PLACE::TUTORIAL)
+		{
+			LevelMgr::GetInst()->SelectLevel(L"TutorialScene");
+		}
+		else
+		{
+			if (_pref->_ePlace == PLACE::TOWN)
+			{
+				LevelMgr::GetInst()->SelectLevel(L"TownScene");
+			}
+		}
 	}
 
 	if (KEY_TAP(KEY::ESC))

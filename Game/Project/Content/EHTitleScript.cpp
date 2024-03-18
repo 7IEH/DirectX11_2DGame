@@ -9,19 +9,22 @@
 
 #include <EHButton.h>
 
+#include "EHGUI_LineScript.h"
+
 TitleScript::TitleScript()
-	: m_bOpen(FALSE)
+	:m_iCurButton(0)
+	, m_bOpen(FALSE)
 	, m_PointLight1(nullptr)
 	, m_PointLight2(nullptr)
 	, m_StartLine(nullptr)
 	, m_RightDoor(nullptr)
 	, m_LeftDoor(nullptr)
 	, m_GameLogo(nullptr)
-	, m_StartButton(nullptr)
-	, m_OptionButton(nullptr)
-	, m_ExitButton(nullptr)
+	, m_pButtons{}
 	, m_TitleBG1(nullptr)
 	, m_TitleBG2(nullptr)
+	, m_pSelectIcon1(nullptr)
+	, m_pSelectIcon2(nullptr)
 	, m_fSpeed(600.f)
 	, m_fOpenTime(0.75f)
 	, m_fShake(10.f)
@@ -37,7 +40,6 @@ TitleScript::TitleScript()
 	, m_bStart(TRUE)
 	, m_Radius1(0.f)
 	, m_Radius2(0.f)
-	, m_iButtonPosition(nullptr)
 {
 	SetName(L"TitleScript");
 }
@@ -64,9 +66,12 @@ void TitleScript::Start()
 	m_TitleBG1 = _curLevel->FindObjectByName(L"TitleBG1");
 	m_TitleBG2 = _curLevel->FindObjectByName(L"TitleBG2");
 
-	m_StartButton = _curLevel->FindObjectByName(L"Start Button");
-	m_OptionButton = _curLevel->FindObjectByName(L"Option Button");
-	m_ExitButton = _curLevel->FindObjectByName(L"Exit Button");
+	m_pButtons.push_back(_curLevel->FindObjectByName(L"Start Button"));
+	m_pButtons.push_back(_curLevel->FindObjectByName(L"Option Button"));
+	m_pButtons.push_back(_curLevel->FindObjectByName(L"Exit Button"));
+
+	m_pSelectIcon1 = _curLevel->FindObjectByName(L"GameSelectIcon1");
+	m_pSelectIcon2 = _curLevel->FindObjectByName(L"GameSelectIcon2");
 
 	assert(m_PointLight1);
 	assert(m_PointLight2);
@@ -76,15 +81,17 @@ void TitleScript::Start()
 	assert(m_LeftDoor);
 	assert(m_GameLogo);
 
-	assert(m_StartButton);
-	assert(m_OptionButton);
-	assert(m_ExitButton);
+	for (size_t i = 0;i < 3;i++)
+	{
+		assert(m_pButtons[i]);
+	}
 
-	m_StartButton->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetColor(Vec4(255.f, 255.f, 255.f, 0.f));
-	m_OptionButton->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetColor(Vec4(255.f, 255.f, 255.f, 0.f));
-	m_ExitButton->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetColor(Vec4(255.f, 255.f, 255.f, 0.f));
+	assert(m_pSelectIcon1);
+	assert(m_pSelectIcon2);
 
-	m_iButtonPosition = m_StartButton;
+	m_pButtons[0]->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetColor(Vec4(255.f, 255.f, 255.f, 0.f));
+	m_pButtons[1]->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetColor(Vec4(255.f, 255.f, 255.f, 0.f));
+	m_pButtons[2]->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetColor(Vec4(255.f, 255.f, 255.f, 0.f));
 
 	m_TitleBG1->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->Play(L"TitleBG1Animation");
 	m_TitleBG2->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->Play(L"TitleBG2Animation");
@@ -96,6 +103,9 @@ void TitleScript::Start()
 	m_Radius1 = m_PointLight1->GetComponent<LIght2D>(COMPONENT_TYPE::LIGHT2D)->GetRadius();
 	m_Radius2 = m_PointLight2->GetComponent<LIght2D>(COMPONENT_TYPE::LIGHT2D)->GetRadius();
 
+	m_pSelectIcon1->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(COLOR, Vec4(1.f, 1.f, 1.f, 0.f));
+	m_pSelectIcon2->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(COLOR, Vec4(1.f, 1.f, 1.f, 0.f));
+
 	Object::FadeIn(m_StartLine, 1.f);
 
 	Object::FadeIn(m_RightDoor, 1.f);
@@ -103,6 +113,19 @@ void TitleScript::Start()
 
 	Object::FadeInLightRadius(m_PointLight1, m_Radius1, 1.f);
 	Object::FadeInLightRadius(m_PointLight2, m_Radius2, 1.f);
+
+	Vec4 _vSelectPos = m_pButtons[m_iCurButton]->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativePosition();
+
+	Vec4 _vSelectIcon1 = m_pSelectIcon1->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativePosition();
+	Vec4 _vSelectIcon2 = m_pSelectIcon2->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativePosition();
+
+	_vSelectIcon1.x = -100.f;
+	_vSelectIcon1.y = _vSelectPos.y;
+	m_pSelectIcon1->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->SetRelativePosition(_vSelectIcon1);
+
+	_vSelectIcon2.x = 100.f;
+	_vSelectIcon2.y = _vSelectPos.y;
+	m_pSelectIcon2->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->SetRelativePosition(_vSelectIcon2);
 }
 
 void TitleScript::Update()
@@ -176,9 +199,12 @@ void TitleScript::Update()
 			m_bThird = TRUE;
 			m_fAcctime = 0.f;
 
-			Object::FadeInText(m_StartButton, 1.f);
-			Object::FadeInText(m_OptionButton, 1.f);
-			Object::FadeInText(m_ExitButton, 1.f);
+			Object::FadeInText(m_pButtons[0], 1.f);
+			Object::FadeInText(m_pButtons[1], 1.f);
+			Object::FadeInText(m_pButtons[2], 1.f);
+
+			Object::FadeIn(m_pSelectIcon1, 1.f);
+			Object::FadeIn(m_pSelectIcon2, 1.f);
 		}
 
 		if (m_bThird)
@@ -263,9 +289,12 @@ void TitleScript::Update()
 			m_bThird = TRUE;
 			m_fAcctime = 0.f;
 
-			Object::FadeOutText(m_StartButton, 0.8f);
-			Object::FadeOutText(m_OptionButton, 0.8f);
-			Object::FadeOutText(m_ExitButton, 0.8f);
+			Object::FadeOutText(m_pButtons[0], 0.8f);
+			Object::FadeOutText(m_pButtons[1], 0.8f);
+			Object::FadeOutText(m_pButtons[2], 0.8f);
+
+			Object::FadeOut(m_pSelectIcon1, 0.8f);
+			Object::FadeOut(m_pSelectIcon2, 0.8f);
 		}
 
 		// 2. 두번째 Close
@@ -379,57 +408,72 @@ void TitleScript::SwitchMove()
 	if (!m_bOpen)
 		return;
 	// 버튼 이동
-	if (L"Start Button" == m_iButtonPosition->GetName())
+	if (KEY_TAP(KEY::W))
 	{
-		if (KEY_TAP(S))
+		if (0 < m_iCurButton)
 		{
-			m_iButtonPosition->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetColor(Vec4(255.f, 255.f, 255.f, 255.f));
-			m_iButtonPosition = m_OptionButton;
-		}
-	}
-	else if (L"Option Button" == m_iButtonPosition->GetName())
-	{
-		if (KEY_TAP(W))
-		{
-			m_iButtonPosition->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetColor(Vec4(255.f, 255.f, 255.f, 255.f));
-			m_iButtonPosition = m_StartButton;
-		}
+			m_iCurButton--;
 
-		if (KEY_TAP(S))
-		{
-			m_iButtonPosition->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetColor(Vec4(255.f, 255.f, 255.f, 255.f));
-			m_iButtonPosition = m_ExitButton;
-		}
-	}
-	else
-	{
-		if (KEY_TAP(W))
-		{
-			m_iButtonPosition->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetColor(Vec4(255.f, 255.f, 255.f, 255.f));
-			m_iButtonPosition = m_OptionButton;
+			Vec4 _vSelectPos = m_pButtons[m_iCurButton]->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativePosition();
+
+			Vec4 _vSelectIcon1 = m_pSelectIcon1->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativePosition();
+			Vec4 _vSelectIcon2 = m_pSelectIcon2->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativePosition();
+
+			_vSelectIcon1.x = -100.f;
+			_vSelectIcon1.y = _vSelectPos.y;
+			GUI_LineScript* _script = m_pSelectIcon1->GetScript<GUI_LineScript>(L"GUI_LineScript");
+			_script->SetEvent(Vec4(_vSelectIcon1.x - 50.f, _vSelectIcon1.y, _vSelectIcon1.z, _vSelectIcon1.w),
+				_vSelectIcon1, 500.f, GUI_STYLE::MOVERIGHT);
+
+			_vSelectIcon2.x = 100.f;
+			_vSelectIcon2.y = _vSelectPos.y;
+			_script = m_pSelectIcon2->GetScript<GUI_LineScript>(L"GUI_LineScript");
+			_script->SetEvent(Vec4(_vSelectIcon2.x + 50.f, _vSelectIcon2.y, _vSelectIcon2.z, _vSelectIcon2.w),
+				_vSelectIcon2, 500.f, GUI_STYLE::MOVELEFT);
 		}
 	}
 
-	// 해당 키가 선택된 경우
-	m_iButtonPosition->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetColor(Vec4(255.f, 0.f, 0.f, 255.f));
+	if (KEY_TAP(KEY::S))
+	{
+		if (2 > m_iCurButton)
+		{
+			m_iCurButton++;
+
+			Vec4 _vSelectPos = m_pButtons[m_iCurButton]->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativePosition();
+
+			Vec4 _vSelectIcon1 = m_pSelectIcon1->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativePosition();
+			Vec4 _vSelectIcon2 = m_pSelectIcon2->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativePosition();
+
+			_vSelectIcon1.x = -100.f;
+			_vSelectIcon1.y = _vSelectPos.y;
+			GUI_LineScript* _script = m_pSelectIcon1->GetScript<GUI_LineScript>(L"GUI_LineScript");
+			_script->SetEvent(Vec4(_vSelectIcon1.x - 50.f, _vSelectIcon1.y, _vSelectIcon1.z, _vSelectIcon1.w),
+				_vSelectIcon1, 500.f, GUI_STYLE::MOVERIGHT);
+
+			_vSelectIcon2.x = 100.f;
+			_vSelectIcon2.y = _vSelectPos.y;
+			_script = m_pSelectIcon2->GetScript<GUI_LineScript>(L"GUI_LineScript");
+			_script->SetEvent(Vec4(_vSelectIcon2.x + 50.f, _vSelectIcon2.y, _vSelectIcon2.z, _vSelectIcon2.w),
+				_vSelectIcon2, 500.f, GUI_STYLE::MOVELEFT);
+		}
+	}
 
 	// 해당 키가 선택될 경우
 	if (KEY_PRESSED(J))
 	{
-		if (m_StartButton == m_iButtonPosition)
+		if (0 == m_iCurButton)
 		{
-			// save load scene
 			LevelMgr::GetInst()->SelectLevel(L"SlotScene");
 		}
-		else if (m_OptionButton == m_iButtonPosition)
+		else if (1 == m_iCurButton)
 		{
-			// option scene
+
 		}
 		else
 		{
-			// exit
 			PostQuitMessage(0);
 		}
+
 	}
 }
 

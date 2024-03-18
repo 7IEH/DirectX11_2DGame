@@ -28,20 +28,11 @@ ImGUIMgr::ImGUIMgr()
 
 ImGUIMgr::~ImGUIMgr()
 {
-	map<string, UI*>::iterator iter = m_mapUI.begin();
-	for (;iter != m_mapUI.end();iter++)
-	{
-		if (iter->second != nullptr)
-		{
-			delete iter->second;
-			iter->second = nullptr;
-		}
-	}
-	m_mapUI.clear();
-
 	ImGui_ImplDX11_Shutdown();
 	ImGui_ImplWin32_Shutdown();
 	ImGui::DestroyContext();
+
+	ReleaseMap(m_mapUI);
 }
 
 HRESULT ImGUIMgr::Awake()

@@ -11,3 +11,4 @@
 #include "EHTestScript.h"
 #include "EHTitleScript.h"
 #include "EHTriggerScript.h"
+#include "EHTutorialScript.h"

@@ -61,3 +61,6 @@ GUI_SlotUnderLine2
 GUI_GameSelectIcon1Mat
 DefaultShader
 GUI_GameSelectIcon1
+TutorialBGMat1
+DefaultShader
+TutorialBG1

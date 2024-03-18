@@ -271,21 +271,6 @@
     <Filter Include="04. Manager\TileMgr">
       <UniqueIdentifier>{b2916552-366a-4e0f-b94d-85d4668ad6d7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="08. Asset\MeshData\Shader">
-      <UniqueIdentifier>{2fe5bf4a-0d09-4546-8bfc-83e1ffd8bcc5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="08. Asset\MeshData\Shader\GraphicShader">
-      <UniqueIdentifier>{9e950d5e-a076-4e4a-ae8f-637b4277a4dd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="08. Asset\MeshData\Shader\ComputeShader">
-      <UniqueIdentifier>{78311e68-82c8-4133-ba69-0862a8a5cd9c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="08. Asset\MeshData\Shader\ComputeShader\TestComputeShader">
-      <UniqueIdentifier>{1cc31d0b-7f3a-49df-9e4c-c291552b24ed}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="08. Asset\MeshData\Shader\ComputeShader\Particle">
-      <UniqueIdentifier>{d28e7459-0476-46db-b7d6-b956676c5e81}</UniqueIdentifier>
-    </Filter>
     <Filter Include="04. Manager\ImGUIMgr\UI\ProjectView">
       <UniqueIdentifier>{6818134c-45ef-4fe7-9f1c-d7d539b8d7f2}</UniqueIdentifier>
     </Filter>
@@ -330,6 +315,21 @@
     </Filter>
     <Filter Include="04. Manager\ImGUIMgr\UI\Utility\MaterialCreator">
       <UniqueIdentifier>{0c215907-6159-42ae-b3b1-885db6c9e193}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Asset\Shader">
+      <UniqueIdentifier>{2fe5bf4a-0d09-4546-8bfc-83e1ffd8bcc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Asset\Shader\GraphicShader">
+      <UniqueIdentifier>{9e950d5e-a076-4e4a-ae8f-637b4277a4dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Asset\Shader\ComputeShader">
+      <UniqueIdentifier>{78311e68-82c8-4133-ba69-0862a8a5cd9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Asset\Shader\ComputeShader\TestComputeShader">
+      <UniqueIdentifier>{1cc31d0b-7f3a-49df-9e4c-c291552b24ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Asset\Shader\ComputeShader\Particle">
+      <UniqueIdentifier>{d28e7459-0476-46db-b7d6-b956676c5e81}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -376,7 +376,7 @@
       <Filter>08. Asset\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="EHShader.h">
-      <Filter>08. Asset\MeshData\Shader</Filter>
+      <Filter>08. Asset\Shader</Filter>
     </ClInclude>
     <ClInclude Include="EHAsset.h">
       <Filter>08. Asset</Filter>
@@ -397,7 +397,7 @@
       <Filter>07. Component\Transform</Filter>
     </ClInclude>
     <ClInclude Include="EHGraphicShader.h">
-      <Filter>08. Asset\MeshData\Shader\GraphicShader</Filter>
+      <Filter>08. Asset\Shader\GraphicShader</Filter>
     </ClInclude>
     <ClInclude Include="EHMeshRenderer.h">
       <Filter>07. Component\Renderer\MeshRenderer</Filter>
@@ -607,13 +607,13 @@
       <Filter>04. Manager\TileMgr</Filter>
     </ClInclude>
     <ClInclude Include="EHComputeShader.h">
-      <Filter>08. Asset\MeshData\Shader\ComputeShader</Filter>
+      <Filter>08. Asset\Shader\ComputeShader</Filter>
     </ClInclude>
     <ClInclude Include="EHTestComputeShader.h">
-      <Filter>08. Asset\MeshData\Shader\ComputeShader\TestComputeShader</Filter>
+      <Filter>08. Asset\Shader\ComputeShader\TestComputeShader</Filter>
     </ClInclude>
     <ClInclude Include="EHParticleUpdate.h">
-      <Filter>08. Asset\MeshData\Shader\ComputeShader\Particle</Filter>
+      <Filter>08. Asset\Shader\ComputeShader\Particle</Filter>
     </ClInclude>
     <ClInclude Include="EHProjectView.h">
       <Filter>04. Manager\ImGUIMgr\UI\ProjectView</Filter>
@@ -696,7 +696,7 @@
       <Filter>06. GameObject</Filter>
     </ClCompile>
     <ClCompile Include="EHShader.cpp">
-      <Filter>08. Asset\MeshData\Shader</Filter>
+      <Filter>08. Asset\Shader</Filter>
     </ClCompile>
     <ClCompile Include="EHAsset.cpp">
       <Filter>08. Asset</Filter>
@@ -711,7 +711,7 @@
       <Filter>07. Component\Transform</Filter>
     </ClCompile>
     <ClCompile Include="EHGraphicShader.cpp">
-      <Filter>08. Asset\MeshData\Shader\GraphicShader</Filter>
+      <Filter>08. Asset\Shader\GraphicShader</Filter>
     </ClCompile>
     <ClCompile Include="EHMeshRenderer.cpp">
       <Filter>07. Component\Renderer\MeshRenderer</Filter>
@@ -912,13 +912,13 @@
       <Filter>04. Manager\TileMgr</Filter>
     </ClCompile>
     <ClCompile Include="EHComputeShader.cpp">
-      <Filter>08. Asset\MeshData\Shader\ComputeShader</Filter>
+      <Filter>08. Asset\Shader\ComputeShader</Filter>
     </ClCompile>
     <ClCompile Include="EHTestComputeShader.cpp">
-      <Filter>08. Asset\MeshData\Shader\ComputeShader\TestComputeShader</Filter>
+      <Filter>08. Asset\Shader\ComputeShader\TestComputeShader</Filter>
     </ClCompile>
     <ClCompile Include="EHParticleUpdate.cpp">
-      <Filter>08. Asset\MeshData\Shader\ComputeShader\Particle</Filter>
+      <Filter>08. Asset\Shader\ComputeShader\Particle</Filter>
     </ClCompile>
     <ClCompile Include="EHProjectView.cpp">
       <Filter>04. Manager\ImGUIMgr\UI\ProjectView</Filter>
@@ -989,13 +989,13 @@
       <Filter>ShaderCode\Util</Filter>
     </FxCompile>
     <FxCompile Include="setcolor.fx">
-      <Filter>08. Asset\MeshData\Shader\ComputeShader\TestComputeShader</Filter>
+      <Filter>08. Asset\Shader\ComputeShader\TestComputeShader</Filter>
     </FxCompile>
     <FxCompile Include="particle.fx">
       <Filter>ShaderCode\Render</Filter>
     </FxCompile>
     <FxCompile Include="particle_update.fx">
-      <Filter>08. Asset\MeshData\Shader\ComputeShader\Particle</Filter>
+      <Filter>08. Asset\Shader\ComputeShader\Particle</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

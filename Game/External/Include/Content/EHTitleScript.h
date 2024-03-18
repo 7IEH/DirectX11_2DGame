@@ -12,6 +12,8 @@ class TitleScript :
 	public Script
 {
 private:
+	int  m_iCurButton;
+
 	bool m_bOpen;
 	bool m_bStart;
 	bool m_bFirst;
@@ -27,12 +29,13 @@ private:
 	GameObject* m_LeftDoor;
 	GameObject* m_GameLogo;
 
-	GameObject* m_StartButton;
-	GameObject* m_OptionButton;
-	GameObject* m_ExitButton;
+	vector<GameObject*>m_pButtons;
 
 	GameObject* m_TitleBG1;
 	GameObject* m_TitleBG2;
+
+	GameObject* m_pSelectIcon1;
+	GameObject* m_pSelectIcon2;
 
 	float m_fOpenTime;
 	float m_fAcctime;
@@ -49,8 +52,6 @@ private:
 
 	float m_Radius1;
 	float m_Radius2;
-
-	GameObject* m_iButtonPosition;
 
 public:
 	void StartGame();

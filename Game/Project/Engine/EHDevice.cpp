@@ -103,6 +103,7 @@ HRESULT Device::CreateDevice()
 		HandleError(m_hWnd, L"Device Create Failed!", 1);
 		return E_FAIL;
 	}
+
 	return S_OK;
 }
 

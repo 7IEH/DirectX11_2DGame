@@ -58,3 +58,11 @@ GUI_SlotUnderLine2
 \\resource\\Title\\Slot\\GUI_SlotUnderline2.png
 GUI_GameSelectIcon1
 \\resource\\Title\\Slot\\GUI_SelectButton.png
+TutorialBG1
+\\resource\\Tutorial\\Tutorial.png
+IntroScene1-1
+\\resource\\Tutorial\\IntroScene1\\IntroScene1-1.png
+IntroScene1-2
+\\resource\\Tutorial\\IntroScene1\\IntroScene1-2.png
+IntroScene1-3
+\\resource\\Tutorial\\IntroScene1\\IntroScene1-3.png

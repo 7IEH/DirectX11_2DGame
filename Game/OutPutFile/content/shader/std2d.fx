@@ -19,13 +19,6 @@ struct VS_OUT
     float2 vUV : TEXCOORD;
 };
 
-RasterizerState WireframeRS
-{
-    FillMode = Wireframe;
-    CullMode = BACK;
-    FrontCounterClockwise = false;
-};
-
 VS_OUT VS_Std2D(VS_IN _in)
 {
     VS_OUT output = (VS_OUT) 0.f;

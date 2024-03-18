@@ -13,7 +13,6 @@ private:
 	ComPtr<ID3D11DeviceContext>				m_DeviceContext;
 
 	ComPtr<IDXGISwapChain>					m_SwapChain;
-
 	// RenderTarget Texture , RenderTarget View
 
 	Ptr<Sprite>								m_RTTexture;

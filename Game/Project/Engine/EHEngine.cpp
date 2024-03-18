@@ -17,6 +17,7 @@
 #include "EHDebugMgr.h"
 #include "EHAnimationMgr.h"
 #include <EHScriptMgr.h>
+#include <EHRecordManager.h>
 #include "EHFontMgr.h"
 
 #include "EHCamera.h"
@@ -32,7 +33,6 @@ Engine::Engine()
 
 Engine::~Engine()
 {
-
 }
 
 int Engine::Awake(Vec2 _vResolution, HWND _hWnd)
@@ -82,11 +82,12 @@ void Engine::AwakeManager()
 	LevelMgr::GetInst()->Awake();
 	RenderMgr::GetInst()->Awake();
 	FontMgr::GetInst()->Awake();
+	RecordManager::GetInst()->Awake();
 
 #ifdef _DEBUG
-	LevelMgr::GetInst()->SelectLevel(L"SlotScene");
+	LevelMgr::GetInst()->SelectLevel(L"TutorialScene");
 #else
-	LevelMgr::GetInst()->SelectLevel(L"SlotScene");
+	LevelMgr::GetInst()->SelectLevel(L"EnterScene");
 #endif
 
 	if (FALSE == ImGUIMgr::GetInst()->Awake())

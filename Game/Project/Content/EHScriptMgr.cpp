@@ -41,6 +41,7 @@ void ScriptMgr::Awake()
 	AddScript<TestScript>(L"TestScript");
 	AddScript<TitleScript>(L"TitleScript");
 	AddScript<TriggerScript>(L"TriggerScript");
+	AddScript<TutorialScript>(L"TutorialScript");
 	SaveScriptFile();
 }
 

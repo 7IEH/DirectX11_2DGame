@@ -5,11 +5,14 @@
 #include "EHTransform.h"
 
 #include "EHKeyMgr.h"
+#include <EHLevelMgr.h>
 
 #include "EHTimeMgr.h"
 
 #include "EHImGUIMgr.h"
 #include "EHAssetMgr.h"
+
+#include "EHRecordManager.h"
 
 PlayerScript::PlayerScript()
 	:m_Speed(200.f)
@@ -18,6 +21,14 @@ PlayerScript::PlayerScript()
 }
 
 PlayerScript::~PlayerScript()
+{
+}
+
+void PlayerScript::Awake()
+{
+}
+
+void PlayerScript::Start()
 {
 }
 

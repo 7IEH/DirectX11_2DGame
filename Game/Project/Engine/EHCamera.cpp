@@ -174,7 +174,7 @@ void Camera::Render()
 	{
 		if (_idx == (UINT)SHADER_DOMAIN::DOMAIN_POSTPROCESS)
 		{
-			PostRender(m_DomainSortingObjects[_idx]);
+			//PostRender(m_DomainSortingObjects[_idx]);
 		}
 		else
 		{

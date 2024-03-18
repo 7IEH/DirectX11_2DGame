@@ -9,3 +9,4 @@ EHSlotScript
 EHTestScript
 EHTitleScript
 EHTriggerScript
+EHTutorialScript

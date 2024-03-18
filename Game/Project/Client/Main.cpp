@@ -47,7 +47,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	// TODO: 여기에 코드를 입력합니다.
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	//_CrtSetBreakAlloc(721307);
+	//_CrtSetBreakAlloc(22328);
 
 	// 전역 문자열을 초기화합니다.
 	LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
@@ -90,6 +90,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 			Engine::GetInst()->Update();
 		}
 	}
+
+	ComPtr<ID3D11Debug>  debug;
+	Device::GetInst()->GetDevice()->QueryInterface(IID_PPV_ARGS(&debug));
+	debug->ReportLiveDeviceObjects(D3D11_RLDO_DETAIL);
 
 	return (int)msg.wParam;
 }

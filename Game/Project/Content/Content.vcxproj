@@ -175,6 +175,7 @@ call ScriptGenerator.exe</Command>
     <ClInclude Include="EHLight2DScript.h" />
     <ClInclude Include="EHOutLineScript.h" />
     <ClInclude Include="EHPlayerScript.h" />
+    <ClInclude Include="EHRecordManager.h" />
     <ClInclude Include="EHRoomManager.h" />
     <ClInclude Include="EHScriptMgr.h" />
     <ClInclude Include="EHSlotScript.h" />
@@ -182,6 +183,7 @@ call ScriptGenerator.exe</Command>
     <ClInclude Include="EHTitleScene.h" />
     <ClInclude Include="Content_enum.h" />
     <ClInclude Include="EHTitleScript.h" />
+    <ClInclude Include="EHTutorialScript.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="global.h" />
     <ClInclude Include="pch.h" />
@@ -200,12 +202,14 @@ call ScriptGenerator.exe</Command>
     <ClCompile Include="EHLight2DScript.cpp" />
     <ClCompile Include="EHOutLineScript.cpp" />
     <ClCompile Include="EHPlayerScript.cpp" />
+    <ClCompile Include="EHRecordManager.cpp" />
     <ClCompile Include="EHRoomManager.cpp" />
     <ClCompile Include="EHScriptMgr.cpp" />
     <ClCompile Include="EHSlotScript.cpp" />
     <ClCompile Include="EHTestScript.cpp" />
     <ClCompile Include="EHTitleScene.cpp" />
     <ClCompile Include="EHTitleScript.cpp" />
+    <ClCompile Include="EHTutorialScript.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
