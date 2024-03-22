@@ -7,6 +7,20 @@ enum class PLACE
 	None,
 };
 
+enum class Weapon
+{
+	OneHand,
+	TwoHand,
+	Spear,
+	None,
+};
+
+enum class SubWeapon
+{
+	Shield,
+	None,
+};
+
 struct PlayerPref
 {
 	PLACE	_ePlace;
@@ -14,6 +28,16 @@ struct PlayerPref
 	int		_iTime;
 	int		_bTutorial;
 	int		_iClear;
+
+	// 플레이어 정보
+	// 추가 할 때마다 실행코드도 고치기!
+	UINT		_iCurHp;
+	UINT		_iMaxHp;
+	UINT		_iMoney;
+	UINT		_iStrikingPower;
+	float		_fSpeed;
+	Weapon		_eWeapon;
+	SubWeapon	_eSubWeapon;
 };
 
 class RecordManager

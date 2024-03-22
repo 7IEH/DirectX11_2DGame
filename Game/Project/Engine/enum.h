@@ -172,7 +172,7 @@ enum class BUFFER_TYPE
 };
 
 // Asset Type
-enum class ASSET_TYPE 
+enum class ASSET_TYPE
 {
 	MESH,
 	SHADER,
@@ -218,8 +218,14 @@ enum class LAYER_TYPE
 	PLAYER,
 	MONSTER,
 	TRIGGER,
+	STRUCTURE_WALL_RIGHT,
+	STRUCTURE_WALL_LEFT,
+	STRUCTURE_WALL_TOP,
+	STRUCTURE_WALL_BOTTOM,
 	TILE,
 	PARTICLE,
+	UI,
+	STRUCTURE_OBSTACLE,
 	END,
 	NON_SELECT
 };
@@ -355,9 +361,9 @@ enum class DEBUG_SHAPE
 };
 
 // Map Generator Room Direction
-enum class DIR_ROOM 
+enum class DIR_ROOM
 {
-	RIGHT,	
+	RIGHT,
 	LEFT,
 	TOP,
 	BOTTOM,
@@ -416,8 +422,8 @@ enum class SHADER_DOMAIN
 enum class ANIMATION_UI
 {
 	CREATE
-	,EDIT
-	,END
+	, EDIT
+	, END
 };
 
 // Particle Module

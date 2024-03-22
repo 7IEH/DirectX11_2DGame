@@ -997,5 +997,8 @@
     <FxCompile Include="particle_update.fx">
       <Filter>08. Asset\Shader\ComputeShader\Particle</Filter>
     </FxCompile>
+    <FxCompile Include="player.hlsl">
+      <Filter>ShaderCode\Render</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

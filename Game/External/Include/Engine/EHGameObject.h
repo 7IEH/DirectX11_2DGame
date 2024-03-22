@@ -98,22 +98,22 @@ public:
 		return nullptr;
 	}
 
-	GameObject* GetParent() { return m_Parent; }
-	const vector<GameObject*>& GetChild() { return m_Childs; }
+	GameObject*					GetParent() { return m_Parent; }
+	const vector<GameObject*>&	GetChild() { return m_Childs; }
 
-	void AddChild(GameObject* _child);
-	int DisconnectWithParent();
-	int DisconnectWithLayer();
+	void						AddChild(GameObject* _child);
+	int							DisconnectWithParent();
+	int							DisconnectWithLayer();
 
-	void		SetDead(bool _dead) { m_Dead = _dead; }
-	bool		GetDead() { return m_Dead; }
+	void						SetDead(bool _dead) { m_Dead = _dead; }
+	bool						GetDead() { return m_Dead; }
 
-	void		SetPicking(bool _picking) { m_Picking = _picking; }
-	bool		GetPicking() { return m_Picking; }
+	void						SetPicking(bool _picking) { m_Picking = _picking; }
+	bool						GetPicking() { return m_Picking; }
 
-	int		GetIdx() { return m_Idx; }
+	int							GetIdx() { return m_Idx; }
 
-	void Enabled(bool _flag) { m_bEnabled = _flag; }
+	void						Enabled(bool _flag) { m_bEnabled = _flag; }
 public:
 	virtual void Awake();
 	virtual void Start();

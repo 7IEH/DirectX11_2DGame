@@ -6,17 +6,25 @@
 
 CollisionMatrix::CollisionMatrix()
 	:UI("CollisionMatrix", "##CollisionMatrix")
-	,m_CollisionMatrix{}
-	,m_MaxLength(0)
+	, m_CollisionMatrix{}
+	, m_MaxLength(0)
 {
-	m_LayerName.push_back("Camera");
-	m_LayerName.push_back("Light2D");
-	m_LayerName.push_back("BackGround");
-	m_LayerName.push_back("Player");
-	m_LayerName.push_back("Monster");
-	m_LayerName.push_back("Trigger");
-	m_LayerName.push_back("Tile");
-	m_LayerName.push_back("Particle");
+	m_LayerName.push_back("ESSENTAIL_CAMERA");
+	m_LayerName.push_back("ESSENTAIL_LIGHT");
+	m_LayerName.push_back("OBJECT_BG1");
+	m_LayerName.push_back("OBJECT_TEXT1");
+	m_LayerName.push_back("OBJECT_BG2");
+	m_LayerName.push_back("OBJECT_PLAYER");
+	m_LayerName.push_back("OBJECT_MONSTER");
+	m_LayerName.push_back("OBJECT_TRIGGER");
+	m_LayerName.push_back("OBJECT_STRUCTURE_WALL_RIGHT");
+	m_LayerName.push_back("OBJECT_STRUCTURE_WALL_LEFT");
+	m_LayerName.push_back("OBJECT_STRUCTURE_WALL_TOP");
+	m_LayerName.push_back("OBJECT_STRUCTURE_WALL_BOTTOM");
+	m_LayerName.push_back("OBJECT_TILE");
+	m_LayerName.push_back("OBJECT_PARTICLE");
+	m_LayerName.push_back("OBJECT_UI");
+	m_LayerName.push_back("OBJECT_OBSTACLE");
 }
 
 CollisionMatrix::~CollisionMatrix()
@@ -43,7 +51,7 @@ void CollisionMatrix::Render_Update()
 	{
 		for (int j = (int)LAYER_TYPE::END - 1;j >= 0;j--)
 		{
-			if (j == (int)LAYER_TYPE::END-1)
+			if (j == (int)LAYER_TYPE::END - 1)
 			{
 				ImGui::Text(" ");
 				ImGui::SameLine(135.f);

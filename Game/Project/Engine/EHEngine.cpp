@@ -87,9 +87,8 @@ void Engine::AwakeManager()
 #ifdef _DEBUG
 	LevelMgr::GetInst()->SelectLevel(L"TutorialScene");
 #else
-	LevelMgr::GetInst()->SelectLevel(L"EnterScene");
+	LevelMgr::GetInst()->SelectLevel(L"IntroScene");
 #endif
-
 	if (FALSE == ImGUIMgr::GetInst()->Awake())
 	{
 		HandleError(MAIN_HWND, L"ImGUI InitailizeError", 1);

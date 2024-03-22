@@ -53,7 +53,7 @@ void LevelMgr::Awake()
 		Level* _level = AddLevel<Level>(_levelName);
 		_level->Load(string(_entry.path().native().begin(), _entry.path().native().end()));
 	}
-	AddLevel<IntroLevel>(L"IntroLevel");
+	AddLevel<IntroLevel>(L"IntroScene");
 	if (m_CurLevel == nullptr)
 		return;
 }

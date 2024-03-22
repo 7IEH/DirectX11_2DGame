@@ -4,7 +4,9 @@
 #include <EHPathMgr.h>
 
 RecordManager::RecordManager()
-	:m_wSavePath{}
+	: m_wSavePath{}
+	, m_vPlayerPref{}
+	, m_iCurSlot(0)
 {
 	m_wSavePath = PATH;
 	m_wSavePath += L"\\saved\\";
@@ -52,6 +54,13 @@ void RecordManager::CreateSaveFile(int _iCurSlot)
 		m_vPlayerPref[_iCurSlot]->_iTime = 0;
 		m_vPlayerPref[_iCurSlot]->_vPos = Vec2(0.f, 0.f);
 		m_vPlayerPref[_iCurSlot]->_iClear = 0;
+		m_vPlayerPref[_iCurSlot]->_iCurHp = 100;
+		m_vPlayerPref[_iCurSlot]->_iMaxHp = 100;
+		m_vPlayerPref[_iCurSlot]->_iMoney = 0;
+		m_vPlayerPref[_iCurSlot]->_fSpeed = 300.f;
+		m_vPlayerPref[_iCurSlot]->_iStrikingPower = 10;
+		m_vPlayerPref[_iCurSlot]->_eWeapon = Weapon::Spear;
+		m_vPlayerPref[_iCurSlot]->_eSubWeapon = SubWeapon::None;
 
 		m_iCurSlot = _iCurSlot;
 		WriteFile(_iCurSlot);
@@ -116,6 +125,34 @@ void RecordManager::LoadFile(int _iCurSlot)
 		{
 			m_vPlayerPref[_iCurSlot]->_iClear = std::stoi(_line);
 		}
+		else if (5 == _idx)
+		{
+			m_vPlayerPref[_iCurSlot]->_iCurHp = std::stoi(_line);
+		}
+		else if (6 == _idx)
+		{
+			m_vPlayerPref[_iCurSlot]->_iMaxHp = std::stoi(_line);
+		}
+		else if (7 == _idx)
+		{
+			m_vPlayerPref[_iCurSlot]->_iMoney = std::stoi(_line);
+		}
+		else if (8 == _idx)
+		{
+			m_vPlayerPref[_iCurSlot]->_fSpeed = std::stof(_line);
+		}
+		else if (9 == _idx)
+		{
+			m_vPlayerPref[_iCurSlot]->_iStrikingPower = std::stoi(_line);
+		}
+		else if (10 == _idx)
+		{
+			m_vPlayerPref[_iCurSlot]->_eWeapon = Weapon(std::stoi(_line));
+		}
+		else if (11 == _idx)
+		{
+			m_vPlayerPref[_iCurSlot]->_eSubWeapon = SubWeapon(std::stoi(_line));
+		}
 		_idx++;
 	}
 
@@ -132,6 +169,13 @@ void RecordManager::WriteFile(int _iCurSlot)
 	_pFile << EH::WriteVector2(m_vPlayerPref[_iCurSlot]->_vPos) + '\n';
 	_pFile << std::to_string(m_vPlayerPref[_iCurSlot]->_iTime) + '\n';
 	_pFile << std::to_string(m_vPlayerPref[_iCurSlot]->_iClear) + '\n';
+	_pFile << std::to_string(m_vPlayerPref[_iCurSlot]->_iCurHp) + '\n';
+	_pFile << std::to_string(m_vPlayerPref[_iCurSlot]->_iMaxHp) + '\n';
+	_pFile << std::to_string(m_vPlayerPref[_iCurSlot]->_iMoney) + '\n';
+	_pFile << std::to_string(m_vPlayerPref[_iCurSlot]->_fSpeed) + '\n';
+	_pFile << std::to_string(m_vPlayerPref[_iCurSlot]->_iStrikingPower) + '\n';
+	_pFile << std::to_string(int(m_vPlayerPref[_iCurSlot]->_eWeapon)) + '\n';
+	_pFile << std::to_string(int(m_vPlayerPref[_iCurSlot]->_eSubWeapon)) + '\n';
 
 	_pFile.close();
 }

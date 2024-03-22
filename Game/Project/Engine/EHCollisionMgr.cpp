@@ -183,6 +183,9 @@ bool CollisionMgr::Box2DCollisionCheck(Collider* _colLeft, Collider* _colRight)
 	if (nullptr == _box2DLeft || nullptr == _box2DRight)
 		return FALSE;
 
+	if (!_box2DLeft->GetEnabled() || !_box2DRight->GetEnabled())
+		return FALSE;
+
 	Matrix _leftMat = _box2DLeft->GetOffsetMatrix();
 	Matrix _rightMat = _box2DRight->GetOffsetMatrix();
 
@@ -226,6 +229,9 @@ bool CollisionMgr::Circle2DCollisionCheck(Collider* _colLeft, Collider* _colRigh
 	CircleCollider2D* _circle2DRight = dynamic_cast<CircleCollider2D*>(_colRight);
 
 	if (nullptr == _circle2DLeft || nullptr == _circle2DRight)
+		return FALSE;
+
+	if (!_circle2DLeft->GetEnabled() || !_circle2DRight->GetEnabled())
 		return FALSE;
 
 	float _leftRadius = _circle2DLeft->GetRadius();

@@ -69,16 +69,13 @@ void IntroLevel::Start()
 
 void IntroLevel::Update()
 {
-	m_PlayTime += DT;
-
-	if (18.f <= m_PlayTime)
+	if (MCIWndGetLength(m_video) <= MCIWndGetPosition(m_video))
 	{
-		MCIWndStop(m_video);
 		MCIWndClose(m_video);
 		MCIWndDestroy(m_video);
 		SceneManager::LoadScene(L"EnterScene");
 		RenderMgr::GetInst()->SetRender(TRUE);
-		m_PlayTime = 0.f;
+		return;
 	}
 }
 

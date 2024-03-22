@@ -9,7 +9,10 @@
 #include "EHLevelMgr.h"
 
 TriggerScript::TriggerScript()
-	:m_TriggerType(TRIGGER_TYPE::END)
+	: m_TriggerType(TRIGGER_TYPE::END)
+	, m_Cam(nullptr)
+	, m_PlayerPos{}
+	, m_CamPos{}
 {
 	SetName(L"TriggerScript");
 }
@@ -29,7 +32,7 @@ void TriggerScript::OnTriggerEnter(Collider* _other)
 		return;
 
 	Transform* _playertr = _player->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
-	
+
 	switch (m_TriggerType)
 	{
 	case TRIGGER_TYPE::MOVE_TRIGGER:
@@ -54,7 +57,7 @@ void TriggerScript::OnTriggerEnter(Collider* _other)
 		}
 		// _other(camera move)
 	}
-		break;
+	break;
 	case TRIGGER_TYPE::END:
 		break;
 	default:

@@ -174,7 +174,7 @@ void Camera::Render()
 	{
 		if (_idx == (UINT)SHADER_DOMAIN::DOMAIN_POSTPROCESS)
 		{
-			//PostRender(m_DomainSortingObjects[_idx]);
+			PostRender(m_DomainSortingObjects[_idx]);
 		}
 		else
 		{
@@ -226,7 +226,7 @@ void Camera::Load(std::wifstream* _file)
 		}
 		else
 		{
-			m_LayerVisible = 0xffffffff;//(UINT)stoi(_line);
+			m_LayerVisible = (UINT)stoi(_line);
 		}
 	}
 }

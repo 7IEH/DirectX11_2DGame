@@ -61,19 +61,19 @@
     <Filter Include="02. Script\12. SceneScript">
       <UniqueIdentifier>{7b36700a-c0ff-4d9d-a162-256a1a2eea5d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Script\12. SceneScript\TitleScript">
-      <UniqueIdentifier>{b55f5c42-b562-4492-bf54-70f6347322ab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. Script\12. SceneScript\SlotScript">
-      <UniqueIdentifier>{73e27e41-13db-4d8b-8c50-9baec6ee0bd2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. Script\12. SceneScript\GUIScript">
       <UniqueIdentifier>{cb6b1023-5149-4e0d-9368-1350f4f159b3}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. Script\12. SceneScript\GUIScript\LineScript">
       <UniqueIdentifier>{67d8d39d-094f-4b1e-9e41-1085d9f09729}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Script\12. SceneScript\TutorialScript">
+    <Filter Include="02. Script\12. SceneScript\0. TitleScript">
+      <UniqueIdentifier>{b55f5c42-b562-4492-bf54-70f6347322ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\12. SceneScript\1. SlotScript">
+      <UniqueIdentifier>{73e27e41-13db-4d8b-8c50-9baec6ee0bd2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\12. SceneScript\2. TutorialScript">
       <UniqueIdentifier>{4a874ed1-9c6a-42c8-9c03-b199067f4244}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -115,7 +115,7 @@
       <Filter>02. Script\TestScript</Filter>
     </ClInclude>
     <ClInclude Include="EHTitleScript.h">
-      <Filter>02. Script\12. SceneScript\TitleScript</Filter>
+      <Filter>02. Script\12. SceneScript\0. TitleScript</Filter>
     </ClInclude>
     <ClInclude Include="EHPlayerScript.h">
       <Filter>02. Script\1. PlayerScript</Filter>
@@ -139,7 +139,7 @@
       <Filter>Default</Filter>
     </ClInclude>
     <ClInclude Include="EHSlotScript.h">
-      <Filter>02. Script\12. SceneScript\SlotScript</Filter>
+      <Filter>02. Script\12. SceneScript\1. SlotScript</Filter>
     </ClInclude>
     <ClInclude Include="EHGUI_LineScript.h">
       <Filter>02. Script\12. SceneScript\GUIScript\LineScript</Filter>
@@ -148,7 +148,7 @@
       <Filter>03. Util\RecordManager</Filter>
     </ClInclude>
     <ClInclude Include="EHTutorialScript.h">
-      <Filter>02. Script\12. SceneScript\TutorialScript</Filter>
+      <Filter>02. Script\12. SceneScript\2. TutorialScript</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -180,7 +180,7 @@
       <Filter>02. Script\TestScript</Filter>
     </ClCompile>
     <ClCompile Include="EHTitleScript.cpp">
-      <Filter>02. Script\12. SceneScript\TitleScript</Filter>
+      <Filter>02. Script\12. SceneScript\0. TitleScript</Filter>
     </ClCompile>
     <ClCompile Include="EHPlayerScript.cpp">
       <Filter>02. Script\1. PlayerScript</Filter>
@@ -201,7 +201,7 @@
       <Filter>03. Util\ScriptMgr</Filter>
     </ClCompile>
     <ClCompile Include="EHSlotScript.cpp">
-      <Filter>02. Script\12. SceneScript\SlotScript</Filter>
+      <Filter>02. Script\12. SceneScript\1. SlotScript</Filter>
     </ClCompile>
     <ClCompile Include="EHGUI_LineScript.cpp">
       <Filter>02. Script\12. SceneScript\GUIScript\LineScript</Filter>
@@ -210,7 +210,7 @@
       <Filter>03. Util\RecordManager</Filter>
     </ClCompile>
     <ClCompile Include="EHTutorialScript.cpp">
-      <Filter>02. Script\12. SceneScript\TutorialScript</Filter>
+      <Filter>02. Script\12. SceneScript\2. TutorialScript</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -73,50 +73,32 @@ Inspector::Inspector()
 			m_arrComUI[_idx]->SetCollapsing(TRUE);
 		}
 	}
+	
+	vector<string> _vLayerName; _vLayerName.clear();
+	_vLayerName.push_back("ESSENTAIL_CAMERA");
+	_vLayerName.push_back("ESSENTAIL_LIGHT");
+	_vLayerName.push_back("OBJECT_BG1");
+	_vLayerName.push_back("OBJECT_TEXT1");
+	_vLayerName.push_back("OBJECT_BG2");
+	_vLayerName.push_back("OBJECT_PLAYER");
+	_vLayerName.push_back("OBJECT_MONSTER");
+	_vLayerName.push_back("OBJECT_TRIGGER");
+	_vLayerName.push_back("OBJECT_STRUCTURE_WALL_RIGHT");
+	_vLayerName.push_back("OBJECT_STRUCTURE_WALL_LEFT");
+	_vLayerName.push_back("OBJECT_STRUCTURE_WALL_TOP");
+	_vLayerName.push_back("OBJECT_STRUCTURE_WALL_BOTTOM");
+	_vLayerName.push_back("OBJECT_TILE");
+	_vLayerName.push_back("OBJECT_PARTICLE");
+	_vLayerName.push_back("OBJECT_UI");
+	_vLayerName.push_back("OBJECT_OBSTACLE");
 
-	m_LayerByName.insert(make_pair(LAYER_TYPE::CAMERA, "Camera"));
-	m_LayerByName.insert(make_pair(LAYER_TYPE::LIGHT2D, "Light"));
-	m_LayerByName.insert(make_pair(LAYER_TYPE::BACKGROUND1, "BackGround1"));
-	m_LayerByName.insert(make_pair(LAYER_TYPE::STARTTEXT, "StartText"));
-	m_LayerByName.insert(make_pair(LAYER_TYPE::BACKGROUND2, "BackGround2"));
-	m_LayerByName.insert(make_pair(LAYER_TYPE::PLAYER, "Player"));
-	m_LayerByName.insert(make_pair(LAYER_TYPE::MONSTER, "Monster"));
-	m_LayerByName.insert(make_pair(LAYER_TYPE::TRIGGER, "Trigger"));
-	m_LayerByName.insert(make_pair(LAYER_TYPE::TILE, "Tile"));
-	m_LayerByName.insert(make_pair(LAYER_TYPE::PARTICLE, "Particle"));
-
-	m_NameByLayer.insert(make_pair("Camera", LAYER_TYPE::CAMERA));
-	m_NameByLayer.insert(make_pair("Light", LAYER_TYPE::LIGHT2D));
-	m_NameByLayer.insert(make_pair("BackGround1", LAYER_TYPE::BACKGROUND1));
-	m_NameByLayer.insert(make_pair("StartText", LAYER_TYPE::STARTTEXT));
-	m_NameByLayer.insert(make_pair("BackGround2", LAYER_TYPE::BACKGROUND2));
-	m_NameByLayer.insert(make_pair("Player", LAYER_TYPE::PLAYER));
-	m_NameByLayer.insert(make_pair("Monster", LAYER_TYPE::MONSTER));
-	m_NameByLayer.insert(make_pair("Trigger", LAYER_TYPE::TRIGGER));
-	m_NameByLayer.insert(make_pair("Tile", LAYER_TYPE::TILE));
-	m_NameByLayer.insert(make_pair("Particle", LAYER_TYPE::PARTICLE));
-
-	m_LayerSelect.insert(make_pair("Camera", FALSE));
-	m_LayerSelect.insert(make_pair("Light", FALSE));
-	m_LayerSelect.insert(make_pair("BackGround1", FALSE));
-	m_LayerSelect.insert(make_pair("StartText", FALSE));
-	m_LayerSelect.insert(make_pair("BackGround2", FALSE));
-	m_LayerSelect.insert(make_pair("Player", FALSE));
-	m_LayerSelect.insert(make_pair("Monster", FALSE));
-	m_LayerSelect.insert(make_pair("Trigger", FALSE));
-	m_LayerSelect.insert(make_pair("Tile", FALSE));
-	m_LayerSelect.insert(make_pair("Particle", FALSE));
-
-	m_LayerName.push_back("Camera");
-	m_LayerName.push_back("Light");
-	m_LayerName.push_back("BackGround1");
-	m_LayerName.push_back("StartText");
-	m_LayerName.push_back("BackGround2");
-	m_LayerName.push_back("Player");
-	m_LayerName.push_back("Monster");
-	m_LayerName.push_back("Trigger");
-	m_LayerName.push_back("Tile");
-	m_LayerName.push_back("Particle");
+	for (UINT i = 0;i < (UINT)LAYER_TYPE::END;i++)
+	{
+		m_LayerByName.insert(make_pair(LAYER_TYPE(i), _vLayerName[i]));
+		m_NameByLayer.insert(make_pair(_vLayerName[i], LAYER_TYPE(i)));
+		m_LayerSelect.insert(make_pair(_vLayerName[i], FALSE));
+		m_LayerName.push_back(_vLayerName[i]);
+	}
 }
 
 Inspector::~Inspector()

@@ -121,7 +121,7 @@ void Level::SetCamera()
 			continue;
 
 		_cam->SetCameraType(_cam->GetCameraType());
-		_cam->AllVisibleSet(TRUE);
+		//_cam->AllVisibleSet(TRUE);
 	}
 }
 
