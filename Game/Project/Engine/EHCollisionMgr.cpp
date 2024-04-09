@@ -85,7 +85,7 @@ void CollisionMgr::CollisionLayer(UINT _left, UINT _right)
 
 		for (;j < _rightObj.size();j++)
 		{
-			if (nullptr == _rightObj[i]->GetComponent<Collider>(COMPONENT_TYPE::COLLIDER2D))
+			if (nullptr == _rightObj[j]->GetComponent<Collider>(COMPONENT_TYPE::COLLIDER2D))
 				continue;
 
 			CollisionID id = {};

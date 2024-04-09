@@ -13,6 +13,7 @@ struct EHTask
 	UINT_PTR  Param_1;
 	UINT_PTR  Param_2;
 	UINT_PTR  Param_3;
+	INT_PTR	  Param_4;
 };
 
 // Vertex Struct
@@ -167,9 +168,10 @@ struct tGlobalData
 	Vec2	_RenderResolution;
 	float	_Dt;
 	float	_AccTime;
+	float	_AccTime2;
+	float	_AccTime3;
 	int		_Light2DSize;
 	int		_Light3DSize;
-	Vec2	padding;
 };
 
 // TilePaletteInfo

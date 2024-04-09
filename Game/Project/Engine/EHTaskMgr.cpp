@@ -94,6 +94,30 @@ void TaskMgr::Update()
 			m_FadeTasks.push_back(_effect);
 		}
 		break;
+		case TASK_TYPE::FADE_IN_LIGHT_AMBIENT:
+		{
+			Light_Effect _effect = {};
+			_effect._tTask = TASK_TYPE::FADE_IN_LIGHT_AMBIENT;
+			_effect._fAcctime = 0.f;
+			_effect._pObject = (GameObject*)m_Tasks[i].Param_1;
+			_effect._fMaxTime = (float)m_Tasks[i].Param_2;
+			_effect._vColor = _effect._pObject->GetComponent<LIght2D>(COMPONENT_TYPE::LIGHT2D)->GetAmbient();
+
+			_effect._pObject->GetComponent<LIght2D>(COMPONENT_TYPE::LIGHT2D)->SetColor(Vec4(0.f, 0.f, 0.f, 1.f));
+			m_AmbientTasks.push_back(_effect);
+		}
+		break;
+		case TASK_TYPE::FADE_OUT_LIGHT_AMBIENT:
+		{
+			Light_Effect _effect = {};
+			_effect._tTask = TASK_TYPE::FADE_OUT_LIGHT_AMBIENT;
+			_effect._fAcctime = 0.f;
+			_effect._pObject = (GameObject*)m_Tasks[i].Param_1;
+			_effect._fMaxTime = (float)m_Tasks[i].Param_2;
+			_effect._vColor = _effect._pObject->GetComponent<LIght2D>(COMPONENT_TYPE::LIGHT2D)->GetAmbient();
+			m_AmbientTasks.push_back(_effect);
+		}
+		break;
 		case TASK_TYPE::FADE_IN_LIGHT_COLOR:
 		{
 			Light_Effect _effect = {};
@@ -163,6 +187,85 @@ void TaskMgr::Update()
 			m_FontTasks.push_back(_effect);
 		}
 		break;
+		case TASK_TYPE::MOVE_UP:
+		{
+			Move_Effect _effect = {};
+			_effect._tTask = TASK_TYPE::MOVE_UP;
+			_effect._pObject = (GameObject*)m_Tasks[i].Param_1;
+			_effect._fDest = (float)m_Tasks[i].Param_4;
+			_effect._fSpeed = (float)m_Tasks[i].Param_3;
+			m_MoveTasks.push_back(_effect);
+		}
+		break;
+		case TASK_TYPE::MOVE_DOWN:
+		{
+			Move_Effect _effect = {};
+			_effect._tTask = TASK_TYPE::MOVE_DOWN;
+			_effect._pObject = (GameObject*)m_Tasks[i].Param_1;
+			_effect._fDest = (float)m_Tasks[i].Param_4;
+			_effect._fSpeed = (float)m_Tasks[i].Param_3;
+			m_MoveTasks.push_back(_effect);
+		}
+		break;
+		case TASK_TYPE::MOVE_RIGHT:
+		{
+			Move_Effect _effect = {};
+			_effect._tTask = TASK_TYPE::MOVE_RIGHT;
+			_effect._pObject = (GameObject*)m_Tasks[i].Param_1;
+			_effect._fDest = (float)m_Tasks[i].Param_4;
+			_effect._fSpeed = (float)m_Tasks[i].Param_3;
+			m_MoveTasks.push_back(_effect);
+		}
+		break;
+		case TASK_TYPE::MOVE_LEFT:
+		{
+			Move_Effect _effect = {};
+			_effect._tTask = TASK_TYPE::MOVE_LEFT;
+			_effect._pObject = (GameObject*)m_Tasks[i].Param_1;
+			_effect._fDest = (float)m_Tasks[i].Param_4;
+			_effect._fSpeed = (float)m_Tasks[i].Param_3;
+			m_MoveTasks.push_back(_effect);
+		}
+		break;
+		case TASK_TYPE::SHAKE_EFFECT:
+		{
+			Shake_Effect _effect = {};
+			_effect._pObject = LevelMgr::GetInst()->GetCurLevel()->FindObjectByName(L"MainCamera");
+			_effect._vOriginPos = _effect._pObject->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativePosition();
+			_effect._fTime = (float)m_Tasks[i].Param_1;
+			_effect._fSpeed = (float)m_Tasks[i].Param_2;
+			_effect._fDitance = (float)m_Tasks[i].Param_3;
+			m_ShakeTasks.push_back(_effect);
+		}
+		break;
+		case TASK_TYPE::GROW_EFFECT:
+		{
+			Scale_Effect _effect = {};
+			_effect._Type = TASK_TYPE::GROW_EFFECT;
+			_effect._pObject = (GameObject*)m_Tasks[i].Param_1;
+			Vec4 _vScale = _effect._pObject->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativeScale();
+			_vScale.x = (float)m_Tasks[i].Param_2;
+			_vScale.y = (float)m_Tasks[i].Param_2;
+			_effect._vScale = _vScale;
+			_effect._fSpeed = (float)m_Tasks[i].Param_2;
+
+			m_ScaleTasks.push_back(_effect);
+		}
+		break;
+		case TASK_TYPE::DECREASE_EFFECT:
+		{
+			Scale_Effect _effect = {};
+			_effect._Type = TASK_TYPE::DECREASE_EFFECT;
+			_effect._pObject = (GameObject*)m_Tasks[i].Param_1;
+			Vec4 _vScale = _effect._pObject->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativeScale();
+			_vScale.x = (float)m_Tasks[i].Param_2;
+			_vScale.y = (float)m_Tasks[i].Param_2;
+			_effect._vScale = _vScale;
+			_effect._fSpeed = (float)m_Tasks[i].Param_2;
+
+			m_ScaleTasks.push_back(_effect);
+		}
+		break;
 		case TASK_TYPE::DISCONNECT_PARENT:
 			break;
 		default:
@@ -174,6 +277,10 @@ void TaskMgr::Update()
 	FadeUpdate();
 	LightUpdate();
 	FontUpdate();
+	MoveUpdate();
+	ShakeUpdate();
+	ScaleUpdate();
+	AmbientUpdate();
 }
 
 void TaskMgr::FadeUpdate()
@@ -279,6 +386,52 @@ void TaskMgr::LightUpdate()
 	}
 }
 
+void TaskMgr::AmbientUpdate()
+{
+	vector<Light_Effect>::iterator iter = m_AmbientTasks.begin();
+	for (;iter != m_AmbientTasks.end();)
+	{
+		Vec4 _ambientColor = Vec4(0.f, 0.f, 0.f, 1.f);
+		float _dt = DT;
+		if (_dt >= 1.f)
+		{
+			return;
+		}
+		iter->_fAcctime += _dt;
+
+		float _fRatio = iter->_fAcctime / iter->_fMaxTime;
+		if (_fRatio >= 1.f)
+		{
+			_fRatio = 1.f;
+		}
+
+		if (iter->_tTask == TASK_TYPE::FADE_IN_LIGHT_AMBIENT)
+		{
+			_ambientColor.x = _fRatio * iter->_vColor.x;
+			_ambientColor.y = _fRatio * iter->_vColor.y;
+			_ambientColor.z = _fRatio * iter->_vColor.z;
+
+			iter->_pObject->GetComponent<LIght2D>(COMPONENT_TYPE::LIGHT2D)->SetAmbient(_ambientColor);
+		}
+		else if (iter->_tTask == TASK_TYPE::FADE_OUT_LIGHT_AMBIENT)
+		{
+			_ambientColor.x = iter->_vColor.x - (_fRatio * iter->_vColor.x);
+			_ambientColor.y = iter->_vColor.y - (_fRatio * iter->_vColor.y);
+			_ambientColor.z = iter->_vColor.z - (_fRatio * iter->_vColor.z);
+			iter->_pObject->GetComponent<LIght2D>(COMPONENT_TYPE::LIGHT2D)->SetAmbient(_ambientColor);
+		}
+
+		if (_fRatio >= 1.f)
+		{
+			iter = m_AmbientTasks.erase(iter);
+		}
+		else
+		{
+			iter++;
+		}
+	}
+}
+
 void TaskMgr::FontUpdate()
 {
 	vector<Fade_Effect>::iterator iter = m_FontTasks.begin();
@@ -322,6 +475,155 @@ void TaskMgr::FontUpdate()
 		else
 		{
 			iter++;
+		}
+	}
+}
+
+void TaskMgr::MoveUpdate()
+{
+	vector<Move_Effect>::iterator iter = m_MoveTasks.begin();
+	for (;iter != m_MoveTasks.end();)
+	{
+		Transform* _pTr = iter->_pObject->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
+		Vec4 _vPos = _pTr->GetRelativePosition();
+
+		if (TASK_TYPE::MOVE_UP == iter->_tTask)
+		{
+			_vPos.y += iter->_fSpeed * DT;
+
+			if (_vPos.y >= iter->_fDest)
+			{
+				_vPos.y = iter->_fDest;
+				iter = m_MoveTasks.erase(iter);
+			}
+			else
+			{
+				iter++;
+			}
+		}
+		else if (TASK_TYPE::MOVE_DOWN == iter->_tTask)
+		{
+			float _distance = iter->_fSpeed * DT;
+			_vPos.y -= iter->_fSpeed * DT;
+
+			if (_vPos.y <= iter->_fDest)
+			{
+				_vPos.y = iter->_fDest;
+				iter = m_MoveTasks.erase(iter);
+			}
+			else
+			{
+				iter++;
+			}
+		}
+		else if (TASK_TYPE::MOVE_LEFT == iter->_tTask)
+		{
+			_vPos.x -= iter->_fSpeed * DT;
+
+			if (_vPos.x <= iter->_fDest)
+			{
+				_vPos.x = iter->_fDest;
+				iter = m_MoveTasks.erase(iter);
+			}
+			else
+			{
+				iter++;
+			}
+		}
+		else if (TASK_TYPE::MOVE_RIGHT == iter->_tTask)
+		{
+			_vPos.x += iter->_fSpeed * DT;
+
+			if (_vPos.x >= iter->_fDest)
+			{
+				_vPos.x = iter->_fDest;
+				iter = m_MoveTasks.erase(iter);
+			}
+			else
+			{
+				iter++;
+			}
+		}
+		_pTr->SetRelativePosition(_vPos);
+	}
+}
+
+void TaskMgr::ShakeUpdate()
+{
+	vector<Shake_Effect>::iterator iter = m_ShakeTasks.begin();
+
+	for (;iter != m_ShakeTasks.end();)
+	{
+		iter->_fAcctime += DT;
+
+		Vec4 _vPos = iter->_pObject->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativePosition();
+
+		_vPos.x += cosf(iter->_fAcctime * iter->_fSpeed) * iter->_fDitance;
+		_vPos.y -= sinf(iter->_fAcctime * iter->_fSpeed) * iter->_fDitance;
+
+		iter->_pObject->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->SetRelativePosition(_vPos);
+
+		if (iter->_fTime <= iter->_fAcctime)
+		{
+			iter->_pObject->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)
+				->SetRelativePosition(iter->_vOriginPos);
+
+			iter = m_ShakeTasks.erase(iter);
+		}
+		else
+		{
+			iter++;
+		}
+	}
+}
+
+void TaskMgr::ScaleUpdate()
+{
+	vector<Scale_Effect>::iterator iter = m_ScaleTasks.begin();
+
+	for (;iter != m_ScaleTasks.end();)
+	{
+		if (TASK_TYPE::GROW_EFFECT == iter->_Type)
+		{
+			Transform* _pTr = iter->_pObject->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
+			Vec4 _vScale = _pTr->GetRelativeScale();
+
+			_vScale.x += DT * iter->_fSpeed;
+			_vScale.y += DT * iter->_fSpeed;
+
+			if (iter->_vScale.x <= _vScale.x)
+			{
+				_vScale.x = iter->_vScale.x;
+				_vScale.y = iter->_vScale.y;
+
+				iter = m_ScaleTasks.erase(iter);
+			}
+			else
+			{
+				iter++;
+			}
+			_pTr->SetRelativeScale(_vScale);
+		}
+		else
+		{
+			Transform* _pTr = iter->_pObject->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
+			Vec4 _vScale = _pTr->GetRelativeScale();
+
+			_vScale.x -= DT * iter->_fSpeed;
+			_vScale.y -= DT * iter->_fSpeed;
+
+			if (iter->_vScale.x >= _vScale.x)
+			{
+				_vScale.x = iter->_vScale.x;
+				_vScale.y = iter->_vScale.y;
+
+				iter = m_ScaleTasks.erase(iter);
+			}
+			else
+			{
+				iter++;
+			}
+			_pTr->SetRelativeScale(_vScale);
 		}
 	}
 }

@@ -28,6 +28,12 @@ enum class TASK_TYPE
 
 	// Param1 : Object Address Param2 : Time
 	FADE_OUT,
+	
+	// Param1 : Object Address Param2 : Time
+	FADE_IN_LIGHT_AMBIENT,
+
+	// Param1 : Object Address Param2 : Time
+	FADE_OUT_LIGHT_AMBIENT,
 
 	// Param1 : Object Address Param2 : Time
 	FADE_IN_LIGHT_COLOR,
@@ -45,7 +51,28 @@ enum class TASK_TYPE
 	FADE_IN_TEXT_COLOR,
 
 	// Param1 : Object Address Param2 : Time
-	FADE_OUT_TEXT_COLOR
+	FADE_OUT_TEXT_COLOR,
+
+	// Param1 : Object Address Param2 : Dest Param3 : Speed
+	MOVE_UP,
+
+	// Param1 : Object Address Param2 : Dest Param3 : Speed
+	MOVE_DOWN,
+
+	// Param1 : Object Address Param2 : Dest Param3 : Speed
+	MOVE_RIGHT,
+
+	// Param1 : Object Address Param2 : Dest Param3 : Speed
+	MOVE_LEFT,
+
+	// Param1 : Object Address
+	SHAKE_EFFECT,
+
+	// Param1 : Object Address Param2 : Scale Param3 : Speed
+	GROW_EFFECT,
+
+	// Param1 : Object Address Param2 : Scale Param3 : Speed
+	DECREASE_EFFECT,
 };
 
 // Key Type
@@ -208,6 +235,10 @@ enum class CONSTANT_TYPE
 };
 
 // Layer Type
+// ImGuI
+// 1. Inspector 확인
+// 2. CollisionMatrix 확인
+// 3. Camera Visible 확인
 enum class LAYER_TYPE
 {
 	CAMERA,
@@ -225,7 +256,10 @@ enum class LAYER_TYPE
 	TILE,
 	PARTICLE,
 	UI,
-	STRUCTURE_OBSTACLE,
+	STRUCTURE_OBSTACLE_HOLE,
+	STRUCTURE_OBSTACLE_ROCK,
+	PLAYER_PROJECTILE,
+	ENEMY_PROJECTILE,
 	END,
 	NON_SELECT
 };
@@ -438,4 +472,13 @@ enum class PARTICLE_MODULE
 	COLOR_OVER_LIFETIME,
 
 	END,
+};
+
+enum class Dir
+{
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT,
+	None,
 };

@@ -119,6 +119,9 @@ void ParticleSystem::LateUpdate()
 
 void ParticleSystem::Render()
 {
+	if (!GetIsRender())
+		return;
+
 	Transform* _tr = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
 	if (nullptr == _tr)
 		return;

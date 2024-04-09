@@ -39,6 +39,24 @@ void Object::FadeOut(GameObject* _target, float _time)
 	TaskMgr::GetInst()->AddTask(_task);
 }
 
+void Object::FadeInLightAmbient(GameObject* _target, float _time)
+{
+	EHTask _task = {};
+	_task._Type = TASK_TYPE::FADE_IN_LIGHT_AMBIENT;
+	_task.Param_1 = (UINT_PTR)_target;
+	_task.Param_2 = (UINT_PTR)_time;
+	TaskMgr::GetInst()->AddTask(_task);
+}
+
+void Object::FadeOutLightAmbient(GameObject* _target, float _time)
+{
+	EHTask _task = {};
+	_task._Type = TASK_TYPE::FADE_OUT_LIGHT_AMBIENT;
+	_task.Param_1 = (UINT_PTR)_target;
+	_task.Param_2 = (UINT_PTR)_time;
+	TaskMgr::GetInst()->AddTask(_task);
+}
+
 void Object::FadeInLightColor(GameObject* _target, float _time)
 {
 	EHTask _task = {};
@@ -92,6 +110,66 @@ void Object::FadeOutText(GameObject* _target, float _time)
 	_task._Type = TASK_TYPE::FADE_OUT_TEXT_COLOR;
 	_task.Param_1 = (UINT_PTR)_target;
 	_task.Param_2 = (UINT_PTR)_time;
+	TaskMgr::GetInst()->AddTask(_task);
+}
+
+void Object::MoveUp(GameObject* _target, float _dest, float _speed)
+{
+	EHTask _task = {};
+	_task._Type = TASK_TYPE::MOVE_UP;
+	_task.Param_1 = (UINT_PTR)_target;
+	_task.Param_4 = (INT_PTR)_dest;
+	_task.Param_3 = (UINT_PTR)_speed;
+	TaskMgr::GetInst()->AddTask(_task);
+}
+
+void Object::MoveDown(GameObject* _target, float _dest, float _speed)
+{
+	EHTask _task = {};
+	_task._Type = TASK_TYPE::MOVE_DOWN;
+	_task.Param_1 = (UINT_PTR)_target;
+	_task.Param_4 = (INT_PTR)_dest;
+	_task.Param_3 = (UINT_PTR)_speed;
+	TaskMgr::GetInst()->AddTask(_task);
+}
+
+void Object::MoveRight(GameObject* _target, float _dest, float _speed)
+{
+	EHTask _task = {};
+	_task._Type = TASK_TYPE::MOVE_RIGHT;
+	_task.Param_1 = (UINT_PTR)_target;
+	_task.Param_4 = (INT_PTR)_dest;
+	_task.Param_3 = (UINT_PTR)_speed;
+	TaskMgr::GetInst()->AddTask(_task);
+}
+
+void Object::MoveLeft(GameObject* _target, float _dest, float _speed)
+{
+	EHTask _task = {};
+	_task._Type = TASK_TYPE::MOVE_LEFT;
+	_task.Param_1 = (UINT_PTR)_target;
+	_task.Param_4 = (INT_PTR)_dest;
+	_task.Param_3 = (UINT_PTR)_speed;
+	TaskMgr::GetInst()->AddTask(_task);
+}
+
+void Object::GrowEffect(GameObject* _target, float _scale, float _speed)
+{
+	EHTask _task = {};
+	_task._Type = TASK_TYPE::GROW_EFFECT;
+	_task.Param_1 = (UINT_PTR)_target;
+	_task.Param_2 = (UINT_PTR)_scale;
+	_task.Param_3 = (UINT_PTR)_speed;
+	TaskMgr::GetInst()->AddTask(_task);
+}
+
+void Object::DecreaseEffect(GameObject* _target, float _scale, float _speed)
+{
+	EHTask _task = {};
+	_task._Type = TASK_TYPE::DECREASE_EFFECT;
+	_task.Param_1 = (UINT_PTR)_target;
+	_task.Param_2 = (UINT_PTR)_scale;
+	_task.Param_3 = (UINT_PTR)_speed;
 	TaskMgr::GetInst()->AddTask(_task);
 }
 
@@ -162,6 +240,17 @@ void Object::DrawDebugCircle(Vec3 _vWorldPos, float _fRadius, Vec3 _Color, bool 
 	info.fDuration = _Duration;
 
 	RenderMgr::GetInst()->AddDebugShapeInfo(info);
+}
+
+void Object::ShakingEffect(float _fTime, float _fSpeed, float _fDistance)
+{
+	EHTask _task = {};
+	_task._Type = TASK_TYPE::SHAKE_EFFECT;
+	_task.Param_1 = (UINT_PTR)_fTime;
+	_task.Param_2 = (UINT_PTR)_fSpeed;
+	_task.Param_3 = (UINT_PTR)_fDistance;
+
+	TaskMgr::GetInst()->AddTask(_task);
 }
 
 void SceneManager::LoadScene(const wstring& _sceneName)
@@ -392,7 +481,7 @@ void EH::InputVector3(wstring _line, OUT Vec3& _output)
 	int _next = 0;
 	wstring _temp = L"";
 
-	for (int j = 0;j < 2;j++)
+	for (int j = 0;j < 3;j++)
 	{
 		_next = (int)_line.find(L" ", _prev + 1);
 		_temp = _line.substr(_prev, _next - _prev);

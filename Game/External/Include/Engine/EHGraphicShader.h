@@ -42,12 +42,13 @@ public:
 	SHADER_DOMAIN GetDomain() { return m_Domain; }
 
 public:
-	void Default_Create(wstring& _shaderPath, string& _vsEntry, string& _psEntry);
-	void Custom_Create(wstring& _shaderPath, string& _gsEntry, string& _huEntry, string& _gmEntry);
+	void Default_Create(const wstring& _shaderPath, const string& _vsEntry, const string& _psEntry);
+	void Default_Create(const wstring& _pVSShaderPath, const wstring& _pPSShaderPath, const string& _vsEntry, const string& _psEntry);
+	void Custom_Create(const wstring& _shaderPath, const string& _gsEntry, const string& _huEntry, const string& _gmEntry);
 	virtual HRESULT UpdateData()override;
 
 private:
-	void CreateBlobFile(SHADER_TYPE _type, wstring& _path, string& _entry);
+	void CreateBlobFile(SHADER_TYPE _type, const wstring& _path, const string& _entry);
 	void CreateShader(SHADER_TYPE _type);
 	void CreateLayOut();
 	void SetShader(SHADER_TYPE _type);

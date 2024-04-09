@@ -56,16 +56,59 @@ void SlotScript::Start()
 	_pSlotPanel = _pCurlevel->FindObjectByName(L"GameSlotPanel5");
 	m_Slots.push_back(std::make_pair(_pSlot, _pSlotPanel));
 
+	m_pMenuText1 = _pCurlevel->FindObjectByName(L"GUI_Slot_Menu_Text1");
+	m_pMenuText2 = _pCurlevel->FindObjectByName(L"GUI_Slot_Menu_Text2");
+
+	for (int i = 1;i <= 5;i++)
+	{
+		m_vSlotText1.push_back(_pCurlevel->FindObjectByName(L"GUI_Slot_Button_Text"+std::to_wstring(i)));
+		m_vSlotText1[i - 1]->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetColor(Vec4(236, 221.f, 192.f, 255.f));
+		m_vPos.push_back(m_vSlotText1[i-1]->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativePosition());
+	}
+
+	for (int i = 1;i <= 5;i++)
+	{
+		m_vSlotText2.push_back(_pCurlevel->FindObjectByName(L"GUI_Slot_Button_Text_Down" + std::to_wstring(i)));
+		m_vSlotText2[i - 1]->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetColor(Vec4(160.f, 149.f, 127.f, 255.f));
+	}
+
+	for (int i = 1;i <= 5;i++)
+	{
+		m_vSlotText3.push_back(_pCurlevel->FindObjectByName(L"GUI_Slot_Number_Text" + std::to_wstring(i)));
+		m_vSlotText3[i - 1]->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetColor(Vec4(227.f, 218.f, 189.f, 255.f));
+	}
+
 	assert(m_pUnderLine1);
 	assert(m_pUnderLine2);
 
 	assert(m_pSelectIcon1);
 	assert(m_pSelectIcon2);
 
+	assert(m_pMenuText1);
+	assert(m_pMenuText2);
+
 	for (size_t i = 0;i < m_Slots.size();i++)
 	{
 		assert(m_Slots[i].first && m_Slots[i].second);
 	}
+
+	for (auto _pText : m_vSlotText1)
+	{
+		assert(_pText);
+	}
+
+	for (auto _pText : m_vSlotText2)
+	{
+		assert(_pText);
+	}
+
+	for (auto _pText : m_vSlotText3)
+	{
+		assert(_pText);
+	}
+
+	m_pMenuText1->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetColor(Vec4(236.f, 221.f, 192.f, 255.f));
+	m_pMenuText2->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetColor(Vec4(151.f, 141.f, 120.f, 255.f));
 
 	m_pSelectIcon1->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->
 		GetMaterial()->SetMaterialParam(COLOR, Vec4(20.f / 255.f, 157.f / 255.f, 114.f / 255.f, 1.f));
@@ -122,6 +165,32 @@ void SlotScript::Start()
 
 void SlotScript::Update()
 {
+	vector<PlayerPref*> _pRecord = RecordManager::GetInst()->GetPlayerPref();
+
+	int _idx = 0;
+	for (auto _pPlayerPref : _pRecord)
+	{
+		if (_pPlayerPref != nullptr)
+		{
+			wstring _wSaveDay = L"";
+			m_vSlotText1[_idx]->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetText(L"저장한 게임");
+			_wSaveDay = std::to_wstring(static_cast<int>(_pPlayerPref->_vSaveDay.x)) + L" / " +
+				std::to_wstring(static_cast<int>(_pPlayerPref->_vSaveDay.y)) + L" / " +
+				std::to_wstring(static_cast<int>(_pPlayerPref->_vSaveDay.z));
+			m_vSlotText1[_idx]->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->SetRelativePosition(Vec4(327.f, m_vPos[_idx].y + 10.f, m_vPos[_idx].z, m_vPos[_idx].w));
+			m_vSlotText2[_idx]->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetText(_wSaveDay);
+			m_vSlotText2[_idx]->Enabled(TRUE);
+		}
+		else
+		{
+			m_vSlotText1[_idx]->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetText(L"새 게임");
+			m_vSlotText1[_idx]->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->SetRelativePosition(m_vPos[_idx]);
+			m_vSlotText2[_idx]->Enabled(FALSE);
+		}
+		_idx++;
+	}
+
+
 	if (KEY_TAP(KEY::W))
 	{
 		if (0 < m_iCurSlot)
@@ -244,6 +313,14 @@ void SlotScript::Update()
 			{
 				LevelMgr::GetInst()->SelectLevel(L"TownScene");
 			}
+		}
+	}
+
+	if (KEY_TAP(KEY::Z))
+	{
+		if (_pRecord[m_iCurSlot] != nullptr)
+		{
+			RecordManager::GetInst()->DeleteSaveFile(m_iCurSlot);
 		}
 	}
 

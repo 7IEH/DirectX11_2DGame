@@ -16,12 +16,17 @@ private:
 	Ptr<Material>			m_DynamicMtrl;
 	Ptr<Material>			m_SharedMtrl;
 
+	bool					m_bIsRender;
+
 public:
 	RENDERER_TYPE			GetRenderType() { return m_Type; }
 	Ptr<Mesh>				GetMesh() { return m_Mesh; }
 	Ptr<Material>			GetMaterial() { return m_CurMtrl; }
 	Ptr<Material>			GetDynamicMaterial();
 	Ptr<Material>			GetSharedMaterial() { return m_SharedMtrl; }
+
+	bool					GetIsRender() { return m_bIsRender; }
+	void					SetIsRender(bool _bIsRender) { m_bIsRender = _bIsRender; }
 
 	void				SetMesh(Ptr<Mesh> _mesh) { m_Mesh = _mesh; }
 	void				SetMaterial(Ptr<Material> _material)

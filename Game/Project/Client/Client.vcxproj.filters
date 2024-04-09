@@ -8,6 +8,9 @@
     <Filter Include="Default">
       <UniqueIdentifier>{de8149ff-dba1-40ca-8cc7-5206eb42877b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Util">
+      <UniqueIdentifier>{fb469a48-f0dc-46aa-bdea-72f75778ce5a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -21,6 +24,9 @@
     </ClInclude>
     <ClInclude Include="targetver.h">
       <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -39,6 +45,9 @@
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Default</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Util</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

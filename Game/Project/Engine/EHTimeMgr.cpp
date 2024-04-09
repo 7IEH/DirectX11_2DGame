@@ -4,10 +4,12 @@
 
 TimeMgr::TimeMgr()
 	:m_prevCounter{}
-	,m_curCounter{}
-	,m_Frequency{}
-	,m_fDeltaTime(0.f)
-	,m_fTime(0.f)
+	, m_curCounter{}
+	, m_Frequency{}
+	, m_fDeltaTime(0.f)
+	, m_fTime(0.f)
+	, m_bAcctimeUpdate(FALSE)
+	, m_bAcctimeSet(FALSE)
 {
 
 }
@@ -27,7 +29,7 @@ void TimeMgr::Update()
 {
 	QueryPerformanceCounter(&m_curCounter);
 
-	m_fDeltaTime = static_cast<float>(m_curCounter.QuadPart-m_prevCounter.QuadPart) / static_cast<float>(m_Frequency.QuadPart);
+	m_fDeltaTime = static_cast<float>(m_curCounter.QuadPart - m_prevCounter.QuadPart) / static_cast<float>(m_Frequency.QuadPart);
 
 	m_prevCounter = m_curCounter;
 
@@ -46,4 +48,19 @@ void TimeMgr::Update()
 
 	e_Global._Dt = m_fDeltaTime;
 	e_Global._AccTime += m_fDeltaTime;
+
+	if (m_bAcctimeUpdate)
+	{
+		if (e_Global._AccTime2 <= 2.f)
+		{
+			e_Global._AccTime2 += m_fDeltaTime;
+		}
+	}
+
+	if (m_bAcctimeSet)
+	{
+		e_Global._AccTime2 = 0.f;
+	}
+
+	e_Global._AccTime3 += m_fDeltaTime;
 }

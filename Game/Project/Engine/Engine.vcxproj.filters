@@ -253,9 +253,6 @@
     <Filter Include="ShaderCode\Util">
       <UniqueIdentifier>{e2fab2b6-3907-4b8b-8369-60634d1e26ab}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ShaderCode\Render">
-      <UniqueIdentifier>{6758f1aa-3e91-45c9-86bb-27b1dfe177a0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="04. Manager\ImGUIMgr\UI\Test">
       <UniqueIdentifier>{a9370088-eb1c-40f1-8bcb-011381b5715b}</UniqueIdentifier>
     </Filter>
@@ -330,6 +327,21 @@
     </Filter>
     <Filter Include="08. Asset\Shader\ComputeShader\Particle">
       <UniqueIdentifier>{d28e7459-0476-46db-b7d6-b956676c5e81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderCode\PS">
+      <UniqueIdentifier>{650738de-edd2-4689-b3ac-afeaf22b49d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderCode\FX">
+      <UniqueIdentifier>{6758f1aa-3e91-45c9-86bb-27b1dfe177a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderCode\VS">
+      <UniqueIdentifier>{621fd67a-b4b6-4bf7-91d7-e6f99b37f8a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\VideoMgr">
+      <UniqueIdentifier>{15f7233d-2dfc-412e-9f13-0ecb71f66314}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Module\MediaFoundation">
+      <UniqueIdentifier>{3cb54a15-a797-4eee-914c-391766ac6d7a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -657,11 +669,11 @@
     <ClInclude Include="EHMaterialCreator.h">
       <Filter>04. Manager\ImGUIMgr\UI\Utility\MaterialCreator</Filter>
     </ClInclude>
+    <ClInclude Include="EHVideoMgr.h">
+      <Filter>04. Manager\VideoMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Engine.cpp">
-      <Filter>Default</Filter>
-    </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>Default</Filter>
     </ClCompile>
@@ -962,6 +974,9 @@
     <ClCompile Include="EHMaterialCreator.cpp">
       <Filter>04. Manager\ImGUIMgr\UI\Utility\MaterialCreator</Filter>
     </ClCompile>
+    <ClCompile Include="EHVideoMgr.cpp">
+      <Filter>04. Manager\VideoMgr</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
@@ -971,16 +986,16 @@
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="debug2d.fx">
-      <Filter>ShaderCode\Render</Filter>
+      <Filter>ShaderCode\FX</Filter>
     </FxCompile>
     <FxCompile Include="postprocess.fx">
-      <Filter>ShaderCode\Render</Filter>
+      <Filter>ShaderCode\FX</Filter>
     </FxCompile>
     <FxCompile Include="std2d.fx">
-      <Filter>ShaderCode\Render</Filter>
+      <Filter>ShaderCode\FX</Filter>
     </FxCompile>
     <FxCompile Include="tilemap.fx">
-      <Filter>ShaderCode\Render</Filter>
+      <Filter>ShaderCode\FX</Filter>
     </FxCompile>
     <FxCompile Include="func.fx">
       <Filter>ShaderCode\Util</Filter>
@@ -992,13 +1007,28 @@
       <Filter>08. Asset\Shader\ComputeShader\TestComputeShader</Filter>
     </FxCompile>
     <FxCompile Include="particle.fx">
-      <Filter>ShaderCode\Render</Filter>
+      <Filter>ShaderCode\FX</Filter>
     </FxCompile>
     <FxCompile Include="particle_update.fx">
       <Filter>08. Asset\Shader\ComputeShader\Particle</Filter>
     </FxCompile>
-    <FxCompile Include="player.hlsl">
-      <Filter>ShaderCode\Render</Filter>
+    <FxCompile Include="playerPS.hlsl">
+      <Filter>ShaderCode\PS</Filter>
+    </FxCompile>
+    <FxCompile Include="PlayerVS.hlsl">
+      <Filter>ShaderCode\VS</Filter>
+    </FxCompile>
+    <FxCompile Include="UIVS.hlsl">
+      <Filter>ShaderCode\VS</Filter>
+    </FxCompile>
+    <FxCompile Include="UIPS.hlsl">
+      <Filter>ShaderCode\PS</Filter>
+    </FxCompile>
+    <FxCompile Include="postprocessPS.hlsl">
+      <Filter>ShaderCode\PS</Filter>
+    </FxCompile>
+    <FxCompile Include="postprocessVS.hlsl">
+      <Filter>ShaderCode\VS</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

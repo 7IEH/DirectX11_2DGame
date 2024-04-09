@@ -4,10 +4,12 @@
 |	Content Struct Type
 ***************************/
 
-// Room Type
+/****************
+|	Room Type
+****************/
 enum class ROOM_TYPE
 {
-	padding,
+	NO_ROOM,
 	RIGHT,
 	LEFT,
 	TOP,
@@ -22,7 +24,9 @@ enum class ROOM_TYPE
 	END
 };
 
-// Spawn Type
+/****************
+|	Spawn Type
+****************/
 enum class SPAWN_TYPE
 {
 	RIGHT,
@@ -32,9 +36,26 @@ enum class SPAWN_TYPE
 	END
 };
 
-// Trigger Type
+/*******************
+|	Trigger Type
+*******************/
 enum class TRIGGER_TYPE
 {
 	MOVE_TRIGGER,
+	CHEST_TRIGGER,
+	DUNGEONENTRANCE,
+	TOWN,
+	WILLROOM,
+	GOLEM_DUNGEON,
+	GOLEM_BOSS_MOVE_TRIGGER,
 	END,
+};
+
+/*******************
+|	Dungeon Type
+*******************/
+enum class DungeonType
+{
+	GOLEM,
+	None,
 };

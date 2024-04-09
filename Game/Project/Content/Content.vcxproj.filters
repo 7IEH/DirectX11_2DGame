@@ -28,20 +28,11 @@
     <Filter Include="03. Util\RoomManager">
       <UniqueIdentifier>{f823057a-dd95-4017-bce0-d4c578c78c0b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Script\10. TriggerScript">
-      <UniqueIdentifier>{c378951c-3481-4448-8ca0-1285c4070c81}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. Script\10. TriggerScript\01. MoveTriggerScript">
-      <UniqueIdentifier>{2deaeca8-97b8-4b18-8b71-a5397e909ef2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. Script\OutlineScript">
       <UniqueIdentifier>{d1992999-af05-4e41-ac48-c712af0e452f}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. Script\TestScript">
       <UniqueIdentifier>{b8c1db21-9a97-48b3-a6fd-0c1d395b098b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. Script\11. DungeonScript">
-      <UniqueIdentifier>{3207a9c0-e6d8-4a11-a8d6-172779a5e096}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. Script\1. PlayerScript">
       <UniqueIdentifier>{ffb405f3-fd34-4824-a632-466d3fa1d259}</UniqueIdentifier>
@@ -75,6 +66,69 @@
     </Filter>
     <Filter Include="02. Script\12. SceneScript\2. TutorialScript">
       <UniqueIdentifier>{4a874ed1-9c6a-42c8-9c03-b199067f4244}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\9. ItemScript">
+      <UniqueIdentifier>{6f48feed-1db8-4888-a246-e4f40ed0b227}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\9. ItemScript\Portion">
+      <UniqueIdentifier>{1415b1eb-4fb8-419c-ac2e-01d621231417}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Util\RandomManager">
+      <UniqueIdentifier>{68a2a908-7cae-49f7-933b-9e21f3891255}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\1. PlayerScript\PUIScript">
+      <UniqueIdentifier>{b90e85a5-b601-4875-af41-9f776b7d9074}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\4. EnemyScript">
+      <UniqueIdentifier>{e2c94d0e-fb7f-4a26-91c3-8bbf2a033d5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\10. TriggerScript">
+      <UniqueIdentifier>{c378951c-3481-4448-8ca0-1285c4070c81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\10. TriggerScript\01. MoveTriggerScript">
+      <UniqueIdentifier>{2deaeca8-97b8-4b18-8b71-a5397e909ef2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\4. EnemyScript\MeleeEnemyScript">
+      <UniqueIdentifier>{e78a850c-7251-4128-a1a8-5b1f06712f3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\4. EnemyScript\RangedEnemyScript">
+      <UniqueIdentifier>{e77c3b0f-2b5e-4748-875c-31a4fb9abc3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\4. EnemyScript\MeleeEnemyScript\GolemButlerScript">
+      <UniqueIdentifier>{c7f26583-6974-4c2b-9a78-0911fd7e1366}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\4. EnemyScript\RangedEnemyScript\GolemGuardianScript">
+      <UniqueIdentifier>{4892d883-f312-480a-b4cd-8cb3eca15495}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\4. EnemyScript\MeleeEnemyScript\Tangle">
+      <UniqueIdentifier>{25bb8dc1-f2e3-4d34-b715-560ddef399f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\4. EnemyScript\MeleeEnemyScript\BabySlimeScript">
+      <UniqueIdentifier>{d4e48e14-7dac-4956-9c0a-850a50f09882}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\4. EnemyScript\RangedEnemyScript\GolemTurretScript">
+      <UniqueIdentifier>{6a6bc88b-91f5-4e1b-8270-4f1e14a26bf2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\4. EnemyScript\ProjecTile">
+      <UniqueIdentifier>{ddde7e09-236b-428f-a89a-5baf85d4736c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\12. SceneScript\3. TownScript">
+      <UniqueIdentifier>{4ec4a1d2-00c6-461e-8e35-7ee79be74c00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\03. Village\TownScript">
+      <UniqueIdentifier>{8acfcd06-d5bd-4cd2-ad57-27a0f38b683f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\12. SceneScript\4. DungeonEntranceScript">
+      <UniqueIdentifier>{c6de7d75-e826-4f27-bd44-ba66510a9e95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\12. SceneScript\5. DungeonScript">
+      <UniqueIdentifier>{3207a9c0-e6d8-4a11-a8d6-172779a5e096}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\12. SceneScript\5. DungeonScript\GolemDungeonScript">
+      <UniqueIdentifier>{f0231480-205e-4844-bb3d-6da287b5c64e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\12. SceneScript\5. DungeonScript\GolemDungeonScript\GolemBossSceneScript">
+      <UniqueIdentifier>{04184557-3055-4b57-bf93-9d3af7d925fd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -130,7 +184,7 @@
       <Filter>02. Script\2. CameraScript</Filter>
     </ClInclude>
     <ClInclude Include="EHDungeonScript.h">
-      <Filter>02. Script\11. DungeonScript</Filter>
+      <Filter>02. Script\12. SceneScript\5. DungeonScript</Filter>
     </ClInclude>
     <ClInclude Include="EHScriptMgr.h">
       <Filter>03. Util\ScriptMgr</Filter>
@@ -149,6 +203,54 @@
     </ClInclude>
     <ClInclude Include="EHTutorialScript.h">
       <Filter>02. Script\12. SceneScript\2. TutorialScript</Filter>
+    </ClInclude>
+    <ClInclude Include="EHItemScript.h">
+      <Filter>02. Script\9. ItemScript</Filter>
+    </ClInclude>
+    <ClInclude Include="EHPortionScript.h">
+      <Filter>02. Script\9. ItemScript\Portion</Filter>
+    </ClInclude>
+    <ClInclude Include="EHRandomManager.h">
+      <Filter>03. Util\RandomManager</Filter>
+    </ClInclude>
+    <ClInclude Include="EHPUIScript.h">
+      <Filter>02. Script\1. PlayerScript\PUIScript</Filter>
+    </ClInclude>
+    <ClInclude Include="EHEnemyScript.h">
+      <Filter>02. Script\4. EnemyScript</Filter>
+    </ClInclude>
+    <ClInclude Include="EHMeleeEnemyScript.h">
+      <Filter>02. Script\4. EnemyScript\MeleeEnemyScript</Filter>
+    </ClInclude>
+    <ClInclude Include="EHRangedEnemyScript.h">
+      <Filter>02. Script\4. EnemyScript\RangedEnemyScript</Filter>
+    </ClInclude>
+    <ClInclude Include="EHGolemButlerScript.h">
+      <Filter>02. Script\4. EnemyScript\MeleeEnemyScript\GolemButlerScript</Filter>
+    </ClInclude>
+    <ClInclude Include="EHBabySlimeScript.h">
+      <Filter>02. Script\4. EnemyScript\MeleeEnemyScript\BabySlimeScript</Filter>
+    </ClInclude>
+    <ClInclude Include="EHTangleScript.h">
+      <Filter>02. Script\4. EnemyScript\MeleeEnemyScript\Tangle</Filter>
+    </ClInclude>
+    <ClInclude Include="EHGolemTurretScript.h">
+      <Filter>02. Script\4. EnemyScript\RangedEnemyScript\GolemTurretScript</Filter>
+    </ClInclude>
+    <ClInclude Include="EHProjecTileScript.h">
+      <Filter>02. Script\4. EnemyScript\ProjecTile</Filter>
+    </ClInclude>
+    <ClInclude Include="EHTownScript.h">
+      <Filter>02. Script\12. SceneScript\3. TownScript</Filter>
+    </ClInclude>
+    <ClInclude Include="EHGolemDungeonScript.h">
+      <Filter>02. Script\12. SceneScript\5. DungeonScript\GolemDungeonScript</Filter>
+    </ClInclude>
+    <ClInclude Include="EHGolemBossSceneScript.h">
+      <Filter>02. Script\12. SceneScript\5. DungeonScript\GolemDungeonScript\GolemBossSceneScript</Filter>
+    </ClInclude>
+    <ClInclude Include="EHDungeonEntranceScript.h">
+      <Filter>02. Script\12. SceneScript\4. DungeonEntranceScript</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -195,7 +297,7 @@
       <Filter>02. Script\2. CameraScript</Filter>
     </ClCompile>
     <ClCompile Include="EHDungeonScript.cpp">
-      <Filter>02. Script\11. DungeonScript</Filter>
+      <Filter>02. Script\12. SceneScript\5. DungeonScript</Filter>
     </ClCompile>
     <ClCompile Include="EHScriptMgr.cpp">
       <Filter>03. Util\ScriptMgr</Filter>
@@ -211,6 +313,54 @@
     </ClCompile>
     <ClCompile Include="EHTutorialScript.cpp">
       <Filter>02. Script\12. SceneScript\2. TutorialScript</Filter>
+    </ClCompile>
+    <ClCompile Include="EHItemScript.cpp">
+      <Filter>02. Script\9. ItemScript</Filter>
+    </ClCompile>
+    <ClCompile Include="EHPortionScript.cpp">
+      <Filter>02. Script\9. ItemScript\Portion</Filter>
+    </ClCompile>
+    <ClCompile Include="EHRandomManager.cpp">
+      <Filter>03. Util\RandomManager</Filter>
+    </ClCompile>
+    <ClCompile Include="EHPUIScript.cpp">
+      <Filter>02. Script\1. PlayerScript\PUIScript</Filter>
+    </ClCompile>
+    <ClCompile Include="EHEnemyScript.cpp">
+      <Filter>02. Script\4. EnemyScript</Filter>
+    </ClCompile>
+    <ClCompile Include="EHMeleeEnemyScript.cpp">
+      <Filter>02. Script\4. EnemyScript\MeleeEnemyScript</Filter>
+    </ClCompile>
+    <ClCompile Include="EHRangedEnemyScript.cpp">
+      <Filter>02. Script\4. EnemyScript\RangedEnemyScript</Filter>
+    </ClCompile>
+    <ClCompile Include="EHGolemButlerScript.cpp">
+      <Filter>02. Script\4. EnemyScript\MeleeEnemyScript\GolemButlerScript</Filter>
+    </ClCompile>
+    <ClCompile Include="EHBabySlimeScript.cpp">
+      <Filter>02. Script\4. EnemyScript\MeleeEnemyScript\BabySlimeScript</Filter>
+    </ClCompile>
+    <ClCompile Include="EHTangleScript.cpp">
+      <Filter>02. Script\4. EnemyScript\MeleeEnemyScript\Tangle</Filter>
+    </ClCompile>
+    <ClCompile Include="EHGolemTurretScript.cpp">
+      <Filter>02. Script\4. EnemyScript\RangedEnemyScript\GolemTurretScript</Filter>
+    </ClCompile>
+    <ClCompile Include="EHProjecTileScript.cpp">
+      <Filter>02. Script\4. EnemyScript\ProjecTile</Filter>
+    </ClCompile>
+    <ClCompile Include="EHTownScript.cpp">
+      <Filter>02. Script\12. SceneScript\3. TownScript</Filter>
+    </ClCompile>
+    <ClCompile Include="EHGolemDungeonScript.cpp">
+      <Filter>02. Script\12. SceneScript\5. DungeonScript\GolemDungeonScript</Filter>
+    </ClCompile>
+    <ClCompile Include="EHGolemBossSceneScript.cpp">
+      <Filter>02. Script\12. SceneScript\5. DungeonScript\GolemDungeonScript\GolemBossSceneScript</Filter>
+    </ClCompile>
+    <ClCompile Include="EHDungeonEntranceScript.cpp">
+      <Filter>02. Script\12. SceneScript\4. DungeonEntranceScript</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

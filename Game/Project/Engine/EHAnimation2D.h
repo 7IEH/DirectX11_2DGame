@@ -41,6 +41,7 @@ public:
 	Ptr<Sprite>	GetAtlas() { return m_AtlasSprite; }
 
 	void SetAnimationFrame(const wstring& _label, Ptr<Sprite> _atlas, vector<tAnimFrameInfo>& _frameInfo);
+	int GetCurFrame() { return m_CurFrame; }
 
 public:
 	void UpdateData();
@@ -60,7 +61,6 @@ private:
 	// Animation2DUI에서 사용
 	// Animation 정보 가져옴
 	vector<tAnimFrameInfo>& GetFrameInfo() { return m_FrameInfo; }
-	int						GetCurFrame() { return m_CurFrame; }
 
 public:
 	Animation2D();

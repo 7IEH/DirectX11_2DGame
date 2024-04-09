@@ -90,7 +90,10 @@ Inspector::Inspector()
 	_vLayerName.push_back("OBJECT_TILE");
 	_vLayerName.push_back("OBJECT_PARTICLE");
 	_vLayerName.push_back("OBJECT_UI");
-	_vLayerName.push_back("OBJECT_OBSTACLE");
+	_vLayerName.push_back("OBJECT_OBSTACLE_HOLE");
+	_vLayerName.push_back("OBJECT_OBSTACLE_ROCK");
+	_vLayerName.push_back("PLAYER_PROJECTILE");
+	_vLayerName.push_back("ENEMY_PROJECTILE");
 
 	for (UINT i = 0;i < (UINT)LAYER_TYPE::END;i++)
 	{

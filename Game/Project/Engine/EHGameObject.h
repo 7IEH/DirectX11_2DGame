@@ -98,6 +98,23 @@ public:
 		return nullptr;
 	}
 
+	template<typename T>
+	T* GetScript()const
+	{
+		vector<Script*>::const_iterator iter = m_vScripts.begin();
+		for (;iter != m_vScripts.end();iter++)
+		{
+			T* _pScript = dynamic_cast<T*>((*iter));
+
+			if (nullptr != _pScript)
+			{
+				return _pScript;
+			}
+		}
+
+		return nullptr;
+	}
+
 	GameObject*					GetParent() { return m_Parent; }
 	const vector<GameObject*>&	GetChild() { return m_Childs; }
 

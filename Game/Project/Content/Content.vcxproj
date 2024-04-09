@@ -73,8 +73,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)External\Library\Content\</OutDir>
     <TargetName>$(ProjectName)_Debug</TargetName>
-    <ExternalIncludePath>$(SolutionDir)External\Include\Engine\;$(SolutionDir)External\Include\FontEngine\;$(ExternalIncludePath)</ExternalIncludePath>
-    <LibraryPath>$(SolutionDir)External\Library\Engine\;$(SolutionDir)External\Library\FontEngine\;$(LibraryPath)</LibraryPath>
+    <ExternalIncludePath>$(SolutionDir)External\Include\Engine\;$(SolutionDir)External\Include\FontEngine\;$(SolutionDir)External\Include\MediaFoundation\;$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>$(SolutionDir)External\Library\Engine\;$(SolutionDir)External\Library\FontEngine\;$(SolutionDir)External\Library\MediaFoundation\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)External\Library\Content\</OutDir>
@@ -123,7 +123,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
@@ -166,49 +166,80 @@ call ScriptGenerator.exe</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="EHBabySlimeScript.h" />
     <ClInclude Include="EHCameraScript.h" />
     <ClInclude Include="EHCameraTargetScript.h" />
+    <ClInclude Include="EHDungeonEntranceScript.h" />
     <ClInclude Include="EHDungeonScene.h" />
     <ClInclude Include="EHDungeonScript.h" />
+    <ClInclude Include="EHEnemyScript.h" />
+    <ClInclude Include="EHGolemBossSceneScript.h" />
+    <ClInclude Include="EHGolemButlerScript.h" />
+    <ClInclude Include="EHGolemDungeonScript.h" />
+    <ClInclude Include="EHGolemTurretScript.h" />
     <ClInclude Include="EHGUI_LineScript.h" />
     <ClInclude Include="EHIntroScene.h" />
+    <ClInclude Include="EHItemScript.h" />
     <ClInclude Include="EHLight2DScript.h" />
+    <ClInclude Include="EHMeleeEnemyScript.h" />
     <ClInclude Include="EHOutLineScript.h" />
     <ClInclude Include="EHPlayerScript.h" />
+    <ClInclude Include="EHProjecTileScript.h" />
+    <ClInclude Include="EHPUIScript.h" />
+    <ClInclude Include="EHRandomManager.h" />
+    <ClInclude Include="EHRangedEnemyScript.h" />
     <ClInclude Include="EHRecordManager.h" />
     <ClInclude Include="EHRoomManager.h" />
     <ClInclude Include="EHScriptMgr.h" />
     <ClInclude Include="EHSlotScript.h" />
+    <ClInclude Include="EHTangleScript.h" />
     <ClInclude Include="EHTestScript.h" />
     <ClInclude Include="EHTitleScene.h" />
     <ClInclude Include="Content_enum.h" />
     <ClInclude Include="EHTitleScript.h" />
+    <ClInclude Include="EHTownScript.h" />
     <ClInclude Include="EHTutorialScript.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="global.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="content_struct.h" />
     <ClInclude Include="EHTriggerScript.h" />
+    <ClInclude Include="EHPortionScript.h" />
     <ClInclude Include="Scripts.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Content.cpp" />
+    <ClCompile Include="EHBabySlimeScript.cpp" />
     <ClCompile Include="EHCameraScript.cpp" />
     <ClCompile Include="EHCameraTargetScript.cpp" />
+    <ClCompile Include="EHDungeonEntranceScript.cpp" />
     <ClCompile Include="EHDungeonScene.cpp" />
     <ClCompile Include="EHDungeonScript.cpp" />
+    <ClCompile Include="EHEnemyScript.cpp" />
+    <ClCompile Include="EHGolemBossSceneScript.cpp" />
+    <ClCompile Include="EHGolemButlerScript.cpp" />
+    <ClCompile Include="EHGolemDungeonScript.cpp" />
+    <ClCompile Include="EHGolemTurretScript.cpp" />
     <ClCompile Include="EHGUI_LineScript.cpp" />
     <ClCompile Include="EHIntroScene.cpp" />
+    <ClCompile Include="EHItemScript.cpp" />
     <ClCompile Include="EHLight2DScript.cpp" />
+    <ClCompile Include="EHMeleeEnemyScript.cpp" />
     <ClCompile Include="EHOutLineScript.cpp" />
     <ClCompile Include="EHPlayerScript.cpp" />
+    <ClCompile Include="EHProjecTileScript.cpp" />
+    <ClCompile Include="EHPUIScript.cpp" />
+    <ClCompile Include="EHRandomManager.cpp" />
+    <ClCompile Include="EHRangedEnemyScript.cpp" />
     <ClCompile Include="EHRecordManager.cpp" />
     <ClCompile Include="EHRoomManager.cpp" />
     <ClCompile Include="EHScriptMgr.cpp" />
     <ClCompile Include="EHSlotScript.cpp" />
+    <ClCompile Include="EHTangleScript.cpp" />
     <ClCompile Include="EHTestScript.cpp" />
     <ClCompile Include="EHTitleScene.cpp" />
     <ClCompile Include="EHTitleScript.cpp" />
+    <ClCompile Include="EHTownScript.cpp" />
     <ClCompile Include="EHTutorialScript.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -217,6 +248,7 @@ call ScriptGenerator.exe</Command>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="EHTriggerScript.cpp" />
+    <ClCompile Include="EHPortionScript.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

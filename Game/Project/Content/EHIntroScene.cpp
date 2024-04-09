@@ -21,45 +21,22 @@
 #include "EHDevice.h"
 #include "EHRenderMgr.h"
 
-// 동영상 재생
-#include <Vfw.h>
-#pragma comment(lib,"vfw32.lib")
-
 IntroLevel::IntroLevel()
 	: m_PlayTime(0.f)
-	, m_video(nullptr)
 {
 }
 
 IntroLevel::~IntroLevel()
 {
+
+	
 }
 
 void IntroLevel::Awake()
 {
-	// Main Camera
-	/*GameObject* _MainCamera = new GameObject;
-	Transform* tr = _MainCamera->AddComponent<Transform>();
-	Camera* _camera = _MainCamera->AddComponent<Camera>();
-	CameraScript* _cameraScript = _MainCamera->AddComponent<CameraScript>();
+	/*MFStartup(MF_VERSION, MFSTARTUP_FULL);
 
-	_camera->AllVisibleSet(TRUE);
-	_camera->LayerVisibleSet(LAYER_TYPE::BACKGROUND1, TRUE);
-	_camera->SetCameraType(CAMERA_TYPE::MAIN_CAMERA);
-
-	tr->SetRelativeScale(Vec4(1.f, 1.f, 1.f, 1.f));
-	tr->SetRelativePosition(Vec4(0.f, 0.f, -10.f, 1.f));
-	tr->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
-
-	Object::Instantiate(_MainCamera, (UINT)LAYER_TYPE::CAMERA);*/
-
-	wstring _finalpath = PATH;
-	wstring _relativePath = L"\\resource\\Intro\\Video\\Intro.mp4";
-	_finalpath += _relativePath;
-	m_video = MCIWndCreate(MAIN_HWND, NULL, MCIWNDF_NOPLAYBAR | WS_VISIBLE | WS_CHILD, _finalpath.c_str());
-	MoveWindow(m_video, 0, 0, 1600, 900, NULL);
-	MCIWndPlay(m_video);
-	RenderMgr::GetInst()->SetRender(FALSE);
+	MFCreateSourceResolver(&m_pSourceRevolver);*/
 }
 
 void IntroLevel::Start()
@@ -69,14 +46,7 @@ void IntroLevel::Start()
 
 void IntroLevel::Update()
 {
-	if (MCIWndGetLength(m_video) <= MCIWndGetPosition(m_video))
-	{
-		MCIWndClose(m_video);
-		MCIWndDestroy(m_video);
-		SceneManager::LoadScene(L"EnterScene");
-		RenderMgr::GetInst()->SetRender(TRUE);
-		return;
-	}
+	
 }
 
 void IntroLevel::FixedUpdate()

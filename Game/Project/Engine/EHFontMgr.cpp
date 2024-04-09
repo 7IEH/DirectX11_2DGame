@@ -5,6 +5,8 @@
 #include <FW1FontWrapper.h>
 
 FontMgr::FontMgr()
+	:m_FontWrapper(nullptr)
+	, m_WriteFactory(nullptr)
 {
 
 }
@@ -42,7 +44,7 @@ void FontMgr::DrawingText(wstring _str, UINT32 _color, wstring _font, DWRITE_FON
 	IDWriteTextLayout* pTextLayout = nullptr;
 	HRESULT hResult = m_WriteFactory->CreateTextLayout(
 		_str.c_str(),
-		_str.size(),
+		static_cast<UINT32>(_str.size()),
 		_textFormat,
 		0.f,
 		0.0f,

@@ -25,6 +25,17 @@ private:
     vector<std::pair<GameObject*, GameObject*>>m_Slots;
     vector<GameObject*> m_SlotNames;
 
+    vector<GameObject*> m_vSlotText1;
+    vector<GameObject*> m_vSlotText2;
+    vector<GameObject*> m_vSlotText3;
+
+    GameObject* m_pMenuText1;
+    GameObject* m_pMenuText2;
+
+
+
+    vector<Vec4>        m_vPos;
+
 public:
     virtual void Start() override;
     virtual void Update() override;

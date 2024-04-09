@@ -8,6 +8,7 @@ Renderer::Renderer(RENDERER_TYPE _type)
 	, m_CurMtrl(nullptr)
 	, m_DynamicMtrl(nullptr)
 	, m_SharedMtrl(nullptr)
+	, m_bIsRender(TRUE)
 {
 }
 

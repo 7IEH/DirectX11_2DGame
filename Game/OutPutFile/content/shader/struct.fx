@@ -245,9 +245,10 @@ cbuffer tGlobalData : register(b4)
     float2 gRenderResolution;
     float gDt;
     float gAccTime;
+    float gAccTime2;
+    float gAccTime3;
     int gLight2DSize;
     int gLight3DSize;
-    float2 padding;
 }
 
 #endif

@@ -23,7 +23,7 @@ void RenderMgr::Awake()
 	m_PickingObj->AddComponent<MeshRenderer>();
 
 	m_Light2DBuffer = new StructuredBuffer;
-	m_Light2DBuffer->Create(sizeof(LightInfo), 10, TRUE);
+	m_Light2DBuffer->Create(sizeof(LightInfo), 25, TRUE);
 
 	Vec2 _renderResoultion = Device::GetInst()->GetResolution();
 	m_PostProcessTex = AssetMgr::GetInst()->CreateResoruceTexture(L"PostProcessTexture"

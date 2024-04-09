@@ -1,0 +1,1314 @@
+CollisionMatrix
+0
+0
+0
+0
+0
+3712
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+object
+NAME:EditorCamera
+LAYER:0
+TRANSFORM
+-1163.109253 108.207901 -29.020521
+1.000000 1.000000 1.000000
+0.000000 0.000000 0.000000
+CAMERA
+orthographic
+3
+2047
+Script
+1
+CameraScript
+Childs
+0
+endobject
+
+object
+NAME:MainCamera
+LAYER:0
+TRANSFORM
+-625.688843 107.796127 -2000.000000
+1.000000 1.000000 1.000000
+0.000000 0.000000 0.000000
+CAMERA
+orthographic
+0
+507900
+Script
+1
+CameraTargetScript
+Childs
+0
+endobject
+
+object
+NAME:UICamera
+LAYER:0
+TRANSFORM
+0.000000 0.000000 -10.000000
+1.000000 1.000000 1.000000
+0.000000 0.000000 0.000000
+CAMERA
+orthographic
+2
+16384
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:MainLight
+LAYER:1
+TRANSFORM
+0.000000 0.000000 0.000000
+1.000000 1.000000 1.000000
+0.000000 0.000000 0.000000
+LIGHT2D
+0
+0.000000 0.000000 0.000000 1.000000
+0.118712 0.225286 0.643833 1.000000
+0.000000
+0.000000
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:MainBackGround
+LAYER:2
+TRANSFORM
+0.000000 0.000000 6000.000000
+3010.000000 2570.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+Structure_BG_DungeonEntrance_Material
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:UI_Player_Pause_Text_Object1
+LAYER:2
+TRANSFORM
+0.000000 100.000000 0.000000
+1.000000 1.000000 1.000000
+0.000000 0.000000 0.000000
+CANVASRENDERER
+TEXT
+게임으로 돌아가기
+DroidSansFallback
+NORMAL
+0
+24.000000
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:UI_Player_Pause_Text_Object2
+LAYER:2
+TRANSFORM
+0.000000 50.000000 0.000000
+1.000000 1.000000 1.000000
+0.000000 0.000000 0.000000
+CANVASRENDERER
+TEXT
+옵션
+DroidSansFallback
+NORMAL
+0
+24.000000
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:UI_Player_Pause_Text_Object3
+LAYER:2
+TRANSFORM
+0.000000 0.000000 0.000000
+1.000000 1.000000 1.000000
+0.000000 0.000000 0.000000
+CANVASRENDERER
+TEXT
+메인 메뉴
+DroidSansFallback
+NORMAL
+0
+24.000000
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:UI_Player_Pause_Text_Object4
+LAYER:2
+TRANSFORM
+0.000000 -50.000000 0.000000
+1.000000 1.000000 1.000000
+0.000000 0.000000 0.000000
+CANVASRENDERER
+TEXT
+바탕화면으로
+DroidSansFallback
+NORMAL
+0
+24.000000
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:GameManager
+LAYER:2
+TRANSFORM
+0.000000 0.000000 0.000000
+1.000000 1.000000 1.000000
+0.000000 0.000000 0.000000
+Script
+1
+DungeonEntranceScript
+Childs
+0
+endobject
+
+object
+NAME:Object_Enterance_Portal1
+LAYER:2
+TRANSFORM
+-633.000000 117.000000 120.000000
+125.000000 125.000000 1.000000
+0.000000 0.000000 0.000000
+ANIMATOR2D
+4
+Object_Entrance_Portal1_Absorb_Anim
+Object_Entrance_Portal1_Close_Anim
+Object_Entrance_Portal1_Cycle_Anim
+Object_Entrance_Portal1_Open_Anim
+MESHRENDERER
+DefaultRectMesh
+BackGroundMaterial
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:Player
+LAYER:5
+TRANSFORM
+-625.688843 107.796127 107.796127
+500.000000 500.000000 1.000000
+0.000000 0.000000 0.000000
+BOXCOLLIDER2D
+0.100000 0.080000 1.000000
+0.000000 -0.040000 0.000000
+ANIMATOR2D
+37
+FSM_Player_Dungeon_Attack_OneHand_Down_Anim1
+FSM_Player_Dungeon_Attack_OneHand_Down_Anim2
+FSM_Player_Dungeon_Attack_OneHand_Down_Anim3
+FSM_Player_Dungeon_Attack_OneHand_Left_Anim1
+FSM_Player_Dungeon_Attack_OneHand_Left_Anim2
+FSM_Player_Dungeon_Attack_OneHand_Left_Anim3
+FSM_Player_Dungeon_Attack_OneHand_Right_Anim1
+FSM_Player_Dungeon_Attack_OneHand_Right_Anim2
+FSM_Player_Dungeon_Attack_OneHand_Right_Anim3
+FSM_Player_Dungeon_Attack_OneHand_Up_Anim1
+FSM_Player_Dungeon_Attack_OneHand_Up_Anim2
+FSM_Player_Dungeon_Attack_OneHand_Up_Anim3
+FSM_Player_Dungeon_Attack_Spear_Down_Anim1
+FSM_Player_Dungeon_Attack_Spear_Down_Anim2
+FSM_Player_Dungeon_Attack_Spear_Down_Anim3
+FSM_Player_Dungeon_Attack_Spear_Left_Anim1
+FSM_Player_Dungeon_Attack_Spear_Left_Anim2
+FSM_Player_Dungeon_Attack_Spear_Left_Anim3
+FSM_Player_Dungeon_Attack_Spear_Right_Anim1
+FSM_Player_Dungeon_Attack_Spear_Right_Anim2
+FSM_Player_Dungeon_Attack_Spear_Right_Anim3
+FSM_Player_Dungeon_Attack_Spear_Up_Anim1
+FSM_Player_Dungeon_Attack_Spear_Up_Anim2
+FSM_Player_Dungeon_Attack_Spear_Up_Anim3
+FSM_Player_Dungeon_Dodge_Down_Anim
+FSM_Player_Dungeon_Dodge_Left_Anim
+FSM_Player_Dungeon_Dodge_Right_Anim
+FSM_Player_Dungeon_Dodge_Up_Anim
+FSM_Player_Dungeon_Idle_Down_Anim
+FSM_Player_Dungeon_Idle_Left_Anim
+FSM_Player_Dungeon_Idle_Right_Anim
+FSM_Player_Dungeon_Idle_Up_Anim
+FSM_Player_Dungeon_Move_Down_Anim
+FSM_Player_Dungeon_Move_Left_Anim
+FSM_Player_Dungeon_Move_Right_Anim
+FSM_Player_Dungeon_Move_Up_Anim
+FSM_Player_Tutorial_Scene0_Anim
+MESHRENDERER
+DefaultRectMesh
+PlayerShader2
+Script
+2
+PlayerScript
+PUIScript
+Childs
+0
+endobject
+
+object
+NAME:Object_Trigger_GolemDungeon
+LAYER:7
+TRANSFORM
+-633.000000 94.000000 0.000000
+130.000000 60.000000 1.000000
+0.000000 0.000000 0.000000
+BOXCOLLIDER2D
+1.000000 1.000000 1.000000
+0.000000 0.000000 0.000000
+Script
+1
+TriggerScript
+Childs
+0
+endobject
+
+object
+NAME:Object_Trigger_Town
+LAYER:7
+TRANSFORM
+26.000000 -1276.000000 0.000000
+200.000000 90.000000 1.000000
+0.000000 0.000000 0.000000
+BOXCOLLIDER2D
+1.000000 1.000000 1.000000
+0.000000 0.000000 0.000000
+Script
+1
+TriggerScript
+Childs
+0
+endobject
+
+object
+NAME:Object_Wall_Right
+LAYER:8
+TRANSFORM
+1522.000000 0.000000 0.000000
+50.000000 2560.000000 1.000000
+0.000000 0.000000 0.000000
+BOXCOLLIDER2D
+1.000000 1.000000 1.000000
+0.000000 0.000000 0.000000
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:Object_Wall_Left
+LAYER:9
+TRANSFORM
+-1522.000000 0.000000 0.000000
+50.000000 2560.000000 1.000000
+0.000000 0.000000 0.000000
+BOXCOLLIDER2D
+1.000000 1.000000 1.000000
+0.000000 0.000000 0.000000
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:Object_Wall_Top
+LAYER:10
+TRANSFORM
+0.000000 1252.000000 0.000000
+3000.000000 50.000000 1.000000
+0.000000 0.000000 0.000000
+BOXCOLLIDER2D
+1.000000 1.000000 1.000000
+0.000000 0.000000 0.000000
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:Object_Wall_Bottom
+LAYER:11
+TRANSFORM
+0.000000 -1259.000000 0.000000
+3000.000000 50.000000 1.000000
+0.000000 0.000000 0.000000
+BOXCOLLIDER2D
+1.000000 1.000000 1.000000
+0.000000 0.000000 0.000000
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:GUI_Player_HUD_Coin
+LAYER:14
+TRANSFORM
+-757.000000 298.000000 -1.000000
+22.500000 22.500000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+UI_Player_HUD_Coin_Mat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:UI_Player_HUD_HealthBar_Base
+LAYER:14
+TRANSFORM
+-527.000000 388.000000 -1.000000
+182.500000 55.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+UI_Player_HUD_HealthBar_Base_Mat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:UI_Player_HUD_HealthBar_Circle
+LAYER:14
+TRANSFORM
+-636.000000 387.000000 -1.000000
+68.000000 60.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+UI_Player_HUD_HealthBar_Circle_Mat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:UI_Player_HUD_HealthBar_Heart
+LAYER:14
+TRANSFORM
+-638.000000 385.000000 -2.000000
+40.000000 40.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+UI_Player_HUD_HealthBar_Heart_Mat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:UI_Player_HUD_HealthBar
+LAYER:14
+TRANSFORM
+-559.283997 388.000000 -2.000000
+-82.431999 29.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+UI_Player_HUD_HealthBar_Mat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:UI_Player_HUD_BaseCircle1
+LAYER:14
+TRANSFORM
+-727.000000 366.000000 -1.000000
+113.500000 97.500000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+UI_Player_HUD_Item_BaseCircle_Mat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:UI_Player_HUD_BaseCircle2
+LAYER:14
+TRANSFORM
+704.000000 325.000000 -2.000000
+113.500000 97.500000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+UI_Player_HUD_Item_BaseCircle_Mat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:UI_Player_HUD_BaseCircle3
+LAYER:14
+TRANSFORM
+652.000000 324.000000 -1.000000
+113.500000 97.500000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+UI_Player_HUD_Item_BaseCircle_Mat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:UI_Player_HUD_SetIcon1
+LAYER:14
+TRANSFORM
+633.000000 329.000000 -2.000000
+37.500000 37.500000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+UI_Player_HUD_Item_SetIcon1_Mat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:UI_Player_HUD_SetIcon2
+LAYER:14
+TRANSFORM
+576.000000 329.000000 -1.000000
+37.500000 37.500000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+UI_Player_HUD_Item_SetIcon2_Mat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:UI_Player_HUD_MiniRoll
+LAYER:14
+TRANSFORM
+634.000000 385.000000 -5.000000
+42.500000 47.500000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+UI_Player_HUD_MiniRoll_Mat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:UI_Player_HUD_Button1
+LAYER:14
+TRANSFORM
+648.000000 295.000000 -3.000000
+64.000000 64.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+GUI_KeyBoardButtonUIMat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:UI_Player_HUD_Button2
+LAYER:14
+TRANSFORM
+692.000000 269.000000 -3.000000
+64.000000 64.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+GUI_KeyBoardButtonUIMat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:UI_Player_HUD_Button3
+LAYER:14
+TRANSFORM
+520.000000 335.000000 -3.000000
+64.000000 64.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+GUI_KeyBoardButtonUIMat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:UI_Player_HUD_Button4
+LAYER:14
+TRANSFORM
+665.000000 410.000000 -3.000000
+64.000000 64.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+GUI_KeyBoardButtonUIMat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:UI_Player_HUD_Button5
+LAYER:14
+TRANSFORM
+736.000000 410.000000 -3.000000
+64.000000 64.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+GUI_KeyBoardButtonUIMat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:UI_Player_Chest_Inventory
+LAYER:14
+TRANSFORM
+-360.000000 -900.000000 0.000000
+602.500000 680.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+UI_Player_Chest_Inventory_Mat
+Script
+1
+GUI_LineScript
+Childs
+0
+endobject
+
+object
+NAME:UI_Player_Chest_Chest
+LAYER:14
+TRANSFORM
+1300.000000 30.000000 0.000000
+702.500000 682.500000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+UI_Player_Chest_Chest_Mat
+Script
+1
+GUI_LineScript
+Childs
+0
+endobject
+
+object
+NAME:UI_Player_Selector
+LAYER:14
+TRANSFORM
+-494.000000 9.000000 -1.000000
+80.000000 80.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+UI_Player_Selector_Mat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:Object_Village_Fade_BG
+LAYER:14
+TRANSFORM
+0.639069 0.451378 -1.000000
+0.000000 0.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+BackGroundMaterial
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:UI_Player_Inventory
+LAYER:14
+TRANSFORM
+0.000000 -900.000000 -5.000000
+1297.500000 685.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+Object_Inventory_Mat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:UI_Player_Pause_Object1
+LAYER:14
+TRANSFORM
+0.000000 -200.000000 -7.000000
+297.500000 37.500000 1.000000
+0.000000 0.000000 -180.000000
+MESHRENDERER
+DefaultRectMesh
+UI_Player_Pause_Triangle_Mat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:UI_Player_Pause_Object2
+LAYER:14
+TRANSFORM
+0.000000 141.000000 -7.000000
+297.500000 37.500000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+UI_Player_Pause_Triangle_Mat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:UI_Player_Pause_Object3
+LAYER:14
+TRANSFORM
+-194.000000 -238.000000 -7.000000
+62.500000 105.000000 1.000000
+0.000000 180.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+UI_Player_Pause_Arm_Mat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:UI_Player_Pause_Object4
+LAYER:14
+TRANSFORM
+199.000000 -238.000000 -7.000000
+62.500000 105.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+UI_Player_Pause_Arm_Mat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:UI_Player_Pause_Object5
+LAYER:14
+TRANSFORM
+0.000000 193.000000 -7.000000
+47.500000 47.500000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+UI_Player_Pause_Eye_Mat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:UI_Player_Pause_Object6
+LAYER:14
+TRANSFORM
+0.000000 -258.000000 -7.000000
+105.000000 57.500000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+UI_Player_Pause_Tail_Mat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:UI_Player_Puase_SelectIcon1
+LAYER:14
+TRANSFORM
+-149.904175 50.000000 0.000000
+40.000000 38.000000 1.000000
+0.000000 -180.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+GUI_GameSelectIcon1Mat
+Script
+1
+GUI_LineScript
+Childs
+0
+endobject
+
+object
+NAME:UI_Player_Puase_SelectIcon2
+LAYER:14
+TRANSFORM
+149.904175 50.000000 0.000000
+40.000000 38.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+GUI_GameSelectIcon1Mat
+Script
+1
+GUI_LineScript
+Childs
+0
+endobject
+
+object
+NAME:GUI_Inventoy_Slot2
+LAYER:14
+TRANSFORM
+-404.000000 204.000000 -7.000000
+64.000000 64.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+StartLineMat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:GUI_Inventoy_Slot3
+LAYER:14
+TRANSFORM
+-316.000000 204.000000 -7.000000
+64.000000 64.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+StartLineMat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:GUI_Inventoy_Slot4
+LAYER:14
+TRANSFORM
+-225.000000 204.000000 -7.000000
+64.000000 64.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+StartLineMat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:GUI_Inventoy_Slot5
+LAYER:14
+TRANSFORM
+-135.000000 204.000000 -7.000000
+64.000000 64.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+StartLineMat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:GUI_Inventoy_Slot6
+LAYER:14
+TRANSFORM
+-494.000000 96.000000 -7.000000
+64.000000 64.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+StartLineMat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:GUI_Inventoy_Slot7
+LAYER:14
+TRANSFORM
+-404.000000 96.000000 -7.000000
+64.000000 64.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+StartLineMat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:GUI_Inventoy_Slot8
+LAYER:14
+TRANSFORM
+-316.000000 96.000000 -7.000000
+64.000000 64.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+StartLineMat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:GUI_Inventoy_Slot9
+LAYER:14
+TRANSFORM
+-225.000000 96.000000 -7.000000
+64.000000 64.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+StartLineMat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:GUI_Inventoy_Slot10
+LAYER:14
+TRANSFORM
+-135.000000 96.000000 -7.000000
+64.000000 64.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+StartLineMat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:GUI_Inventoy_Slot11
+LAYER:14
+TRANSFORM
+-494.000000 9.000000 -7.000000
+64.000000 64.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+StartLineMat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:GUI_Inventoy_Slot12
+LAYER:14
+TRANSFORM
+-404.000000 9.000000 -7.000000
+64.000000 64.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+StartLineMat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:GUI_Inventoy_Slot13
+LAYER:14
+TRANSFORM
+-316.000000 9.000000 -7.000000
+64.000000 64.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+StartLineMat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:GUI_Inventoy_Slot14
+LAYER:14
+TRANSFORM
+-225.000000 9.000000 -7.000000
+64.000000 64.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+StartLineMat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:GUI_Inventoy_Slot15
+LAYER:14
+TRANSFORM
+-135.000000 9.000000 -7.000000
+64.000000 64.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+StartLineMat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:GUI_Inventoy_Slot16
+LAYER:14
+TRANSFORM
+-494.000000 -83.000000 -7.000000
+64.000000 64.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+StartLineMat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:GUI_Inventoy_Slot17
+LAYER:14
+TRANSFORM
+-404.000000 -83.000000 -7.000000
+64.000000 64.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+StartLineMat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:GUI_Inventoy_Slot18
+LAYER:14
+TRANSFORM
+-316.000000 -83.000000 -7.000000
+64.000000 64.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+StartLineMat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:GUI_Inventoy_Slot19
+LAYER:14
+TRANSFORM
+-225.000000 -83.000000 -7.000000
+64.000000 64.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+StartLineMat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:GUI_Inventoy_Slot20
+LAYER:14
+TRANSFORM
+-135.000000 -83.000000 -7.000000
+64.000000 64.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+StartLineMat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:GUI_Equip_Slot1
+LAYER:14
+TRANSFORM
+166.000000 209.000000 -7.000000
+64.000000 64.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+StartLineMat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:GUI_Equip_Slot2
+LAYER:14
+TRANSFORM
+385.000000 209.000000 -7.000000
+64.000000 64.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+StartLineMat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:GUI_Equip_Slot3
+LAYER:14
+TRANSFORM
+61.000000 97.000000 -7.000000
+64.000000 64.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+StartLineMat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:GUI_Equip_Slot4
+LAYER:14
+TRANSFORM
+151.000000 97.000000 -7.000000
+64.000000 64.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+StartLineMat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:GUI_Equip_Slot5
+LAYER:14
+TRANSFORM
+61.000000 8.000000 -7.000000
+64.000000 64.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+StartLineMat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:GUI_Equip_Slot6
+LAYER:14
+TRANSFORM
+151.000000 8.000000 -7.000000
+64.000000 64.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+StartLineMat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:GUI_Equip_Slot7
+LAYER:14
+TRANSFORM
+61.000000 -82.000000 -7.000000
+64.000000 64.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+StartLineMat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:GUI_Equip_Slot8
+LAYER:14
+TRANSFORM
+151.000000 -81.000000 -7.000000
+64.000000 64.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+StartLineMat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:GUI_Inventoy_Slot1
+LAYER:14
+TRANSFORM
+-494.000000 204.000000 -7.000000
+64.000000 64.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+StartLineMat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:Player_Collider_Spear
+LAYER:17
+TRANSFORM
+-625.688843 17.796127 107.796127
+40.000000 70.000000 1.000000
+0.000000 0.000000 0.000000
+BOXCOLLIDER2D
+1.000000 1.000000 1.000000
+0.000000 0.000000 0.000000
+Script
+0
+Childs
+0
+endobject

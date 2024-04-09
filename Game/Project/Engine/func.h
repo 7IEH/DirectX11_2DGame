@@ -12,6 +12,9 @@ namespace Object
 	void FadeIn(GameObject* _target, float _time);
 	void FadeOut(GameObject* _target, float _time);
 
+	void FadeInLightAmbient(GameObject* _target, float _time);
+	void FadeOutLightAmbient(GameObject* _target, float _time);
+
 	void FadeInLightColor(GameObject* _target, float _time);
 	void FadeOutLightColor(GameObject* _target, float _time);
 
@@ -21,11 +24,20 @@ namespace Object
 	void FadeInText(GameObject* _target, float _time);
 	void FadeOutText(GameObject* _target, float _time);
 
+	void MoveUp(GameObject* _target, float _dest, float _speed);
+	void MoveDown(GameObject* _target, float _dest, float _speed);
+	void MoveRight(GameObject* _target, float _dest, float _speed);
+	void MoveLeft(GameObject* _target, float _dest, float _speed);
+
+	void GrowEffect(GameObject* _target, float _scale, float _speed);
+	void DecreaseEffect(GameObject* _target, float _scale, float _speed);
+
 	void DrawDebugRect(const Matrix& _WorldMat, Vec3 _Color, bool _bDepthTest, float _Duration = 0.f);
 	void DrawDebugRect(Vec3 _vWorldPos, Vec3 _vWorldScale, Vec3 _vWorldRot, Vec3 _Color, bool _bDepthTest, float _Duration = 0.f);
 	void DrawDebugCircle(const Matrix& _WorldMat, Vec3 _Color, bool _bDepthTest, float _Duration = 0.f);
 	void DrawDebugCircle(Vec3 _vWorldPos, float _fRadius, Vec3 _Color, bool _bDepthTest, float _Duration = 0.f);
 
+	void ShakingEffect(float _fTime,float _fSpeed,float _fDistance);
 	//void DrawDebugCube();
 	//void DrawDebugSphere();
 }

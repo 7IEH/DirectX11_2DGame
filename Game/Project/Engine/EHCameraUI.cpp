@@ -19,10 +19,31 @@ CameraUI::CameraUI()
 	m_LayerSelect.insert(make_pair("Perspective", FALSE));
 	m_LayerSelect.insert(make_pair("Orthographic", FALSE));
 
-	m_VisibleLayer.insert(make_pair((UINT)LAYER_TYPE::BACKGROUND1, "BackGround"));
-	m_VisibleLayer.insert(make_pair((UINT)LAYER_TYPE::PLAYER, "Player"));
-	m_VisibleLayer.insert(make_pair((UINT)LAYER_TYPE::MONSTER, "Monster"));
-	m_VisibleLayer.insert(make_pair((UINT)LAYER_TYPE::TRIGGER, "Trigger"));
+	vector<string> _vLayerName; _vLayerName.clear();
+	_vLayerName.push_back("ESSENTAIL_CAMERA");
+	_vLayerName.push_back("ESSENTAIL_LIGHT");
+	_vLayerName.push_back("OBJECT_BG1");
+	_vLayerName.push_back("OBJECT_TEXT1");
+	_vLayerName.push_back("OBJECT_BG2");
+	_vLayerName.push_back("OBJECT_PLAYER");
+	_vLayerName.push_back("OBJECT_MONSTER");
+	_vLayerName.push_back("OBJECT_TRIGGER");
+	_vLayerName.push_back("OBJECT_STRUCTURE_WALL_RIGHT");
+	_vLayerName.push_back("OBJECT_STRUCTURE_WALL_LEFT");
+	_vLayerName.push_back("OBJECT_STRUCTURE_WALL_TOP");
+	_vLayerName.push_back("OBJECT_STRUCTURE_WALL_BOTTOM");
+	_vLayerName.push_back("OBJECT_TILE");
+	_vLayerName.push_back("OBJECT_PARTICLE");
+	_vLayerName.push_back("OBJECT_UI");
+	_vLayerName.push_back("OBJECT_OBSTACLE_HOLE");
+	_vLayerName.push_back("OBJECT_OBSTACLE_ROCK");
+	_vLayerName.push_back("PLAYER_PROJECTILE");
+	_vLayerName.push_back("ENEMY_PROJECTILE");
+
+	for (UINT i = 0;i < (UINT)LAYER_TYPE::END;i++)
+	{
+		m_VisibleLayer.insert(make_pair(i, _vLayerName[i]));
+	}
 }
 
 CameraUI::~CameraUI()

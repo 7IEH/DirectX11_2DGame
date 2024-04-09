@@ -119,9 +119,9 @@ void ComputePointLight2D(float3 _surfacePos, in LightInfo _lightInfo, inout Ligh
 {
     float fAttenu = 1.f;
     
-    float3 _lightPos = _lightInfo.Position;
+    float2 _lightPos = _lightInfo.Position.xy;
     
-    float3 _btwDistance = _lightPos - _surfacePos;
+    float2 _btwDistance = _lightPos - _surfacePos.xy;
     
     if (length(_btwDistance) <= _lightInfo.Radius)
     {

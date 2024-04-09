@@ -2,16 +2,11 @@
 
 #include "EHLevel.h"
 
-#include <new>
-#include <mfplay.h>
-#pragma comment(lib,"mfplay.lib")
-
 class IntroLevel :
 	public Level
 {
 private:
-	float		m_PlayTime;
-	HWND		m_video;
+	float		       m_PlayTime;
 
 public:
 	virtual void Awake()override;

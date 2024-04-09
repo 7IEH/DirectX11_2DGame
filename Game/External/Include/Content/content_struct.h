@@ -45,4 +45,9 @@ struct Room
 	GameObject*					_This;
 	GameObject*					_Parent;
 	GameObject*					_Child[(UINT)SPAWN_TYPE::END];
+
+	vector<GameObject*>			_pMonster;
+	vector<GameObject*>			_pDoor;
+
+	bool						_bMapVisible;
 };

@@ -107,6 +107,9 @@ void TileMap::UpdateData()
 
 void TileMap::Render()
 {
+	if (!GetIsRender())
+		return;
+
 	// 재질에 아틀라스 텍스쳐 전달.
 	GetMaterial()->SetTexParam(TEX_0, m_TileAtlas);
 

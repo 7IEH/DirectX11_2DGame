@@ -205,6 +205,43 @@ void AssetMgr::CreateDefaultShader()
 
 	AddAsset(_defaultShader, L"DefaultShader");
 
+	/*********************
+	|	Player Shader
+	*********************/
+	GraphicShader* _pPlayerShader = new GraphicShader;
+
+	_path = L"\\shader\\playerVS.hlsl";
+	wstring _path2 = L"\\shader\\playerPS.hlsl";
+	_vsEntry = "VS_Std2D";
+	_psEntry = "PS_Std2D";
+
+	_pPlayerShader->Default_Create(_path, _path2, _vsEntry, _psEntry);
+
+	_pPlayerShader->SetCullType(CULL_TYPE::NONE);
+	_pPlayerShader->SetDSType(DS_TYPE::LESS);
+	_pPlayerShader->SetBlendType(BLEND_TYPE::ALPHABLENDING);
+
+	AddAsset(_pPlayerShader, L"PlayerShader");
+
+	/*********************
+	|	UI Shader
+	*********************/
+
+	GraphicShader* _pUIShader = new GraphicShader;
+
+	_path = L"\\shader\\UIVS.hlsl";
+	_path2 = L"\\shader\\UIPS.hlsl";
+	_vsEntry = "VS_Std2D";
+	_psEntry = "PS_Std2D";
+
+	_pUIShader->Default_Create(_path, _path2, _vsEntry, _psEntry);
+
+	_pUIShader->SetCullType(CULL_TYPE::NONE);
+	_pUIShader->SetDSType(DS_TYPE::LESS);
+	_pUIShader->SetBlendType(BLEND_TYPE::ALPHABLENDING);
+
+	AddAsset(_pUIShader, L"UIShader");
+
 	/********************
 	|	Effect Shader
 	********************/
@@ -286,6 +323,29 @@ void AssetMgr::CreateDefaultShader()
 	OutlineFilter->SetDomain(SHADER_DOMAIN::DOMAIN_POSTPROCESS);
 
 	AddAsset(OutlineFilter, L"OutlineFilterShader");
+
+	/******************
+	| Mozaic Shader
+	| Mesh		: RectMesh
+	| RS_TYPE	: CULL_BACK
+	| DS_TYPE	: NO_TEST_NO_WRITE
+	| BS_TYPE	: Default
+	| Domain	: DOMAIN_POSTPROCESS
+	******************/
+	GraphicShader* MozaicFilter = new GraphicShader;
+
+	_path = L"\\shader\\postprocessVS.hlsl";
+	_path2 = L"\\shader\\postprocessPS.hlsl";
+	_vsEntry = "VS_MOZAIC";
+	_psEntry = "PS_MOZAIC";
+
+	MozaicFilter->Default_Create(_path, _path2, _vsEntry, _psEntry);
+
+	MozaicFilter->SetCullType(CULL_TYPE::BACK);
+	MozaicFilter->SetDSType(DS_TYPE::NO_TEST_NO_WRITE);
+	MozaicFilter->SetDomain(SHADER_DOMAIN::DOMAIN_POSTPROCESS);
+
+	AddAsset(MozaicFilter, L"MozaicFilter");
 
 	/********************
 	|	Debug Shader

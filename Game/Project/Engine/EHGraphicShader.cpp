@@ -9,12 +9,12 @@
 GraphicShader::GraphicShader()
 	:
 	Shader(ASSET_TYPE::GRAPHIC_SHADER)
-	,m_Topology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
-	,m_CullType(CULL_TYPE::BACK)
-	,m_DSType(DS_TYPE::LESS)
-	,m_BlendType(BLEND_TYPE::DEFAULT)
-	,m_SamplerType(SAMPLER_TYPE::POINT)
-	,m_Domain(SHADER_DOMAIN::DOMAIN_MASKED)
+	, m_Topology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
+	, m_CullType(CULL_TYPE::BACK)
+	, m_DSType(DS_TYPE::LESS)
+	, m_BlendType(BLEND_TYPE::DEFAULT)
+	, m_SamplerType(SAMPLER_TYPE::POINT)
+	, m_Domain(SHADER_DOMAIN::DOMAIN_MASKED)
 {
 }
 
@@ -22,7 +22,7 @@ GraphicShader::~GraphicShader()
 {
 }
 
-void GraphicShader::Default_Create(wstring& _shaderPath, string& _vsEntry, string& _psEntry)
+void GraphicShader::Default_Create(const wstring& _shaderPath, const string& _vsEntry, const string& _psEntry)
 {
 	// CreateBlob
 	CreateBlobFile(SHADER_TYPE::VERTEX, _shaderPath, _vsEntry);
@@ -36,11 +36,25 @@ void GraphicShader::Default_Create(wstring& _shaderPath, string& _vsEntry, strin
 	CreateLayOut();
 }
 
-void GraphicShader::Custom_Create(wstring& _shaderPath,string& _gsEntry, string& _huEntry, string& _dmEntry)
+void GraphicShader::Default_Create(const wstring& _pVSShaderPath, const wstring& _pPSShaderPath, const string& _vsEntry, const string& _psEntry)
+{
+	// CreateBlob
+	CreateBlobFile(SHADER_TYPE::VERTEX, _pVSShaderPath, _vsEntry);
+	CreateBlobFile(SHADER_TYPE::PIXEL, _pPSShaderPath, _psEntry);
+
+	// CreateShader
+	CreateShader(SHADER_TYPE::VERTEX);
+	CreateShader(SHADER_TYPE::PIXEL);
+
+	// CreateLayOut
+	CreateLayOut();
+}
+
+void GraphicShader::Custom_Create(const wstring& _shaderPath, const string& _gsEntry, const string& _huEntry, const string& _dmEntry)
 {
 	if (_gsEntry != "")
 	{
-		CreateBlobFile(SHADER_TYPE::GEOMETRY,_shaderPath,_gsEntry);
+		CreateBlobFile(SHADER_TYPE::GEOMETRY, _shaderPath, _gsEntry);
 		CreateShader(SHADER_TYPE::GEOMETRY);
 	}
 	if (_huEntry != "")
@@ -63,7 +77,7 @@ HRESULT GraphicShader::UpdateData()
 	// Input Assembler Stage
 	CONTEXT->IASetPrimitiveTopology(m_Topology);
 	CONTEXT->IASetInputLayout(m_LayOut.Get());
-	
+
 	// Vertex Shader Stage
 	SetShader(SHADER_TYPE::VERTEX);
 
@@ -83,13 +97,13 @@ HRESULT GraphicShader::UpdateData()
 	SetShader(SHADER_TYPE::GEOMETRY);
 
 	// Output-Merger Stage
-	CONTEXT->OMSetDepthStencilState(Device::GetInst()->GetDSState(m_DSType).Get(),0);
-	CONTEXT->OMSetBlendState(Device::GetInst()->GetBSState(m_BlendType).Get(),nullptr,0xffffffff);
+	CONTEXT->OMSetDepthStencilState(Device::GetInst()->GetDSState(m_DSType).Get(), 0);
+	CONTEXT->OMSetBlendState(Device::GetInst()->GetBSState(m_BlendType).Get(), nullptr, 0xffffffff);
 
 	return S_OK;
 }
 
-void GraphicShader::CreateBlobFile(SHADER_TYPE _type, wstring& _path, string& _entry)
+void GraphicShader::CreateBlobFile(SHADER_TYPE _type, const wstring& _path, const string& _entry)
 {
 	wstring _finalPath = PATH + _path;
 	switch (_type)
@@ -221,17 +235,17 @@ void GraphicShader::SetShader(SHADER_TYPE _type)
 	{
 		CONTEXT->HSSetShader(m_HS.Get(), 0, 0);
 	}
-		break;
+	break;
 	case SHADER_TYPE::DOMAlN:
 	{
 		CONTEXT->DSSetShader(m_DS.Get(), 0, 0);
 	}
-		break;
+	break;
 	case SHADER_TYPE::GEOMETRY:
 	{
 		CONTEXT->GSSetShader(m_GS.Get(), 0, 0);
 	}
-		break;
+	break;
 	case SHADER_TYPE::END:
 		break;
 	default:

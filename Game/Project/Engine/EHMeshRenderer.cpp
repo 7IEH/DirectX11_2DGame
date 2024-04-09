@@ -53,6 +53,9 @@ void MeshRenderer::UpdateData()
 
 void MeshRenderer::Render()
 {
+	if (!GetIsRender())
+		return;
+
 	Animator2D* _animator = GetOwner()->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D);
 
 	if (_animator != nullptr)
@@ -104,7 +107,8 @@ void MeshRenderer::Load(std::wifstream* _file)
 		else
 		{
 			Ptr<Material> _mtrl = AssetMgr::GetInst()->FindAsset<Material>(_line);
-			SetMaterial(_mtrl->Clone());
+			if (nullptr != _mtrl)
+				SetMaterial(_mtrl->Clone());
 		}
 	}
 }

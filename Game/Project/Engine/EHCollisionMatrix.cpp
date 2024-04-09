@@ -24,7 +24,10 @@ CollisionMatrix::CollisionMatrix()
 	m_LayerName.push_back("OBJECT_TILE");
 	m_LayerName.push_back("OBJECT_PARTICLE");
 	m_LayerName.push_back("OBJECT_UI");
-	m_LayerName.push_back("OBJECT_OBSTACLE");
+	m_LayerName.push_back("OBJECT_OBSTACLE_HOLE");
+	m_LayerName.push_back("OBJECT_OBSTACLE_ROCK");
+	m_LayerName.push_back("PLAYER_PROJECTILE");
+	m_LayerName.push_back("ENEMY_PROJECTILE");
 }
 
 CollisionMatrix::~CollisionMatrix()

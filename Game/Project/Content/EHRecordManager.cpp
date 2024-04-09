@@ -3,6 +3,12 @@
 
 #include <EHPathMgr.h>
 
+/****************************
+|	1. Create 파일 수정
+|	2. WriteFile 수정
+|	3. LoadFile 수정
+****************************/
+
 RecordManager::RecordManager()
 	: m_wSavePath{}
 	, m_vPlayerPref{}
@@ -25,6 +31,7 @@ void RecordManager::Awake()
 		if (std::filesystem::exists(m_wSavePath + std::to_wstring(i)))
 		{
 			m_vPlayerPref[i] = new PlayerPref;
+			LoadFile(i);
 		}
 	}
 }
@@ -59,8 +66,18 @@ void RecordManager::CreateSaveFile(int _iCurSlot)
 		m_vPlayerPref[_iCurSlot]->_iMoney = 0;
 		m_vPlayerPref[_iCurSlot]->_fSpeed = 300.f;
 		m_vPlayerPref[_iCurSlot]->_iStrikingPower = 10;
-		m_vPlayerPref[_iCurSlot]->_eWeapon = Weapon::Spear;
+		m_vPlayerPref[_iCurSlot]->_eWeapon = Weapon::BroomStick;
 		m_vPlayerPref[_iCurSlot]->_eSubWeapon = SubWeapon::None;
+
+		for (int i = 0;i < 20;i++)
+		{
+			m_vPlayerPref[_iCurSlot]->_eInventory[i] = ITEM::NO_ITEM;
+		}
+
+		for (int i = 0;i < 20;i++)
+		{
+			m_vPlayerPref[_iCurSlot]->_iInventory[i] = 0;
+		}
 
 		m_iCurSlot = _iCurSlot;
 		WriteFile(_iCurSlot);
@@ -71,11 +88,17 @@ void RecordManager::DeleteSaveFile(int _iCurSlot)
 {
 	if (std::filesystem::exists(m_wSavePath + std::to_wstring(_iCurSlot)))
 	{
-		std::filesystem::remove(m_wSavePath + std::to_wstring(_iCurSlot));
+		std::filesystem::remove_all(m_wSavePath + std::to_wstring(_iCurSlot));
+
+		if (nullptr != m_vPlayerPref[_iCurSlot])
+		{
+			delete m_vPlayerPref[_iCurSlot];
+			m_vPlayerPref[_iCurSlot] = nullptr;
+		}
 	}
 }
 
-void RecordManager::SaveFile(int _iCurSlot)
+void RecordManager::SaveFile()
 {
 	// 튜토리얼 유무
 	// 현재 Scene
@@ -83,10 +106,10 @@ void RecordManager::SaveFile(int _iCurSlot)
 	// 현재 시각
 	// 클리어 던전
 	// 플레이어 정보
-	std::ofstream _pFile(m_wSavePath + std::to_wstring(_iCurSlot) + L"\\Saved.save",
+	std::ofstream _pFile(m_wSavePath + std::to_wstring(m_iCurSlot) + L"\\Saved.save",
 		std::ios::out | std::ios::app);
 
-	WriteFile(_iCurSlot);
+	WriteFile(m_iCurSlot);
 }
 
 void RecordManager::LoadFile(int _iCurSlot)
@@ -107,51 +130,66 @@ void RecordManager::LoadFile(int _iCurSlot)
 	{
 		if (0 == _idx)
 		{
-			m_vPlayerPref[_iCurSlot]->_bTutorial = std::stoi(_line);
+			Vec3 _output;
+			EH::InputVector3(_line, m_vPlayerPref[_iCurSlot]->_vSaveDay);
 		}
 		else if (1 == _idx)
 		{
-			m_vPlayerPref[_iCurSlot]->_ePlace = PLACE(std::stoi(_line));
+			m_vPlayerPref[_iCurSlot]->_bTutorial = std::stoi(_line);
 		}
 		else if (2 == _idx)
 		{
-			EH::InputVector2(_line, m_vPlayerPref[_iCurSlot]->_vPos);
+			m_vPlayerPref[_iCurSlot]->_ePlace = PLACE(std::stoi(_line));
 		}
 		else if (3 == _idx)
 		{
-			m_vPlayerPref[_iCurSlot]->_iTime = std::stoi(_line);
+			EH::InputVector2(_line, m_vPlayerPref[_iCurSlot]->_vPos);
 		}
 		else if (4 == _idx)
 		{
-			m_vPlayerPref[_iCurSlot]->_iClear = std::stoi(_line);
+			m_vPlayerPref[_iCurSlot]->_iTime = std::stoi(_line);
 		}
 		else if (5 == _idx)
 		{
-			m_vPlayerPref[_iCurSlot]->_iCurHp = std::stoi(_line);
+			m_vPlayerPref[_iCurSlot]->_iClear = std::stoi(_line);
 		}
 		else if (6 == _idx)
 		{
-			m_vPlayerPref[_iCurSlot]->_iMaxHp = std::stoi(_line);
+			m_vPlayerPref[_iCurSlot]->_iCurHp = std::stoi(_line);
 		}
 		else if (7 == _idx)
 		{
-			m_vPlayerPref[_iCurSlot]->_iMoney = std::stoi(_line);
+			m_vPlayerPref[_iCurSlot]->_iMaxHp = std::stoi(_line);
 		}
 		else if (8 == _idx)
 		{
-			m_vPlayerPref[_iCurSlot]->_fSpeed = std::stof(_line);
+			m_vPlayerPref[_iCurSlot]->_iMoney = std::stoi(_line);
 		}
 		else if (9 == _idx)
 		{
-			m_vPlayerPref[_iCurSlot]->_iStrikingPower = std::stoi(_line);
+			m_vPlayerPref[_iCurSlot]->_fSpeed = std::stof(_line);
 		}
 		else if (10 == _idx)
 		{
-			m_vPlayerPref[_iCurSlot]->_eWeapon = Weapon(std::stoi(_line));
+			m_vPlayerPref[_iCurSlot]->_iStrikingPower = std::stoi(_line);
 		}
 		else if (11 == _idx)
 		{
+			m_vPlayerPref[_iCurSlot]->_eWeapon = Weapon(std::stoi(_line));
+		}
+		else if (12 == _idx)
+		{
 			m_vPlayerPref[_iCurSlot]->_eSubWeapon = SubWeapon(std::stoi(_line));
+		}
+
+		else if (13 <= _idx)
+		{
+			m_vPlayerPref[_iCurSlot]->_eInventory[_idx - 13] = ITEM(std::stoi(_line));
+		}
+
+		else if (33 <= _idx)
+		{
+			m_vPlayerPref[_iCurSlot]->_iInventory[_idx - 33] = std::stoi(_line);
 		}
 		_idx++;
 	}
@@ -164,6 +202,13 @@ void RecordManager::WriteFile(int _iCurSlot)
 	std::ofstream _pFile(m_wSavePath + std::to_wstring(_iCurSlot) + L"\\Saved.save",
 		std::ios::out | std::ios::app);
 
+	time_t _time = time(NULL);
+	struct tm* t = new tm;
+	localtime_s(t, &_time);
+
+	_pFile << EH::WriteVector3(Vec3(static_cast<float>(t->tm_year) + 1900.f, (float)t->tm_mon + 1, (float)t->tm_mday)) + '\n';
+
+	string _name = EH::WriteVector3(Vec3(static_cast<float>(t->tm_year) + 1900.f, t->tm_mon, t->tm_yday));
 	_pFile << std::to_string(m_vPlayerPref[_iCurSlot]->_bTutorial) + '\n';
 	_pFile << std::to_string(int(m_vPlayerPref[_iCurSlot]->_ePlace)) + '\n';
 	_pFile << EH::WriteVector2(m_vPlayerPref[_iCurSlot]->_vPos) + '\n';
@@ -177,5 +222,33 @@ void RecordManager::WriteFile(int _iCurSlot)
 	_pFile << std::to_string(int(m_vPlayerPref[_iCurSlot]->_eWeapon)) + '\n';
 	_pFile << std::to_string(int(m_vPlayerPref[_iCurSlot]->_eSubWeapon)) + '\n';
 
+	for (int i = 0;i < 20;i++)
+	{
+		_pFile << std::to_string(int(m_vPlayerPref[_iCurSlot]->_eInventory[i])) + '\n';
+	}
+
+	for (int i = 0;i < 20;i++)
+	{
+		_pFile << std::to_string(m_vPlayerPref[_iCurSlot]->_iInventory[i]) + '\n';
+	}
+
 	_pFile.close();
+}
+
+bool RecordManager::IsSavedFile()
+{
+	bool _bFlag = FALSE;
+
+	wstring _wSavePath = PATH;
+	_wSavePath += L"\\saved\\";
+
+	for (int i = 0;i < 5;i++)
+	{
+		if (std::filesystem::exists(_wSavePath + std::to_wstring(i)))
+		{
+			_bFlag = TRUE;
+		}
+	}
+
+	return _bFlag;
 }

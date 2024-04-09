@@ -7,12 +7,15 @@
 #include "EHRenderMgr.h"
 
 #include "EHLevelMgr.h"
+#include "EHRandomManager.h"
 
 TriggerScript::TriggerScript()
-	: m_TriggerType(TRIGGER_TYPE::END)
-	, m_Cam(nullptr)
-	, m_PlayerPos{}
-	, m_CamPos{}
+	: m_eTriggerType(TRIGGER_TYPE::END)
+	, m_pCam(nullptr)
+	, m_vPlayerPos{}
+	, m_vCamPos{}
+	, m_eChestStore{}
+	, m_iChestNum(0)
 {
 	SetName(L"TriggerScript");
 }
@@ -23,44 +26,19 @@ TriggerScript::~TriggerScript()
 
 void TriggerScript::Awake()
 {
-}
-
-void TriggerScript::OnTriggerEnter(Collider* _other)
-{
-	GameObject* _player = _other->GetOwner();
-	if (_player->GetLayerType() != LAYER_TYPE::PLAYER)
-		return;
-
-	Transform* _playertr = _player->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
-
-	switch (m_TriggerType)
+	int _flag = 0;
+	if (TRIGGER_TYPE::CHEST_TRIGGER == m_eTriggerType)
 	{
-	case TRIGGER_TYPE::MOVE_TRIGGER:
-	{
-		// 해당 ROOM에 몬스터가 남아 있을시 COLLIDER ENABLED
-
-		// _other(player) 위치 변경
-		if (_other->GetOwner()->GetLayerType() == LAYER_TYPE::PLAYER)
+		for (int i = 0;i < 28;i++)
 		{
-			vector<GameObject*> _object = LevelMgr::GetInst()->GetCurLevel()->GetLayer(LAYER_TYPE::CAMERA)->GetLayerObject();
-			m_Cam = _object[0];
+			if (m_iChestNum == _flag)
+				break;
 
-			Transform* _playertr = _other->GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
-			_playertr->SetRelativePosition(m_PlayerPos);
-			Vec4 _campos = m_Cam->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativePosition();
-			_campos.x = m_PlayerPos.x;
-			_campos.y = m_PlayerPos.y;
-
-			m_Cam->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->SetRelativePosition(_campos);
-
-			DebugMgr::GetInst()->Log("Test");
+			if (RandomManager::GetInst()->GenerateNumber(0, 1))
+			{
+				m_eChestStore[i] = ITEM(RandomManager::GetInst()->GenerateNumber(1, 2));
+				_flag++;
+			}
 		}
-		// _other(camera move)
-	}
-	break;
-	case TRIGGER_TYPE::END:
-		break;
-	default:
-		break;
 	}
 }

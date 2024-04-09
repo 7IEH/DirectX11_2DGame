@@ -29,7 +29,8 @@ private:
 	GameObject* m_LeftDoor;
 	GameObject* m_GameLogo;
 
-	vector<GameObject*>m_pButtons;
+	vector<GameObject*>m_pButtons_NoSaved;
+	vector<GameObject*>m_pButtons_Saved;
 
 	GameObject* m_TitleBG1;
 	GameObject* m_TitleBG2;
@@ -53,11 +54,18 @@ private:
 	float m_Radius1;
 	float m_Radius2;
 
+	bool  m_bSaved;
+
 public:
 	void StartGame();
 	void LoadGame();
+	void ContinueGame();
 	void Option();
 	void Exit();
+
+private:
+	void SavedUpdate();
+	void NoSavedUpdate();
 
 public:
 	virtual void Start();

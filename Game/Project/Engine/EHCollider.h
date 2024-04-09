@@ -22,7 +22,7 @@ public:
 	bool GetAbsolute() { return m_Absolute; }
 
 	bool	GetEnabled() { return m_Enabled; }
-	void	Enabled() { m_Enabled = !m_Enabled; }
+	void	Enabled(bool _bEnabled) { m_Enabled = _bEnabled; }
 
 public:
 	virtual void DrawCollider() = 0;

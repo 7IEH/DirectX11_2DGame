@@ -1,5 +1,7 @@
 #pragma once
 
+#include "EHItemScript.h"
+
 enum class PLACE
 {
 	TUTORIAL,
@@ -9,20 +11,21 @@ enum class PLACE
 
 enum class Weapon
 {
-	OneHand,
-	TwoHand,
-	Spear,
+	BasicOneHand,
+	BasicTwoHand,
+	BroomStick,
 	None,
 };
 
 enum class SubWeapon
 {
-	Shield,
+	BasicShield,
 	None,
 };
 
 struct PlayerPref
 {
+	Vec3	_vSaveDay;
 	PLACE	_ePlace;
 	Vec2	_vPos;
 	int		_iTime;
@@ -31,13 +34,17 @@ struct PlayerPref
 
 	// 플레이어 정보
 	// 추가 할 때마다 실행코드도 고치기!
-	UINT		_iCurHp;
+	int			_iCurHp;
 	UINT		_iMaxHp;
-	UINT		_iMoney;
+	int			_iMoney;
 	UINT		_iStrikingPower;
 	float		_fSpeed;
 	Weapon		_eWeapon;
 	SubWeapon	_eSubWeapon;
+
+	// 인벤토리
+	ITEM		_eInventory[20];
+	int			_iInventory[20];
 };
 
 class RecordManager
@@ -53,22 +60,29 @@ private:
 
 private:
 	PlayerPref* GetCurrentPlayerPref() { return m_vPlayerPref[m_iCurSlot]; }
-	
+	void SetCurrentPlayerPref(PlayerPref* _pPref)  { m_vPlayerPref[m_iCurSlot] = _pPref; }
+
+	const vector<PlayerPref*>& GetPlayerPref() { return m_vPlayerPref; }
+
 public:
 	void Awake();
 
 public:
 	void CreateSaveFile(int _iCurSlot);
 	void DeleteSaveFile(int _iCurSlot);
-	void SaveFile(int _iCurSlot);
+	void SaveFile();
 	void LoadFile(int _iCurSlot);
 
-
+	bool IsSavedFile();
 
 private:
 	void WriteFile(int _iCurSlot);
 
+	friend class TitleScript;
 	friend class PlayerScript;
+	friend class TutorialScript;
 	friend class SlotScript;
+	friend class PUIScript;
+	friend class EnemyScript;
 };
 

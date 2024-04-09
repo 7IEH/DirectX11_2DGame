@@ -19,6 +19,9 @@ CanvasRenderer::~CanvasRenderer()
 
 void CanvasRenderer::Render()
 {
+	if (!GetIsRender())
+		return;
+
 	Text* _text = GetOwner()->GetComponent<Text>(COMPONENT_TYPE::TEXT);
 	if (nullptr != _text)
 		_text->Render();

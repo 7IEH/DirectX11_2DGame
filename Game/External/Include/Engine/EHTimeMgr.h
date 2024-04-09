@@ -12,9 +12,15 @@ private:
 
 	UINT			m_iCall;
 	float			m_fTime;
+	
+	bool			m_bAcctimeUpdate;
+	bool			m_bAcctimeSet;
 
 public:
 	float				GetDeltaTime() { return m_fDeltaTime; }
+	
+	void				SetAccTimeUpdate(bool _bAccTimeUpdtae) { m_bAcctimeUpdate = _bAccTimeUpdtae; }
+	void				SetAccTimeSet(bool _bAcctimeSet) { m_bAcctimeSet = _bAcctimeSet; }
 
 public:
 	void				Awake();
