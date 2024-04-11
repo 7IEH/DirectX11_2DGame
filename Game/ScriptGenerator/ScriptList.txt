@@ -1,4 +1,5 @@
 EHBabySlimeScript
+EHBossUIScript
 EHCameraScript
 EHCameraTargetScript
 EHDungeonEntranceScript
@@ -7,6 +8,11 @@ EHEnemyScript
 EHGolemBossSceneScript
 EHGolemButlerScript
 EHGolemDungeonScript
+EHGolemKingATK1Script
+EHGolemKingATK2Script
+EHGolemKingATK3Script
+EHGolemKingATK4Script
+EHGolemKingScript
 EHGolemTurretScript
 EHGUI_LineScript
 EHItemScript
@@ -19,6 +25,8 @@ EHProjecTileScript
 EHPUIScript
 EHRangedEnemyScript
 EHSlotScript
+EHSpawnEffectScript
+EHSpawnRockScript
 EHTangleScript
 EHTestScript
 EHTitleScript

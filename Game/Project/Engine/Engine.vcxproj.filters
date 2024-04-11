@@ -343,6 +343,9 @@
     <Filter Include="Module\MediaFoundation">
       <UniqueIdentifier>{3cb54a15-a797-4eee-914c-391766ac6d7a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="07. Component\RigidBody">
+      <UniqueIdentifier>{9991aa78-5dd6-44bf-8ca6-b85ccdc98ba6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -672,6 +675,9 @@
     <ClInclude Include="EHVideoMgr.h">
       <Filter>04. Manager\VideoMgr</Filter>
     </ClInclude>
+    <ClInclude Include="EHRigidBody.h">
+      <Filter>07. Component\RigidBody</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -976,6 +982,9 @@
     </ClCompile>
     <ClCompile Include="EHVideoMgr.cpp">
       <Filter>04. Manager\VideoMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="EHRigidBody.cpp">
+      <Filter>07. Component\RigidBody</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

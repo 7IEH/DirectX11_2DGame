@@ -25,6 +25,8 @@
 
 #include "EHRoomManager.h"
 
+#include <EHRigidBody.h>
+
 PlayerScript::PlayerScript()
 	: m_eDir(Dir::LEFT)
 	, m_eState(State::Idle)
@@ -84,6 +86,9 @@ PlayerScript::PlayerScript()
 	, m_bSceneChange(TRUE)
 	, m_fDungeonEnterTime(0.f)
 	, m_pDungeonPortal1(nullptr)
+	, m_pMozaicPanel(nullptr)
+	, m_fDeadTime(0.f)
+	, m_bMozaikEnd(FALSE)
 {
 	SetName(L"PlayerScript");
 }
@@ -145,6 +150,8 @@ void PlayerScript::Awake()
 
 	m_pMainLight = FIND_OBJECT(L"MainLight");
 
+	m_pMozaicPanel = FIND_OBJECT(L"Object_Mozaic_Panel");
+
 	if (LevelMgr::GetInst()->GetCurLevel()->GetName() == L"TownScene" || LevelMgr::GetInst()->GetCurLevel()->GetName() == L"DungeonEntranceScene")
 	{
 
@@ -190,6 +197,8 @@ void PlayerScript::Awake()
 	assert(m_pChestIntreface);
 	assert(m_pUICurSor);
 	assert(m_pPlayerCam);
+
+	assert(m_pMozaicPanel);
 
 	assert(m_pSpearCollider);
 	//assert(m_pOneHandCollider);
@@ -246,6 +255,8 @@ void PlayerScript::Awake()
 			m_pMainLight->GetComponent<LIght2D>(COMPONENT_TYPE::LIGHT2D)->SetAmbient(Vec4(1.f, 1.f, 1.f, 1.f));
 		}
 	}
+
+	GetOwner()->AddComponent<RigidBody>();
 }
 
 void PlayerScript::Start()
@@ -262,6 +273,10 @@ void PlayerScript::Update()
 	if (m_pPlayerPref->_iCurHp <= 0 && m_eState != State::Dead)
 	{
 		m_eState = State::Dead;
+		m_pMozaicPanel->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(INT_0, 1);
+		m_pMozaicPanel->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(INT_2, 1);
+		TimeMgr::GetInst()->SetAccTimeSet(FALSE);
+		TimeMgr::GetInst()->SetAccTimeUpdate(TRUE);
 		DeadAnim();
 	}
 
@@ -409,6 +424,20 @@ void PlayerScript::Invincibility()
 
 void PlayerScript::Idle()
 {
+	if (KEY_TAP(P))
+	{
+		m_pPlayerPref->_iCurHp -= 10;
+	}
+
+	if (KEY_TAP(H))
+	{
+		m_pMozaicPanel->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(INT_1, 1);
+	}
+	else if (KEY_TAP(O))
+	{
+		m_pMozaicPanel->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(INT_1, 0);
+	}
+
 	if (KEY_TAP(KEY::W) || KEY_TAP(KEY::A) || KEY_TAP(KEY::S) || KEY_TAP(KEY::D)
 		|| KEY_PRESSED(KEY::W) || KEY_PRESSED(KEY::A) || KEY_PRESSED(KEY::S) || KEY_PRESSED(KEY::D))
 	{
@@ -1438,6 +1467,33 @@ void PlayerScript::Pause()
 void PlayerScript::Dead()
 {
 	// Dead
+	m_fDeadTime += DT;
+
+	TimeMgr::GetInst()->SetAccTimeSet(FALSE);
+
+	if (2.1f <= m_fDeadTime && !m_bMozaikEnd)
+	{
+		TimeMgr::GetInst()->SetAccTimeSet(TRUE);
+		m_pMozaicPanel->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(INT_0, 1);
+		m_pMozaicPanel->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(INT_2, 0);
+		m_bMozaikEnd = TRUE;
+
+	}
+
+	if (4.f <= m_fDeadTime)
+	{
+		TimeMgr::GetInst()->SetAccTimeUpdate(FALSE);
+		TimeMgr::GetInst()->SetAccTimeSet(TRUE);
+
+		m_pMozaicPanel->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(INT_0, 0);
+		m_pMozaicPanel->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(INT_2, 1);
+
+		m_pPlayerPref->_iCurHp = 100;
+		m_eState = State::Idle;
+		IdleAnim();
+		m_fDeadTime = 0.f;
+		m_bMozaikEnd = FALSE;
+	}
 }
 
 void PlayerScript::ESC()
@@ -1692,6 +1748,11 @@ void PlayerScript::DeadAnim()
 	assert(_pAnim);
 
 	_pAnim->Play(L"FSM_Player_Dungeon_Dead_Anim", FALSE);
+}
+
+void PlayerScript::KnockBack()
+{
+
 }
 
 void PlayerScript::ColliderPositionCalc()

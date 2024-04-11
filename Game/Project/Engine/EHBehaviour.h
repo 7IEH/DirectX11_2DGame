@@ -18,7 +18,7 @@
 #include "EHButton.h"
 #include "EHText.h"
 #include "EHParticleSystem.h"
-//#include "EHRigidbody.h"
+#include "EHRigidbody.h"
 
 /*******************
 | Script Component

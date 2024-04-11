@@ -25,6 +25,8 @@ public:
 	void					Play(const wstring& _strName, bool _repeat = TRUE);
 	static void				Clear();
 
+	void					SetCurAnimation2D(const wstring& _strName);
+
 public:
 	virtual void			LateUpdate()override;
 	virtual void			UpdateData()override;

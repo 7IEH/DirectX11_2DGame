@@ -394,8 +394,10 @@ Boss_Golem_Attack_StickyPrepare_Sprite
 \\resource\\Monster\\Boss\\Golem\\Attack\\StickyPattern\\Prepare\\Boss_Golem_Attack_StickyPrepare_Atlas.png
 Boss_Golem_Attack_Wave_Sprite
 \\resource\\Monster\\Boss\\Golem\\Attack\\WaveAttack\\Boss_Golem_Attack_Wave_Atlas.png
-Boss_Golem_Dead_Sprite
-\\resource\\Monster\\Boss\\Golem\\Death\\Boss_Golem_Dead_Atlas.png
+Boss_Golem_Dead_Sprite1
+\\resource\\Monster\\Boss\\Golem\\Death\\Boss_Golem_Dead_Atlas1.png
+Boss_Golem_Dead_Sprite2
+\\resource\\Monster\\Boss\\Golem\\Death\\Boss_Golem_Dead_Atlas2.png
 Boss_Golem_Idle_Arm_Sprite
 \\resource\\Monster\\Boss\\Golem\\Idle\\Arm\\Boss_Golem_Idle_Arm_Atlas.png
 Boss_Golem_Idle_NoArm_Sprite
@@ -405,9 +407,31 @@ Boss_Golem_WakeUp_Sprite
 Boss_Golem_Idle_Crack_Sprite
 \\resource\\Monster\\Boss\\Golem\\Boss1_crack.png
 Boss_Golem_Attack_Punch_Crack1_Sprite
-\\resource\\Monster\\Boss\\Golem\\Attack\\LaunchArm\\Boss_Golem_Attack_Punch_Crack1
+\\resource\\Monster\\Boss\\Golem\\Attack\\LaunchArm\\Boss_Golem_Attack_Punch_Crack1.png
 Boss_Golem_Attack_Punch_Shadow1_Sprite
-\\resource\\Monster\\Boss\\Golem\\Attack\\LaunchArm\\Boss_Golem_Attack_Punch_Shadow1
+\\resource\\Monster\\Boss\\Golem\\Attack\\LaunchArm\\Boss_Golem_Attack_Punch_Shadow1.png
 Boss_Golem_Attack_Punch_Sprite
 \\resource\\Monster\\Boss\\Golem\\Attack\\StickyPattern\\Boss_Golem_Attack_Punch.png
+Boss_Golem_Attack_Punch_Module_Sprite
+\\resource\\Monster\\Boss\\Golem\\Attack\\StickyPattern\\Boss_Golem_Attack_Punch_Module.png
+Boss_Golem_Attack_Punch_Module_Sprite2
+\\resource\\Monster\\Boss\\Golem\\Attack\\StickyPattern\\Boss_Golem_Attack_Punch_Module2.png
+GUI_Boss_HealthBar_Decoration_Sprite
+\\resource\\Util\\Boss\\HUD_Boss_HealthBar_Decoration.png
+GUI_Boss_HealthBar_Sprite
+\\resource\\Util\\Boss\\HUD_Boss_HealthBar.png
+Object_Boss_Rock_Sprite1
+\\resource\\Monster\\Boss\\Golem\\Boos1_Rock_1.png
+Object_Boss_Rock_Sprite2
+\\resource\\Monster\\Boss\\Golem\\Boos1_Rock_2.png
+Object_Boss_Rock_Sprite3
+\\resource\\Monster\\Boss\\Golem\\Boos1_Rock_3.png
+Object_Boss_Rock_Sprite4
+\\resource\\Monster\\Boss\\Golem\\Boos1_Rock_4.png
+Object_Boss_Rock_Sprite5
+\\resource\\Monster\\Boss\\Golem\\Boos1_Rock_5.png
+Object_Boss_Rock_Sprite6
+\\resource\\Monster\\Boss\\Golem\\Boos1_Rock_6.png
+Object_Boss_Rock_Shadow_Sprite
+\\resource\\Monster\\Boss\\Golem\\Boos1_Rock_Shadow #123084.png
 

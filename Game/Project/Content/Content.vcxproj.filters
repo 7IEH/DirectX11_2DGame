@@ -28,12 +28,6 @@
     <Filter Include="03. Util\RoomManager">
       <UniqueIdentifier>{f823057a-dd95-4017-bce0-d4c578c78c0b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Script\OutlineScript">
-      <UniqueIdentifier>{d1992999-af05-4e41-ac48-c712af0e452f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. Script\TestScript">
-      <UniqueIdentifier>{b8c1db21-9a97-48b3-a6fd-0c1d395b098b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. Script\1. PlayerScript">
       <UniqueIdentifier>{ffb405f3-fd34-4824-a632-466d3fa1d259}</UniqueIdentifier>
     </Filter>
@@ -130,6 +124,45 @@
     <Filter Include="02. Script\12. SceneScript\5. DungeonScript\GolemDungeonScript\GolemBossSceneScript">
       <UniqueIdentifier>{04184557-3055-4b57-bf93-9d3af7d925fd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Script\4. EnemyScript\Boss">
+      <UniqueIdentifier>{8c99a57c-9de9-495f-9330-25d34daf2231}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\4. EnemyScript\Boss\GolemKingScript">
+      <UniqueIdentifier>{c7fd65d5-caf8-42e2-bb1c-5f6df8cbbc16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\4. EnemyScript\Boss\GolemKingScript\AttackScript">
+      <UniqueIdentifier>{f0e332d4-c38b-4580-a54a-15328bbafa45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\4. EnemyScript\Boss\GolemKingScript\AttackScript\LaunchArmScript">
+      <UniqueIdentifier>{dbd807fa-cf50-48fe-b681-ff062008325f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\4. EnemyScript\Boss\GolemKingScript\AttackScript\WaveScript">
+      <UniqueIdentifier>{1da9e570-b968-4449-b693-41d4ca807bac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\4. EnemyScript\Boss\GolemKingScript\AttackScript\StickyArmScript">
+      <UniqueIdentifier>{f12e9ab3-1d7b-47d8-a6cb-6484a25a3f3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\4. EnemyScript\Boss\GolemKingScript\AttackScript\SpawnRocksScript">
+      <UniqueIdentifier>{02078e81-3093-4f47-a292-591fa3540298}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\4. EnemyScript\Boss\BossUIScript">
+      <UniqueIdentifier>{4bfdf03e-bf65-4ddb-80e3-e364198d267e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\4. EnemyScript\Boss\GolemKingScript\AttackScript\SpawnRocksScript\SpawnRockScript">
+      <UniqueIdentifier>{9593402a-7eb2-4fe0-a12a-d4fc9d5377c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\13UtilScript">
+      <UniqueIdentifier>{0ff79c5a-59f3-48a5-88fd-2dc062da10a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\13UtilScript\OutlineScript">
+      <UniqueIdentifier>{d1992999-af05-4e41-ac48-c712af0e452f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\13UtilScript\SpawnEffect">
+      <UniqueIdentifier>{5eab5f36-9a47-4797-a083-9ca796d22e50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\13UtilScript\TestScript">
+      <UniqueIdentifier>{b8c1db21-9a97-48b3-a6fd-0c1d395b098b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -163,10 +196,10 @@
       <Filter>02. Script\10. TriggerScript\01. MoveTriggerScript</Filter>
     </ClInclude>
     <ClInclude Include="EHOutLineScript.h">
-      <Filter>02. Script\OutlineScript</Filter>
+      <Filter>02. Script\13UtilScript\OutlineScript</Filter>
     </ClInclude>
     <ClInclude Include="EHTestScript.h">
-      <Filter>02. Script\TestScript</Filter>
+      <Filter>02. Script\13UtilScript\TestScript</Filter>
     </ClInclude>
     <ClInclude Include="EHTitleScript.h">
       <Filter>02. Script\12. SceneScript\0. TitleScript</Filter>
@@ -252,6 +285,30 @@
     <ClInclude Include="EHDungeonEntranceScript.h">
       <Filter>02. Script\12. SceneScript\4. DungeonEntranceScript</Filter>
     </ClInclude>
+    <ClInclude Include="EHGolemKingScript.h">
+      <Filter>02. Script\4. EnemyScript\Boss\GolemKingScript</Filter>
+    </ClInclude>
+    <ClInclude Include="EHGolemKingATK1Script.h">
+      <Filter>02. Script\4. EnemyScript\Boss\GolemKingScript\AttackScript\LaunchArmScript</Filter>
+    </ClInclude>
+    <ClInclude Include="EHGolemKingATK4Script.h">
+      <Filter>02. Script\4. EnemyScript\Boss\GolemKingScript\AttackScript\WaveScript</Filter>
+    </ClInclude>
+    <ClInclude Include="EHBossUIScript.h">
+      <Filter>02. Script\4. EnemyScript\Boss\BossUIScript</Filter>
+    </ClInclude>
+    <ClInclude Include="EHGolemKingATK2Script.h">
+      <Filter>02. Script\4. EnemyScript\Boss\GolemKingScript\AttackScript\SpawnRocksScript</Filter>
+    </ClInclude>
+    <ClInclude Include="EHSpawnRockScript.h">
+      <Filter>02. Script\4. EnemyScript\Boss\GolemKingScript\AttackScript\SpawnRocksScript\SpawnRockScript</Filter>
+    </ClInclude>
+    <ClInclude Include="EHGolemKingATK3Script.h">
+      <Filter>02. Script\4. EnemyScript\Boss\GolemKingScript\AttackScript\StickyArmScript</Filter>
+    </ClInclude>
+    <ClInclude Include="EHSpawnEffectScript.h">
+      <Filter>02. Script\13UtilScript\SpawnEffect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -276,10 +333,10 @@
       <Filter>02. Script\10. TriggerScript\01. MoveTriggerScript</Filter>
     </ClCompile>
     <ClCompile Include="EHOutLineScript.cpp">
-      <Filter>02. Script\OutlineScript</Filter>
+      <Filter>02. Script\13UtilScript\OutlineScript</Filter>
     </ClCompile>
     <ClCompile Include="EHTestScript.cpp">
-      <Filter>02. Script\TestScript</Filter>
+      <Filter>02. Script\13UtilScript\TestScript</Filter>
     </ClCompile>
     <ClCompile Include="EHTitleScript.cpp">
       <Filter>02. Script\12. SceneScript\0. TitleScript</Filter>
@@ -361,6 +418,30 @@
     </ClCompile>
     <ClCompile Include="EHDungeonEntranceScript.cpp">
       <Filter>02. Script\12. SceneScript\4. DungeonEntranceScript</Filter>
+    </ClCompile>
+    <ClCompile Include="EHGolemKingScript.cpp">
+      <Filter>02. Script\4. EnemyScript\Boss\GolemKingScript</Filter>
+    </ClCompile>
+    <ClCompile Include="EHGolemKingATK1Script.cpp">
+      <Filter>02. Script\4. EnemyScript\Boss\GolemKingScript\AttackScript\LaunchArmScript</Filter>
+    </ClCompile>
+    <ClCompile Include="EHGolemKingATK4Script.cpp">
+      <Filter>02. Script\4. EnemyScript\Boss\GolemKingScript\AttackScript\WaveScript</Filter>
+    </ClCompile>
+    <ClCompile Include="EHBossUIScript.cpp">
+      <Filter>02. Script\4. EnemyScript\Boss\BossUIScript</Filter>
+    </ClCompile>
+    <ClCompile Include="EHGolemKingATK2Script.cpp">
+      <Filter>02. Script\4. EnemyScript\Boss\GolemKingScript\AttackScript\SpawnRocksScript</Filter>
+    </ClCompile>
+    <ClCompile Include="EHSpawnRockScript.cpp">
+      <Filter>02. Script\4. EnemyScript\Boss\GolemKingScript\AttackScript\SpawnRocksScript\SpawnRockScript</Filter>
+    </ClCompile>
+    <ClCompile Include="EHGolemKingATK3Script.cpp">
+      <Filter>02. Script\4. EnemyScript\Boss\GolemKingScript\AttackScript\StickyArmScript</Filter>
+    </ClCompile>
+    <ClCompile Include="EHSpawnEffectScript.cpp">
+      <Filter>02. Script\13UtilScript\SpawnEffect</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

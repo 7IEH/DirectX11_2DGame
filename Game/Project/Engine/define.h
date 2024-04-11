@@ -26,4 +26,4 @@
 
 #define ASPECT_RATIO Device::GetInst()->GetResolution().x/ Device::GetInst()->GetResolution().y
 
-#define FIND_OBJECT(OBJECTNAME) LevelMgr::GetInst()->GetCurLevel()->FindObjectByName(OBJECTNAME);
+#define FIND_OBJECT(OBJECTNAME) LevelMgr::GetInst()->GetCurLevel()->FindObjectByName(OBJECTNAME)

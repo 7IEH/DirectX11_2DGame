@@ -49,17 +49,18 @@ void TimeMgr::Update()
 	e_Global._Dt = m_fDeltaTime;
 	e_Global._AccTime += m_fDeltaTime;
 
+
+	if (m_bAcctimeSet)
+	{
+		e_Global._AccTime2 = 0.f;
+	}
+
 	if (m_bAcctimeUpdate)
 	{
 		if (e_Global._AccTime2 <= 2.f)
 		{
 			e_Global._AccTime2 += m_fDeltaTime;
 		}
-	}
-
-	if (m_bAcctimeSet)
-	{
-		e_Global._AccTime2 = 0.f;
 	}
 
 	e_Global._AccTime3 += m_fDeltaTime;

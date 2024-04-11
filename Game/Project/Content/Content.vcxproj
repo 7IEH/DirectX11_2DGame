@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -167,6 +167,7 @@ call ScriptGenerator.exe</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="EHBabySlimeScript.h" />
+    <ClInclude Include="EHBossUIScript.h" />
     <ClInclude Include="EHCameraScript.h" />
     <ClInclude Include="EHCameraTargetScript.h" />
     <ClInclude Include="EHDungeonEntranceScript.h" />
@@ -176,6 +177,11 @@ call ScriptGenerator.exe</Command>
     <ClInclude Include="EHGolemBossSceneScript.h" />
     <ClInclude Include="EHGolemButlerScript.h" />
     <ClInclude Include="EHGolemDungeonScript.h" />
+    <ClInclude Include="EHGolemKingATK1Script.h" />
+    <ClInclude Include="EHGolemKingATK2Script.h" />
+    <ClInclude Include="EHGolemKingATK3Script.h" />
+    <ClInclude Include="EHGolemKingATK4Script.h" />
+    <ClInclude Include="EHGolemKingScript.h" />
     <ClInclude Include="EHGolemTurretScript.h" />
     <ClInclude Include="EHGUI_LineScript.h" />
     <ClInclude Include="EHIntroScene.h" />
@@ -192,6 +198,8 @@ call ScriptGenerator.exe</Command>
     <ClInclude Include="EHRoomManager.h" />
     <ClInclude Include="EHScriptMgr.h" />
     <ClInclude Include="EHSlotScript.h" />
+    <ClInclude Include="EHSpawnEffectScript.h" />
+    <ClInclude Include="EHSpawnRockScript.h" />
     <ClInclude Include="EHTangleScript.h" />
     <ClInclude Include="EHTestScript.h" />
     <ClInclude Include="EHTitleScene.h" />
@@ -210,6 +218,7 @@ call ScriptGenerator.exe</Command>
   <ItemGroup>
     <ClCompile Include="Content.cpp" />
     <ClCompile Include="EHBabySlimeScript.cpp" />
+    <ClCompile Include="EHBossUIScript.cpp" />
     <ClCompile Include="EHCameraScript.cpp" />
     <ClCompile Include="EHCameraTargetScript.cpp" />
     <ClCompile Include="EHDungeonEntranceScript.cpp" />
@@ -219,6 +228,11 @@ call ScriptGenerator.exe</Command>
     <ClCompile Include="EHGolemBossSceneScript.cpp" />
     <ClCompile Include="EHGolemButlerScript.cpp" />
     <ClCompile Include="EHGolemDungeonScript.cpp" />
+    <ClCompile Include="EHGolemKingATK1Script.cpp" />
+    <ClCompile Include="EHGolemKingATK2Script.cpp" />
+    <ClCompile Include="EHGolemKingATK3Script.cpp" />
+    <ClCompile Include="EHGolemKingATK4Script.cpp" />
+    <ClCompile Include="EHGolemKingScript.cpp" />
     <ClCompile Include="EHGolemTurretScript.cpp" />
     <ClCompile Include="EHGUI_LineScript.cpp" />
     <ClCompile Include="EHIntroScene.cpp" />
@@ -235,6 +249,8 @@ call ScriptGenerator.exe</Command>
     <ClCompile Include="EHRoomManager.cpp" />
     <ClCompile Include="EHScriptMgr.cpp" />
     <ClCompile Include="EHSlotScript.cpp" />
+    <ClCompile Include="EHSpawnEffectScript.cpp" />
+    <ClCompile Include="EHSpawnRockScript.cpp" />
     <ClCompile Include="EHTangleScript.cpp" />
     <ClCompile Include="EHTestScript.cpp" />
     <ClCompile Include="EHTitleScene.cpp" />

@@ -17,6 +17,7 @@ class Animation2D
 	:public Entity
 {
 private:
+	bool						m_bStop;
 	vector<tAnimFrameInfo>		m_FrameInfo;
 	int							m_CurFrame;
 
@@ -42,6 +43,9 @@ public:
 
 	void SetAnimationFrame(const wstring& _label, Ptr<Sprite> _atlas, vector<tAnimFrameInfo>& _frameInfo);
 	int GetCurFrame() { return m_CurFrame; }
+
+	void Play() { m_bStop = FALSE; }
+	void Stop() { m_bStop = TRUE; }
 
 public:
 	void UpdateData();

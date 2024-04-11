@@ -31,6 +31,7 @@ Script* ScriptMgr::FindScript(wstring _name)
 void ScriptMgr::Awake()
 {
 	AddScript<BabySlimeScript>(L"BabySlimeScript");
+	AddScript<BossUIScript>(L"BossUIScript");
 	AddScript<CameraScript>(L"CameraScript");
 	AddScript<CameraTargetScript>(L"CameraTargetScript");
 	AddScript<DungeonEntranceScript>(L"DungeonEntranceScript");
@@ -39,6 +40,11 @@ void ScriptMgr::Awake()
 	AddScript<GolemBossSceneScript>(L"GolemBossSceneScript");
 	AddScript<GolemButlerScript>(L"GolemButlerScript");
 	AddScript<GolemDungeonScript>(L"GolemDungeonScript");
+	AddScript<GolemKingATK1Script>(L"GolemKingATK1Script");
+	AddScript<GolemKingATK2Script>(L"GolemKingATK2Script");
+	AddScript<GolemKingATK3Script>(L"GolemKingATK3Script");
+	AddScript<GolemKingATK4Script>(L"GolemKingATK4Script");
+	AddScript<GolemKingScript>(L"GolemKingScript");
 	AddScript<GolemTurretScript>(L"GolemTurretScript");
 	AddScript<GUI_LineScript>(L"GUI_LineScript");
 	AddScript<ItemScript>(L"ItemScript");
@@ -51,6 +57,8 @@ void ScriptMgr::Awake()
 	AddScript<PUIScript>(L"PUIScript");
 	AddScript<RangedEnemyScript>(L"RangedEnemyScript");
 	AddScript<SlotScript>(L"SlotScript");
+	AddScript<SpawnEffectScript>(L"SpawnEffectScript");
+	AddScript<SpawnRockScript>(L"SpawnRockScript");
 	AddScript<TangleScript>(L"TangleScript");
 	AddScript<TestScript>(L"TestScript");
 	AddScript<TitleScript>(L"TitleScript");

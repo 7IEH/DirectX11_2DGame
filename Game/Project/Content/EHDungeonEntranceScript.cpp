@@ -26,6 +26,9 @@ void DungeonEntranceScript::Start()
 
 	m_pTownTrigger->GetScript<TriggerScript>()->SetTriggerType(TRIGGER_TYPE::TOWN);
 	m_pDungeonTrigger->GetScript<TriggerScript>()->SetTriggerType(TRIGGER_TYPE::GOLEM_DUNGEON);
+
+	LevelMgr::GetInst()->GetCurLevel()->FindObjectByName(L"MainCamera")->GetScript<CameraTargetScript>()->
+		SetTarget(LevelMgr::GetInst()->GetCurLevel()->FindObjectByName(L"Player"));
 }
 
 void DungeonEntranceScript::Update()

@@ -1312,3 +1312,19 @@ Script
 Childs
 0
 endobject
+
+object
+NAME:Object_Mozaic_Panel
+LAYER:14
+TRANSFORM
+0.000000 0.000000 0.000000
+1600.000000 900.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+MoizacFilterMat
+Script
+0
+Childs
+0
+endobject

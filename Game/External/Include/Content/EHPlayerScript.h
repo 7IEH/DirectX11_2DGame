@@ -36,12 +36,17 @@ private:
 	**************************/
 	Dir					m_eDir;
 	State				m_eState;
-	PlayerPref*			m_pPlayerPref;
+	PlayerPref* m_pPlayerPref;
 
 	float				m_fAccTime;
 
 	vector<bool>		m_vEnterWall_Move;
 	vector<bool>		m_vEnterWall_Dodge;
+
+	GameObject* m_pMozaicPanel;
+
+	float				m_fDeadTime;
+	bool				m_bMozaikEnd;
 
 	/**************************
 	|	Falling Member
@@ -81,8 +86,8 @@ private:
 	Vec4				m_vOutChestPos;
 	Vec4				m_vInChestPos;
 
-	GameObject*			m_pInventorySlotObjs[20];
-	GameObject*			m_pChestSlotObjs[28];
+	GameObject* m_pInventorySlotObjs[20];
+	GameObject* m_pChestSlotObjs[28];
 
 	int					m_vChestPos[2];
 	int					m_vInventoryPos[2];
@@ -92,13 +97,13 @@ private:
 	float				m_fSelectorSize;
 
 	/**************************
-	|	Interface Key 
+	|	Interface Key
 	**************************/
 	GameObject* m_pInventoryInterface2;
 	GameObject* m_pEquipSlotObjs[8];
 
 	GameObject* m_pInfoText[4];
-	
+
 	GameObject* m_pObject_Village_Fade_BG;
 
 	/**************************
@@ -109,7 +114,7 @@ private:
 	/**************************
 	|	Camera Move
 	**************************/
-	GameObject*			m_pPlayerCam;
+	GameObject* m_pPlayerCam;
 	Dir					m_eCameraMove;
 	bool				m_bMoved;
 
@@ -155,6 +160,12 @@ private:
 	*******************/
 	GameObject* m_pDungeonPortal1;
 
+	/*******************
+	| KnockBACK
+	*******************/
+	bool	m_bKnockBack;
+	Vec2    m_vKnockBackDir;
+
 public:
 	virtual void Awake()override;
 	virtual void Start()override;
@@ -171,6 +182,9 @@ public:
 	PlayerPref* GetPlayerPref() { return m_pPlayerPref; }
 
 	Dir GetDirection() { return m_eDir; }
+
+	void SetKnockBack(bool _bKnockBack) { m_bKnockBack = _bKnockBack; }
+	void SetKnockBackDir(Vec2 _vKnockBackDir) { m_vKnockBackDir = _vKnockBackDir; }
 
 private:
 	void SetState(State _eState) { m_eState = _eState; }
@@ -199,6 +213,8 @@ private:
 	void ChestAnim();
 	void FallingAnim();
 	void DeadAnim();
+
+	void KnockBack();
 
 private:
 	void ColliderPositionCalc();

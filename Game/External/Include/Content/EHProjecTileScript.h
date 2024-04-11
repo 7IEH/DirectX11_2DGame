@@ -8,6 +8,7 @@ private:
 	Dir     m_eDir;
 	float   m_fSpeed;
 	int     m_iDamage;
+	bool    m_bNotDir;
 
 	wstring m_sDeadAnimName;
 
@@ -17,6 +18,8 @@ public:
 	void SetDamage(int _iDamage) { m_iDamage = _iDamage; }
 
 	void SetDeadAnimName(const wstring& _sDeadAnimName) { m_sDeadAnimName = _sDeadAnimName; }
+
+	void SetNotDir(bool _bNotDir) { m_bNotDir = _bNotDir; }
 
 	int GetDamage() { return m_iDamage; }
 

@@ -221,6 +221,7 @@ call Copy.bat</Command>
     <ClInclude Include="EHProjectView.h" />
     <ClInclude Include="EHRenderer.h" />
     <ClInclude Include="EHRenderMgr.h" />
+    <ClInclude Include="EHRigidBody.h" />
     <ClInclude Include="EHRigidbodyUI.h" />
     <ClInclude Include="EHSceneCreateUI.h" />
     <ClInclude Include="EHSceneView.h" />
@@ -330,6 +331,7 @@ call Copy.bat</Command>
     <ClCompile Include="EHProjectView.cpp" />
     <ClCompile Include="EHRenderer.cpp" />
     <ClCompile Include="EHRenderMgr.cpp" />
+    <ClCompile Include="EHRigidBody.cpp" />
     <ClCompile Include="EHRigidbodyUI.cpp" />
     <ClCompile Include="EHSceneCreateUI.cpp" />
     <ClCompile Include="EHSceneView.cpp" />

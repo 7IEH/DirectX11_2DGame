@@ -6,6 +6,8 @@
 #include "EHTriggerScript.h"
 #include <EHTimeMgr.h>
 
+#include <EHGameObject.h>
+
 TownScript::TownScript()
 	:m_pObject_Village_House5(nullptr)
 	, m_pObject_Village_Rival_Fountaion(nullptr)
@@ -14,7 +16,6 @@ TownScript::TownScript()
 	, m_pObject_Village_BigTree1(nullptr)
 	, m_pObject_Village_BigTree2(nullptr)
 	, m_pObject_Village_BigTree3(nullptr)
-	, m_pObject_Village_Fade_BG(nullptr)
 	, m_fTime(0.f)
 {
 	SetName(L"TownScript");
@@ -54,13 +55,11 @@ void TownScript::Start()
 
 	CollisionMgr::GetInst()->LayerCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::TRIGGER);
 	CollisionMgr::GetInst()->LayerCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::STRUCTURE_WALL_RIGHT);
+
+	LevelMgr::GetInst()->GetCurLevel()->FindObjectByName(L"MainCamera")->GetScript<CameraTargetScript>()->
+		SetTarget(LevelMgr::GetInst()->GetCurLevel()->FindObjectByName(L"Player"));
 }
 
 void TownScript::Update()
 {
-	m_fTime += DT;
-	if (m_fTime >= 10.f)
-	{
-		TimeMgr::GetInst()->SetAccTimeUpdate(TRUE);
-	}
 }

@@ -7,7 +7,8 @@
 
 ProjecTileScript::ProjecTileScript()
 	:m_fSpeed(0.f)
-	,m_eDir(Dir::UP)
+	, m_eDir(Dir::UP)
+	, m_bNotDir(FALSE)
 {
 	SetName(L"ProjecTileScript");
 }
@@ -18,32 +19,36 @@ ProjecTileScript::~ProjecTileScript()
 
 void ProjecTileScript::Update()
 {
+	if (m_bNotDir)
+		return;
+
 	Transform* _pTr = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
 	Vec4 _vPos = _pTr->GetRelativePosition();
+
 	switch (m_eDir)
 	{
-	case Dir::UP: 
+	case Dir::UP:
 	{
 		_vPos.y += m_fSpeed * DT;
 	}
-		break;
+	break;
 	case Dir::DOWN:
 	{
 		_vPos.y -= m_fSpeed * DT;
 	}
-		break;
+	break;
 	case Dir::LEFT:
 	{
 		_vPos.x -= m_fSpeed * DT;
 		_pTr->SetRelativeRotation(Vec3(0.f, 0.f, 90.f));
 	}
-		break;
+	break;
 	case Dir::RIGHT:
 	{
 		_vPos.x += m_fSpeed * DT;
 		_pTr->SetRelativeRotation(Vec3(0.f, 0.f, 90.f));
 	}
-		break;
+	break;
 	default:
 		break;
 	}
@@ -59,6 +64,11 @@ void ProjecTileScript::OnTriggerEnter(Collider* _other)
 	{
 		Animator2D* _pAnim = GetOwner()->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D);
 		LevelMgr::GetInst()->GetCurLevel()->FindObjectByName(L"Player")->GetScript<PlayerScript>(L"PlayerScript")->GetPlayerPref()->_iCurHp -= m_iDamage;
+
+
+		if (m_bNotDir)
+			return;
+
 		_pAnim->Play(m_sDeadAnimName, FALSE);
 		GetOwner()->SetDead(TRUE);
 	}

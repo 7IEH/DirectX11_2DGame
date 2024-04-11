@@ -4,8 +4,8 @@ CollisionMatrix
 0
 0
 0
-0
-0
+265728
+131072
 0
 0
 0
@@ -23,7 +23,7 @@ object
 NAME:EditorCamera
 LAYER:0
 TRANSFORM
--167.870590 -31.763369 -1928.000000
+121.571198 667.036438 -1928.000000
 1.000000 1.000000 1.000000
 0.000000 0.000000 0.000000
 CAMERA
@@ -41,7 +41,7 @@ object
 NAME:MainCamera
 LAYER:0
 TRANSFORM
-0.000000 0.000000 -2000.000000
+-0.000000 -460.000000 -2000.000000
 1.000000 1.000000 1.000000
 0.000000 0.000000 0.000000
 CAMERA
@@ -59,7 +59,7 @@ object
 NAME:UICamera
 LAYER:0
 TRANSFORM
-0.000000 0.000000 0.000000
+0.000000 0.000000 -10.000000
 1.000000 1.000000 1.000000
 0.000000 0.000000 0.000000
 CAMERA
@@ -81,8 +81,8 @@ TRANSFORM
 0.000000 0.000000 0.000000
 LIGHT2D
 0
-0.000000 0.000000 0.000000 0.000000
-1.000000 0.999900 0.999900 0.000000
+0.000000 0.000000 0.000000 1.000000
+1.000000 1.000000 1.000000 1.000000
 0.000000
 0.000000
 Script
@@ -95,7 +95,7 @@ object
 NAME:GolemBossRoomBG
 LAYER:2
 TRANSFORM
-0.000000 0.000000 0.000000
+0.000000 0.000000 3000.000000
 2880.000000 1820.000000 1.000000
 0.000000 0.000000 0.000000
 MESHRENDERER
@@ -108,17 +108,257 @@ Childs
 endobject
 
 object
-NAME:Player_Collider_Spear
-LAYER:17
+NAME:UI_Player_Pause_Text_Object1
+LAYER:2
 TRANSFORM
--42.375923 -89.788315 0.211683
-40.000000 70.000000 1.000000
-0.000000 0.000000 0.000000
-BOXCOLLIDER2D
+0.000000 100.000000 0.000000
 1.000000 1.000000 1.000000
 0.000000 0.000000 0.000000
+CANVASRENDERER
+TEXT
+게임으로 돌아가기
+DroidSansFallback
+NORMAL
+0
+24.000000
 Script
 0
+Childs
+0
+endobject
+
+object
+NAME:UI_Player_Pause_Text_Object2
+LAYER:2
+TRANSFORM
+0.000000 50.000000 0.000000
+1.000000 1.000000 1.000000
+0.000000 0.000000 0.000000
+CANVASRENDERER
+TEXT
+옵션
+DroidSansFallback
+NORMAL
+0
+24.000000
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:UI_Player_Pause_Text_Object3
+LAYER:2
+TRANSFORM
+0.000000 0.000000 0.000000
+1.000000 1.000000 1.000000
+0.000000 0.000000 0.000000
+CANVASRENDERER
+TEXT
+메인 메뉴
+DroidSansFallback
+NORMAL
+0
+24.000000
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:UI_Player_Pause_Text_Object4
+LAYER:2
+TRANSFORM
+0.000000 -50.000000 0.000000
+1.000000 1.000000 1.000000
+0.000000 0.000000 0.000000
+CANVASRENDERER
+TEXT
+바탕화면으로
+DroidSansFallback
+NORMAL
+0
+24.000000
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:Boss_Door_Bottom
+LAYER:2
+TRANSFORM
+0.000000 -859.000000 0.000000
+275.000000 160.000000 1.000000
+0.000000 0.000000 -180.000000
+ANIMATOR2D
+1
+Object_Golem_BossDoor_Close_Anim
+MESHRENDERER
+DefaultRectMesh
+BackGroundMaterial
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:Object_Boss_Crack
+LAYER:2
+TRANSFORM
+0.000000 247.000000 500.000000
+597.500000 375.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+Boss_Golem_Idle_Crack_Mat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:Object_Wave
+LAYER:18
+TRANSFORM
+0.000000 289.000000 500.000000
+750.000000 500.000000 1.000000
+0.000000 0.000000 0.000000
+BOXCOLLIDER2D
+0.900000 0.900000 1.000000
+0.000000 0.000000 0.000000
+ANIMATOR2D
+1
+Boss_Golem_Attack_Wave_Anim
+MESHRENDERER
+DefaultRectMesh
+BackGroundMaterial
+Script
+2
+GolemKingATK4Script
+ProjecTileScript
+Childs
+0
+endobject
+
+object
+NAME:GUI_BossNameUI
+LAYER:3
+TRANSFORM
+0.000000 -280.000000 0.000000
+1.000000 1.000000 1.000000
+0.000000 0.000000 0.000000
+CANVASRENDERER
+TEXT
+골렘 왕
+DroidSansFallback
+MEDIUM
+0
+21.000000
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:GameManager
+LAYER:4
+Script
+1
+GolemBossSceneScript
+Childs
+0
+endobject
+
+object
+NAME:Player
+LAYER:5
+TRANSFORM
+0.000000 -600.000000 -600.000000
+500.000000 500.000000 1.000000
+0.000000 0.000000 0.000000
+BOXCOLLIDER2D
+0.100000 0.050000 1.000000
+0.000000 -0.050000 0.000000
+ANIMATOR2D
+37
+FSM_Player_Dungeon_Attack_OneHand_Down_Anim1
+FSM_Player_Dungeon_Attack_OneHand_Down_Anim2
+FSM_Player_Dungeon_Attack_OneHand_Down_Anim3
+FSM_Player_Dungeon_Attack_OneHand_Left_Anim1
+FSM_Player_Dungeon_Attack_OneHand_Left_Anim2
+FSM_Player_Dungeon_Attack_OneHand_Left_Anim3
+FSM_Player_Dungeon_Attack_OneHand_Right_Anim1
+FSM_Player_Dungeon_Attack_OneHand_Right_Anim2
+FSM_Player_Dungeon_Attack_OneHand_Right_Anim3
+FSM_Player_Dungeon_Attack_OneHand_Up_Anim1
+FSM_Player_Dungeon_Attack_OneHand_Up_Anim2
+FSM_Player_Dungeon_Attack_OneHand_Up_Anim3
+FSM_Player_Dungeon_Attack_Spear_Down_Anim1
+FSM_Player_Dungeon_Attack_Spear_Down_Anim2
+FSM_Player_Dungeon_Attack_Spear_Down_Anim3
+FSM_Player_Dungeon_Attack_Spear_Left_Anim1
+FSM_Player_Dungeon_Attack_Spear_Left_Anim2
+FSM_Player_Dungeon_Attack_Spear_Left_Anim3
+FSM_Player_Dungeon_Attack_Spear_Right_Anim1
+FSM_Player_Dungeon_Attack_Spear_Right_Anim2
+FSM_Player_Dungeon_Attack_Spear_Right_Anim3
+FSM_Player_Dungeon_Attack_Spear_Up_Anim1
+FSM_Player_Dungeon_Attack_Spear_Up_Anim2
+FSM_Player_Dungeon_Attack_Spear_Up_Anim3
+FSM_Player_Dungeon_Dodge_Down_Anim
+FSM_Player_Dungeon_Dodge_Left_Anim
+FSM_Player_Dungeon_Dodge_Right_Anim
+FSM_Player_Dungeon_Dodge_Up_Anim
+FSM_Player_Dungeon_Idle_Down_Anim
+FSM_Player_Dungeon_Idle_Left_Anim
+FSM_Player_Dungeon_Idle_Right_Anim
+FSM_Player_Dungeon_Idle_Up_Anim
+FSM_Player_Dungeon_Move_Down_Anim
+FSM_Player_Dungeon_Move_Left_Anim
+FSM_Player_Dungeon_Move_Right_Anim
+FSM_Player_Dungeon_Move_Up_Anim
+FSM_Player_Tutorial_Scene0_Anim
+MESHRENDERER
+DefaultRectMesh
+PlayerShader2
+Script
+2
+PlayerScript
+PUIScript
+Childs
+0
+endobject
+
+object
+NAME:GolemBoss
+LAYER:6
+TRANSFORM
+51.000000 289.000000 450.000000
+875.000000 875.000000 1.000000
+0.000000 0.000000 0.000000
+BOXCOLLIDER2D
+0.500000 0.200000 1.000000
+0.000000 -0.010000 0.000000
+ANIMATOR2D
+2
+Boss_Golem_Idle_Arm_Anim
+Boss_Golem_WakeUp_Anim
+MESHRENDERER
+DefaultRectMesh
+BackGroundMaterial
+Script
+4
+GolemKingScript
+BossUIScript
+GolemKingATK2Script
+GolemKingATK3Script
 Childs
 0
 endobject
@@ -127,12 +367,12 @@ object
 NAME:Object_Room_Structure_Wall_Right
 LAYER:8
 TRANSFORM
-0.000000 0.000000 0.000000
-1.000000 1.000000 1.000000
+1350.000000 0.000000 0.000000
+50.000000 1820.000000 1.000000
 0.000000 0.000000 0.000000
 BOXCOLLIDER2D
-50.000000 850.000000 1.000000
-632.400024 0.000000 0.000000
+1.000000 1.000000 1.000000
+0.000000 0.000000 0.000000
 Script
 0
 Childs
@@ -143,12 +383,12 @@ object
 NAME:Object_Room_Structure_Wall_Left
 LAYER:9
 TRANSFORM
-0.000000 0.000000 0.000000
-1.000000 1.000000 1.000000
+-1366.000000 0.000000 0.000000
+50.000000 1820.000000 1.000000
 0.000000 0.000000 0.000000
 BOXCOLLIDER2D
-50.000000 850.000000 1.000000
--631.500000 0.000000 0.000000
+1.000000 1.000000 1.000000
+0.000000 0.000000 0.000000
 Script
 0
 Childs
@@ -159,12 +399,12 @@ object
 NAME:Object_Room_Structure_Wall_Top
 LAYER:10
 TRANSFORM
-0.000000 0.000000 0.000000
-1.000000 1.000000 1.000000
+0.000000 831.000000 0.000000
+2880.000000 50.000000 1.000000
 0.000000 0.000000 0.000000
 BOXCOLLIDER2D
-1300.000000 50.000000 1.000000
-0.000000 416.000000 0.000000
+1.000000 1.000000 1.000000
+0.000000 0.000000 0.000000
 Script
 0
 Childs
@@ -175,12 +415,44 @@ object
 NAME:Object_Room_Structure_Wall_Bottom
 LAYER:11
 TRANSFORM
-0.000000 -277.000000 0.000000
-1.000000 1.000000 1.000000
+0.000000 -828.000000 0.000000
+2880.000000 50.000000 1.000000
 0.000000 0.000000 0.000000
 BOXCOLLIDER2D
-1300.000000 50.000000 1.000000
-0.000000 -83.099998 0.000000
+1.000000 1.000000 1.000000
+0.000000 0.000000 0.000000
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:GUI_Boss_HealthBar
+LAYER:14
+TRANSFORM
+0.000000 -330.000000 0.000000
+1080.000000 15.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+GUI_Boss_HealthBar_Mat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:GUI_Boss_HealthBarDeco
+LAYER:14
+TRANSFORM
+0.000000 -330.000000 0.000000
+1105.000000 30.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+GUI_Boss_HealthBar_Decoration_Mat
 Script
 0
 Childs
@@ -241,7 +513,7 @@ object
 NAME:UI_Player_Selector
 LAYER:14
 TRANSFORM
--505.000000 227.000000 -1.000000
+-494.000000 96.000000 -1.000000
 80.000000 80.000000 1.000000
 0.000000 0.000000 0.000000
 MESHRENDERER
@@ -321,8 +593,8 @@ object
 NAME:UI_Player_HUD_HealthBar
 LAYER:14
 TRANSFORM
--559.283997 388.000000 -2.000000
--82.431999 29.000000 1.000000
+-522.283997 388.000000 -2.000000
+168.000000 29.000000 1.000000
 0.000000 0.000000 0.000000
 MESHRENDERER
 DefaultRectMesh
@@ -1104,141 +1376,138 @@ Childs
 endobject
 
 object
-NAME:UI_Player_Pause_Text_Object1
-LAYER:2
-TRANSFORM
-0.000000 100.000000 0.000000
-1.000000 1.000000 1.000000
-0.000000 0.000000 0.000000
-CANVASRENDERER
-TEXT
-게임으로 돌아가기
-DroidSansFallback
-NORMAL
-0
-24.000000
-Script
-0
-Childs
-0
-endobject
-
-object
-NAME:UI_Player_Pause_Text_Object2
-LAYER:2
-TRANSFORM
-0.000000 50.000000 0.000000
-1.000000 1.000000 1.000000
-0.000000 0.000000 0.000000
-CANVASRENDERER
-TEXT
-옵션
-DroidSansFallback
-NORMAL
-0
-24.000000
-Script
-0
-Childs
-0
-endobject
-
-object
-NAME:UI_Player_Pause_Text_Object3
-LAYER:2
+NAME:Object_Mozaic_Panel
+LAYER:14
 TRANSFORM
 0.000000 0.000000 0.000000
-1.000000 1.000000 1.000000
+1600.000000 900.000000 1.000000
 0.000000 0.000000 0.000000
-CANVASRENDERER
-TEXT
-메인 메뉴
-DroidSansFallback
-NORMAL
-0
-24.000000
-Script
-0
-Childs
-0
-endobject
-
-object
-NAME:UI_Player_Pause_Text_Object4
-LAYER:2
-TRANSFORM
-0.000000 -50.000000 0.000000
-1.000000 1.000000 1.000000
-0.000000 0.000000 0.000000
-CANVASRENDERER
-TEXT
-바탕화면으로
-DroidSansFallback
-NORMAL
-0
-24.000000
-Script
-0
-Childs
-0
-endobject
-
-object
-NAME:Player
-LAYER:5
-TRANSFORM
--42.375923 0.211683 0.211683
-500.000000 500.000000 1.000000
-0.000000 0.000000 0.000000
-BOXCOLLIDER2D
-0.100000 0.150000 1.000000
-0.000000 0.000000 0.000000
-ANIMATOR2D
-37
-FSM_Player_Dungeon_Attack_OneHand_Down_Anim1
-FSM_Player_Dungeon_Attack_OneHand_Down_Anim2
-FSM_Player_Dungeon_Attack_OneHand_Down_Anim3
-FSM_Player_Dungeon_Attack_OneHand_Left_Anim1
-FSM_Player_Dungeon_Attack_OneHand_Left_Anim2
-FSM_Player_Dungeon_Attack_OneHand_Left_Anim3
-FSM_Player_Dungeon_Attack_OneHand_Right_Anim1
-FSM_Player_Dungeon_Attack_OneHand_Right_Anim2
-FSM_Player_Dungeon_Attack_OneHand_Right_Anim3
-FSM_Player_Dungeon_Attack_OneHand_Up_Anim1
-FSM_Player_Dungeon_Attack_OneHand_Up_Anim2
-FSM_Player_Dungeon_Attack_OneHand_Up_Anim3
-FSM_Player_Dungeon_Attack_Spear_Down_Anim1
-FSM_Player_Dungeon_Attack_Spear_Down_Anim2
-FSM_Player_Dungeon_Attack_Spear_Down_Anim3
-FSM_Player_Dungeon_Attack_Spear_Left_Anim1
-FSM_Player_Dungeon_Attack_Spear_Left_Anim2
-FSM_Player_Dungeon_Attack_Spear_Left_Anim3
-FSM_Player_Dungeon_Attack_Spear_Right_Anim1
-FSM_Player_Dungeon_Attack_Spear_Right_Anim2
-FSM_Player_Dungeon_Attack_Spear_Right_Anim3
-FSM_Player_Dungeon_Attack_Spear_Up_Anim1
-FSM_Player_Dungeon_Attack_Spear_Up_Anim2
-FSM_Player_Dungeon_Attack_Spear_Up_Anim3
-FSM_Player_Dungeon_Dodge_Down_Anim
-FSM_Player_Dungeon_Dodge_Left_Anim
-FSM_Player_Dungeon_Dodge_Right_Anim
-FSM_Player_Dungeon_Dodge_Up_Anim
-FSM_Player_Dungeon_Idle_Down_Anim
-FSM_Player_Dungeon_Idle_Left_Anim
-FSM_Player_Dungeon_Idle_Right_Anim
-FSM_Player_Dungeon_Idle_Up_Anim
-FSM_Player_Dungeon_Move_Down_Anim
-FSM_Player_Dungeon_Move_Left_Anim
-FSM_Player_Dungeon_Move_Right_Anim
-FSM_Player_Dungeon_Move_Up_Anim
-FSM_Player_Tutorial_Scene0_Anim
 MESHRENDERER
 DefaultRectMesh
-PlayerShader2
+MoizacFilterMat
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:GUI_GolemDungeon_Scroll
+LAYER:14
+TRANSFORM
+0.000000 -200.000000 0.000000
+487.500000 130.000000 1.000000
+0.000000 0.000000 0.000000
+ANIMATOR2D
+2
+GUI_GolemDungeon_Scroll_Close_Anim
+GUI_GolemDungeon_Scroll_Open_Anim
+MESHRENDERER
+DefaultRectMesh
+BackGroundMaterial
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:Player_Collider_Spear
+LAYER:17
+TRANSFORM
+0.000000 -690.000000 -600.000000
+40.000000 70.000000 1.000000
+0.000000 0.000000 0.000000
+BOXCOLLIDER2D
+1.000000 1.000000 1.000000
+0.000000 0.000000 0.000000
+Script
+0
+Childs
+0
+endobject
+
+object
+NAME:Object_ArmObject1
+LAYER:18
+TRANSFORM
+0.000000 1300.000000 0.000000
+275.000000 275.000000 1.000000
+0.000000 0.000000 0.000000
+BOXCOLLIDER2D
+0.800000 0.300000 1.000000
+0.000000 -0.100000 0.000000
+ANIMATOR2D
+2
+Boss_Golem_Attack_PunchDown_Anim
+Boss_Golem_Attack_PunchUp_Anim
+MESHRENDERER
+DefaultRectMesh
+BackGroundMaterial
 Script
 2
-PlayerScript
-PUIScript
+GolemKingATK1Script
+ProjecTileScript
+Childs
+0
+endobject
+
+object
+NAME:Object_Golem_King_Fist
+LAYER:18
+TRANSFORM
+0.000000 0.000000 0.000000
+190.000000 185.000000 1.000000
+0.000000 0.000000 0.000000
+BOXCOLLIDER2D
+0.800000 0.300000 1.000000
+0.000000 -0.100000 0.000000
+MESHRENDERER
+DefaultRectMesh
+Boss_Golem_Attack_Punch_Mat
+Script
+1
+ProjecTileScript
+Childs
+0
+endobject
+
+object
+NAME:Object_Golem_King_Fist_Module
+LAYER:18
+TRANSFORM
+0.000000 0.000000 0.000000
+130.000000 95.000000 1.000000
+0.000000 0.000000 0.000000
+BOXCOLLIDER2D
+0.800000 0.300000 1.000000
+0.000000 -0.100000 0.000000
+MESHRENDERER
+DefaultRectMesh
+Boss_Golem_Attack_Punch_Module_Mat
+Script
+1
+ProjecTileScript
+Childs
+0
+endobject
+
+object
+NAME:Object_Golem_King_Fist_Module2
+LAYER:18
+TRANSFORM
+0.000000 0.000000 0.000000
+1.000000 1.000000 1.000000
+0.000000 0.000000 0.000000
+BOXCOLLIDER2D
+0.800000 0.300000 1.000000
+0.000000 -0.100000 0.000000
+MESHRENDERER
+DefaultRectMesh
+Boss_Golem_Attack_Punch_Module_Mat2
+Script
+1
+ProjecTileScript
 Childs
 0
 endobject

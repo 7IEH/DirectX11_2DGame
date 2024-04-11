@@ -42,7 +42,6 @@ void TaskMgr::Update()
 		{
 			GameObject* _obj = (GameObject*)m_Tasks[i].Param_1;
 
-
 			queue<GameObject*>_q;
 			_q.push(_obj);
 

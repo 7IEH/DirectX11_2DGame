@@ -43,6 +43,9 @@ void PUIScript::Awake()
 	m_pWeaponCircle2->GetComponent<Renderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(COLOR, Vec4(1.f, 1.f, 1.f, 0.5f));
 	m_pSetIcon2->GetComponent<Renderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(COLOR, Vec4(1.f, 1.f, 1.f, 0.5f));
 
+	m_pHPUI->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->SetRelativePosition(Vec4(-522.284f, 388.f, -2.f, 0.f));
+	m_pHPUI->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->SetRelativeScale(Vec4(168.f, 29.f, 1.f, 1.f));
+
 	m_vHPUIScale = m_pHPUI->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativeScale();
 	m_vHPUIPos = m_pHPUI->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativePosition();
 }
@@ -64,7 +67,7 @@ void PUIScript::Update()
 	Vec4 _vScale = m_vHPUIScale;
 	Vec4 _vPos = m_vHPUIPos;
 	_vScale.x *= _fRatio;
-	_vPos.x += (_fDifference / 2.f);
+	_vPos.x -= (_fDifference / 2.f);
 
 	_pTr->SetRelativePosition(_vPos);
 	_pTr->SetRelativeScale(_vScale);

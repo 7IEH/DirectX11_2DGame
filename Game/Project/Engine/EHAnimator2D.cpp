@@ -105,6 +105,7 @@ void Animator2D::Play(const wstring& _strName, bool _repeat)
 
 	m_Repeat = _repeat;
 	m_CurAnimation = _anim;
+	m_CurAnimation->Play();
 	m_CurAnimation->Reset();
 }
 
@@ -133,6 +134,19 @@ void Animator2D::LateUpdate()
 void Animator2D::Clear()
 {
 	Animation2D::Clear();
+}
+
+void Animator2D::SetCurAnimation2D(const wstring& _strName)
+{
+	Animation2D* _anim = FindAnimation(_strName);
+	if (_anim == nullptr)
+	{
+		_anim = AnimationMgr::GetInst()->Find(_strName);
+		if (_anim == nullptr)
+			return;
+	}
+
+	m_CurAnimation = _anim;
 }
 
 void Animator2D::Save(std::wofstream* _file)

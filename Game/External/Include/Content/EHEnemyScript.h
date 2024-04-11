@@ -71,6 +71,8 @@ public:
 	float GetChargeTime() { return m_fChargeTime; }
 	float GetAccTime() { return m_fAccTime; }
 
+	UINT GetHp() { return m_iHp; }
+
 protected:
 	void CaculateDir();
 
