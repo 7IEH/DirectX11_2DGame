@@ -26,20 +26,20 @@ void GolemDungeonScript::Start()
 	DungeonScript::Start();
 
 	m_pScroll = FIND_OBJECT(L"GUI_GolemDungeon_Scroll");
-	m_pIntroBG = FIND_OBJECT(L"GUI_IntroBG");
 	m_pIntroText = FIND_OBJECT(L"GUI_IntroText");
 	m_pIntroDoor = FIND_OBJECT(L"Object_Intro_Door");
 
 	assert(m_pScroll);
-	assert(m_pIntroBG);
 	assert(m_pIntroText);
 	assert(m_pIntroDoor);
 
 	m_pScroll->Enabled(FALSE);
 	m_pIntroText->Enabled(FALSE);
 	m_pScroll->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->Play(L"GUI_GolemDungeon_Scroll_Open_Anim", FALSE);
-	m_pIntroBG->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(COLOR, Vec4(1.f, 1.f, 1.f, 0.f));
-	m_pIntroDoor->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->Play(L"Object_Intro_Door_Close_Anim",FALSE);
+	m_pIntroDoor->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->Play(L"Object_Intro_Door_Close_Anim", FALSE);
+
+	Object::Play2DBGM(L"\\resource\\Audio\\golem_dungeon_floor_variation_1", 0.5f);
+	Object::Play2DSound(L"\\resource\\Audio\\golem_dungeon_main_ambient", FALSE, 0.5f);
 }
 
 void GolemDungeonScript::Update()
@@ -53,6 +53,7 @@ void GolemDungeonScript::Update()
 	{
 		m_pScroll->Enabled(TRUE);
 		m_pIntroText->Enabled(TRUE);
+		Object::Play2DSound(L"\\resource\\Audio\\gui_dungeon_scroll.wav", TRUE, 0.4f);
 		m_pScroll->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->Play(L"GUI_GolemDungeon_Scroll_Open_Anim", FALSE);
 		Object::FadeInText(m_pIntroText, 1.5f);
 		m_bIntro1 = FALSE;
@@ -68,7 +69,6 @@ void GolemDungeonScript::Update()
 		m_pScroll->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->GetCurAnimation2D()->IsFinish() && m_bIntro2)
 	{
 		Object::FadeOutText(m_pIntroText, 1.5f);
-		//Object::FadeOut(m_pIntroBG, 1.5f);
 
 		float _vTempPos = _vScrollPos.y + 100.f;
 		Object::MoveUp(m_pScroll, _vTempPos, 900.f);

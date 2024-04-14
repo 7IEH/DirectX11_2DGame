@@ -26,6 +26,7 @@
 #include "EHRoomManager.h"
 
 #include <EHRigidBody.h>
+#include "EHItemMgr.h"
 
 PlayerScript::PlayerScript()
 	: m_eDir(Dir::LEFT)
@@ -67,7 +68,7 @@ PlayerScript::PlayerScript()
 	, m_pPlayerCam(nullptr)
 	, m_eCameraMove(Dir::None)
 	, m_pSpearCollider(nullptr)
-	, m_pOneHandCollider(nullptr)
+	, m_pTwoHandCollider(nullptr)
 	, m_fComboTime(0.f)
 	, m_iComboCount(1)
 	, m_iCurComboCount(1)
@@ -89,6 +90,9 @@ PlayerScript::PlayerScript()
 	, m_pMozaicPanel(nullptr)
 	, m_fDeadTime(0.f)
 	, m_bMozaikEnd(FALSE)
+	, m_pSelectCircle(nullptr)
+	, m_pSelectItemIcon(nullptr)
+	, m_iSelectItem(ITEM::NO_ITEM)
 {
 	SetName(L"PlayerScript");
 }
@@ -115,15 +119,19 @@ void PlayerScript::Awake()
 
 	m_pDungeonPortal1 = FIND_OBJECT(L"Object_Enterance_Portal1");
 
+	m_pSelectCircle = FIND_OBJECT(L"HUD_SelectorCircle");
+
+	m_pSelectItemIcon = FIND_OBJECT(L"HUD_SelectorIcon");
+
 	for (int i = 0;i < 20;i++)
 	{
 		m_pInventorySlotObjs[i] = FIND_OBJECT(L"GUI_Inventoy_Slot" + std::to_wstring(i + 1));
 	}
 
-	/*for (int i = 0;i < 28;i++)
+	for (int i = 0;i < 28;i++)
 	{
 		m_pChestSlotObjs[i] = LevelMgr::GetInst()->GetCurLevel()->FindObjectByName(L"GUI_Chest_Slot" + std::to_wstring(i + 1));
-	}*/
+	}
 
 	for (int i = 0;i < 8;i++)
 	{
@@ -152,7 +160,7 @@ void PlayerScript::Awake()
 
 	m_pMozaicPanel = FIND_OBJECT(L"Object_Mozaic_Panel");
 
-	if (LevelMgr::GetInst()->GetCurLevel()->GetName() == L"TownScene" || LevelMgr::GetInst()->GetCurLevel()->GetName() == L"DungeonEntranceScene")
+	if (LevelMgr::GetInst()->GetCurLevel()->GetName() == L"TownScene" || LevelMgr::GetInst()->GetCurLevel()->GetName() == L"DungeonEntranceScene" || LevelMgr::GetInst()->GetCurLevel()->GetName() == L"TestScene")
 	{
 
 	}
@@ -180,10 +188,10 @@ void PlayerScript::Awake()
 		assert(m_pInventorySlotObjs[i]);
 	}
 
-	/*for (int i = 0;i < 28;i++)
+	for (int i = 0;i < 28;i++)
 	{
 		assert(m_pChestSlotObjs[i]);
-	}*/
+	}
 
 	for (int i = 0;i < 8;i++)
 	{
@@ -191,8 +199,10 @@ void PlayerScript::Awake()
 	}
 
 	m_pSpearCollider = FIND_OBJECT(L"Player_Collider_Spear");
-	m_pOneHandCollider;
+	m_pTwoHandCollider = FIND_OBJECT(L"Player_Collider_TwoHand");
 
+	assert(m_pSelectItemIcon);
+	assert(m_pSelectCircle);
 	assert(m_pInventoryInface);
 	assert(m_pChestIntreface);
 	assert(m_pUICurSor);
@@ -220,10 +230,10 @@ void PlayerScript::Awake()
 		m_pInventorySlotObjs[i]->Enabled(FALSE);
 	}
 
-	/*for (int i = 0;i < 28;i++)
+	for (int i = 0;i < 28;i++)
 	{
 		m_pChestSlotObjs[i]->Enabled(FALSE);
-	}*/
+	}
 
 	for (int i = 0;i < 8;i++)
 	{
@@ -239,14 +249,13 @@ void PlayerScript::Awake()
 
 	// 낮 1 1 1
 	// 밤 0.118712 0.225286 0.643833
-
 	if (L"GolemDungeonScene" == LevelMgr::GetInst()->GetCurLevel()->GetName() || L"GolemDungeonBossScene" == LevelMgr::GetInst()->GetCurLevel()->GetName())
 	{
 		m_pMainLight->GetComponent<LIght2D>(COMPONENT_TYPE::LIGHT2D)->SetAmbient(Vec4(1.f, 1.f, 1.f, 1.f));
 	}
 	else
 	{
-		if (m_pPlayerPref->_iTime == 0)
+		if (m_pPlayerPref->_iTime == 0 && (LevelMgr::GetInst()->GetCurLevel()->GetName() == L"TownScene" || LevelMgr::GetInst()->GetCurLevel()->GetName() == L"DungeonEntranceScene"))
 		{
 			m_pMainLight->GetComponent<LIght2D>(COMPONENT_TYPE::LIGHT2D)->SetAmbient(Vec4(0.118712f, 0.225286f, 0.643833f, 1.f));
 		}
@@ -257,6 +266,9 @@ void PlayerScript::Awake()
 	}
 
 	GetOwner()->AddComponent<RigidBody>();
+
+	m_pSelectCircle->Enabled(FALSE);
+	m_pSelectItemIcon->Enabled(FALSE);
 }
 
 void PlayerScript::Start()
@@ -272,6 +284,8 @@ void PlayerScript::Update()
 
 	if (m_pPlayerPref->_iCurHp <= 0 && m_eState != State::Dead)
 	{
+		Object::Play2DSound(L"\\resource\\Audio\\will_death.wav", TRUE, 0.4f);
+
 		m_eState = State::Dead;
 		m_pMozaicPanel->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(INT_0, 1);
 		m_pMozaicPanel->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(INT_2, 1);
@@ -424,23 +438,19 @@ void PlayerScript::Invincibility()
 
 void PlayerScript::Idle()
 {
-	if (KEY_TAP(P))
-	{
-		m_pPlayerPref->_iCurHp -= 10;
-	}
-
-	if (KEY_TAP(H))
-	{
-		m_pMozaicPanel->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(INT_1, 1);
-	}
-	else if (KEY_TAP(O))
-	{
-		m_pMozaicPanel->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(INT_1, 0);
-	}
-
 	if (KEY_TAP(KEY::W) || KEY_TAP(KEY::A) || KEY_TAP(KEY::S) || KEY_TAP(KEY::D)
 		|| KEY_PRESSED(KEY::W) || KEY_PRESSED(KEY::A) || KEY_PRESSED(KEY::S) || KEY_PRESSED(KEY::D))
 	{
+		if (L"TownScene" == LevelMgr::GetInst()->GetCurLevel()->GetName() || L"DungeonEntranceScene" == LevelMgr::GetInst()->GetCurLevel()->GetName())
+		{
+			Object::Play2DSound(L"\\resource\\Audio\\will_step_town_dirt.wav", FALSE, 0.3f);
+		}
+		else if (L"TutorialScene" == LevelMgr::GetInst()->GetCurLevel()->GetName()
+			|| L"GolemDungeonScene" == LevelMgr::GetInst()->GetCurLevel()->GetName()
+			|| L"GolemDungeonBossScene" == LevelMgr::GetInst()->GetCurLevel()->GetName())
+		{
+			Object::Play2DSound(L"\\resource\\Audio\\will_step_golem_dungeon.wav", FALSE, 0.3f);
+		}
 		m_eState = State::Move;
 		MoveAnim();
 	}
@@ -448,25 +458,56 @@ void PlayerScript::Idle()
 	{
 		m_eState = State::Attack;
 
-		Weapon		_eWaepon = m_pPlayerPref->_eWeapon;
-		SubWeapon	_eSunWeapon = m_pPlayerPref->_eSubWeapon;
+		ITEM _iWeapon = ITEM::NO_ITEM;
+		if (m_pPlayerPref->_iCurWeapon == 0)
+		{
+			_iWeapon = m_pPlayerPref->_iWeapon1;
+		}
+		else
+		{
+			_iWeapon = m_pPlayerPref->_iWeapon2;
+		}
 
 		Animator2D* _pAnim = GetOwner()->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D);
 
-		switch (_eWaepon)
+		switch (_iWeapon)
 		{
-		case Weapon::BasicOneHand:
+		case ITEM::DOUBLE_HAND_SWORD:
 		{
-
+			Object::Play2DSound(L"\\resource\\Audio\\big_sword_main_attack_swing.wav", TRUE, 0.4f);
+			m_pTwoHandCollider->GetComponent<Collider2D>(COMPONENT_TYPE::COLLIDER2D)->Enabled(TRUE);
+			switch (m_eDir)
+			{
+			case Dir::UP:
+			{
+				_pAnim->Play(L"FSM_Player_Dungeon_Attack_Up_Anim1", FALSE);
+			}
+			break;
+			case Dir::DOWN:
+			{
+				_pAnim->Play(L"FSM_Player_Dungeon_Attack_TwoHand_Down_Anim1", FALSE);
+			}
+			break;
+			case Dir::LEFT:
+			{
+				_pAnim->Play(L"FSM_Player_Dungeon_Attack_TwoHand_Left_Anim1", FALSE);
+			}
+			break;
+			case Dir::RIGHT:
+			{
+				_pAnim->Play(L"FSM_Player_Dungeon_Attack_Right_Anim1", FALSE);
+			}
+			break;
+			case Dir::None:
+				break;
+			default:
+				break;
+			}
 		}
 		break;
-		case Weapon::BasicTwoHand:
+		case ITEM::BROOM_STICK:
 		{
-
-		}
-		break;
-		case Weapon::BroomStick:
-		{
+			Object::Play2DSound(L"\\resource\\Audio\\spear_main_attack_swing.wav", TRUE, 0.4f);
 			m_pSpearCollider->GetComponent<Collider2D>(COMPONENT_TYPE::COLLIDER2D)->Enabled(TRUE);
 			switch (m_eDir)
 			{
@@ -497,14 +538,13 @@ void PlayerScript::Idle()
 			}
 		}
 		break;
-		case Weapon::None:
-			break;
 		default:
 			break;
 		}
 	}
 	else if (KEY_TAP(KEY::SPACE))
 	{
+		Object::Play2DSound(L"\\resource\\Audio\\will_roll.wav", TRUE, 0.4f);
 		m_eState = State::Dodge;
 		m_bInvincibility = TRUE;
 		GetOwner()->GetComponent<Collider2D>(COMPONENT_TYPE::COLLIDER2D)->Enabled(FALSE);
@@ -550,6 +590,50 @@ void PlayerScript::Idle()
 		m_pSelectIcon1->Enabled(TRUE);
 		m_pSelectIcon2->Enabled(TRUE);
 	}
+	else if (KEY_TAP(KEY::Z))
+	{
+		Object::Play2DSound(L"\\resource\\Audio\\will_weapon_change.wav", TRUE, 0.4f);
+
+		if (0 == m_pPlayerPref->_iCurWeapon)
+		{
+			m_pPlayerPref->_iCurWeapon = 1;
+		}
+		else
+		{
+			m_pPlayerPref->_iCurWeapon = 0;
+		}
+
+		ITEM _iWeapon = ITEM::NO_ITEM;
+		if (m_pPlayerPref->_iCurWeapon == 0)
+		{
+			_iWeapon = m_pPlayerPref->_iWeapon1;
+		}
+		else
+		{
+			_iWeapon = m_pPlayerPref->_iWeapon2;
+		}
+
+		if (_iWeapon == ITEM::BROOM_STICK)
+		{
+			m_pTwoHandCollider->GetComponent<Collider2D>(COMPONENT_TYPE::COLLIDER2D)->Enabled(FALSE);
+		}
+		else
+		{
+			m_pSpearCollider->GetComponent<Collider2D>(COMPONENT_TYPE::COLLIDER2D)->Enabled(FALSE);
+		}
+	}
+	else if (KEY_TAP(KEY::E))
+	{
+		if (ITEM::NO_ITEM != m_pPlayerPref->_iUseItem)
+		{
+			Object::Play2DSound(L"\\resource\\Audio\\will_potion_used.wav", TRUE, 0.5f);
+			m_pPlayerPref->_iCurHp += 10.f;
+			if (m_pPlayerPref->_iCurHp >= 100.f)
+			{
+				m_pPlayerPref->_iCurHp = 100.f;
+			}
+		}
+	}
 }
 
 void PlayerScript::Attack()
@@ -557,8 +641,16 @@ void PlayerScript::Attack()
 	// 데미지는 장비에 따라 바뀜
 	// 적용 시켜줌
 	auto		_iStrikingPower = m_pPlayerPref->_iStrikingPower;
-	Weapon		_eWaepon = m_pPlayerPref->_eWeapon;
-	SubWeapon	_eSunWeapon = m_pPlayerPref->_eSubWeapon;
+
+	ITEM _iWeapon = ITEM::NO_ITEM;
+	if (m_pPlayerPref->_iCurWeapon == 0)
+	{
+		_iWeapon = m_pPlayerPref->_iWeapon1;
+	}
+	else
+	{
+		_iWeapon = m_pPlayerPref->_iWeapon2;
+	}
 
 	Animator2D* _pAnim = GetOwner()->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D);
 
@@ -570,20 +662,44 @@ void PlayerScript::Attack()
 			{
 				m_iCurComboCount++;
 
-				switch (_eWaepon)
+				switch (_iWeapon)
 				{
-				case Weapon::BasicOneHand:
+				case ITEM::DOUBLE_HAND_SWORD:
 				{
-
+					Object::Play2DSound(L"\\resource\\Audio\\big_sword_main_attack_swing.wav", TRUE, 0.4f);
+					m_pTwoHandCollider->GetComponent<Collider2D>(COMPONENT_TYPE::COLLIDER2D)->Enabled(TRUE);
+					switch (m_eDir)
+					{
+					case Dir::UP:
+					{
+						_pAnim->Play(L"FSM_Player_Dungeon_Attack_Up_Anim" + std::to_wstring(m_iCurComboCount), FALSE);
+					}
+					break;
+					case Dir::DOWN:
+					{
+						_pAnim->Play(L"FSM_Player_Dungeon_Attack_TwoHand_Down_Anim" + std::to_wstring(m_iCurComboCount), FALSE);
+					}
+					break;
+					case Dir::LEFT:
+					{
+						_pAnim->Play(L"FSM_Player_Dungeon_Attack_TwoHand_Left_Anim" + std::to_wstring(m_iCurComboCount), FALSE);
+					}
+					break;
+					case Dir::RIGHT:
+					{
+						_pAnim->Play(L"FSM_Player_Dungeon_Attack_Right_Anim" + std::to_wstring(m_iCurComboCount), FALSE);
+					}
+					break;
+					case Dir::None:
+						break;
+					default:
+						break;
+					}
 				}
 				break;
-				case Weapon::BasicTwoHand:
+				case ITEM::BROOM_STICK:
 				{
-
-				}
-				break;
-				case Weapon::BroomStick:
-				{
+					Object::Play2DSound(L"\\resource\\Audio\\spear_main_attack_swing.wav", TRUE, 0.4f);
 					m_pSpearCollider->GetComponent<Collider2D>(COMPONENT_TYPE::COLLIDER2D)->Enabled(TRUE);
 					switch (m_eDir)
 					{
@@ -614,8 +730,6 @@ void PlayerScript::Attack()
 					}
 				}
 				break;
-				case Weapon::None:
-					break;
 				default:
 					break;
 				}
@@ -642,10 +756,34 @@ void PlayerScript::Attack()
 			}
 		}
 
-		if (m_fComboTime >= 0.4f)
+		if (_iWeapon == ITEM::BROOM_STICK)
 		{
-			m_pSpearCollider->GetComponent<Collider2D>(COMPONENT_TYPE::COLLIDER2D)->Enabled(FALSE);
-			m_fComboTime = 0.f;
+			if (m_fComboTime >= 0.2f)
+			{
+				m_pSpearCollider->GetComponent<Collider2D>(COMPONENT_TYPE::COLLIDER2D)->Enabled(FALSE);
+				m_fComboTime = 0.f;
+			}
+		}
+		else
+		{
+			if (m_fComboTime >= 0.4f)
+			{
+				m_pTwoHandCollider->GetComponent<Collider2D>(COMPONENT_TYPE::COLLIDER2D)->Enabled(FALSE);
+				m_fComboTime = 0.f;
+			}
+		}
+	}
+
+	if (KEY_TAP(KEY::E))
+	{
+		if (ITEM::NO_ITEM != m_pPlayerPref->_iUseItem)
+		{
+			Object::Play2DSound(L"\\resource\\Audio\\will_potion_used.wav", TRUE, 0.5f);
+			m_pPlayerPref->_iCurHp += 10.f;
+			if (m_pPlayerPref->_iCurHp >= 100.f)
+			{
+				m_pPlayerPref->_iCurHp = 100.f;
+			}
 		}
 	}
 }
@@ -770,31 +908,45 @@ void PlayerScript::Move()
 	{
 		m_eState = State::Idle;
 		IdleAnim();
+
+		if (L"TownScene" == LevelMgr::GetInst()->GetCurLevel()->GetName() || L"DungeonEntranceScene" == LevelMgr::GetInst()->GetCurLevel()->GetName())
+		{
+			Object::Stop2DSound(L"\\resource\\Audio\\will_step_town_dirt.wav");
+		}
+		else if (L"TutorialScene" == LevelMgr::GetInst()->GetCurLevel()->GetName()
+			|| L"GolemDungeonScene" == LevelMgr::GetInst()->GetCurLevel()->GetName()
+			|| L"GolemDungeonBossScene" == LevelMgr::GetInst()->GetCurLevel()->GetName())
+		{
+			Object::Stop2DSound(L"\\resource\\Audio\\will_step_golem_dungeon.wav");
+		}
 	}
 
 	if (KEY_TAP(KEY::J))
 	{
 		m_eState = State::Attack;
 
-		Weapon		_eWaepon = m_pPlayerPref->_eWeapon;
-		SubWeapon	_eSunWeapon = m_pPlayerPref->_eSubWeapon;
+		ITEM _iWeapon = ITEM::NO_ITEM;
+		if (m_pPlayerPref->_iCurWeapon == 0)
+		{
+			_iWeapon = m_pPlayerPref->_iWeapon1;
+		}
+		else
+		{
+			_iWeapon = m_pPlayerPref->_iWeapon2;
+		}
 
 		Animator2D* _pAnim = GetOwner()->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D);
 
-		switch (_eWaepon)
+		switch (_iWeapon)
 		{
-		case Weapon::BasicOneHand:
-		{
-
-		}
-		break;
-		case Weapon::BasicTwoHand:
+		case ITEM::DOUBLE_HAND_SWORD:
 		{
 
 		}
 		break;
-		case Weapon::BroomStick:
+		case ITEM::BROOM_STICK:
 		{
+			Object::Play2DSound(L"\\resource\\Audio\\spear_main_attack_swing.wav", TRUE, 0.4f);
 			switch (m_eDir)
 			{
 			case Dir::UP:
@@ -824,8 +976,6 @@ void PlayerScript::Move()
 			}
 		}
 		break;
-		case Weapon::None:
-			break;
 		default:
 			break;
 		}
@@ -835,9 +985,23 @@ void PlayerScript::Move()
 	{
 		m_eState = State::Dodge;
 		DodgeAnim();
+		Object::Play2DSound(L"\\resource\\Audio\\will_roll.wav", TRUE, 0.4f);
 	}
 	_pos.z = _pos.y;
 	_pTransform->SetRelativePosition(_pos);
+
+	if (KEY_TAP(KEY::E))
+	{
+		if (ITEM::NO_ITEM != m_pPlayerPref->_iUseItem)
+		{
+			Object::Play2DSound(L"\\resource\\Audio\\will_potion_used.wav", TRUE, 0.5f);
+			m_pPlayerPref->_iCurHp += 10.f;
+			if (m_pPlayerPref->_iCurHp >= 100.f)
+			{
+				m_pPlayerPref->_iCurHp = 100.f;
+			}
+		}
+	}
 }
 
 void PlayerScript::Dodge()
@@ -901,6 +1065,19 @@ void PlayerScript::Dodge()
 		m_bInvincibility = FALSE;
 		GetOwner()->GetComponent<Collider2D>(COMPONENT_TYPE::COLLIDER2D)->Enabled(TRUE);
 	}
+
+	if (KEY_TAP(KEY::E))
+	{
+		if (ITEM::NO_ITEM != m_pPlayerPref->_iUseItem)
+		{
+			Object::Play2DSound(L"\\resource\\Audio\\will_potion_used.wav", TRUE, 0.5f);
+			m_pPlayerPref->_iCurHp += 10.f;
+			if (m_pPlayerPref->_iCurHp >= 100.f)
+			{
+				m_pPlayerPref->_iCurHp = 100.f;
+			}
+		}
+	}
 }
 
 void PlayerScript::Chest()
@@ -910,38 +1087,66 @@ void PlayerScript::Chest()
 
 	if (KEY_TAP(KEY::J))
 	{
+		Object::Play2DSound(L"\\resource\\Audio\\dungeon_chest_opening.wav", TRUE, 0.5f);
 		m_bChestOpen = TRUE;
 
 		// Initialize
-		if (_pChest != nullptr)
+		if (_pChest == nullptr)
 		{
 			_pChest = m_pChestObject->GetScript<TriggerScript>(L"TriggerScript")->GetChestItem();
 		}
 
-		// UI Animation
-		GUI_LineScript* _pInventoryScript = m_pInventoryInface->GetScript<GUI_LineScript>(L"GUI_LineScript");
-		_pInventoryScript->SetEvent(m_vOutInventoryPos, m_vInInventorypos, 4000.f, GUI_STYLE::MOVEUP);
+		if (L"Structure_Chest_Iron_Opening_Anim" != m_pChestObject->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->GetCurAnimation2D()->GetName())
+			m_pChestObject->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->Play(L"Structure_Chest_Iron_Opening_Anim", FALSE);
 
-		GUI_LineScript* _pChsetScript = m_pChestIntreface->GetScript<GUI_LineScript>(L"GUI_LineScript");
-		_pChsetScript->SetEvent(m_vOutChestPos, m_vInChestPos, 4000.f, GUI_STYLE::MOVELEFT);
+		// UI Animation
+		Object::MoveUp(m_pInventoryInface, 1.3f, 6000.f);
+
+		Object::MoveLeft(m_pChestIntreface, 304.8f, 6000.f);
 
 		m_pUICurSor->Enabled(TRUE);
 		for (int i = 0;i < 20;i++)
 		{
 			if (nullptr != m_pInventorySlotObjs[i])
-				m_pInventorySlotObjs[i]->Enabled(TRUE);
+			{
+				if (m_pPlayerPref->_eInventory[i] != ITEM::NO_ITEM)
+				{
+					m_pInventorySlotObjs[i]->Enabled(TRUE);
+					m_pChestSlotObjs[i]->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->
+						SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(ItemMgr::GetInst()->GetMaterial(int(m_pPlayerPref->_eInventory[i]))));
+				}
+				else
+				{
+					m_pInventorySlotObjs[i]->Enabled(FALSE);
+				}
+			}
 		}
 
 		for (int i = 0;i < 28;i++)
 		{
 			if (nullptr != m_pChestSlotObjs[i])
-				m_pChestSlotObjs[i]->Enabled(TRUE);
+			{
+				if (_pChest[i] != ITEM::NO_ITEM)
+				{
+					m_pChestSlotObjs[i]->Enabled(TRUE);
+					m_pChestSlotObjs[i]->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->
+						SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(ItemMgr::GetInst()->GetMaterial(int(_pChest[i]))));
+
+					Ptr<Material> _ptr = AssetMgr::GetInst()->FindAsset<Material>(ItemMgr::GetInst()->GetMaterial(int(_pChest[i])));
+					int a = 0;
+				}
+				else
+				{
+					m_pChestSlotObjs[i]->Enabled(FALSE);
+				}
+			}
 		}
 		m_pObject_Village_Fade_BG->Enabled(TRUE);
 	}
 
 	if (KEY_TAP(KEY::I))
 	{
+		Object::Play2DSound(L"\\resource\\Audio\\dungeon_chest_closing.wav", TRUE, 0.5f);
 		m_pObject_Village_Fade_BG->Enabled(FALSE);
 		m_bChestOpen = FALSE;
 
@@ -968,45 +1173,156 @@ void PlayerScript::Chest()
 		m_eState = State::Idle;
 	}
 
+	Transform* _pUITr = m_pUICurSor->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
+	Vec4 _vUIPos = _pUITr->GetRelativePosition();
+
 	// Chest Open
 	if (m_bChestOpen)
 	{
+		if (_pChest == nullptr)
+		{
+			_pChest = m_pChestObject->GetScript<TriggerScript>(L"TriggerScript")->GetChestItem();
+		}
+
+		for (int i = 0;i < 20;i++)
+		{
+			if (nullptr != m_pInventorySlotObjs[i])
+			{
+				if (m_pPlayerPref->_eInventory[i] != ITEM::NO_ITEM)
+				{
+					m_pInventorySlotObjs[i]->Enabled(TRUE);
+					m_pInventorySlotObjs[i]->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->
+						SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(ItemMgr::GetInst()->GetMaterial(int(m_pPlayerPref->_eInventory[i]))));
+				}
+				else
+				{
+					m_pInventorySlotObjs[i]->Enabled(FALSE);
+				}
+			}
+		}
+
+		for (int i = 0;i < 28;i++)
+		{
+			if (nullptr != m_pChestSlotObjs[i])
+			{
+				if (_pChest[i] != ITEM::NO_ITEM)
+				{
+					m_pChestSlotObjs[i]->Enabled(TRUE);
+					m_pChestSlotObjs[i]->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->
+						SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(ItemMgr::GetInst()->GetMaterial(int(_pChest[i]))));
+				}
+				else
+				{
+					m_pChestSlotObjs[i]->Enabled(FALSE);
+				}
+			}
+		}
+
+
 		// Control
 		if (KEY_TAP(KEY::W))
 		{
+			Object::Play2DSound(L"\\resource\\Audio\\gui_selector_movement.wav", TRUE, 0.5f);
 			if (m_vChestPos[0] > 0)
 			{
 				m_vChestPos[0] -= 1;
+				_pUITr->SetRelativeScale(Vec4(100.f, 100.f, 1.f, 1.f));
+				Object::DecreaseEffect(m_pUICurSor, 80.f, 600.f);
 			}
 		}
 
 		if (KEY_TAP(KEY::S))
 		{
+			Object::Play2DSound(L"\\resource\\Audio\\gui_selector_movement.wav", TRUE, 0.5f);
 			if (m_vChestPos[0] < 3)
 			{
 				m_vChestPos[0] += 1;
+				_pUITr->SetRelativeScale(Vec4(100.f, 100.f, 1.f, 1.f));
+				Object::DecreaseEffect(m_pUICurSor, 80.f, 600.f);
 			}
 		}
 
 		if (KEY_TAP(KEY::A))
 		{
+			Object::Play2DSound(L"\\resource\\Audio\\gui_selector_movement.wav", TRUE, 0.5f);
 			if (m_vChestPos[1] > 0)
 			{
 				m_vChestPos[1] -= 1;
+				_pUITr->SetRelativeScale(Vec4(100.f, 100.f, 1.f, 1.f));
+				Object::DecreaseEffect(m_pUICurSor, 80.f, 600.f);
 			}
 		}
 
 		if (KEY_TAP(KEY::D))
 		{
+			Object::Play2DSound(L"\\resource\\Audio\\gui_selector_movement.wav", TRUE, 0.5f);
 			if (m_vChestPos[1] < 11)
 			{
 				m_vChestPos[1] += 1;
+				_pUITr->SetRelativeScale(Vec4(100.f, 100.f, 1.f, 1.f));
+				Object::DecreaseEffect(m_pUICurSor, 80.f, 600.f);
 			}
 		}
 
-		if (KEY_TAP(KEY(J)))
+		if (m_iSelectItem == ITEM::NO_ITEM)
 		{
-			// 아이템 집기
+			if (KEY_TAP(KEY(J)))
+			{
+				// 집기 사운드
+				Object::Play2DSound(L"\\resource\\Audio\\gui_selector_pick.wav", TRUE, 0.5f);
+				if (m_vChestPos[1] < 5)
+				{
+					if (m_pPlayerPref->_eInventory[5 * m_vChestPos[0] + m_vChestPos[1]] != ITEM::NO_ITEM)
+					{
+						m_iSelectItem = m_pPlayerPref->_eInventory[5 * m_vChestPos[0] + m_vChestPos[1]];
+						m_pPlayerPref->_eInventory[5 * m_vChestPos[0] + m_vChestPos[1]] = ITEM::NO_ITEM;
+					}
+				}
+				else
+				{
+					if (_pChest[7 * m_vChestPos[0] + (m_vChestPos[1] - 5)] != ITEM::NO_ITEM)
+					{
+						m_iSelectItem = _pChest[7 * m_vChestPos[0] + (m_vChestPos[1] - 5)];
+						_pChest[7 * m_vChestPos[0] + (m_vChestPos[1] - 5)] = ITEM::NO_ITEM;
+					}
+				}
+			}
+		}
+		else
+		{
+			if (KEY_TAP(KEY(J)))
+			{
+				//놓기 사운드
+				Object::Play2DSound(L"\\resource\\Audio\\gui_selector_drop.wav", TRUE, 0.5f);
+				if (m_vChestPos[1] < 5)
+				{
+					if (m_pPlayerPref->_eInventory[5 * m_vChestPos[0] + m_vChestPos[1]] != ITEM::NO_ITEM)
+					{
+						ITEM _temp = m_pPlayerPref->_eInventory[5 * m_vChestPos[0] + m_vChestPos[1]];
+						m_pPlayerPref->_eInventory[5 * m_vChestPos[0] + m_vChestPos[1]] = m_iSelectItem;
+						m_iSelectItem = _temp;
+					}
+					else
+					{
+						m_pPlayerPref->_eInventory[5 * m_vChestPos[0] + m_vChestPos[1]] = m_iSelectItem;
+						m_iSelectItem = ITEM::NO_ITEM;
+					}
+				}
+				else
+				{
+					if (_pChest[7 * m_vChestPos[0] + (m_vChestPos[1] - 5)] != ITEM::NO_ITEM)
+					{
+						ITEM _temp = _pChest[7 * m_vChestPos[0] + (m_vChestPos[1] - 5)];
+						_pChest[7 * m_vChestPos[0] + (m_vChestPos[1] - 5)] = m_iSelectItem;
+						m_iSelectItem = _temp;
+					}
+					else
+					{
+						_pChest[7 * m_vChestPos[0] + (m_vChestPos[1] - 5)] = m_iSelectItem;
+						m_iSelectItem = ITEM::NO_ITEM;
+					}
+				}
+			}
 		}
 
 		Vec2 _vInventoryStartPos = Vec2(-505.f, 227.f);
@@ -1017,61 +1333,40 @@ void PlayerScript::Chest()
 		Vec2 _vChestScale = Vec2(88.f, 89.f);
 
 		/**********************
-		|	Show Inventory & Chest
-		**********************/
-		for (int y = 0;y < 4;y++)
-		{
-			for (int x = 0;x < 5;x++)
-			{
-				// Inventory
-				if (m_pPlayerPref->_eInventory[4 * y + x] != ITEM::NO_ITEM)
-				{
-					if (m_pInventorySlotObjs[4 * y + x] != nullptr)
-					{
-						m_pInventorySlotObjs[4 * y + x]->Enabled(TRUE);
-						m_pInventorySlotObjs[4 * y + x]->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)
-							->GetMaterial()->SetTexParam(TEX_0, AssetMgr::GetInst()->FindAsset<Sprite>(m_vItemName[UINT(m_pPlayerPref->_eInventory[4 * y + x])]));
-					}
-				}
-
-				// Chest
-				/*if (nullptr != _pChest)
-				{
-					if (_pChest[4 * y + (x - 5)] != ITEM::NO_ITEM)
-					{
-						if (m_pInventorySlotObjs[4 * y + x] != nullptr)
-						{
-							m_pInventorySlotObjs[4 * y + x]->Enabled(TRUE);
-							m_pInventorySlotObjs[4 * y + x]->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)
-								->GetMaterial()->SetTexParam(TEX_0, AssetMgr::GetInst()->FindAsset<Sprite>(m_vItemName[UINT(_pChest[4 * y + (x - 5)])]));
-						}
-					}
-				}*/
-			}
-		}
-
-		/**********************
 		|	Show UICursor
 		**********************/
 		// Inventory
-		Transform* _pUITr = m_pUICurSor->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
-		Vec4 _vUIPos = _pUITr->GetRelativePosition();
 
 		if (m_vChestPos[1] < 5)
 		{
-			_vUIPos.x = m_pInventorySlotObjs[4 * m_vChestPos[0] + m_vChestPos[1]]->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativePosition().x;
-			_vUIPos.y = m_pInventorySlotObjs[4 * m_vChestPos[0] + m_vChestPos[1]]->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativePosition().y;
+			_vUIPos.x = m_pInventorySlotObjs[5 * m_vChestPos[0] + m_vChestPos[1]]->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativePosition().x;
+			_vUIPos.y = m_pInventorySlotObjs[5 * m_vChestPos[0] + m_vChestPos[1]]->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativePosition().y;
 		}
 		// Chest
 		else
 		{
-			_vUIPos.x = m_pChestSlotObjs[4 * m_vChestPos[0] + (m_vChestPos[1] - 5)]->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativePosition().x;
-			_vUIPos.y = m_pChestSlotObjs[4 * m_vChestPos[0] + (m_vChestPos[1] - 5)]->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativePosition().y;
+			_vUIPos.x = m_pChestSlotObjs[7 * m_vChestPos[0] + (m_vChestPos[1] - 5)]->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativePosition().x;
+			_vUIPos.y = m_pChestSlotObjs[7 * m_vChestPos[0] + (m_vChestPos[1] - 5)]->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativePosition().y;
 		}
 
 		_pUITr->SetRelativePosition(_vUIPos);
-		_pUITr->SetRelativeScale(Vec4(100.f, 100.f, 1.f, 1.f));
-		Object::DecreaseEffect(m_pUICurSor, 80.f, 600.f);
+
+		if (ITEM::NO_ITEM != m_iSelectItem)
+		{
+			m_pSelectItemIcon->Enabled(TRUE);
+			m_pSelectCircle->Enabled(TRUE);
+			m_pSelectItemIcon->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(ItemMgr::GetInst()->GetMaterial(int(m_iSelectItem))));
+
+			_vUIPos.y += 100.f;
+			m_pSelectCircle->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->SetRelativePosition(_vUIPos);
+			_vUIPos.z -= 1.f;
+			m_pSelectItemIcon->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->SetRelativePosition(_vUIPos);
+		}
+		else
+		{
+			m_pSelectItemIcon->Enabled(FALSE);
+			m_pSelectCircle->Enabled(FALSE);
+		}
 	}
 	else
 	{
@@ -1106,6 +1401,11 @@ void PlayerScript::SceneChange()
 			{
 			case TRIGGER_TYPE::DUNGEONENTRANCE:
 			{
+				Object::Stop2DSound(L"\\resource\\Audio\\rynoka_night.wav");
+				Object::Stop2DSound(L"\\resource\\Audio\\dungeon_entrance_fabric.wav");
+				Object::Stop2DSound(L"\\resource\\Audio\\town_night_ambient.wav");
+				Object::Stop2DSound(L"\\resource\\Audio\\town_night_wind_ambient.wav");
+
 				_vPos.y -= 100.f;
 				GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->SetRelativePosition(_vPos);
 				LevelMgr::GetInst()->SelectLevel(L"DungeonEntranceScene");
@@ -1113,6 +1413,9 @@ void PlayerScript::SceneChange()
 			break;
 			case TRIGGER_TYPE::TOWN:
 			{
+				Object::Stop2DSound(L"\\resource\\Audio\\dungeon_entrance_wind_ambient.wav");
+				Object::Stop2DSound(L"\\resource\\Audio\\dungeon_entrance_fabric.wav");
+
 				_vPos.y += 100.f;
 				GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->SetRelativePosition(_vPos);
 				LevelMgr::GetInst()->SelectLevel(L"TownScene");
@@ -1127,8 +1430,11 @@ void PlayerScript::SceneChange()
 			break;
 			case TRIGGER_TYPE::GOLEM_BOSS_MOVE_TRIGGER:
 			{
+				Object::Stop2DSound(L"\\resource\\Audio\\golem_dungeon_floor_variation_1");
+				Object::Stop2DSound(L"\\resource\\Audio\\golem_dungeon_main_ambient");
+
 				GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->SetRelativePosition(_vPos);
-				LevelMgr::GetInst()->SelectLevel(L"GolemDungeonBossScene");
+				SceneManager::SelectScene(L"GolemDungeonBossScene");
 			}
 			break;
 			case TRIGGER_TYPE::END:
@@ -1195,6 +1501,7 @@ void PlayerScript::Inventory()
 		// Control
 		if (KEY_TAP(KEY::W))
 		{
+			Object::Play2DSound(L"\\resource\\Audio\\gui_selector_movement.wav", TRUE, 0.5f);
 			if (m_vChestPos[0] > 0)
 			{
 				m_vChestPos[0] -= 1;
@@ -1205,6 +1512,7 @@ void PlayerScript::Inventory()
 
 		if (KEY_TAP(KEY::S))
 		{
+			Object::Play2DSound(L"\\resource\\Audio\\gui_selector_movement.wav", TRUE, 0.5f);
 			if (m_vChestPos[0] < 3)
 			{
 				m_vChestPos[0] += 1;
@@ -1215,6 +1523,7 @@ void PlayerScript::Inventory()
 
 		if (KEY_TAP(KEY::A))
 		{
+			Object::Play2DSound(L"\\resource\\Audio\\gui_selector_movement.wav", TRUE, 0.5f);
 			if (m_vChestPos[1] > 0)
 			{
 				m_vChestPos[1] -= 1;
@@ -1225,7 +1534,8 @@ void PlayerScript::Inventory()
 
 		if (KEY_TAP(KEY::D))
 		{
-			if (m_vChestPos[1] < 11)
+			Object::Play2DSound(L"\\resource\\Audio\\gui_selector_movement.wav", TRUE, 0.5f);
+			if (m_vChestPos[1] < 6)
 			{
 				m_vChestPos[1] += 1;
 				_pUITr->SetRelativeScale(Vec4(100.f, 100.f, 1.f, 1.f));
@@ -1233,13 +1543,126 @@ void PlayerScript::Inventory()
 			}
 		}
 
-		if (KEY_TAP(KEY(J)))
+		if (m_iSelectItem == ITEM::NO_ITEM)
 		{
-			// 아이템 집기
+			if (KEY_TAP(KEY(J)))
+			{
+				// 집기 사운드
+				Object::Play2DSound(L"\\resource\\Audio\\gui_selector_pick.wav", TRUE, 0.5f);
+				if (m_vChestPos[1] < 5)
+				{
+					if (m_pPlayerPref->_eInventory[5 * m_vChestPos[0] + m_vChestPos[1]] != ITEM::NO_ITEM)
+					{
+						m_iSelectItem = m_pPlayerPref->_eInventory[5 * m_vChestPos[0] + m_vChestPos[1]];
+						m_pPlayerPref->_eInventory[5 * m_vChestPos[0] + m_vChestPos[1]] = ITEM::NO_ITEM;
+						//m_pSelectItemIcon->Enabled(TRUE);
+						//m_pSelectCircle->Enabled(TRUE);
+					}
+				}
+				else
+				{
+					if (0 == m_vChestPos[0] * 2 + m_vChestPos[1] - 5)
+					{
+						if (m_pPlayerPref->_iWeapon1 != ITEM::NO_ITEM)
+						{
+							m_iSelectItem = m_pPlayerPref->_iWeapon1;
+							m_pPlayerPref->_iWeapon1 = ITEM::NO_ITEM;
+							//m_pSelectItemIcon->Enabled(TRUE);
+		//m_pSelectCircle->Enabled(TRUE);
+						}
+					}
+					else if (1 == m_vChestPos[0] * 2 + m_vChestPos[1] - 5)
+					{
+						if (m_pPlayerPref->_iWeapon2 != ITEM::NO_ITEM)
+						{
+							m_iSelectItem = m_pPlayerPref->_iWeapon2;
+							m_pPlayerPref->_iWeapon2 = ITEM::NO_ITEM;
+							//m_pSelectItemIcon->Enabled(TRUE);
+					//m_pSelectCircle->Enabled(TRUE);
+						}
+					}
+					else if (5 == m_vChestPos[0] * 2 + m_vChestPos[1] - 5)
+					{
+						if (m_pPlayerPref->_iUseItem != ITEM::NO_ITEM)
+						{
+							m_iSelectItem = m_pPlayerPref->_iUseItem;
+							m_pPlayerPref->_iUseItem = ITEM::NO_ITEM;
+
+							//m_pSelectItemIcon->Enabled(TRUE);
+					//m_pSelectCircle->Enabled(TRUE);
+						}
+					}
+				}
+			}
 		}
 		else
 		{
-			// 아이템 놓기
+			if (KEY_TAP(KEY(J)))
+			{
+				//놓기 사운드
+				Object::Play2DSound(L"\\resource\\Audio\\gui_selector_drop.wav", TRUE, 0.5f);
+				if (m_vChestPos[1] < 5)
+				{
+					if (m_pPlayerPref->_eInventory[5 * m_vChestPos[0] + m_vChestPos[1]] != ITEM::NO_ITEM)
+					{
+						ITEM _temp = m_pPlayerPref->_eInventory[5 * m_vChestPos[0] + m_vChestPos[1]];
+						m_pPlayerPref->_eInventory[5 * m_vChestPos[0] + m_vChestPos[1]] = m_iSelectItem;
+						m_iSelectItem = _temp;
+					}
+					else
+					{
+						m_pPlayerPref->_eInventory[5 * m_vChestPos[0] + m_vChestPos[1]] = m_iSelectItem;
+						m_iSelectItem = ITEM::NO_ITEM;
+						//m_pSelectItemIcon->Enabled(FALSE);
+						//m_pSelectCircle->Enabled(FALSE);
+					}
+				}
+				else
+				{
+					if (0 == m_vChestPos[0] * 2 + m_vChestPos[1] - 5)
+					{
+						if (m_pPlayerPref->_iWeapon1 != ITEM::NO_ITEM)
+						{
+							ITEM _iTemp = m_pPlayerPref->_iWeapon1;
+							m_pPlayerPref->_iWeapon1 = m_iSelectItem;
+							m_iSelectItem = _iTemp;
+						}
+						else
+						{
+							m_pPlayerPref->_iWeapon1 = m_iSelectItem;
+							m_iSelectItem = ITEM::NO_ITEM;
+						}
+					}
+					else if (1 == m_vChestPos[0] * 2 + m_vChestPos[1] - 5)
+					{
+						if (m_pPlayerPref->_iWeapon2 != ITEM::NO_ITEM)
+						{
+							ITEM _iTemp = m_pPlayerPref->_iWeapon2;
+							m_pPlayerPref->_iWeapon2 = m_iSelectItem;
+							m_iSelectItem = _iTemp;
+						}
+						else
+						{
+							m_pPlayerPref->_iWeapon2 = m_iSelectItem;
+							m_iSelectItem = ITEM::NO_ITEM;
+						}
+					}
+					else if (5 == m_vChestPos[0] * 2 + m_vChestPos[1] - 5)
+					{
+						if (m_pPlayerPref->_iUseItem != ITEM::NO_ITEM)
+						{
+							ITEM _iTemp = m_pPlayerPref->_iUseItem;
+							m_pPlayerPref->_iUseItem = m_iSelectItem;
+							m_iSelectItem = _iTemp;
+						}
+						else
+						{
+							m_pPlayerPref->_iUseItem = m_iSelectItem;
+							m_iSelectItem = ITEM::NO_ITEM;
+						}
+					}
+				}
+			}
 		}
 
 		Vec2 _vInventoryStartPos = Vec2(0.f, 0.f);
@@ -1251,44 +1674,73 @@ void PlayerScript::Inventory()
 		/**********************
 		|	Show Inventory & Chest
 		**********************/
-		for (int y = 0;y < 4;y++)
+
+		for (int i = 0;i < 20;i++)
 		{
-			for (int x = 0;x < 5;x++)
+			if (nullptr != m_pInventorySlotObjs[i])
 			{
-				// Inventory
-				if (m_pPlayerPref->_eInventory[5 * y + x] != ITEM::NO_ITEM)
+				if (m_pPlayerPref->_eInventory[i] != ITEM::NO_ITEM)
 				{
-					m_pInventorySlotObjs[5 * y + x]->Enabled(TRUE);
-					m_pInventorySlotObjs[5 * y + x]->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)
-						->GetMaterial()->SetTexParam(TEX_0, AssetMgr::GetInst()->FindAsset<Sprite>(m_vItemName[UINT(m_pPlayerPref->_eInventory[4 * y + x])]));
+					m_pInventorySlotObjs[i]->Enabled(TRUE);
+					m_pInventorySlotObjs[i]->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->
+						SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(ItemMgr::GetInst()->GetMaterial(int(m_pPlayerPref->_eInventory[i]))));
+				}
+				else
+				{
+					m_pInventorySlotObjs[i]->Enabled(FALSE);
 				}
 			}
 		}
 
-		for (int y = 0;y < 4;y++)
+		m_pEquipSlotObjs[2]->Enabled(FALSE);
+		m_pEquipSlotObjs[3]->Enabled(FALSE);
+		m_pEquipSlotObjs[4]->Enabled(FALSE);
+		m_pEquipSlotObjs[6]->Enabled(FALSE);
+		m_pEquipSlotObjs[7]->Enabled(FALSE);
+
+
+		if (m_pPlayerPref->_iWeapon1 != ITEM::NO_ITEM)
 		{
-			for (int x = 0;x < 2;x++)
-			{
-				// Equip
-				if (m_pPlayerPref->_eInventory[2 * y + x] != ITEM::NO_ITEM)
-				{
-					m_pInventorySlotObjs[2 * y + x]->Enabled(TRUE);
-					m_pInventorySlotObjs[2 * y + x]->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)
-						->GetMaterial()->SetTexParam(TEX_0, AssetMgr::GetInst()->FindAsset<Sprite>(m_vItemName[UINT(m_pPlayerPref->_eInventory[2 * y + x])]));
-				}
-			}
+			m_pEquipSlotObjs[0]->Enabled(TRUE);
+			m_pEquipSlotObjs[0]->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->
+				SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(ItemMgr::GetInst()->GetMaterial(int(m_pPlayerPref->_iWeapon1))));
 		}
+		else
+		{
+			m_pEquipSlotObjs[0]->Enabled(FALSE);
+		}
+
+		if (m_pPlayerPref->_iWeapon2 != ITEM::NO_ITEM)
+		{
+			m_pEquipSlotObjs[1]->Enabled(TRUE);
+			m_pEquipSlotObjs[1]->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->
+				SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(ItemMgr::GetInst()->GetMaterial(int(m_pPlayerPref->_iWeapon2))));
+		}
+		else
+		{
+			m_pEquipSlotObjs[1]->Enabled(FALSE);
+		}
+
+		if (m_pPlayerPref->_iUseItem != ITEM::NO_ITEM)
+		{
+			m_pEquipSlotObjs[5]->Enabled(TRUE);
+			m_pEquipSlotObjs[5]->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->
+				SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(ItemMgr::GetInst()->GetMaterial(int(m_pPlayerPref->_iUseItem))));
+		}
+		else
+		{
+			m_pEquipSlotObjs[5]->Enabled(FALSE);
+		}
+
 		/**********************
 		|	Show UICursor
 		**********************/
-		// Inventory
-
 		if (m_vChestPos[1] < 5)
 		{
 			_vUIPos.x = m_pInventorySlotObjs[5 * m_vChestPos[0] + m_vChestPos[1]]->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativePosition().x;
 			_vUIPos.y = m_pInventorySlotObjs[5 * m_vChestPos[0] + m_vChestPos[1]]->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativePosition().y;
 		}
-		// Chest
+		//Chest
 		else
 		{
 			_vUIPos.x = m_pEquipSlotObjs[2 * m_vChestPos[0] + (m_vChestPos[1] - 5)]->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativePosition().x;
@@ -1297,6 +1749,22 @@ void PlayerScript::Inventory()
 
 		// UI Animation
 		_pUITr->SetRelativePosition(_vUIPos);
+		if (ITEM::NO_ITEM != m_iSelectItem)
+		{
+			m_pSelectItemIcon->Enabled(TRUE);
+			m_pSelectCircle->Enabled(TRUE);
+			m_pSelectItemIcon->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(ItemMgr::GetInst()->GetMaterial(int(m_iSelectItem))));
+
+			_vUIPos.y += 100.f;
+			m_pSelectCircle->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->SetRelativePosition(_vUIPos);
+			_vUIPos.z -= 1.f;
+			m_pSelectItemIcon->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->SetRelativePosition(_vUIPos);
+		}
+		else
+		{
+			m_pSelectItemIcon->Enabled(FALSE);
+			m_pSelectCircle->Enabled(FALSE);
+		}
 	}
 }
 
@@ -1331,19 +1799,32 @@ void PlayerScript::DungeonEnter()
 
 		if (m_fDungeonEnterTime >= 1.5f)
 		{
-			LevelMgr::GetInst()->SelectLevel(L"GolemDungeonScene");
-
 			GetOwner()->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->SetIsRender(TRUE);
 			m_bSceneChange = TRUE;
 			m_fDungeonEnterTime = 0.f;
 			m_eState = State::Idle;
+
+			Object::Stop2DSound(L"\\resource\\Audio\\dungeon_entrance_wind_ambient.wav");
+			Object::Stop2DSound(L"\\resource\\Audio\\dungeon_entrance_fabric.wav");
+
+			SceneManager::SelectScene(L"GolemDungeonScene");
 		}
 	}
 }
 
 void PlayerScript::CameraMove()
 {
-	m_eState = State::Pause;
+
+	if (L"TownScene" == LevelMgr::GetInst()->GetCurLevel()->GetName() || L"DungeonEntranceScene" == LevelMgr::GetInst()->GetCurLevel()->GetName())
+	{
+		Object::Stop2DSound(L"\\resource\\Audio\\will_step_town_dirt.wav");
+	}
+	else if (L"TutorialScene" == LevelMgr::GetInst()->GetCurLevel()->GetName()
+		|| L"GolemDungeonScene" == LevelMgr::GetInst()->GetCurLevel()->GetName()
+		|| L"GolemDungeonBossScene" == LevelMgr::GetInst()->GetCurLevel()->GetName())
+	{
+		Object::Stop2DSound(L"\\resource\\Audio\\will_step_golem_dungeon.wav");
+	}
 
 	GameObject* _pMainCam = LevelMgr::GetInst()->GetCurLevel()->FindObjectByName(L"MainCamera");
 	Transform* _pCamTr = _pMainCam->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
@@ -1500,6 +1981,8 @@ void PlayerScript::ESC()
 {
 	if (KEY_TAP(W))
 	{
+		Object::Play2DSound(L"\\resource\\Audio\\gui_selector_movement.wav", TRUE, 0.5f);
+
 		if (m_iCurButton > 0)
 		{
 			m_iCurButton--;
@@ -1526,6 +2009,8 @@ void PlayerScript::ESC()
 
 	if (KEY_TAP(S))
 	{
+		Object::Play2DSound(L"\\resource\\Audio\\gui_selector_movement.wav", TRUE, 0.5f);
+
 		if (m_iCurButton < 3)
 		{
 			m_iCurButton++;
@@ -1750,24 +2235,27 @@ void PlayerScript::DeadAnim()
 	_pAnim->Play(L"FSM_Player_Dungeon_Dead_Anim", FALSE);
 }
 
-void PlayerScript::KnockBack()
-{
-
-}
-
 void PlayerScript::ColliderPositionCalc()
 {
-	Weapon _eWeapon = m_pPlayerPref->_eWeapon;
+	ITEM _iWeapon = ITEM::NO_ITEM;
+	if (m_pPlayerPref->_iCurWeapon == 0)
+	{
+		_iWeapon = m_pPlayerPref->_iWeapon1;
+	}
+	else
+	{
+		_iWeapon = m_pPlayerPref->_iWeapon2;
+	}
 	Vec4 _vPos = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativePosition();
 
-	if (Weapon::None == _eWeapon)
+	if (ITEM::NO_ITEM == _iWeapon)
 		return;
 
 	switch (m_eDir)
 	{
 	case Dir::UP:
 	{
-		if (Weapon::BroomStick == _eWeapon)
+		if (ITEM::BROOM_STICK == _iWeapon)
 		{
 			Transform* _pSpearTr = m_pSpearCollider->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
 			Vec4 _vScale = _pSpearTr->GetRelativeScale();
@@ -1780,19 +2268,24 @@ void PlayerScript::ColliderPositionCalc()
 			_pSpearTr->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
 			_pSpearTr->SetRelativePosition(_vPos);
 		}
-		else if (Weapon::BasicOneHand == _eWeapon)
+		else if (ITEM::DOUBLE_HAND_SWORD == _iWeapon)
 		{
+			Transform* _pTwonHandTr = m_pTwoHandCollider->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
+			Vec4 _vScale = _pTwonHandTr->GetRelativeScale();
+			_vPos.y += 75.f;
 
-		}
-		else if (Weapon::BasicTwoHand == _eWeapon)
-		{
+			_vScale.x = 100.f;
+			_vScale.y = 50.f;
 
+			_pTwonHandTr->SetRelativeScale(_vScale);
+			_pTwonHandTr->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
+			_pTwonHandTr->SetRelativePosition(_vPos);
 		}
 	}
 	break;
 	case Dir::DOWN:
 	{
-		if (Weapon::BroomStick == _eWeapon)
+		if (ITEM::BROOM_STICK == _iWeapon)
 		{
 			Transform* _pSpearTr = m_pSpearCollider->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
 			Vec4 _vScale = _pSpearTr->GetRelativeScale();
@@ -1805,19 +2298,24 @@ void PlayerScript::ColliderPositionCalc()
 			_pSpearTr->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
 			_pSpearTr->SetRelativePosition(_vPos);
 		}
-		else if (Weapon::BasicOneHand == _eWeapon)
+		else if (ITEM::DOUBLE_HAND_SWORD == _iWeapon)
 		{
+			Transform* _pTwonHandTr = m_pTwoHandCollider->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
+			Vec4 _vScale = _pTwonHandTr->GetRelativeScale();
+			_vPos.y -= 90.f;
 
-		}
-		else if (Weapon::BasicTwoHand == _eWeapon)
-		{
+			_vScale.x = 100.f;
+			_vScale.y = 50.f;
 
+			_pTwonHandTr->SetRelativeScale(_vScale);
+			_pTwonHandTr->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
+			_pTwonHandTr->SetRelativePosition(_vPos);
 		}
 	}
 	break;
 	case Dir::LEFT:
 	{
-		if (Weapon::BroomStick == _eWeapon)
+		if (ITEM::BROOM_STICK == _iWeapon)
 		{
 			Transform* _pSpearTr = m_pSpearCollider->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
 			Vec4 _vScale = _pSpearTr->GetRelativeScale();
@@ -1830,19 +2328,24 @@ void PlayerScript::ColliderPositionCalc()
 			_pSpearTr->SetRelativeRotation(Vec3(0.f, 0.f, 90.f));
 			_pSpearTr->SetRelativePosition(_vPos);
 		}
-		else if (Weapon::BasicOneHand == _eWeapon)
+		else if (ITEM::DOUBLE_HAND_SWORD == _iWeapon)
 		{
+			Transform* _pTwonHandTr = m_pTwoHandCollider->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
+			Vec4 _vScale = _pTwonHandTr->GetRelativeScale();
+			_vPos.x -= 85.f;
 
-		}
-		else if (Weapon::BasicTwoHand == _eWeapon)
-		{
+			_vScale.x = 50.f;
+			_vScale.y = 100.f;
 
+			_pTwonHandTr->SetRelativeScale(_vScale);
+			_pTwonHandTr->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
+			_pTwonHandTr->SetRelativePosition(_vPos);
 		}
 	}
 	break;
 	case Dir::RIGHT:
 	{
-		if (Weapon::BroomStick == _eWeapon)
+		if (ITEM::BROOM_STICK == _iWeapon)
 		{
 			Transform* _pSpearTr = m_pSpearCollider->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
 			Vec4 _vScale = _pSpearTr->GetRelativeScale();
@@ -1855,13 +2358,18 @@ void PlayerScript::ColliderPositionCalc()
 			_pSpearTr->SetRelativeRotation(Vec3(0.f, 0.f, 90.f));
 			_pSpearTr->SetRelativePosition(_vPos);
 		}
-		else if (Weapon::BasicOneHand == _eWeapon)
+		else if (ITEM::DOUBLE_HAND_SWORD == _iWeapon)
 		{
+			Transform* _pTwonHandTr = m_pTwoHandCollider->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
+			Vec4 _vScale = _pTwonHandTr->GetRelativeScale();
+			_vPos.x += 85.f;
 
-		}
-		else if (Weapon::BasicTwoHand == _eWeapon)
-		{
+			_vScale.x = 50.f;
+			_vScale.y = 100.f;
 
+			_pTwonHandTr->SetRelativeScale(_vScale);
+			_pTwonHandTr->SetRelativeRotation(Vec3(0.f, 0.f, 0.f));
+			_pTwonHandTr->SetRelativePosition(_vPos);
 		}
 	}
 	break;
@@ -1995,6 +2503,8 @@ void PlayerScript::OnTriggerEnter(Collider* _other)
 
 	if (LAYER_TYPE::MONSTER == _eType)
 	{
+		Object::Play2DSound(L"\\resource\\Audio\\will_damaged.wav", TRUE, 0.4f);
+
 		EnemyScript* _pScript = _other->GetOwner()->GetScript<EnemyScript>();
 
 		m_pPlayerPref->_iCurHp -= _pScript->GetDamage();
@@ -2010,6 +2520,8 @@ void PlayerScript::OnTriggerEnter(Collider* _other)
 
 	if (LAYER_TYPE::ENEMY_PROJECTILE == _eType)
 	{
+		Object::Play2DSound(L"\\resource\\Audio\\will_damaged.wav", TRUE, 0.4f);
+
 		ProjecTileScript* _pScript = _other->GetOwner()->GetScript<ProjecTileScript>(L"ProjecTileScript");
 		m_pPlayerPref->_iCurHp -= _pScript->GetDamage();
 		GetOwner()->GetComponent<Collider2D>(COMPONENT_TYPE::COLLIDER2D)->Enabled(FALSE);
@@ -2044,6 +2556,8 @@ void PlayerScript::OnTriggerStay(Collider* _other)
 
 		if (m_fClifTime >= 2.5f)
 		{
+			Object::Play2DSound(L"\\resource\\Audio\\will_fall.wav", TRUE, 0.4f);
+
 			m_fClifTime = 0.f;
 			m_bFalling = TRUE;
 			GetOwner()->GetComponent<Collider2D>(COMPONENT_TYPE::COLLIDER2D)->Enabled(FALSE);

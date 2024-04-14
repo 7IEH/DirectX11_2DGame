@@ -12,8 +12,12 @@ private:
 	GameObject*				m_pLoadingObject;
 	GameObject*				m_pPlayer;
 	GameObject*				m_pTutorialScroll;
+	GameObject*				 m_pLight;
+
+	GameObject*				m_pTutorialChest;
 
 	GameObject*				m_pUICamera;
+	GameObject*				m_pIntroText;
 
 	vector<GameObject*>		m_vTutorialBG;
 
@@ -21,6 +25,7 @@ private:
 	bool					m_bTutorialAwake;
 	bool					m_bLoading;
 	bool					m_bFirst;
+	bool					m_bSecond;
 	bool					m_bTrigger1;
 
 	bool					m_bFirstScene;
@@ -30,6 +35,8 @@ private:
 	float					m_fAcctime;
 
 	bool					m_bSkip;
+
+	bool					m_bFinsihed;
 
 	/**************************
 	|	Dungeon Object

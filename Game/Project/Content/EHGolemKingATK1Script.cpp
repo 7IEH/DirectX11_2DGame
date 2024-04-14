@@ -70,6 +70,7 @@ void GolemKingATK1Script::Attack()
 			{
 				m_fAccTime = 0.f;
 				m_bUp = TRUE;
+				Object::Play2DSound(L"\\resource\\Audio\\golem_dungeon_king_golem_avalanch_rock04.wav", TRUE, 0.5f);
 				SpawnCrack();
 			}
 		}
@@ -77,6 +78,7 @@ void GolemKingATK1Script::Attack()
 
 	if (m_bUp)
 	{
+		Object::Play2DSound(L"\\resource\\Audio\\golem_dungeon_king_golem_sweep_2.wav", TRUE, 0.5f);
 		Object::MoveUp(GetOwner(), 1300.f, 1000.f);
 		m_eState = ATK1State::Idle;
 		GetOwner()->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->Play(L"Boss_Golem_Attack_PunchUp_Anim", FALSE);

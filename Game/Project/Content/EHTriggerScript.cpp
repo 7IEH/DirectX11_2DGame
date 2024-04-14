@@ -15,6 +15,7 @@ TriggerScript::TriggerScript()
 	, m_vPlayerPos{}
 	, m_vCamPos{}
 	, m_eChestStore{}
+	, m_iChestStore{}
 	, m_iChestNum(0)
 {
 	SetName(L"TriggerScript");
@@ -33,12 +34,9 @@ void TriggerScript::Awake()
 		{
 			if (m_iChestNum == _flag)
 				break;
+			m_eChestStore[i] = ITEM::NO_ITEM;
+			m_iChestStore[i] = 0;
 
-			if (RandomManager::GetInst()->GenerateNumber(0, 1))
-			{
-				m_eChestStore[i] = ITEM(RandomManager::GetInst()->GenerateNumber(1, 2));
-				_flag++;
-			}
 		}
 	}
 }

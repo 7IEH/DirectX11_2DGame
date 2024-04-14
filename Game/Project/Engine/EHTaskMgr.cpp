@@ -60,9 +60,9 @@ void TaskMgr::Update()
 		break;
 		case TASK_TYPE::LEVEL_CHANGE:
 		{
-			Level* _curLevel = (Level*)m_Tasks[i].Param_1;
-
-			LevelMgr::GetInst()->SelectLevel(_curLevel);
+			SceneChange _task = {};
+			_task._fAcctime = 0.f;
+			m_SceneTasks.push_back(_task);
 		}
 		break;
 
@@ -280,6 +280,7 @@ void TaskMgr::Update()
 	ShakeUpdate();
 	ScaleUpdate();
 	AmbientUpdate();
+	SceneChangeUpdate();
 }
 
 void TaskMgr::FadeUpdate()
@@ -623,6 +624,25 @@ void TaskMgr::ScaleUpdate()
 				iter++;
 			}
 			_pTr->SetRelativeScale(_vScale);
+		}
+	}
+}
+
+void TaskMgr::SceneChangeUpdate()
+{
+	vector<SceneChange>::iterator iter = m_SceneTasks.begin();
+	for (;iter != m_SceneTasks.end();)
+	{
+		(*iter)._fAcctime += DT;
+
+		if ((*iter)._fAcctime >= 2.5f)
+		{
+			LevelMgr::GetInst()->SelectLevel(L"LoadingScene");
+			iter = m_SceneTasks.erase(iter);
+		}
+		else
+		{
+			iter++;
 		}
 	}
 }

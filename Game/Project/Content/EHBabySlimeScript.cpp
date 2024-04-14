@@ -55,5 +55,6 @@ void BabySlimeScript::Chase()
 
 void BabySlimeScript::OnTriggerEnter(Collider* _other)
 {
+	Object::Play2DSound(L"\\resource\\Audio\\golem_dungeon_babyslime_hit.wav", TRUE, 0.5f);
 	EnemyScript::OnTriggerEnter(_other);
 }

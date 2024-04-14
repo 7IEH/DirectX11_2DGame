@@ -49,6 +49,7 @@ void ScriptMgr::Awake()
 	AddScript<GUI_LineScript>(L"GUI_LineScript");
 	AddScript<ItemScript>(L"ItemScript");
 	AddScript<Light2DScript>(L"Light2DScript");
+	AddScript<LoadingSceneScript>(L"LoadingSceneScript");
 	AddScript<MeleeEnemyScript>(L"MeleeEnemyScript");
 	AddScript<OutLineScript>(L"OutLineScript");
 	AddScript<PlayerScript>(L"PlayerScript");

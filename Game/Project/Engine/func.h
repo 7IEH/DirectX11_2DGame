@@ -40,11 +40,18 @@ namespace Object
 	void ShakingEffect(float _fTime,float _fSpeed,float _fDistance);
 	//void DrawDebugCube();
 	//void DrawDebugSphere();
+
+	void Play2DSound(const wstring& _SoundPath, int _Loop, float _Volume, bool _Overlap = true);
+	void Play2DBGM(const wstring& _SoundPath, float _Volume);
+
+	void Stop2DSound(const wstring& _SoundPath);
 }
 
 namespace SceneManager
 {
 	void LoadScene(const wstring& _sceneName);
+
+	void SelectScene(const wstring& _sceneName);
 }
 
 namespace EH

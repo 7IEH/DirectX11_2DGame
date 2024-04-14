@@ -39,8 +39,10 @@ struct PlayerPref
 	int			_iMoney;
 	UINT		_iStrikingPower;
 	float		_fSpeed;
-	Weapon		_eWeapon;
-	SubWeapon	_eSubWeapon;
+	int			_iCurWeapon;
+	ITEM		_iWeapon1;
+	ITEM		_iWeapon2;
+	ITEM		_iUseItem;
 
 	// 인벤토리
 	ITEM		_eInventory[20];

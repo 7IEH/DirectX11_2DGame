@@ -34,6 +34,8 @@ GolemBossSceneScript::~GolemBossSceneScript()
 
 void GolemBossSceneScript::Start()
 {
+	FIND_OBJECT(L"MainLight")->GetComponent<LIght2D>(COMPONENT_TYPE::LIGHT2D)->SetAmbient(Vec4(1.f, 1.f, 1.f, 1.f));
+
 	m_pGolemBoss = FIND_OBJECT(L"GolemBoss");
 	m_pPlayer = FIND_OBJECT(L"Player");
 	m_pNameText = FIND_OBJECT(L"GUI_BossNameUI");
@@ -65,6 +67,8 @@ void GolemBossSceneScript::Start()
 	m_bIntro = TRUE;
 	m_bIntro2 = TRUE;
 	m_bIntro3 = TRUE;
+
+	Object::Play2DSound(L"\\resource\\Audio\\golem_dungeon_boss_door_closing.wav", TRUE, 0.5f);
 }
 
 void GolemBossSceneScript::Update()
@@ -124,6 +128,7 @@ void GolemBossSceneScript::Intro()
 
 	if (m_fTime >= 2.f && m_bIntro)
 	{
+		Object::Play2DSound(L"\\resource\\Audio\\golem_dungeon_king_golem_awake.wav", TRUE, 0.4f);
 		m_pGolemBoss->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->Play(L"Boss_Golem_WakeUp_Anim", FALSE);
 		Object::ShakingEffect(1.f, 800.f, 4.f);
 		m_fTime = 0.f;
@@ -136,6 +141,7 @@ void GolemBossSceneScript::Intro()
 
 		m_pPostProcessing->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(INT_1, 1);
 
+		Object::Play2DSound(L"\\resource\\Audio\\gui_dungeon_scroll.wav", TRUE, 0.4f);
 		m_pScroll->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->Play(L"GUI_GolemDungeon_Scroll_Open_Anim", FALSE);
 		m_pNameText->Enabled(TRUE);
 		Object::FadeInText(m_pNameText, 2.f);
@@ -146,6 +152,8 @@ void GolemBossSceneScript::Intro()
 		//Object::FadeIn(m_pHealthBarDeco, 1.5f);
 
 		m_bIntro2 = FALSE;
+
+		Object::Play2DBGM(L"\\resource\\Audio\\golem_boss_track.wav", 0.5f);
 	}
 
 	if (!m_bIntro2)

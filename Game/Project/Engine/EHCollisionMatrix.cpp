@@ -28,6 +28,7 @@ CollisionMatrix::CollisionMatrix()
 	m_LayerName.push_back("OBJECT_OBSTACLE_ROCK");
 	m_LayerName.push_back("PLAYER_PROJECTILE");
 	m_LayerName.push_back("ENEMY_PROJECTILE");
+	m_LayerName.push_back("TEXT");
 }
 
 CollisionMatrix::~CollisionMatrix()

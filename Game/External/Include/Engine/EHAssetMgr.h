@@ -7,7 +7,7 @@
 #include "EHComputeShader.h"
 #include "EHMaterial.h"
 #include "EHSprite.h"
-
+#include "EHSound.h"
 
 class AssetMgr
 	:public Singleton<AssetMgr>
@@ -42,6 +42,8 @@ private:
 	void CreateDefaultMaterial();
 	void CreateDefaultComputeShader();
 
+	void CreateSound();
+
 public:
 	void Awake();
 
@@ -66,8 +68,8 @@ ASSET_TYPE GetAssetType()
 		_type = ASSET_TYPE::COMPUTE_SHADER;
 	else if (&info == &typeid(Material))
 		_type = ASSET_TYPE::MATERIAL;
-	/*else if (&info == &typeid(Sound))
-		_type = ASSET_TYPE::SOUND;*/
+	else if (&info == &typeid(Sound))
+		_type = ASSET_TYPE::SOUND;
 
 	return _type;
 }

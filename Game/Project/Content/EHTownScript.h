@@ -13,6 +13,8 @@ private:
 	GameObject* m_pObject_Village_BigTree3;
 	GameObject* m_pObject_Village_Fade_BG;
 	
+	GameObject* m_pTestChest;
+
 	float	m_fTime;
 
 public:

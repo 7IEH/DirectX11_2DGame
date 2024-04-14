@@ -68,10 +68,12 @@ void GolemKingScript::Start()
 
 void GolemKingScript::Update()
 {
-	if (GetHp() == 0)
+	if (GetHp() == 0 && m_eState != BossState::Dead)
 	{
 		m_eState = BossState::Dead;
-
+		Object::Play2DSound(L"\\resource\\Audio\\golem_dungeon_king_golem_death.wav", TRUE, 0.3f);
+		Object::Stop2DSound(L"\\resource\\Audio\\golem_boss_track.wav");
+		Object::Play2DSound(L"\\resource\\Audio\\BossKillStinger.wav", TRUE, 0.3f);
 		m_pWaveObject->Enabled(FALSE);
 		m_pArmObject1->Enabled(FALSE);
 	}
@@ -110,7 +112,7 @@ void GolemKingScript::LateUpdtae()
 void GolemKingScript::OnTriggerEnter(Collider* _other)
 {
 	EnemyScript::OnTriggerEnter(_other);
-
+	Object::Play2DSound(L"\\resource\\Audio\\golem_dungeon_king_golem_hit.wav", TRUE, 0.5f);
 	GetOwner()->GetScript<BossUIScript>()->SetAttack();
 }
 
@@ -134,6 +136,9 @@ void GolemKingScript::Idle()
 
 	if (m_fAcctime >= m_fAttackTime)
 	{
+		int _iSoundRand = RandomManager::GetInst()->GenerateNumber(0, 2);
+		Object::Play2DSound(L"\\resource\\Audio\\golem_dungeon_king_golem_roar"+std::to_wstring(_iSoundRand)+L".wav", TRUE, 0.3f);
+
 		m_ePattern = Pattern(RandomManager::GetInst()->GenerateNumber(0, 1));
 		m_eState = BossState::Attack;
 		m_fAcctime = 0.f;
@@ -239,6 +244,7 @@ void GolemKingScript::LaunchArm()
 			m_bTrackCompleted = TRUE;
 			Vec4 _vPos = m_pPlayer->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativePosition();
 
+			Object::Play2DSound(L"\\resource\\Audio\\golem_dungeon_king_golem_sweep.wav", TRUE, 0.5f);
 			m_pArmObject1->GetScript<GolemKingATK1Script>()->SetTargetPos(Vec2(_vPos.x, _vPos.y));
 			SpawnShadow(Vec2(_vPos.x, _vPos.y));
 		}
@@ -271,6 +277,8 @@ void GolemKingScript::SpawnRocks()
 		&& GetOwner()->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->GetCurAnimation2D()->IsFinish())
 	{
 		// 로직 시작
+		Object::Play2DSound(L"\\resource\\Audio\\golem_dungeon_king_golem_handcrash_prepare.wav", TRUE, 0.5f);
+
 		Vec4 _vPlayerPos = m_pPlayer->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->GetRelativePosition();
 		GetOwner()->GetScript<GolemKingATK2Script>()->StartLogic();
 		GetOwner()->GetScript<GolemKingATK2Script>()->SetTargetPos(Vec2(_vPlayerPos.x, _vPlayerPos.y));
@@ -280,6 +288,7 @@ void GolemKingScript::SpawnRocks()
 
 void GolemKingScript::Sticky()
 {
+	Object::Play2DSound(L"\\resource\\Audio\\golem_dungeon_king_golem_slimearm_prepare.wav", TRUE, 0.5f);
 	GetOwner()->GetScript<GolemKingATK3Script>()->StartLogic();
 	m_eState = BossState::Pause;
 }
@@ -311,6 +320,8 @@ void GolemKingScript::Wave()
 	if (m_fAcctime >= 3.f)
 	{
 		// Animation Object
+		Object::Play2DSound(L"\\resource\\Audio\\golem_dungeon_king_golem_wave.wav", TRUE, 0.3f);
+
 		m_pWaveObject->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->Play(L"Boss_Golem_Attack_Wave_Anim", FALSE);
 		m_pWaveObject->GetComponent<Collider2D>(COMPONENT_TYPE::COLLIDER2D)->Enabled(TRUE);
 		m_eState = BossState::Idle;

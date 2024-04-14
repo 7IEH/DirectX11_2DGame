@@ -39,6 +39,7 @@ CameraUI::CameraUI()
 	_vLayerName.push_back("OBJECT_OBSTACLE_ROCK");
 	_vLayerName.push_back("PLAYER_PROJECTILE");
 	_vLayerName.push_back("ENEMY_PROJECTILE");
+	_vLayerName.push_back("TEXT");
 
 	for (UINT i = 0;i < (UINT)LAYER_TYPE::END;i++)
 	{

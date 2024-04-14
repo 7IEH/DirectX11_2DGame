@@ -58,6 +58,11 @@ void TownScript::Start()
 
 	LevelMgr::GetInst()->GetCurLevel()->FindObjectByName(L"MainCamera")->GetScript<CameraTargetScript>()->
 		SetTarget(LevelMgr::GetInst()->GetCurLevel()->FindObjectByName(L"Player"));
+
+	Object::Play2DBGM(L"\\resource\\Audio\\rynoka_night.wav", 0.5f);
+	Object::Play2DSound(L"\\resource\\Audio\\dungeon_entrance_fabric.wav", FALSE, 0.2f);
+	Object::Play2DSound(L"\\resource\\Audio\\town_night_ambient.wav", FALSE, 0.2f);
+	Object::Play2DSound(L"\\resource\\Audio\\town_night_wind_ambient.wav", FALSE, 0.2f);
 }
 
 void TownScript::Update()

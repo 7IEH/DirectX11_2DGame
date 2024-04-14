@@ -19,6 +19,7 @@
 #include "EHGUI_LineScript.h"
 #include "EHItemScript.h"
 #include "EHLight2DScript.h"
+#include "EHLoadingSceneScript.h"
 #include "EHMeleeEnemyScript.h"
 #include "EHOutLineScript.h"
 #include "EHPlayerScript.h"

@@ -4,6 +4,11 @@
 #include "EHRenderMgr.h"
 #include "EHLevelMgr.h"
 
+#include "EHAssetMgr.h"
+#include "EHSound.h"
+
+extern wstring e_sNxtScene;
+
 void Object::Instantiate(GameObject* _target, int _LayerIdx)
 {
 	EHTask _task = {};
@@ -253,6 +258,44 @@ void Object::ShakingEffect(float _fTime, float _fSpeed, float _fDistance)
 	TaskMgr::GetInst()->AddTask(_task);
 }
 
+void Object::Play2DSound(const wstring& _SoundPath, int _Loop, float _Volume, bool _Overlap)
+{
+	Ptr<Sound> pSound = AssetMgr::GetInst()->Load<Sound>(_SoundPath, _SoundPath);
+
+	if (nullptr != pSound)
+	{
+		pSound->Play(_Loop, _Volume, _Overlap);
+	}
+}
+
+void Object::Play2DBGM(const wstring& _SoundPath, float _Volume)
+{
+	static Ptr<Sound> CurBGM = nullptr;
+
+	Ptr<Sound> pSound = AssetMgr::GetInst()->Load<Sound>(_SoundPath, _SoundPath);
+
+	if (nullptr != pSound)
+	{
+		if (nullptr != CurBGM)
+		{
+			CurBGM->Stop();
+		}
+
+		pSound->Play(0, _Volume);
+		CurBGM = pSound;
+	}
+}
+
+void Object::Stop2DSound(const wstring& _SoundPath)
+{
+	Ptr<Sound> pSound = AssetMgr::GetInst()->Load<Sound>(_SoundPath, _SoundPath);
+
+	if (nullptr != pSound)
+	{
+		pSound->Stop();
+	}
+}
+
 void SceneManager::LoadScene(const wstring& _sceneName)
 {
 	Level* _loadLevel = LevelMgr::GetInst()->FindLevel(_sceneName);
@@ -261,6 +304,16 @@ void SceneManager::LoadScene(const wstring& _sceneName)
 	_task._Type = TASK_TYPE::LEVEL_CHANGE;
 	_task.Param_1 = (UINT_PTR)_loadLevel;
 	TaskMgr::GetInst()->AddTask(_task);
+}
+
+void SceneManager::SelectScene(const wstring& _sceneName)
+{
+	Object::FadeOutLightAmbient(FIND_OBJECT(L"MainLight"), 2.5f);
+	Object::Play2DSound(L"\\resource\\Audio\\main_menu_door_absorb.wav", TRUE, 0.5f);
+	EHTask _task = {};
+	_task._Type = TASK_TYPE::LEVEL_CHANGE;
+	TaskMgr::GetInst()->AddTask(_task);
+	e_sNxtScene = _sceneName;
 }
 
 string EH::ConvertString(wstring& _wstr)

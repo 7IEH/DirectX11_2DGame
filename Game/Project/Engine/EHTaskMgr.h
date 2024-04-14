@@ -46,6 +46,11 @@ struct Scale_Effect
 	float		_fSpeed;
 };
 
+struct SceneChange
+{
+	float _fAcctime;
+};
+
 class TaskMgr
 	:public Singleton<TaskMgr>
 {
@@ -60,6 +65,7 @@ private:
 	vector<Move_Effect> m_MoveTasks;
 	vector<Shake_Effect> m_ShakeTasks;
 	vector<Scale_Effect> m_ScaleTasks;
+	vector<SceneChange> m_SceneTasks;
 
 public:
 	void Update();
@@ -77,5 +83,6 @@ private:
 	void MoveUpdate();
 	void ShakeUpdate();
 	void ScaleUpdate();
+	void SceneChangeUpdate();
 };
 

@@ -59,6 +59,8 @@ void TitleScript::Start()
 
 	Level* _curLevel = LevelMgr::GetInst()->GetCurLevel();
 
+	FIND_OBJECT(L"MainLight")->GetComponent<LIght2D>(COMPONENT_TYPE::LIGHT2D)->SetAmbient(Vec4(1.f, 1.f, 1.f, 1.f));
+
 	m_PointLight1 = _curLevel->FindObjectByName(L"PointLight1");
 	m_PointLight2 = _curLevel->FindObjectByName(L"PointLight2");
 	m_StartLine = _curLevel->FindObjectByName(L"StartLine");
@@ -166,6 +168,9 @@ void TitleScript::Start()
 		_vSelectIcon2.y = _vSelectPos.y;
 		m_pSelectIcon2->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->SetRelativePosition(_vSelectIcon2);
 	}
+
+	Object::Play2DSound(L"\\resource\\Audio\\main_menu_wind.wav", FALSE, 0.5f);
+	Object::Play2DBGM(L"\\resource\\Audio\\main_menu_screen.wav", 0.5f);
 }
 
 void TitleScript::Update()
@@ -419,6 +424,8 @@ void TitleScript::LateUpdate()
 		// 열려 있을 때
 		if (m_bOpen)
 		{
+			Object::Play2DSound(L"\\resource\\Audio\\main_menu_door_close.wav", TRUE, 0.5f);
+			Object::Stop2DSound(L"\\resource\\Audio\\main_menu_door_opened_loop.wav");
 			// 문 닫기
 			m_bOpen = FALSE;
 			m_bFirst = TRUE;
@@ -429,6 +436,8 @@ void TitleScript::LateUpdate()
 		// 문이 닫혀있을 때
 		else
 		{
+			Object::Play2DSound(L"\\resource\\Audio\\main_menu_door_open.wav", TRUE, 0.5f);
+			Object::Play2DSound(L"\\resource\\Audio\\main_menu_door_opened_loop.wav", FALSE, 0.5f);
 			// 문 열기
 			m_bOpen = TRUE;
 			m_bFirst = TRUE;
@@ -497,13 +506,17 @@ void TitleScript::ContinueGame()
 	PlayerPref* _pPlayerPref = RecordManager::GetInst()->GetCurrentPlayerPref();
 	if (_pPlayerPref->_bTutorial == 0)
 	{
-		LevelMgr::GetInst()->SelectLevel(L"TutorialScene");
+		Object::Stop2DSound(L"\\resource\\Audio\\main_menu_door_opened_loop.wav");
+		Object::Stop2DSound(L"\\resource\\Audio\\main_menu_wind.wav");
+		SceneManager::SelectScene(L"TutorialScene");
 	}
 	else
 	{
 		if (PLACE::TOWN == _pPlayerPref->_ePlace)
 		{
-			LevelMgr::GetInst()->SelectLevel(L"TownScene");
+			Object::Stop2DSound(L"\\resource\\Audio\\main_menu_door_opened_loop.wav");
+			Object::Stop2DSound(L"\\resource\\Audio\\main_menu_wind.wav");
+			SceneManager::SelectScene(L"TownScene");
 		}
 	}
 }
@@ -531,6 +544,7 @@ void TitleScript::SavedUpdate()
 	// 버튼 이동
 	if (KEY_TAP(KEY::W))
 	{
+		Object::Play2DSound(L"\\resource\\Audio\\gui_selector_movement.wav", TRUE, 0.5f);
 		if (0 < m_iCurButton)
 		{
 			m_iCurButton--;
@@ -573,6 +587,7 @@ void TitleScript::SavedUpdate()
 
 	if (KEY_TAP(KEY::S))
 	{
+		Object::Play2DSound(L"\\resource\\Audio\\gui_selector_movement.wav", TRUE, 0.5f);
 		if (3 > m_iCurButton)
 		{
 			m_iCurButton++;
@@ -642,6 +657,7 @@ void TitleScript::NoSavedUpdate()
 	// 버튼 이동
 	if (KEY_TAP(KEY::W))
 	{
+		Object::Play2DSound(L"\\resource\\Audio\\gui_selector_movement.wav", FALSE, 0.5f);
 		if (0 < m_iCurButton)
 		{
 			m_iCurButton--;
@@ -667,6 +683,7 @@ void TitleScript::NoSavedUpdate()
 
 	if (KEY_TAP(KEY::S))
 	{
+		Object::Play2DSound(L"\\resource\\Audio\\gui_selector_movement.wav", FALSE, 0.5f);
 		if (2 > m_iCurButton)
 		{
 			m_iCurButton++;

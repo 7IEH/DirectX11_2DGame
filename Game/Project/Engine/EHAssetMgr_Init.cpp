@@ -8,6 +8,7 @@
 
 #include "EHDebugMgr.h"
 #include "EHPathMgr.h"
+#include "EHSound.h"
 
 /************************
 |	AssetMgr
@@ -29,6 +30,7 @@ AssetMgr::~AssetMgr()
 
 void AssetMgr::Awake()
 {
+	CreateSound();
 	CreateSprite();
 	CreateDefaultMesh();
 	CreateDefaultShader();
@@ -467,4 +469,17 @@ void AssetMgr::CreateDefaultComputeShader()
 
 	pShader = new ParticleUpdate;
 	AddAsset(pShader.Get(), L"ParticleUpdateShader");
+}
+
+void AssetMgr::CreateSound()
+{
+	FMOD::System_Create(&Sound::g_pFMOD);
+
+	if (nullptr == Sound::g_pFMOD)
+	{
+		assert(nullptr);
+	}
+
+	// 32개 채널 생성
+	Sound::g_pFMOD->init(32, FMOD_DEFAULT, nullptr);
 }

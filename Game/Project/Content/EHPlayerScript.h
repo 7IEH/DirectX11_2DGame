@@ -86,8 +86,8 @@ private:
 	Vec4				m_vOutChestPos;
 	Vec4				m_vInChestPos;
 
-	GameObject* m_pInventorySlotObjs[20];
-	GameObject* m_pChestSlotObjs[28];
+	GameObject*			m_pInventorySlotObjs[20];
+	GameObject*			m_pChestSlotObjs[28];
 
 	int					m_vChestPos[2];
 	int					m_vInventoryPos[2];
@@ -96,6 +96,11 @@ private:
 
 	float				m_fSelectorSize;
 
+	GameObject*			m_pSelectCircle;
+	GameObject*			m_pSelectItemIcon;
+	ITEM				m_iSelectItem;
+
+
 	/**************************
 	|	Interface Key
 	**************************/
@@ -103,7 +108,6 @@ private:
 	GameObject* m_pEquipSlotObjs[8];
 
 	GameObject* m_pInfoText[4];
-
 	GameObject* m_pObject_Village_Fade_BG;
 
 	/**************************
@@ -128,7 +132,7 @@ private:
 	*******************/
 	vector<ComboTask>	m_vComboTasks;
 	GameObject* m_pSpearCollider;
-	GameObject* m_pOneHandCollider;
+	GameObject* m_pTwoHandCollider;
 
 	float		m_fComboTime;
 	int			m_iCurComboCount;
@@ -160,12 +164,6 @@ private:
 	*******************/
 	GameObject* m_pDungeonPortal1;
 
-	/*******************
-	| KnockBACK
-	*******************/
-	bool	m_bKnockBack;
-	Vec2    m_vKnockBackDir;
-
 public:
 	virtual void Awake()override;
 	virtual void Start()override;
@@ -182,9 +180,6 @@ public:
 	PlayerPref* GetPlayerPref() { return m_pPlayerPref; }
 
 	Dir GetDirection() { return m_eDir; }
-
-	void SetKnockBack(bool _bKnockBack) { m_bKnockBack = _bKnockBack; }
-	void SetKnockBackDir(Vec2 _vKnockBackDir) { m_vKnockBackDir = _vKnockBackDir; }
 
 private:
 	void SetState(State _eState) { m_eState = _eState; }
@@ -213,8 +208,6 @@ private:
 	void ChestAnim();
 	void FallingAnim();
 	void DeadAnim();
-
-	void KnockBack();
 
 private:
 	void ColliderPositionCalc();

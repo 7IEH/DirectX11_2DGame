@@ -54,9 +54,10 @@ public:
 			}
 			else
 			{
+				T* _temp = _comp;
+				_comp = dynamic_cast<T*>(m_Component[(UINT)_comp->GetType()]);
 				delete _comp;
 				_comp = nullptr;
-				_comp = dynamic_cast<T*>(m_Component[(UINT)_comp->GetType()]);
 			}
 		}
 		return _comp;

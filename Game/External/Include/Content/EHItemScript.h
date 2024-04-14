@@ -5,7 +5,8 @@ enum class ITEM
 {
 	NO_ITEM,
 	PORTION,
-	GOLEM_CRYSTAL,
+	DOUBLE_HAND_SWORD,
+	BROOM_STICK
 };
 
 class ItemScript :

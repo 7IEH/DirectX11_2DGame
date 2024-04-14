@@ -55,5 +55,6 @@ void TangleScript::Chase()
 
 void TangleScript::OnTriggerEnter(Collider* _other)
 {
+	Object::Play2DSound(L"\\resource\\Audio\\golem_dungeon_tangle_hit.wav", TRUE, 0.5f);
 	EnemyScript::OnTriggerEnter(_other);
 }

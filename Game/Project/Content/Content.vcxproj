@@ -73,13 +73,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)External\Library\Content\</OutDir>
     <TargetName>$(ProjectName)_Debug</TargetName>
-    <ExternalIncludePath>$(SolutionDir)External\Include\Engine\;$(SolutionDir)External\Include\FontEngine\;$(SolutionDir)External\Include\MediaFoundation\;$(ExternalIncludePath)</ExternalIncludePath>
-    <LibraryPath>$(SolutionDir)External\Library\Engine\;$(SolutionDir)External\Library\FontEngine\;$(SolutionDir)External\Library\MediaFoundation\;$(LibraryPath)</LibraryPath>
+    <ExternalIncludePath>$(SolutionDir)External\Include\Engine\;$(SolutionDir)External\Include\FontEngine\;$(SolutionDir)External\Include\MediaFoundation\;$(ExternalIncludePath);$(SolutionDir)External\Include\FMOD\</ExternalIncludePath>
+    <LibraryPath>$(SolutionDir)External\Library\Engine\;$(SolutionDir)External\Library\FontEngine\;$(SolutionDir)External\Library\MediaFoundation\;$(LibraryPath);$(SolutionDir)External\Library\FMOD\</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)External\Library\Content\</OutDir>
-    <ExternalIncludePath>$(SolutionDir)External\Include\Engine\;$(SolutionDir)External\Include\FontEngine\;$(ExternalIncludePath)</ExternalIncludePath>
-    <LibraryPath>$(SolutionDir)External\Library\Engine\;$(SolutionDir)External\Library\FontEngine\;$(LibraryPath)</LibraryPath>
+    <ExternalIncludePath>$(SolutionDir)External\Include\Engine\;$(SolutionDir)External\Include\FontEngine\;$(ExternalIncludePath);$(SolutionDir)External\Include\FMOD\</ExternalIncludePath>
+    <LibraryPath>$(SolutionDir)External\Library\Engine\;$(SolutionDir)External\Library\FontEngine\;$(LibraryPath);$(SolutionDir)External\Library\FMOD\</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -185,8 +185,10 @@ call ScriptGenerator.exe</Command>
     <ClInclude Include="EHGolemTurretScript.h" />
     <ClInclude Include="EHGUI_LineScript.h" />
     <ClInclude Include="EHIntroScene.h" />
+    <ClInclude Include="EHItemMgr.h" />
     <ClInclude Include="EHItemScript.h" />
     <ClInclude Include="EHLight2DScript.h" />
+    <ClInclude Include="EHLoadingSceneScript.h" />
     <ClInclude Include="EHMeleeEnemyScript.h" />
     <ClInclude Include="EHOutLineScript.h" />
     <ClInclude Include="EHPlayerScript.h" />
@@ -236,8 +238,10 @@ call ScriptGenerator.exe</Command>
     <ClCompile Include="EHGolemTurretScript.cpp" />
     <ClCompile Include="EHGUI_LineScript.cpp" />
     <ClCompile Include="EHIntroScene.cpp" />
+    <ClCompile Include="EHItemMgr.cpp" />
     <ClCompile Include="EHItemScript.cpp" />
     <ClCompile Include="EHLight2DScript.cpp" />
+    <ClCompile Include="EHLoadingSceneScript.cpp" />
     <ClCompile Include="EHMeleeEnemyScript.cpp" />
     <ClCompile Include="EHOutLineScript.cpp" />
     <ClCompile Include="EHPlayerScript.cpp" />

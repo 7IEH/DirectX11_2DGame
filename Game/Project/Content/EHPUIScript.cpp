@@ -2,6 +2,8 @@
 #include "EHPUIScript.h"
 
 #include <EHLevelMgr.h>
+#include <EHAssetMgr.h>
+#include "EHItemMgr.h"
 
 PUIScript::PUIScript()
 	:m_pHPUI(nullptr)
@@ -11,6 +13,9 @@ PUIScript::PUIScript()
 	, m_pSetIcon1(nullptr)
 	, m_pSetIcon2(nullptr)
 	, m_pPlayerPref(nullptr)
+	, m_pWeaponIcon1(nullptr)
+	, m_pWeaponIcon2(nullptr)
+	, m_pUseItemIcon(nullptr)
 {
 	SetName(L"PUIScript");
 }
@@ -28,6 +33,10 @@ void PUIScript::Awake()
 	m_pSetIcon1 = LevelMgr::GetInst()->GetCurLevel()->FindObjectByName(L"UI_Player_HUD_SetIcon1");
 	m_pSetIcon2 = LevelMgr::GetInst()->GetCurLevel()->FindObjectByName(L"UI_Player_HUD_SetIcon2");
 
+	m_pWeaponIcon1 = FIND_OBJECT(L"UI_Player_HUD_Weapon1");
+	m_pWeaponIcon2 = FIND_OBJECT(L"UI_Player_HUD_Weapon2");
+	m_pUseItemIcon = FIND_OBJECT(L"UI_Player_HUD_UseItem");
+
 	m_pPlayerPref = RecordManager::GetInst()->GetCurrentPlayerPref();
 
 	assert(m_pHPUI);
@@ -37,6 +46,9 @@ void PUIScript::Awake()
 	assert(m_pSetIcon1);
 	assert(m_pSetIcon2);
 	assert(m_pPlayerPref);
+	assert(m_pWeaponIcon1);
+	assert(m_pWeaponIcon2);
+	assert(m_pUseItemIcon);
 
 	m_pHPUI->GetComponent<Renderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(COLOR, Vec4(1.f, 0.f, 0.f, 1.f));
 	m_pHPHeartUI->GetComponent<Renderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(COLOR, Vec4(1.f, 0.f, 0.f, 1.f));
@@ -71,4 +83,49 @@ void PUIScript::Update()
 
 	_pTr->SetRelativePosition(_vPos);
 	_pTr->SetRelativeScale(_vScale);
+
+	/**************
+	| Weapon Icon
+	**************/
+	if (m_pPlayerPref->_iCurWeapon == 0)
+	{
+		m_pWeaponIcon1->Enabled(TRUE);
+		m_pWeaponIcon1->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->
+			SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(ItemMgr::GetInst()->GetMaterial(int(m_pPlayerPref->_iWeapon1))));
+
+		m_pWeaponIcon2->Enabled(FALSE);
+
+		m_pWeaponCircle1->GetComponent<Renderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(COLOR, Vec4(1.f, 1.f, 1.f, 1.f));
+		m_pSetIcon1->GetComponent<Renderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(COLOR, Vec4(1.f, 1.f, 1.f, 1.f));
+		m_pWeaponCircle2->GetComponent<Renderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(COLOR, Vec4(1.f, 1.f, 1.f, 0.5f));
+		m_pSetIcon2->GetComponent<Renderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(COLOR, Vec4(1.f, 1.f, 1.f, 0.5f));
+	}
+	else
+	{
+		m_pWeaponIcon1->Enabled(FALSE);
+
+		m_pWeaponIcon2->Enabled(TRUE);
+		m_pWeaponIcon2->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->
+			SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(ItemMgr::GetInst()->GetMaterial(int(m_pPlayerPref->_iWeapon2))));
+
+
+		m_pWeaponCircle1->GetComponent<Renderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(COLOR, Vec4(1.f, 1.f, 1.f, 0.5f));
+		m_pSetIcon1->GetComponent<Renderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(COLOR, Vec4(1.f, 1.f, 1.f, 0.5f));
+		m_pWeaponCircle2->GetComponent<Renderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(COLOR, Vec4(1.f, 1.f, 1.f, 1.f));
+		m_pSetIcon2->GetComponent<Renderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(COLOR, Vec4(1.f, 1.f, 1.f, 1.f));
+	}
+
+	/**************
+	| Util Icon
+	**************/
+	if (m_pPlayerPref->_iUseItem == ITEM::NO_ITEM)
+	{
+		m_pUseItemIcon->Enabled(FALSE);
+	}
+	else
+	{
+		m_pUseItemIcon->Enabled(TRUE);
+		m_pUseItemIcon->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->
+			SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(ItemMgr::GetInst()->GetMaterial(int(m_pPlayerPref->_iUseItem))));
+	}
 }

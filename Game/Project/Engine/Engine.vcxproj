@@ -73,13 +73,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)External\Library\Engine\</OutDir>
     <TargetName>$(ProjectName)_Debug</TargetName>
-    <ExternalIncludePath>$(SolutionDir)External\Include\Content\;$(SolutionDir)External\Include\FontEngine\;$(SolutionDir)External\Include\MediaFoundation\;$(ExternalIncludePath)</ExternalIncludePath>
-    <LibraryPath>$(SolutionDir)External\Library\Content\;$(SolutionDir)External\Library\FontEngine\;$(SolutionDir)External\Library\MediaFoundation\;$(LibraryPath)</LibraryPath>
+    <ExternalIncludePath>$(SolutionDir)External\Include\Content\;$(SolutionDir)External\Include\FontEngine\;$(SolutionDir)External\Include\MediaFoundation\;$(SolutionDir)External\Include\FMOD\;$(ExternalIncludePath);$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>$(SolutionDir)External\Library\Content\;$(SolutionDir)External\Library\FontEngine\;$(SolutionDir)External\Library\MediaFoundation\;$(SolutionDir)External\Library\FMOD\;$(LibraryPath);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)External\Library\Engine\</OutDir>
-    <ExternalIncludePath>$(SolutionDir)External\Include\Content\;$(SolutionDir)External\Include\FontEngine\;$(ExternalIncludePath)</ExternalIncludePath>
-    <LibraryPath>$(SolutionDir)External\Library\Content\;$(SolutionDir)External\Library\FontEngine\;$(LibraryPath)</LibraryPath>
+    <ExternalIncludePath>$(SolutionDir)External\Include\Content\;$(SolutionDir)External\Include\FontEngine\;$(ExternalIncludePath);$(SolutionDir)External\Include\FMOD\;$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>$(SolutionDir)External\Library\Content\;$(SolutionDir)External\Library\FontEngine\;$(LibraryPath);$(SolutionDir)External\Library\FMOD\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -228,6 +228,7 @@ call Copy.bat</Command>
     <ClInclude Include="EHScript.h" />
     <ClInclude Include="EHScriptUI.h" />
     <ClInclude Include="EHShader.h" />
+    <ClInclude Include="EHSound.h" />
     <ClInclude Include="EHSprite.h" />
     <ClInclude Include="EHSpriteEditor.h" />
     <ClInclude Include="EHSpriteLoader.h" />
@@ -338,6 +339,7 @@ call Copy.bat</Command>
     <ClCompile Include="EHScript.cpp" />
     <ClCompile Include="EHScriptUI.cpp" />
     <ClCompile Include="EHShader.cpp" />
+    <ClCompile Include="EHSound.cpp" />
     <ClCompile Include="EHSprite.cpp" />
     <ClCompile Include="EHSpriteEditor.cpp" />
     <ClCompile Include="EHSpriteLoader.cpp" />

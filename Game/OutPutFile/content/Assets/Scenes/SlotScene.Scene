@@ -18,6 +18,7 @@ CollisionMatrix
 0
 0
 0
+0
 
 object
 NAME:MainCamera
@@ -29,7 +30,7 @@ TRANSFORM
 CAMERA
 orthographic
 0
-2047
+1032188
 Script
 0
 Childs

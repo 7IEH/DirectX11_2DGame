@@ -38,6 +38,7 @@ void LevelMgr::AddLevel(wstring _levelName, Level* _level)
 		return;
 	}
 	m_Levels.insert(make_pair(_levelName, _level));
+
 }
 
 void LevelMgr::Awake()

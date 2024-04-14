@@ -36,6 +36,9 @@ TutorialScript::TutorialScript()
 	, m_vTurret{}
 	, m_vSlime{}
 	, m_pTangle(nullptr)
+	, m_bSecond(FALSE)
+	, m_pUICamera(nullptr)
+	, m_bFinsihed(FALSE)
 {
 	SetName(L"TutorialScript");
 
@@ -47,9 +50,13 @@ TutorialScript::~TutorialScript()
 
 void TutorialScript::Awake()
 {
+	FIND_OBJECT(L"MainLight")->GetComponent<LIght2D>(COMPONENT_TYPE::LIGHT2D)->SetAmbient(Vec4(1.f, 1.f, 1.f, 1.f));
+
 	if (nullptr != m_pIntroObject)
 		return;
 
+	m_pLight = FIND_OBJECT(L"MainLight");
+	m_pIntroText = FIND_OBJECT(L"IntroText");
 	m_pIntroObject = LevelMgr::GetInst()->GetCurLevel()->FindObjectByName(L"IntroObject");
 	m_pIntroObjectBG = LevelMgr::GetInst()->GetCurLevel()->FindObjectByName(L"IntroBG");
 	m_pFadeObject = LevelMgr::GetInst()->GetCurLevel()->FindObjectByName(L"FadeObject");
@@ -60,6 +67,8 @@ void TutorialScript::Awake()
 	m_pPlayer = LevelMgr::GetInst()->GetCurLevel()->FindObjectByName(L"Player");
 
 	m_pButler = LevelMgr::GetInst()->GetCurLevel()->FindObjectByName(L"Enemy_Tutorial_Room4_Butler");
+	
+	m_pTutorialChest = FIND_OBJECT(L"Object_Tutorial_Chest");
 
 	m_vTurret.push_back(LevelMgr::GetInst()->GetCurLevel()->FindObjectByName(L"Enemy_Tutorial_Room5_Turret1"));
 	m_vTurret.push_back(LevelMgr::GetInst()->GetCurLevel()->FindObjectByName(L"Enemy_Tutorial_Room5_Turret2"));
@@ -89,6 +98,8 @@ void TutorialScript::Awake()
 	assert(m_pTutorialScroll);
 	assert(m_pButler);
 	assert(m_pTangle);
+	assert(m_pLight);
+	assert(m_pTutorialChest);
 
 	for (auto _obj : m_vTurret)
 	{
@@ -138,11 +149,22 @@ void TutorialScript::Awake()
 
 	m_pUICamera = LevelMgr::GetInst()->GetCurLevel()->FindObjectByName(L"UICamera");
 	m_pUICamera->GetComponent<Camera>(COMPONENT_TYPE::CAMERA)->LayerVisibleSet(LAYER_TYPE::UI, FALSE);
+
+	Object::Play2DBGM(L"\\resource\\Audio\\intro.wav", 0.5f);
+
+	m_pTutorialScroll->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->SetCurAnimation2D(L"Object_Tutorial_Scroll_Anim");
+	m_pTutorialChest->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->SetCurAnimation2D(L"Structure_Chest_Iron_Unlocking_Anim");
+	m_pTutorialChest->GetComponent<Collider2D>(COMPONENT_TYPE::COLLIDER2D)->Enabled(FALSE);
+
+	m_pTutorialChest->GetScript<TriggerScript>()->SetTriggerType(TRIGGER_TYPE::CHEST_TRIGGER);
+	m_pTutorialChest->GetScript<TriggerScript>()->SetChestItem(1, 10, 1, 0);
+	m_pTutorialChest->GetScript<TriggerScript>()->SetChestItem(2, 1, 2, 3);
 }
 
 void TutorialScript::Update()
 {
 	CollisionMgr::GetInst()->LayerCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::MONSTER, true);
+	CollisionMgr::GetInst()->LayerCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::TRIGGER, true);
 
 	if (nullptr == m_pIntroObject)
 		return;
@@ -155,11 +177,34 @@ void TutorialScript::Update()
 		{
 			if (m_bFirst)
 			{
-				Object::FadeOut(m_pContinueButtonObject, 0.f);
-				Object::FadeOut(m_pFadeObject, 0.f);
-				_pAnimator->Play(L"IntroSceneAnim1-1", FALSE);
-				m_bFirst = FALSE;
+				m_fAcctime += DT;
+				if (m_fAcctime >= 2.f)
+				{
+					Object::FadeOutText(m_pIntroText, 1.5f);
+					m_fAcctime = 0.f;
+					m_bFirst = FALSE;
+					m_bSecond = TRUE;
+				}
 			}
+
+			if (m_bSecond)
+			{
+				m_fAcctime += DT;
+				if (m_fAcctime >= 2.f)
+				{
+					Object::FadeOut(m_pContinueButtonObject, 0.f);
+					Object::FadeOut(m_pFadeObject, 0.f);
+					_pAnimator->Play(L"IntroSceneAnim1-1", FALSE);
+					Object::FadeInText(m_pIntroText, 1.5f);
+					m_pIntroText->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->SetRelativePosition(Vec4(-140.f, -350.f, 0.f, 1.f));
+					m_pIntroText->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetText(L"어느 날 밤, 호화로운 보물과 무시무시한 괴물로 가득한 미로가 이 땅에 모습을 드러냈다.");
+					m_bSecond = FALSE;
+					m_fAcctime = 0.f;
+				}
+			}
+
+			if (nullptr == _pAnimator->GetCurAnimation2D())
+				return;
 
 			if (_pAnimator->GetCurAnimation2D()->IsFinish() && _pAnimator->GetCurAnimation2D()->GetName() == L"IntroSceneAnim1-1")
 			{
@@ -169,6 +214,7 @@ void TutorialScript::Update()
 			if (_pAnimator->GetCurAnimation2D()->IsFinish() && _pAnimator->GetCurAnimation2D()->GetName() == L"IntroSceneAnim1-2")
 			{
 				_pAnimator->Play(L"IntroSceneAnim1-3", FALSE);
+				Object::FadeOutText(m_pIntroText, 1.5f);
 			}
 
 			if (_pAnimator->GetCurAnimation2D()->IsFinish() && _pAnimator->GetCurAnimation2D()->GetName() == L"IntroSceneAnim1-3")
@@ -176,6 +222,8 @@ void TutorialScript::Update()
 				m_fAcctime += DT;
 				if (m_fAcctime > 1.5f)
 				{
+					Object::FadeInText(m_pIntroText, 1.5f);
+					m_pIntroText->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetText(L"사람들은 낯선 땅에 세워진, 끊임없이 변화하는 기이한 유적을 던전이라 불렀다.");
 					_pAnimator->Play(L"IntroSceneAnim2-1", FALSE);
 					Object::FadeOut(m_pFadeObject, 1.5f);
 					m_fAcctime = 0.f;
@@ -196,6 +244,7 @@ void TutorialScript::Update()
 			if (_pAnimator->GetCurAnimation2D()->IsFinish() && _pAnimator->GetCurAnimation2D()->GetName() == L"IntroSceneAnim2-2")
 			{
 				_pAnimator->Play(L"IntroSceneAnim2-3", FALSE);
+				Object::FadeOutText(m_pIntroText, 1.5f);
 			}
 
 			if (_pAnimator->GetCurAnimation2D()->IsFinish() && _pAnimator->GetCurAnimation2D()->GetName() == L"IntroSceneAnim2-3")
@@ -203,6 +252,8 @@ void TutorialScript::Update()
 				m_fAcctime += DT;
 				if (m_fAcctime > 1.5f)
 				{
+					Object::FadeInText(m_pIntroText, 1.5f);
+					m_pIntroText->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetText(L"머지 않아 던전 근처에는 신기한 마을이 터를 잡았다. 사람들은 마을을 리노카라 불렀다.");
 					_pAnimator->Play(L"IntroSceneAnim3-1", FALSE);
 					Object::FadeOut(m_pFadeObject, 1.5f);
 					m_fAcctime = 0.f;
@@ -223,6 +274,7 @@ void TutorialScript::Update()
 			if (_pAnimator->GetCurAnimation2D()->IsFinish() && _pAnimator->GetCurAnimation2D()->GetName() == L"IntroSceneAnim3-2")
 			{
 				_pAnimator->Play(L"IntroSceneAnim3-3", FALSE);
+				Object::FadeOutText(m_pIntroText, 1.5f);
 			}
 
 			if (_pAnimator->GetCurAnimation2D()->IsFinish() && _pAnimator->GetCurAnimation2D()->GetName() == L"IntroSceneAnim3-3")
@@ -230,6 +282,8 @@ void TutorialScript::Update()
 				m_fAcctime += DT;
 				if (m_fAcctime > 1.5f)
 				{
+					Object::FadeInText(m_pIntroText, 1.5f);
+					m_pIntroText->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetText(L"정착민들 중에서는 두 집단이 가장 두각을 나타냈다. 영웅과 상인, 영광과 부.");
 					_pAnimator->Play(L"IntroSceneAnim4-1", FALSE);
 					Object::FadeOut(m_pFadeObject, 1.5f);
 					m_fAcctime = 0.f;
@@ -245,6 +299,7 @@ void TutorialScript::Update()
 			if (_pAnimator->GetCurAnimation2D()->IsFinish() && _pAnimator->GetCurAnimation2D()->GetName() == L"IntroSceneAnim4-1")
 			{
 				_pAnimator->Play(L"IntroSceneAnim4-2", FALSE);
+				Object::FadeOutText(m_pIntroText, 1.5f);
 			}
 
 			if (_pAnimator->GetCurAnimation2D()->IsFinish() && _pAnimator->GetCurAnimation2D()->GetName() == L"IntroSceneAnim4-2")
@@ -252,6 +307,8 @@ void TutorialScript::Update()
 				m_fAcctime += DT;
 				if (m_fAcctime > 1.5f)
 				{
+					Object::FadeInText(m_pIntroText, 1.5f);
+					m_pIntroText->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetText(L"그러나 던전은 너무나 위험했다. 던전의 깊은 곳에서 너무나 많은 사람들이 죽자, 던전은 폐쇄되었다. ");
 					_pAnimator->Play(L"IntroSceneAnim5-1", FALSE);
 					Object::FadeOut(m_pFadeObject, 1.5f);
 					m_fAcctime = 0.f;
@@ -272,6 +329,7 @@ void TutorialScript::Update()
 			if (_pAnimator->GetCurAnimation2D()->IsFinish() && _pAnimator->GetCurAnimation2D()->GetName() == L"IntroSceneAnim5-2")
 			{
 				_pAnimator->Play(L"IntroSceneAnim5-3", FALSE);
+				Object::FadeOutText(m_pIntroText, 1.5f);
 			}
 
 			if (_pAnimator->GetCurAnimation2D()->IsFinish() && _pAnimator->GetCurAnimation2D()->GetName() == L"IntroSceneAnim5-3")
@@ -279,6 +337,8 @@ void TutorialScript::Update()
 				m_fAcctime += DT;
 				if (m_fAcctime > 1.5f)
 				{
+					Object::FadeInText(m_pIntroText, 1.5f);
+					m_pIntroText->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetText(L"마을 주민의 삶은 점점 어려워졌고, 문라이터라는 오래된 상점을 운영하는 윌의 삶은 특히 더 어려워졌다.");
 					_pAnimator->Play(L"IntroSceneAnim6-1", FALSE);
 					Object::FadeOut(m_pFadeObject, 1.5f);
 					m_fAcctime = 0.f;
@@ -294,6 +354,7 @@ void TutorialScript::Update()
 			if (_pAnimator->GetCurAnimation2D()->IsFinish() && _pAnimator->GetCurAnimation2D()->GetName() == L"IntroSceneAnim6-1")
 			{
 				_pAnimator->Play(L"IntroSceneAnim6-2", FALSE);
+				Object::FadeOutText(m_pIntroText, 1.5f);
 			}
 
 			if (_pAnimator->GetCurAnimation2D()->IsFinish() && _pAnimator->GetCurAnimation2D()->GetName() == L"IntroSceneAnim6-2")
@@ -301,6 +362,8 @@ void TutorialScript::Update()
 				m_fAcctime += DT;
 				if (m_fAcctime > 1.5f)
 				{
+					Object::FadeInText(m_pIntroText, 1.5f);
+					m_pIntroText->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetText(L"비밀에 싸인 5번째 문을 열겠다는 오랜 꿈을 간직한 채로.");
 					_pAnimator->Play(L"IntroSceneAnim7-1", FALSE);
 					Object::FadeOut(m_pFadeObject, 1.5f);
 					m_fAcctime = 0.f;
@@ -321,6 +384,7 @@ void TutorialScript::Update()
 			if (_pAnimator->GetCurAnimation2D()->IsFinish() && _pAnimator->GetCurAnimation2D()->GetName() == L"IntroSceneAnim7-2")
 			{
 				_pAnimator->Play(L"IntroSceneAnim7-3", FALSE);
+				Object::FadeOutText(m_pIntroText, 1.5f);
 			}
 
 			if (_pAnimator->GetCurAnimation2D()->IsFinish() && _pAnimator->GetCurAnimation2D()->GetName() == L"IntroSceneAnim7-3")
@@ -330,7 +394,15 @@ void TutorialScript::Update()
 				{
 					m_bIntro = FALSE;
 					Object::FadeIn(m_pContinueButtonObject, 1.5f);
-					m_pFadeObject->Enabled(TRUE);
+					Object::FadeInText(m_pIntroText, 1.5f);
+					m_pIntroText->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetFontSize(18.f);
+					m_pIntroText->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->SetRelativePosition(Vec4(-600.f, -356.f, -5.f, 0.f));
+					m_pIntroText->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetText(L"계속하기");
+					_pAnimator->Play(L"IntroSceneAnim7-1", FALSE);
+					Object::Stop2DSound(L"\\resource\\Audio\\intro.wav");
+
+					m_pFadeObject->Enabled(FALSE);
+					m_pFadeObject2->Enabled(FALSE);
 					m_pIntroObject->Enabled(FALSE);
 					m_bTutorialAwake = TRUE;
 					m_fAcctime = 0.f;
@@ -365,12 +437,11 @@ void TutorialScript::Update()
 			m_pContinueButtonObject->Enabled(FALSE);
 			m_pIntroObjectBG->Enabled(FALSE);
 			m_pFadeObject->Enabled(FALSE);
-
+			m_pFadeObject2->Enabled(FALSE);
+			Object::FadeOutText(m_pIntroText, 1.5f);
+			Object::FadeInLightAmbient(m_pLight, 1.5f);
+			m_pTutorialScroll->Enabled(TRUE);
 			m_bLoading = TRUE;
-
-			// 로딩 오브젝트 실시
-			/*m_pLoadingObject->Enabled(TRUE);
-			m_pLoadingObject->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->Play(L"LoadingAnim");*/
 
 			for (int i = 0;i < 8;i++)
 			{
@@ -379,15 +450,8 @@ void TutorialScript::Update()
 			// 캐릭터 Enabled
 		}
 
-		// 튜토리얼 시작 한 후 로딩 후 페이드 인
 		if (m_bLoading)
 		{
-			m_fAcctime += DT;
-		}
-
-		if (m_fAcctime >= 3.f)
-		{
-			Object::FadeOut(m_pFadeObject2, 3.f);
 			m_bLoading = FALSE;
 			m_bTutorialAwake = FALSE;
 			m_bFirstScene = TRUE;
@@ -415,15 +479,23 @@ void TutorialScript::Update()
 			m_pPlayer->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->SetRelativeScale(Vec4(500.f, 500.f, 1.f, 1.f));
 
 			m_bFirstScene = FALSE;
-			m_pTutorialScroll->Enabled(TRUE);
 			m_pTutorialScroll->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->Play(L"Object_Tutorial_Scroll_Anim", FALSE);
+			Object::Play2DSound(L"\\resource\\Audio\\tutorial_scroll.wav", TRUE, 0.5f);
+
+			Object::Play2DBGM(L"\\resource\\Audio\\golem_dungeon_floor_variation_1.wav", 0.5f);
+			Object::Play2DSound(L"\\resource\\Audio\\golem_dungeon_main_ambient.wav", FALSE, 0.2f);
 
 			m_pPlayer->GetScript<PlayerScript>(L"PlayerScript")->SetDirection(Dir::UP);
 			m_pPlayer->GetScript<PlayerScript>(L"PlayerScript")->IdleAnim();
 			m_pPlayer->GetScript<PlayerScript>(L"PlayerScript")->SetState(State::Idle);
 
+			Object::Play2DSound(L"\\resource\\Audio\\golem_dungeon_normal_door_opening.wav",TRUE,0.5f);
 			m_mDoorObjects.find(L"Structure_Tutorial_Room1_Door_Right")->second->
 				GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->Play(L"Structure_Door_Open_Tutorial_Anim", FALSE);
+
+			Object::Play2DSound(L"\\resource\\Audio\\golem_dungeon_normal_door_opening.wav", FALSE, 0.5f);
+			Object::Play2DSound(L"\\resource\\Audio\\golem_dungeon_normal_door_closing.wav", FALSE, 0.5f);
+
 			m_bStart = TRUE;
 			m_pUICamera->GetComponent<Camera>(COMPONENT_TYPE::CAMERA)->LayerVisibleSet(LAYER_TYPE::UI, TRUE);
 		}
@@ -472,8 +544,10 @@ void TutorialScript::RoomOpen()
 		m_mDoorObjects.find(L"Structure_Tutorial_Room2_Door_Right")->second->
 			GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->Play(L"Structure_Door_Open_Tutorial_Anim", FALSE);
 
+
 		m_mDoorObjects.find(L"Structure_Tutorial_Room2_Door_Left")->second->
 			GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->Play(L"Structure_Door_Open_Tutorial_Anim", FALSE);
+		Object::Play2DSound(L"\\resource\\Audio\\golem_dungeon_normal_door_opening.wav", TRUE, 0.5f);
 	}
 	else if (m_iCurRoom == 2)
 	{
@@ -488,6 +562,7 @@ void TutorialScript::RoomOpen()
 
 		m_mDoorObjects.find(L"Structure_Tutorial_Room3_Door_Left")->second->
 			GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->Play(L"Structure_Door_Open_Tutorial_Anim", FALSE);
+		Object::Play2DSound(L"\\resource\\Audio\\golem_dungeon_normal_door_opening.wav", TRUE, 0.5f);
 	}
 	else if (m_iCurRoom == 3)
 	{
@@ -504,6 +579,7 @@ void TutorialScript::RoomOpen()
 
 		m_mDoorObjects.find(L"Structure_Tutorial_Room4_Door_Left")->second->
 			GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->Play(L"Structure_Door_Open_Tutorial_Anim", FALSE);
+		Object::Play2DSound(L"\\resource\\Audio\\golem_dungeon_normal_door_opening.wav", TRUE, 0.5f);
 	}
 	else if (m_iCurRoom == 4)
 	{
@@ -536,18 +612,19 @@ void TutorialScript::RoomOpen()
 
 			m_mDoorObjects.find(L"Structure_Tutorial_Room5_Door_Left")->second->
 				GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->Play(L"Structure_Door_Open_Tutorial_Anim", FALSE);
+			Object::Play2DSound(L"\\resource\\Audio\\golem_dungeon_normal_door_opening.wav", TRUE, 0.5f);
 		}
 	}
 	else if (m_iCurRoom == 5)
 	{
-		for (auto _pTurret:m_vTurret)
+		for (auto _pTurret : m_vTurret)
 		{
 			_pTurret->SetDead(TRUE);
 		}
 
 		// 공격
 		bool _flag = FALSE;
-		for (auto _pSlime :m_vSlime)
+		for (auto _pSlime : m_vSlime)
 		{
 			if (_pSlime != nullptr)
 			{
@@ -583,6 +660,7 @@ void TutorialScript::RoomOpen()
 
 			m_mDoorObjects.find(L"Structure_Tutorial_Room6_Door_Right")->second->
 				GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->Play(L"Structure_Door_Close_Tutorial_Anim", FALSE);
+			Object::Play2DSound(L"\\resource\\Audio\\golem_dungeon_normal_door_closing.wav", TRUE, 0.5f);
 
 			m_mDoorObjects.find(L"Structure_Tutorial_Room6_Door_Left")->second->
 				GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->Play(L"Structure_Door_Close_Tutorial_Anim", FALSE);
@@ -614,6 +692,8 @@ void TutorialScript::RoomOpen()
 
 			m_mDoorObjects.find(L"Structure_Tutorial_Room6_Door_Left")->second->
 				GetComponent<Collider2D>(COMPONENT_TYPE::COLLIDER2D)->Enabled(TRUE);
+
+			Object::Play2DSound(L"\\resource\\Audio\\golem_dungeon_normal_door_Opening.wav", TRUE, 0.5f);
 		}
 	}
 	else if (m_iCurRoom == 6)
@@ -625,7 +705,6 @@ void TutorialScript::RoomOpen()
 				m_pTangle->GetScript<TangleScript>()->SetChase(TRUE);
 		}
 
-
 		// 닫힘
 		if (!m_pTangle->GetDead())
 		{
@@ -634,7 +713,6 @@ void TutorialScript::RoomOpen()
 			{
 				return;
 			}
-
 			m_mDoorObjects.find(L"Structure_Tutorial_Room7_Door_Right")->second->
 				GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->Play(L"Structure_Door_Close_Tutorial_Anim", FALSE);
 
@@ -646,6 +724,8 @@ void TutorialScript::RoomOpen()
 
 			m_mDoorObjects.find(L"Structure_Tutorial_Room7_Door_Left")->second->
 				GetComponent<Collider2D>(COMPONENT_TYPE::COLLIDER2D)->Enabled(FALSE);
+
+			Object::Play2DSound(L"\\resource\\Audio\\golem_dungeon_normal_door_closing.wav", TRUE, 0.5f);
 		}
 
 		// 열림
@@ -657,6 +737,11 @@ void TutorialScript::RoomOpen()
 				return;
 			}
 
+			m_pTutorialChest->GetComponent<Collider2D>(COMPONENT_TYPE::COLLIDER2D)->Enabled(TRUE);
+
+			Object::Play2DSound(L"\\resource\\Audio\\dungeon_chest_unlock.wav", TRUE, 0.5f);
+			m_pTutorialChest->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->Play(L"Structure_Chest_Iron_Unlocking_Anim", FALSE);
+
 			m_mDoorObjects.find(L"Structure_Tutorial_Room7_Door_Right")->second->
 				GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->Play(L"Structure_Door_Open_Tutorial_Anim", FALSE);
 
@@ -668,6 +753,8 @@ void TutorialScript::RoomOpen()
 
 			m_mDoorObjects.find(L"Structure_Tutorial_Room7_Door_Left")->second->
 				GetComponent<Collider2D>(COMPONENT_TYPE::COLLIDER2D)->Enabled(TRUE);
+
+			Object::Play2DSound(L"\\resource\\Audio\\golem_dungeon_normal_door_Opening.wav", TRUE, 0.5f);
 		}
 	}
 	else if (m_iCurRoom == 7)
@@ -687,11 +774,17 @@ void TutorialScript::RoomOpen()
 			LevelMgr::GetInst()->SelectLevel(L"TownScene");
 		}*/
 
-		LevelMgr::GetInst()->SelectLevel(L"TownScene");
-		RecordManager::GetInst()->GetCurrentPlayerPref()->_bTutorial = 1;
-		RecordManager::GetInst()->GetCurrentPlayerPref()->_ePlace = PLACE::TOWN;
-		RecordManager::GetInst()->GetCurrentPlayerPref()->_iTime = 1;
+		if (!m_bFinsihed)
+		{
+			Object::Stop2DSound(L"\\resource\\Audio\\golem_dungeon_main_ambient.wav");
+			Object::Stop2DSound(L"\\resource\\Audio\\golem_dungeon_floor_variation_1.wav");
 
-		RecordManager::GetInst()->SaveFile();
+			SceneManager::SelectScene(L"TownScene");
+			RecordManager::GetInst()->GetCurrentPlayerPref()->_bTutorial = 1;
+			RecordManager::GetInst()->GetCurrentPlayerPref()->_ePlace = PLACE::TOWN;
+			RecordManager::GetInst()->GetCurrentPlayerPref()->_iTime = 0;
+			RecordManager::GetInst()->SaveFile();
+			m_bFinsihed = TRUE;
+		}
 	}
 }

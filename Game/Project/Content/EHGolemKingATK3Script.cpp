@@ -436,6 +436,7 @@ void GolemKingATK3Script::Launch()
 
 		if (m_fLaunchRadius >= 1400.f)
 		{
+			Object::Play2DSound(L"\\resource\\Audio\\golem_dungeon_king_golem_avalanch_rock04.wav", TRUE, 0.5f);
 			Object::ShakingEffect(1.5f, 2000.f, 1.f);
 			m_eState = StickyState::Cycle1;
 		}
@@ -482,6 +483,7 @@ void GolemKingATK3Script::End()
 	{
 		if (L"Boss_Golem_Attack_StickyEnd_Anim" != GetOwner()->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->GetCurAnimation2D()->GetName())
 		{
+			Object::Play2DSound(L"\\resource\\Audio\\golem_dungeon_king_golem_slimearm_end.wav", TRUE, 0.5f);
 			GetOwner()->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->Play(L"Boss_Golem_Attack_StickyEnd_Anim", FALSE);
 			m_pFist->Enabled(FALSE);
 			m_pFistModule->Enabled(FALSE);

@@ -23,10 +23,12 @@
 #include <EHRandomManager.h>
 #include <EHRoomManager.h>
 #include "EHFontMgr.h"
+#include <EHItemMgr.h>
 
 #include "EHCamera.h"
 
 #include "EHHierarchy.h"
+#include "EHSound.h"
 
 Engine::Engine()
 	: m_vResolution{}
@@ -37,6 +39,11 @@ Engine::Engine()
 
 Engine::~Engine()
 {
+	if (nullptr != Sound::g_pFMOD)
+	{
+		Sound::g_pFMOD->release();
+		Sound::g_pFMOD = nullptr;
+	}
 }
 
 int Engine::Awake(Vec2 _vResolution, HWND _hWnd)
@@ -86,18 +93,19 @@ void Engine::AwakeManager()
 	LevelMgr::GetInst()->Awake();
 	RenderMgr::GetInst()->Awake();
 	FontMgr::GetInst()->Awake();
-	RecordManager::GetInst()->Awake();
+	ItemMgr::GetInst()->Awake();
 	RandomManager::GetInst()->Awake();
 	RoomManager::GetInst()->Awake();
+	RecordManager::GetInst()->Awake();
 
 #ifdef _DEBUG
-	LevelMgr::GetInst()->SelectLevel(L"GolemDungeonBossScene");
+	LevelMgr::GetInst()->SelectLevel(L"DungeonEntranceScene");
 	if (FALSE == ImGUIMgr::GetInst()->Awake())
 	{
 		HandleError(MAIN_HWND, L"ImGUI InitailizeError", 1);
 	}
 #else
-	LevelMgr::GetInst()->SelectLevel(L"GolemDungeonBossScene");
+	LevelMgr::GetInst()->SelectLevel(L"TownScene");
 #endif
 
 #ifdef _DEBUG
@@ -123,12 +131,10 @@ void Engine::Update()
 	if (RenderMgr::GetInst()->GetRender())
 		RenderMgr::GetInst()->Update();
 
-	DebugMgr::GetInst()->LateUpdate();
+	// FMOD Update
+	Sound::g_pFMOD->update();
 
-	if (KEY_TAP(KEY::SPACE))
-	{
-		ThreadMgr::GetInst()->StartThread(L"MapGenerator1");
-	}
+	DebugMgr::GetInst()->LateUpdate();
 
 	// GarbageCollector
 	// GameObject -> Memory Release

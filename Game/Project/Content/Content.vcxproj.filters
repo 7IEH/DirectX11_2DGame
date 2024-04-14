@@ -151,17 +151,26 @@
     <Filter Include="02. Script\4. EnemyScript\Boss\GolemKingScript\AttackScript\SpawnRocksScript\SpawnRockScript">
       <UniqueIdentifier>{9593402a-7eb2-4fe0-a12a-d4fc9d5377c2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Script\13UtilScript">
+    <Filter Include="02. Script\12. SceneScript\6.LoadingScript">
+      <UniqueIdentifier>{53564bf4-b05f-4ce1-9054-5704b921af0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Util\ItemManager">
+      <UniqueIdentifier>{f4d468fa-0c79-47e7-9b49-a335d059dfce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\13. UtilScript">
       <UniqueIdentifier>{0ff79c5a-59f3-48a5-88fd-2dc062da10a4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Script\13UtilScript\OutlineScript">
+    <Filter Include="02. Script\13. UtilScript\OutlineScript">
       <UniqueIdentifier>{d1992999-af05-4e41-ac48-c712af0e452f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Script\13UtilScript\SpawnEffect">
+    <Filter Include="02. Script\13. UtilScript\SpawnEffect">
       <UniqueIdentifier>{5eab5f36-9a47-4797-a083-9ca796d22e50}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Script\13UtilScript\TestScript">
+    <Filter Include="02. Script\13. UtilScript\TestScript">
       <UniqueIdentifier>{b8c1db21-9a97-48b3-a6fd-0c1d395b098b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\4. EnemyScript\MeleeEnemyScript\SuicideTurretScript">
+      <UniqueIdentifier>{f78e8968-bf3f-4822-8676-6b35426a9695}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -196,10 +205,10 @@
       <Filter>02. Script\10. TriggerScript\01. MoveTriggerScript</Filter>
     </ClInclude>
     <ClInclude Include="EHOutLineScript.h">
-      <Filter>02. Script\13UtilScript\OutlineScript</Filter>
+      <Filter>02. Script\13. UtilScript\OutlineScript</Filter>
     </ClInclude>
     <ClInclude Include="EHTestScript.h">
-      <Filter>02. Script\13UtilScript\TestScript</Filter>
+      <Filter>02. Script\13. UtilScript\TestScript</Filter>
     </ClInclude>
     <ClInclude Include="EHTitleScript.h">
       <Filter>02. Script\12. SceneScript\0. TitleScript</Filter>
@@ -307,7 +316,13 @@
       <Filter>02. Script\4. EnemyScript\Boss\GolemKingScript\AttackScript\StickyArmScript</Filter>
     </ClInclude>
     <ClInclude Include="EHSpawnEffectScript.h">
-      <Filter>02. Script\13UtilScript\SpawnEffect</Filter>
+      <Filter>02. Script\13. UtilScript\SpawnEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="EHLoadingSceneScript.h">
+      <Filter>02. Script\12. SceneScript\6.LoadingScript</Filter>
+    </ClInclude>
+    <ClInclude Include="EHItemMgr.h">
+      <Filter>03. Util\ItemManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -333,10 +348,10 @@
       <Filter>02. Script\10. TriggerScript\01. MoveTriggerScript</Filter>
     </ClCompile>
     <ClCompile Include="EHOutLineScript.cpp">
-      <Filter>02. Script\13UtilScript\OutlineScript</Filter>
+      <Filter>02. Script\13. UtilScript\OutlineScript</Filter>
     </ClCompile>
     <ClCompile Include="EHTestScript.cpp">
-      <Filter>02. Script\13UtilScript\TestScript</Filter>
+      <Filter>02. Script\13. UtilScript\TestScript</Filter>
     </ClCompile>
     <ClCompile Include="EHTitleScript.cpp">
       <Filter>02. Script\12. SceneScript\0. TitleScript</Filter>
@@ -441,7 +456,13 @@
       <Filter>02. Script\4. EnemyScript\Boss\GolemKingScript\AttackScript\StickyArmScript</Filter>
     </ClCompile>
     <ClCompile Include="EHSpawnEffectScript.cpp">
-      <Filter>02. Script\13UtilScript\SpawnEffect</Filter>
+      <Filter>02. Script\13. UtilScript\SpawnEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="EHLoadingSceneScript.cpp">
+      <Filter>02. Script\12. SceneScript\6.LoadingScript</Filter>
+    </ClCompile>
+    <ClCompile Include="EHItemMgr.cpp">
+      <Filter>03. Util\ItemManager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

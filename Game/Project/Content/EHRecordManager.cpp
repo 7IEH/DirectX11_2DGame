@@ -66,8 +66,10 @@ void RecordManager::CreateSaveFile(int _iCurSlot)
 		m_vPlayerPref[_iCurSlot]->_iMoney = 0;
 		m_vPlayerPref[_iCurSlot]->_fSpeed = 300.f;
 		m_vPlayerPref[_iCurSlot]->_iStrikingPower = 10;
-		m_vPlayerPref[_iCurSlot]->_eWeapon = Weapon::BroomStick;
-		m_vPlayerPref[_iCurSlot]->_eSubWeapon = SubWeapon::None;
+		m_vPlayerPref[_iCurSlot]->_iCurWeapon = 0;
+		m_vPlayerPref[_iCurSlot]->_iWeapon1 = ITEM::BROOM_STICK;
+		m_vPlayerPref[_iCurSlot]->_iWeapon2 = ITEM::NO_ITEM;
+		m_vPlayerPref[_iCurSlot]->_iUseItem = ITEM::NO_ITEM;
 
 		for (int i = 0;i < 20;i++)
 		{
@@ -175,21 +177,27 @@ void RecordManager::LoadFile(int _iCurSlot)
 		}
 		else if (11 == _idx)
 		{
-			m_vPlayerPref[_iCurSlot]->_eWeapon = Weapon(std::stoi(_line));
+			m_vPlayerPref[_iCurSlot]->_iCurWeapon = std::stoi(_line);
 		}
 		else if (12 == _idx)
 		{
-			m_vPlayerPref[_iCurSlot]->_eSubWeapon = SubWeapon(std::stoi(_line));
+			m_vPlayerPref[_iCurSlot]->_iWeapon1 = ITEM(std::stoi(_line));
 		}
-
-		else if (13 <= _idx)
+		else if (13 == _idx)
 		{
-			m_vPlayerPref[_iCurSlot]->_eInventory[_idx - 13] = ITEM(std::stoi(_line));
+			m_vPlayerPref[_iCurSlot]->_iWeapon2 = ITEM(std::stoi(_line));
 		}
-
-		else if (33 <= _idx)
+		else if (14 == _idx)
 		{
-			m_vPlayerPref[_iCurSlot]->_iInventory[_idx - 33] = std::stoi(_line);
+			m_vPlayerPref[_iCurSlot]->_iUseItem = ITEM(std::stoi(_line));
+		}
+		else if (15 <= _idx && _idx < 35)
+		{
+			m_vPlayerPref[_iCurSlot]->_eInventory[_idx - 15] = ITEM(std::stoi(_line));
+		}
+		else
+		{
+			m_vPlayerPref[_iCurSlot]->_iInventory[_idx - 35] = std::stoi(_line);
 		}
 		_idx++;
 	}
@@ -200,7 +208,9 @@ void RecordManager::LoadFile(int _iCurSlot)
 void RecordManager::WriteFile(int _iCurSlot)
 {
 	std::ofstream _pFile(m_wSavePath + std::to_wstring(_iCurSlot) + L"\\Saved.save",
-		std::ios::out | std::ios::app);
+		std::ios::out);
+
+	_pFile.clear();
 
 	time_t _time = time(NULL);
 	struct tm* t = new tm;
@@ -219,8 +229,10 @@ void RecordManager::WriteFile(int _iCurSlot)
 	_pFile << std::to_string(m_vPlayerPref[_iCurSlot]->_iMoney) + '\n';
 	_pFile << std::to_string(m_vPlayerPref[_iCurSlot]->_fSpeed) + '\n';
 	_pFile << std::to_string(m_vPlayerPref[_iCurSlot]->_iStrikingPower) + '\n';
-	_pFile << std::to_string(int(m_vPlayerPref[_iCurSlot]->_eWeapon)) + '\n';
-	_pFile << std::to_string(int(m_vPlayerPref[_iCurSlot]->_eSubWeapon)) + '\n';
+	_pFile << std::to_string(m_vPlayerPref[_iCurSlot]->_iCurWeapon) + '\n';
+	_pFile << std::to_string(int(m_vPlayerPref[_iCurSlot]->_iWeapon1)) + '\n';
+	_pFile << std::to_string(int(m_vPlayerPref[_iCurSlot]->_iWeapon2)) + '\n';
+	_pFile << std::to_string(int(m_vPlayerPref[_iCurSlot]->_iUseItem)) + '\n';
 
 	for (int i = 0;i < 20;i++)
 	{
@@ -229,7 +241,14 @@ void RecordManager::WriteFile(int _iCurSlot)
 
 	for (int i = 0;i < 20;i++)
 	{
-		_pFile << std::to_string(m_vPlayerPref[_iCurSlot]->_iInventory[i]) + '\n';
+		if (i == 19)
+		{
+			_pFile << std::to_string(m_vPlayerPref[_iCurSlot]->_iInventory[i]);
+		}
+		else
+		{
+			_pFile << std::to_string(m_vPlayerPref[_iCurSlot]->_iInventory[i]) + '\n';
+		}
 	}
 
 	_pFile.close();

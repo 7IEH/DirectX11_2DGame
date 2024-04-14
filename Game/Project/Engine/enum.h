@@ -239,6 +239,7 @@ enum class CONSTANT_TYPE
 // 1. Inspector 확인
 // 2. CollisionMatrix 확인
 // 3. Camera Visible 확인
+// 4. Scene 다시 체크
 enum class LAYER_TYPE
 {
 	CAMERA,
@@ -260,6 +261,7 @@ enum class LAYER_TYPE
 	STRUCTURE_OBSTACLE_ROCK,
 	PLAYER_PROJECTILE,
 	ENEMY_PROJECTILE,
+	TEXT,
 	END,
 	NON_SELECT
 };

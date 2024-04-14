@@ -17,6 +17,7 @@ EHGolemTurretScript
 EHGUI_LineScript
 EHItemScript
 EHLight2DScript
+EHLoadingSceneScript
 EHMeleeEnemyScript
 EHOutLineScript
 EHPlayerScript

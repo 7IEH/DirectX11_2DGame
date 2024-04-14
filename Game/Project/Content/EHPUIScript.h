@@ -22,6 +22,14 @@ private:
     GameObject* m_pSetIcon1;
     GameObject* m_pSetIcon2;
 
+    GameObject* m_pWeaponIcon1;
+    GameObject* m_pWeaponIcon2;
+
+   /******************
+   |   Util UI
+   ******************/
+    GameObject* m_pUseItemIcon;
+
     PlayerPref* m_pPlayerPref;
 
 public:

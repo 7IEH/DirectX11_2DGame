@@ -25,6 +25,8 @@ SlotScript::~SlotScript()
 
 void SlotScript::Start()
 {
+	FIND_OBJECT(L"MainLight")->GetComponent<LIght2D>(COMPONENT_TYPE::LIGHT2D)->SetAmbient(Vec4(1.f, 1.f, 1.f, 1.f));
+
 	if (nullptr != m_pUnderLine1)
 		return;
 
@@ -193,6 +195,7 @@ void SlotScript::Update()
 
 	if (KEY_TAP(KEY::W))
 	{
+		Object::Play2DSound(L"\\resource\\Audio\\gui_selector_movement.wav", TRUE, 0.5f);
 		if (0 < m_iCurSlot)
 		{
 			m_iCurSlot--;
@@ -245,6 +248,7 @@ void SlotScript::Update()
 
 	if (KEY_TAP(KEY::S))
 	{
+		Object::Play2DSound(L"\\resource\\Audio\\gui_selector_movement.wav", TRUE, 0.5f);
 		if (4 > m_iCurSlot)
 		{
 			m_iCurSlot++;
@@ -305,13 +309,17 @@ void SlotScript::Update()
 
 		if (_pref->_bTutorial == 0 && _pref->_ePlace == PLACE::TUTORIAL)
 		{
-			LevelMgr::GetInst()->SelectLevel(L"TutorialScene");
+			Object::Stop2DSound(L"\\resource\\Audio\\main_menu_door_opened_loop.wav");
+			Object::Stop2DSound(L"\\resource\\Audio\\main_menu_wind.wav");
+			SceneManager::SelectScene(L"TutorialScene");
 		}
 		else
 		{
 			if (_pref->_ePlace == PLACE::TOWN)
 			{
-				LevelMgr::GetInst()->SelectLevel(L"TownScene");
+				Object::Stop2DSound(L"\\resource\\Audio\\main_menu_door_opened_loop.wav");
+				Object::Stop2DSound(L"\\resource\\Audio\\main_menu_wind.wav");
+				SceneManager::SelectScene(L"TownScene");
 			}
 		}
 	}

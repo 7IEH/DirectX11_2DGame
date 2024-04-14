@@ -123,5 +123,6 @@ void GolemTurretScript::Attack()
 
 void GolemTurretScript::OnTriggerEnter(Collider* _other)
 {
+	Object::Play2DSound(L"\\resource\\Audio\\golem_dungeon_golem_hit.wav", FALSE, 0.5f);
 	EnemyScript::OnTriggerEnter(_other);
 }
