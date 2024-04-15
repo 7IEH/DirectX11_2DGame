@@ -5,6 +5,7 @@ EHCameraTargetScript
 EHDungeonEntranceScript
 EHDungeonScript
 EHEnemyScript
+EHFollowScript
 EHGolemBossSceneScript
 EHGolemButlerScript
 EHGolemDungeonScript

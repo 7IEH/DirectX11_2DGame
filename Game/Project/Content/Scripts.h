@@ -7,6 +7,7 @@
 #include "EHDungeonEntranceScript.h"
 #include "EHDungeonScript.h"
 #include "EHEnemyScript.h"
+#include "EHFollowScript.h"
 #include "EHGolemBossSceneScript.h"
 #include "EHGolemButlerScript.h"
 #include "EHGolemDungeonScript.h"

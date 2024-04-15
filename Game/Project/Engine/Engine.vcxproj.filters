@@ -295,9 +295,6 @@
     <Filter Include="07. Component\UIComponent\Text">
       <UniqueIdentifier>{671060d3-4f30-4483-b91d-150e4a31831d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04. Manager\TextMgr">
-      <UniqueIdentifier>{d37ff651-7d22-4ca9-9c25-77073c371e62}</UniqueIdentifier>
-    </Filter>
     <Filter Include="07. Component\Renderer\CanvasRenderer">
       <UniqueIdentifier>{89c071ef-a4c0-411e-a4a2-07273de4dc80}</UniqueIdentifier>
     </Filter>
@@ -340,11 +337,11 @@
     <Filter Include="04. Manager\VideoMgr">
       <UniqueIdentifier>{15f7233d-2dfc-412e-9f13-0ecb71f66314}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Module\MediaFoundation">
-      <UniqueIdentifier>{3cb54a15-a797-4eee-914c-391766ac6d7a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="07. Component\RigidBody">
       <UniqueIdentifier>{9991aa78-5dd6-44bf-8ca6-b85ccdc98ba6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\FontMgr">
+      <UniqueIdentifier>{d37ff651-7d22-4ca9-9c25-77073c371e62}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -658,7 +655,7 @@
       <Filter>07. Component\UIComponent\Text</Filter>
     </ClInclude>
     <ClInclude Include="EHFontMgr.h">
-      <Filter>04. Manager\TextMgr</Filter>
+      <Filter>04. Manager\FontMgr</Filter>
     </ClInclude>
     <ClInclude Include="EHCanvasRenderer.h">
       <Filter>07. Component\Renderer\CanvasRenderer</Filter>
@@ -969,7 +966,7 @@
       <Filter>07. Component\UIComponent\Text</Filter>
     </ClCompile>
     <ClCompile Include="EHFontMgr.cpp">
-      <Filter>04. Manager\TextMgr</Filter>
+      <Filter>04. Manager\FontMgr</Filter>
     </ClCompile>
     <ClCompile Include="EHCanvasRenderer.cpp">
       <Filter>07. Component\Renderer\CanvasRenderer</Filter>

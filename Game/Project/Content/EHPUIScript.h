@@ -14,6 +14,9 @@ private:
     Vec4        m_vHPUIScale;
     Vec4        m_vHPUIPos;
 
+    GameObject* m_pHPMaxText;
+    GameObject* m_pHPCurText;
+
     /******************
     |   Weapon UI
     ******************/

@@ -56,6 +56,10 @@ private:
 
 	bool  m_bSaved;
 
+	// ParticleObject
+	GameObject* m_pParticle1;
+	GameObject* m_pParticle2;
+
 public:
 	void StartGame();
 	void LoadGame();

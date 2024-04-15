@@ -15,6 +15,8 @@ private:
 	
 	bool			m_bAcctimeUpdate;
 	bool			m_bAcctimeSet;
+	
+	bool			m_bFlag;
 
 public:
 	float				GetDeltaTime() { return m_fDeltaTime; }

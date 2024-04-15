@@ -16,6 +16,8 @@ PUIScript::PUIScript()
 	, m_pWeaponIcon1(nullptr)
 	, m_pWeaponIcon2(nullptr)
 	, m_pUseItemIcon(nullptr)
+	, m_pHPMaxText(nullptr)
+	, m_pHPCurText(nullptr)
 {
 	SetName(L"PUIScript");
 }
@@ -37,6 +39,9 @@ void PUIScript::Awake()
 	m_pWeaponIcon2 = FIND_OBJECT(L"UI_Player_HUD_Weapon2");
 	m_pUseItemIcon = FIND_OBJECT(L"UI_Player_HUD_UseItem");
 
+	m_pHPMaxText = FIND_OBJECT(L"UI_Player_HUD_MaxText");
+	m_pHPCurText = FIND_OBJECT(L"UI_Player_HUD_CurText");
+
 	m_pPlayerPref = RecordManager::GetInst()->GetCurrentPlayerPref();
 
 	assert(m_pHPUI);
@@ -49,6 +54,8 @@ void PUIScript::Awake()
 	assert(m_pWeaponIcon1);
 	assert(m_pWeaponIcon2);
 	assert(m_pUseItemIcon);
+	assert(m_pHPMaxText);
+	assert(m_pHPCurText);
 
 	m_pHPUI->GetComponent<Renderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(COLOR, Vec4(1.f, 0.f, 0.f, 1.f));
 	m_pHPHeartUI->GetComponent<Renderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(COLOR, Vec4(1.f, 0.f, 0.f, 1.f));
@@ -67,6 +74,9 @@ void PUIScript::Update()
 	if (nullptr == m_pHPUI)
 		return;
 
+	/***************
+	| HP UI Icon
+	***************/
 	Transform* _pTr = m_pHPUI->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
 
 	int _iCurHP = m_pPlayerPref->_iCurHp;
@@ -83,6 +93,10 @@ void PUIScript::Update()
 
 	_pTr->SetRelativePosition(_vPos);
 	_pTr->SetRelativeScale(_vScale);
+
+	// Text
+	m_pHPMaxText->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetText(std::to_wstring(m_pPlayerPref->_iMaxHp));
+	m_pHPCurText->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetText(std::to_wstring(m_pPlayerPref->_iCurHp));
 
 	/**************
 	| Weapon Icon

@@ -37,6 +37,7 @@ void ScriptMgr::Awake()
 	AddScript<DungeonEntranceScript>(L"DungeonEntranceScript");
 	AddScript<DungeonScript>(L"DungeonScript");
 	AddScript<EnemyScript>(L"EnemyScript");
+	AddScript<FollowScript>(L"FollowScript");
 	AddScript<GolemBossSceneScript>(L"GolemBossSceneScript");
 	AddScript<GolemButlerScript>(L"GolemButlerScript");
 	AddScript<GolemDungeonScript>(L"GolemDungeonScript");

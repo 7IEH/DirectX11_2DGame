@@ -175,6 +175,9 @@
     <Filter Include="02. Script\4. EnemyScript\MeleeEnemyScript\GolemSoilderScript">
       <UniqueIdentifier>{4de88cff-3f96-4921-af5e-a367bd208080}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Script\13. UtilScript\FollowScript">
+      <UniqueIdentifier>{ec0a3bbb-aaa6-4ed3-afdc-cefab20ae2c6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -333,6 +336,9 @@
     <ClInclude Include="EHGolemSoilderScript.h">
       <Filter>02. Script\4. EnemyScript\MeleeEnemyScript\GolemSoilderScript</Filter>
     </ClInclude>
+    <ClInclude Include="EHFollowScript.h">
+      <Filter>02. Script\13. UtilScript\FollowScript</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -478,6 +484,9 @@
     </ClCompile>
     <ClCompile Include="EHGolemSoilderScript.cpp">
       <Filter>02. Script\4. EnemyScript\MeleeEnemyScript\GolemSoilderScript</Filter>
+    </ClCompile>
+    <ClCompile Include="EHFollowScript.cpp">
+      <Filter>02. Script\13. UtilScript\FollowScript</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

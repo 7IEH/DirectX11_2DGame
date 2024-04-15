@@ -13,6 +13,8 @@
 
 #include "EHGUI_LineScript.h"
 
+#include "EHFollowScript.h"
+
 TitleScript::TitleScript()
 	:m_iCurButton(0)
 	, m_bOpen(FALSE)
@@ -44,6 +46,8 @@ TitleScript::TitleScript()
 	, m_Radius1(0.f)
 	, m_Radius2(0.f)
 	, m_bSaved(FALSE)
+	, m_pParticle1(nullptr)
+	, m_pParticle2(nullptr)
 {
 	SetName(L"TitleScript");
 }
@@ -84,6 +88,9 @@ void TitleScript::Start()
 	m_pSelectIcon1 = _curLevel->FindObjectByName(L"GameSelectIcon1");
 	m_pSelectIcon2 = _curLevel->FindObjectByName(L"GameSelectIcon2");
 
+	m_pParticle1 = FIND_OBJECT(L"Particle1");
+	m_pParticle2 = FIND_OBJECT(L"Particle2");
+
 	assert(m_PointLight1);
 	assert(m_PointLight2);
 	assert(m_StartLine);
@@ -91,6 +98,9 @@ void TitleScript::Start()
 	assert(m_RightDoor);
 	assert(m_LeftDoor);
 	assert(m_GameLogo);
+
+	assert(m_pParticle1);
+	assert(m_pParticle2);
 
 	for (size_t i = 0;i < 3;i++)
 	{
@@ -168,6 +178,11 @@ void TitleScript::Start()
 		_vSelectIcon2.y = _vSelectPos.y;
 		m_pSelectIcon2->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->SetRelativePosition(_vSelectIcon2);
 	}
+
+	m_pParticle1->GetScript<FollowScript>()->SetFollowObject(m_RightDoor);
+	m_pParticle2->GetScript<FollowScript>()->SetFollowObject(m_LeftDoor);
+	m_pParticle1->GetScript<FollowScript>()->SetOffsetPos(Vec4(-399.f,72.f,-5.f,0.f));
+	m_pParticle2->GetScript<FollowScript>()->SetOffsetPos(Vec4(377.f,36.f,-5.f,0.f));
 
 	Object::Play2DSound(L"\\resource\\Audio\\main_menu_wind.wav", FALSE, 0.5f);
 	Object::Play2DBGM(L"\\resource\\Audio\\main_menu_screen.wav", 0.5f);

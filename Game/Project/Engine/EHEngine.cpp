@@ -99,13 +99,13 @@ void Engine::AwakeManager()
 	RecordManager::GetInst()->Awake();
 
 #ifdef _DEBUG
-	LevelMgr::GetInst()->SelectLevel(L"DungeonEntranceScene");
+	LevelMgr::GetInst()->SelectLevel(L"EnterScene");
 	if (FALSE == ImGUIMgr::GetInst()->Awake())
 	{
 		HandleError(MAIN_HWND, L"ImGUI InitailizeError", 1);
 	}
 #else
-	LevelMgr::GetInst()->SelectLevel(L"TownScene");
+	LevelMgr::GetInst()->SelectLevel(L"GolemDungeonBossScene");
 #endif
 
 #ifdef _DEBUG
@@ -143,76 +143,3 @@ void Engine::Update()
 	// Task Update
 	TaskMgr::GetInst()->Update();
 }
-
-//void Engine::MediaEnginePlaybackSample()
-//{
-////	// Ensure that MediaFoundation has been started up using the MFPlatformRef helper object
-////	mfPlatform.Startup();
-////
-////	// Create a source resolver to create an IMFMediaSource for the content URL.
-////	// This will create an instance of an inbuilt OS media source for playback.
-////	// An application can skip this step and instantiate a custom IMFMediaSource implementation instead.
-////	winrt::com_ptr<IMFSourceResolver> sourceResolver;
-////	THROW_IF_FAILED(MFCreateSourceResolver(sourceResolver.put()));
-////	constexpr uint32_t sourceResolutionFlags = MF_RESOLUTION_MEDIASOURCE | MF_RESOLUTION_READ;
-////	MF_OBJECT_TYPE objectType = {};
-////	winrt::com_ptr<IMFMediaSource> mediaSource;
-////	THROW_IF_FAILED(sourceResolver->CreateObjectFromURL(c_testContentURL, sourceResolutionFlags, nullptr, &objectType, reinterpret_cast<IUnknown**>(mediaSource.put_void())));
-////
-////	// Lambdas to handle callbacks
-////
-////	// DirectCompositionWindow callback to inform app of size changes
-////	auto onWindowSizeChanged = [&](uint32_t width, uint32_t height) {
-////		// If the MediaEngineWrapper has been created, notify it of window size changes so that it can update the video surface size.
-////		if (mediaEngineWrapper)
-////		{
-////			mediaEngineWrapper->OnWindowUpdate(width, height);
-////		}
-////	};
-////
-////	// MediaEngineWrapper initialization callback which is invoked once the media has been loaded and a DCOMP surface handle is available
-////	auto onInitialized = [&]() {
-////		// Create video visual and add it to the DCOMP tree
-////		winrt::com_ptr<IDCompositionDevice> dcompDevice;
-////		THROW_IF_FAILED(_pCompDevice2->QueryInterface(IID_PPV_ARGS(dcompDevice.put())));
-////		std::shared_ptr<ui::DirectCompositionLayer> videoLayer =
-////			ui::DirectCompositionLayer::CreateFromSurface(dcompDevice.get(), mediaEngineWrapper->GetSurfaceHandle());
-////		winrt::com_ptr<IDCompositionVisual2> rootVisual;
-////		rootVisual.copy_from(_prootVisual.get());
-////		THROW_IF_FAILED(rootVisual->AddVisual(videoLayer->GetVisual(), TRUE, nullptr));
-////		_pCompDevice2->Commit();
-////
-////		// Start playback
-////		/*mediaEngineWrapper->StartPlayingFrom(0);*/
-////	};
-////
-////	auto onError = [&](MF_MEDIA_ENGINE_ERR error, HRESULT hr)
-////	{
-////		wchar_t message[100] = {};
-////		wsprintf(message, L"Playback failed. error=%d, hr=0x%x", error, hr);
-////		MessageBox(GetDesktopWindow(), message, nullptr, MB_OK | MB_ICONEXCLAMATION);
-////	};
-////
-////
-////#pragma region Initialize_Window
-////	DEVICE->QueryInterface(__uuidof(IDXGIDevice), (void**)&_pDxgiDevice);
-////	THROW_IF_FAILED(DCompositionCreateDevice2(_pDxgiDevice.get(), IID_PPV_ARGS(_pCompDevice.put())));
-////	_pCompDevice2 = _pCompDevice.as<IDCompositionDevice2>();
-////
-////	// Create target against HWND
-////	winrt::com_ptr<IDCompositionDesktopDevice> desktopDevice = _pCompDevice2.as < IDCompositionDesktopDevice>();
-////	desktopDevice->CreateTargetForHwnd(m_hWnd, TRUE, _pComTarget.put());
-////	// Create root visual and set it on the target
-////	_pCompDevice2->CreateVisual(_prootVisual.put());
-////	_pComTarget->SetRoot(_prootVisual.get());
-////
-////	// Create and initialize the MediaEngineWrapper which manages media playback
-////#pragma endregion
-////
-////	mediaEngineWrapper = winrt::make_self<media::MediaEngineWrapper>(onInitialized, onError, nullptr, nullptr, nullptr);
-////	mediaEngineWrapper->Initialize(mediaSource.get());
-////
-////	mediaEngineWrapper->StartPlayingFrom(0);
-////
-////	//Keep thread alive until window is closed
-//}

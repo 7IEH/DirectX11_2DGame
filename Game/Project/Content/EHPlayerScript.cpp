@@ -284,11 +284,21 @@ void PlayerScript::Update()
 	if (nullptr == m_pPlayerPref)
 		return;
 
+	if (m_pPlayerPref->_iCurHp <= m_pPlayerPref->_iCurHp * 0.2f && m_eState != State::Dead)
+	{
+		m_pMozaicPanel->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(FLOAT_0, 1.2f);
+	}
+	else
+	{
+		m_pMozaicPanel->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(FLOAT_0, 0.f);
+	}
+
 	if (m_pPlayerPref->_iCurHp <= 0 && m_eState != State::Dead)
 	{
 		Object::Play2DSound(L"\\resource\\Audio\\will_death.wav", TRUE, 0.4f);
 
 		m_eState = State::Dead;
+		m_pMozaicPanel->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(FLOAT_0, 0.f);
 		m_pMozaicPanel->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(INT_0, 1);
 		m_pMozaicPanel->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(INT_2, 1);
 		TimeMgr::GetInst()->SetAccTimeSet(FALSE);

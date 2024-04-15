@@ -388,7 +388,24 @@ StartRightDoorMat
 Script
 0
 Childs
-1
+0
+endobject
+
+object
+NAME:LeftDoor
+LAYER:4
+TRANSFORM
+-400.000000 0.000000 0.000000
+800.000000 906.000000 1.000000
+0.000000 0.000000 0.000000
+MESHRENDERER
+DefaultRectMesh
+StartLeftDoorMat
+Script
+0
+Childs
+0
+endobject
 
 object
 NAME:Particle1
@@ -428,7 +445,7 @@ TitleParticle
 0
 0
 0
-0
+1
 22
 -58.000000 386.000000 1.000000 0.000000
 1
@@ -475,26 +492,11 @@ TitleParticle
 -75.000000 1.000000 1.000000 0.000000
 1
 Script
-0
-Childs
-0
-endobject
-endobject
-
-object
-NAME:LeftDoor
-LAYER:4
-TRANSFORM
--400.000000 0.000000 0.000000
-800.000000 906.000000 1.000000
-0.000000 0.000000 0.000000
-MESHRENDERER
-DefaultRectMesh
-StartLeftDoorMat
-Script
-0
-Childs
 1
+FollowScript
+Childs
+0
+endobject
 
 object
 NAME:Particle2
@@ -589,8 +591,8 @@ TitleParticle
 43.000000 183.000000 1.000000 0.000000
 0
 Script
-0
+1
+FollowScript
 Childs
 0
-endobject
 endobject

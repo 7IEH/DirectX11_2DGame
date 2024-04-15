@@ -57,7 +57,7 @@ float4 PS_MOZAIC(VS_OUT _in) : SV_Target
     float _fBorder = 0.1f;
     
     // ¹à±â
-    float _fBright = 20.f;
+    float _fBright = 10.f;
    
     // Vignette
     if (1 == gMatrial._int1)
@@ -66,11 +66,41 @@ float4 PS_MOZAIC(VS_OUT _in) : SV_Target
     
         float vig = _in.vUV.x * _in.vUV.y * _fBright;
    
-        vig = pow(vig, _fBorder);
-       
+        vig = pow(abs(vig), _fBorder);
+        
         _vColor *= vig;
     }
-    
+    else
+    {
+        // Color Vignette
+        if (1.f <= gMatrial._float0)
+        {
+            float rEnable = 1.f;
+            float gEnable = 0.f;
+            float bEnable = 0.f;
+        
+            float OuterVig = 1.f;
+            float InnerVig = gAccTime3 * 0.1f;
+        
+            InnerVig = (0.8f - InnerVig);
+            
+            float2 Center = float2(0.5f, 0.5f);
+        
+            float dist = distance(Center, _in.vUV) * 1.414213;
+        
+            float vig = clamp((OuterVig - dist) / (OuterVig - InnerVig), 0.f, 1.f);
+        
+            if (vig != 1.0)
+            {
+                _vColor *= vig;
+                _vColor.r += (1.0 - vig) * rEnable;
+                _vColor.g += (1.0 - vig) * gEnable;
+                _vColor.b += (1.0 - vig) * bEnable;
+            }
+        
+        }
+    }
+   
     return _vColor;
 }
 

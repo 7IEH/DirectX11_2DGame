@@ -31,7 +31,7 @@ void FontMgr::DrawingText(wstring _str, UINT32 _color, wstring _font, DWRITE_FON
 {
 	IDWriteTextFormat* _textFormat;
 	HRESULT _result = m_WriteFactory->CreateTextFormat(
-		e_Font.c_str(),
+		_font.c_str(),
 		NULL,
 		_fontweight,
 		DWRITE_FONT_STYLE_NORMAL,

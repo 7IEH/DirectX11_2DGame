@@ -10,6 +10,7 @@ TimeMgr::TimeMgr()
 	, m_fTime(0.f)
 	, m_bAcctimeUpdate(FALSE)
 	, m_bAcctimeSet(FALSE)
+	, m_bFlag(TRUE)
 {
 
 }
@@ -63,5 +64,22 @@ void TimeMgr::Update()
 		}
 	}
 
-	e_Global._AccTime3 += m_fDeltaTime;
+	if (m_bFlag)
+	{
+		e_Global._AccTime3 += m_fDeltaTime;
+
+		if (e_Global._AccTime3 >= 1.f)
+		{
+			m_bFlag = FALSE;
+		}
+	}
+	else
+	{
+		e_Global._AccTime3 -= m_fDeltaTime;
+
+		if (e_Global._AccTime3 <= 0.f)
+		{
+			m_bFlag = TRUE;
+		}
+	}
 }

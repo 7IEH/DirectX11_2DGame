@@ -8,15 +8,6 @@ private:
 	Vec2		m_vResolution;
 	HWND		m_hWnd;
 
-	/*winrt::com_ptr<media::MediaEngineWrapper> mediaEngineWrapper;
-	media::MFPlatformRef mfPlatform;
-
-	winrt::com_ptr<IDXGIDevice> _pDxgiDevice;
-	winrt::com_ptr<IDCompositionDevice> _pCompDevice;
-	winrt::com_ptr<IDCompositionDevice2> _pCompDevice2;
-	winrt::com_ptr<IDCompositionVisual2> _prootVisual;
-	winrt::com_ptr<IDCompositionTarget> _pComTarget;*/
-
 public:
 	HWND		GetMainWind() { return m_hWnd; }
 
