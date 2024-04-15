@@ -93,6 +93,7 @@ PlayerScript::PlayerScript()
 	, m_pSelectCircle(nullptr)
 	, m_pSelectItemIcon(nullptr)
 	, m_iSelectItem(ITEM::NO_ITEM)
+	, m_bLowHPFlag(FALSE)
 {
 	SetName(L"PlayerScript");
 }
@@ -284,18 +285,27 @@ void PlayerScript::Update()
 	if (nullptr == m_pPlayerPref)
 		return;
 
-	if (m_pPlayerPref->_iCurHp <= m_pPlayerPref->_iCurHp * 0.2f && m_eState != State::Dead)
+	if (m_pPlayerPref->_iCurHp <= m_pPlayerPref->_iMaxHp * 0.2f && m_eState != State::Dead)
 	{
 		m_pMozaicPanel->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(FLOAT_0, 1.2f);
+
+		if (!m_bLowHPFlag)
+		{
+			Object::Play2DSound(L"\\resource\\Audio\\will_low_health.wav", FALSE, 0.3f);
+			m_bLowHPFlag = TRUE;
+		}
 	}
 	else
 	{
 		m_pMozaicPanel->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(FLOAT_0, 0.f);
+		Object::Stop2DSound(L"\\resource\\Audio\\will_low_health.wav");
+		m_bLowHPFlag = FALSE;
 	}
 
 	if (m_pPlayerPref->_iCurHp <= 0 && m_eState != State::Dead)
 	{
-		Object::Play2DSound(L"\\resource\\Audio\\will_death.wav", TRUE, 0.4f);
+		Object::Stop2DSound(L"\\resource\\Audio\\will_step_golem_dungeon.wav");
+		Object::Stop2DSound(L"\\resource\\Audio\\will_step_town_dirt.wav");
 
 		m_eState = State::Dead;
 		m_pMozaicPanel->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(FLOAT_0, 0.f);
@@ -308,6 +318,9 @@ void PlayerScript::Update()
 
 	if (m_bInvincibility && State::Dead != m_eState)
 		Invincibility();
+
+	if (m_bFalling)
+		return;
 
 	switch (m_eState)
 	{
@@ -398,6 +411,7 @@ void PlayerScript::Invincibility()
 		_pTr->SetRelativePosition(m_vPrevPos);
 		m_pPlayerPref->_iCurHp -= 20;
 		Object::ShakingEffect(1.f, 50.f, 2.f);
+		IdleAnim();
 	}
 	else if (!m_bFalling)
 	{
@@ -468,6 +482,9 @@ void PlayerScript::Idle()
 	}
 	else if (KEY_TAP(KEY::J))
 	{
+		Object::Stop2DSound(L"\\resource\\Audio\\will_step_golem_dungeon.wav");
+		Object::Stop2DSound(L"\\resource\\Audio\\will_step_town_dirt.wav");
+
 		m_eState = State::Attack;
 
 		ITEM _iWeapon = ITEM::NO_ITEM;
@@ -652,6 +669,7 @@ void PlayerScript::Idle()
 
 void PlayerScript::Attack()
 {
+
 	// 데미지는 장비에 따라 바뀜
 	// 적용 시켜줌
 	auto		_iStrikingPower = m_pPlayerPref->_iStrikingPower;
@@ -937,6 +955,9 @@ void PlayerScript::Move()
 
 	if (KEY_TAP(KEY::J))
 	{
+		Object::Stop2DSound(L"\\resource\\Audio\\will_step_golem_dungeon.wav");
+		Object::Stop2DSound(L"\\resource\\Audio\\will_step_town_dirt.wav");
+
 		m_eState = State::Attack;
 
 		ITEM _iWeapon = ITEM::NO_ITEM;
@@ -1027,7 +1048,9 @@ void PlayerScript::Move()
 	{
 		m_eState = State::Dodge;
 		DodgeAnim();
-		Object::Play2DSound(L"\\resource\\Audio\\will_roll.wav", TRUE, 0.4f);
+
+		Object::Stop2DSound(L"\\resource\\Audio\\will_step_golem_dungeon.wav");
+		Object::Stop2DSound(L"\\resource\\Audio\\will_step_town_dirt.wav");
 	}
 	_pos.z = _pos.y;
 	_pTransform->SetRelativePosition(_pos);
@@ -2611,6 +2634,8 @@ void PlayerScript::OnTriggerStay(Collider* _other)
 			Transform* _pOtherTr = _other->GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
 			Vec4 _vOtherPos = _pOtherTr->GetRelativePosition();
 			_vOtherPos.z = m_vPrevPos.z;
+
+			GetOwner()->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->Play(L"FSM_Player_Dungeon_Fall_Anim", FALSE);
 
 			_pTr->SetRelativePosition(_vOtherPos);
 			m_bInvincibility = TRUE;

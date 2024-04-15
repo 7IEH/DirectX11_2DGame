@@ -1042,5 +1042,11 @@
     <FxCompile Include="postprocessVS.hlsl">
       <Filter>ShaderCode\VS</Filter>
     </FxCompile>
+    <FxCompile Include="EnemyPS.hlsl">
+      <Filter>ShaderCode\PS</Filter>
+    </FxCompile>
+    <FxCompile Include="EnemyVS.hlsl">
+      <Filter>ShaderCode\VS</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

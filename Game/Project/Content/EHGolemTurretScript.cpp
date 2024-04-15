@@ -24,6 +24,7 @@ GolemTurretScript::~GolemTurretScript()
 
 void GolemTurretScript::Start()
 {
+	EnemyScript::Start();
 	GetOwner()->GetComponent<Collider2D>(COMPONENT_TYPE::COLLIDER2D)->SetoffSetScale(Vec3(0.05f, 0.05f, 1.f));
 }
 

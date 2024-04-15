@@ -451,7 +451,7 @@ void RoomManager::LoadPrefab()
 						_vPos = _vStandardPos + _vPos;
 						_pTr->SetRelativePosition(_vPos);
 
-						_pRender->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"BackGroundMaterial"));
+						_pRender->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"EnemyMaterial")->Clone());
 						_pRender->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"DefaultRectMesh"));
 
 						(*iter).second._pMonster.push_back(_pMonster);

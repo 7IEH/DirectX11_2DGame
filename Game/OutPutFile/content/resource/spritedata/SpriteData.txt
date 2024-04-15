@@ -512,3 +512,7 @@ FSM_Enemy_SlimeHermit_Attack_Left_Sprite
 \\resource\\Monster\\Slime\\SlimeHermit\\Attack\\Left\\FSM_Enemy_SlimeHermit_Attack_Left_Atlas.png
 FSM_Enemy_SlimeHermit_Attack_Right_Sprite
 \\resource\\Monster\\Slime\\SlimeHermit\\Attack\\Right\\FSM_Enemy_SlimeHermit_Attack_Right_Atlas.png
+FMOD_BANNER_Sprite
+\\resource\\Util\\FmodBanner.png
+FSM_Player_Dungeon_Fall_Sprite
+\\resource\\Char\\Player\\Fall\\FSM_Player_Dungeon_Fall_Atlas.png

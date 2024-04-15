@@ -178,6 +178,9 @@
     <Filter Include="02. Script\13. UtilScript\FollowScript">
       <UniqueIdentifier>{ec0a3bbb-aaa6-4ed3-afdc-cefab20ae2c6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Script\12. SceneScript\0. BannerScript">
+      <UniqueIdentifier>{3d18d0f5-8d71-4bcb-8e37-2101e42cba71}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -339,6 +342,9 @@
     <ClInclude Include="EHFollowScript.h">
       <Filter>02. Script\13. UtilScript\FollowScript</Filter>
     </ClInclude>
+    <ClInclude Include="EHBannerScript.h">
+      <Filter>02. Script\12. SceneScript\0. BannerScript</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -487,6 +493,9 @@
     </ClCompile>
     <ClCompile Include="EHFollowScript.cpp">
       <Filter>02. Script\13. UtilScript\FollowScript</Filter>
+    </ClCompile>
+    <ClCompile Include="EHBannerScript.cpp">
+      <Filter>02. Script\12. SceneScript\0. BannerScript</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,6 +1,7 @@
 #pragma once
 #include "Content_enum.h"
 #include "EHBabySlimeScript.h"
+#include "EHBannerScript.h"
 #include "EHBossUIScript.h"
 #include "EHCameraScript.h"
 #include "EHCameraTargetScript.h"

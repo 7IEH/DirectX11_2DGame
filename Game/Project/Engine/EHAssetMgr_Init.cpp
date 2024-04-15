@@ -244,6 +244,24 @@ void AssetMgr::CreateDefaultShader()
 
 	AddAsset(_pUIShader, L"UIShader");
 
+	/*********************
+	|	Enemy Shader
+	*********************/
+	GraphicShader* _pEnemyShader = new GraphicShader;
+
+	_path = L"\\shader\\EnemyVS.hlsl";
+	_path2 = L"\\shader\\EnemyPS.hlsl";
+	_vsEntry = "VS_Std2D";
+	_psEntry = "PS_Std2D";
+
+	_pEnemyShader->Default_Create(_path, _path2, _vsEntry, _psEntry);
+
+	_pEnemyShader->SetCullType(CULL_TYPE::NONE);
+	_pEnemyShader->SetDSType(DS_TYPE::LESS);
+	_pEnemyShader->SetBlendType(BLEND_TYPE::ALPHABLENDING);
+
+	AddAsset(_pEnemyShader, L"EnemyShader");
+
 	/********************
 	|	Effect Shader
 	********************/

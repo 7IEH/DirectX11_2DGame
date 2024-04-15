@@ -110,6 +110,8 @@ private:
 	GameObject* m_pInfoText[4];
 	GameObject* m_pObject_Village_Fade_BG;
 
+	bool		m_bLowHPFlag;
+
 	/**************************
 	|	Pause State
 	**************************/

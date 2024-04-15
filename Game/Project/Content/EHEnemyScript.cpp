@@ -5,6 +5,9 @@
 #include <EHLevelMgr.h>
 #include "EHRecordManager.h"
 
+#include <EHAssetMgr.h>
+#include <EHTimeMgr.h>
+
 EnemyScript::EnemyScript()
 	: m_eState(EnemyState::Idle)
 	, m_eEnemyType(EnemyType::Melee)
@@ -28,6 +31,8 @@ void EnemyScript::Awake()
 
 void EnemyScript::Start()
 {
+	GetOwner()->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()
+		->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(L"EnemyShader"));
 }
 
 void EnemyScript::Update()
@@ -35,6 +40,17 @@ void EnemyScript::Update()
 	if (m_iHp <= 0)
 	{
 		m_eState = EnemyState::Dead;
+	}
+
+	if (m_bDamaged)
+	{
+		m_fAccTime2 += DT;
+		if (m_fAccTime2 >= 0.5f)
+		{
+			m_bDamaged = FALSE;
+			GetOwner()->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(INT_0, 0);
+			m_fAccTime2 = 0.f;
+		}
 	}
 
 	switch (m_eState)
@@ -75,6 +91,9 @@ void EnemyScript::OnTriggerEnter(Collider* _other)
 
 	if (LAYER_TYPE::PLAYER_PROJECTILE == _eLayer)
 	{
+		GetOwner()->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(INT_0, 1);
+		m_bDamaged = TRUE;
+
 		// Monster Hp
 		int _fStrikingPower = RecordManager::GetInst()->GetCurrentPlayerPref()->_iStrikingPower;
 

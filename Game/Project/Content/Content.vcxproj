@@ -167,6 +167,7 @@ call ScriptGenerator.exe</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="EHBabySlimeScript.h" />
+    <ClInclude Include="EHBannerScript.h" />
     <ClInclude Include="EHBossUIScript.h" />
     <ClInclude Include="EHCameraScript.h" />
     <ClInclude Include="EHCameraTargetScript.h" />
@@ -223,6 +224,7 @@ call ScriptGenerator.exe</Command>
   <ItemGroup>
     <ClCompile Include="Content.cpp" />
     <ClCompile Include="EHBabySlimeScript.cpp" />
+    <ClCompile Include="EHBannerScript.cpp" />
     <ClCompile Include="EHBossUIScript.cpp" />
     <ClCompile Include="EHCameraScript.cpp" />
     <ClCompile Include="EHCameraTargetScript.cpp" />

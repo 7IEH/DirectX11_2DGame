@@ -17,6 +17,11 @@ private:
     GameObject* m_pHPMaxText;
     GameObject* m_pHPCurText;
 
+    bool        m_bDamaged;
+    float       m_fAccTime;
+
+    int         m_iPrevHP;
+ 
     /******************
     |   Weapon UI
     ******************/
@@ -39,6 +44,8 @@ public:
     virtual void Awake() override;
     virtual void Update() override;
     
+    void SetDamaged(bool _bDamaged) { m_bDamaged = _bDamaged; }
+
 public:
     CLONE(PUIScript);
     PUIScript();

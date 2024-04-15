@@ -5,6 +5,8 @@
 #include <EHAssetMgr.h>
 #include "EHItemMgr.h"
 
+#include <EHTimeMgr.h>
+
 PUIScript::PUIScript()
 	:m_pHPUI(nullptr)
 	, m_pHPHeartUI(nullptr)
@@ -18,6 +20,9 @@ PUIScript::PUIScript()
 	, m_pUseItemIcon(nullptr)
 	, m_pHPMaxText(nullptr)
 	, m_pHPCurText(nullptr)
+	, m_bDamaged(FALSE)
+	, m_fAccTime(0.f)
+	, m_iPrevHP(100)
 {
 	SetName(L"PUIScript");
 }
@@ -82,6 +87,13 @@ void PUIScript::Update()
 	int _iCurHP = m_pPlayerPref->_iCurHp;
 	int _iMaxHP = m_pPlayerPref->_iMaxHp;
 
+	if (m_iPrevHP != _iCurHP)
+	{
+		m_bDamaged = TRUE;
+	}
+
+	m_iPrevHP = m_pPlayerPref->_iCurHp;
+
 	float _fRatio = (float)_iCurHP / (float)_iMaxHP;
 
 	float _fDifference = (m_vHPUIScale.x) - (m_vHPUIScale.x * _fRatio);
@@ -97,6 +109,25 @@ void PUIScript::Update()
 	// Text
 	m_pHPMaxText->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetText(std::to_wstring(m_pPlayerPref->_iMaxHp));
 	m_pHPCurText->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetText(std::to_wstring(m_pPlayerPref->_iCurHp));
+
+	if (m_bDamaged)
+	{
+		m_fAccTime += DT;
+
+		m_pHPUI->GetComponent<Renderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(COLOR, Vec4(1.f, 1.f, 1.f, 1.f));
+		m_pHPHeartUI->GetComponent<Renderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(COLOR, Vec4(1.f, 1.f, 1.f, 1.f));
+
+		if (m_fAccTime >= 0.5f)
+		{
+			m_bDamaged = FALSE;
+			m_fAccTime = 0.f;
+		}
+	}
+	else
+	{
+		m_pHPUI->GetComponent<Renderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(COLOR, Vec4(1.f, 0.f, 0.f, 1.f));
+		m_pHPHeartUI->GetComponent<Renderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(COLOR, Vec4(1.f, 0.f, 0.f, 1.f));
+	}
 
 	/**************
 	| Weapon Icon

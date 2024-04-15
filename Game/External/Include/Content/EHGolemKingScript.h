@@ -53,6 +53,12 @@ private:
 	************/
 	GameObject* m_pWaveObject;
 
+	/************
+	| Damaged
+	************/
+	bool		m_bDamaged;
+	float		m_fAccTime;
+
 public:
 	virtual void Start();
 	virtual void Update();

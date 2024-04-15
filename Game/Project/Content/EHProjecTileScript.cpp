@@ -5,6 +5,9 @@
 #include <EHLevelMgr.h>
 #include <EHTimeMgr.h>
 
+#include "EHPUIScript.h"
+
+
 ProjecTileScript::ProjecTileScript()
 	:m_fSpeed(0.f)
 	, m_eDir(Dir::UP)
@@ -64,8 +67,7 @@ void ProjecTileScript::OnTriggerEnter(Collider* _other)
 	{
 		Animator2D* _pAnim = GetOwner()->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D);
 		LevelMgr::GetInst()->GetCurLevel()->FindObjectByName(L"Player")->GetScript<PlayerScript>(L"PlayerScript")->GetPlayerPref()->_iCurHp -= m_iDamage;
-
-
+		
 		if (m_bNotDir)
 			return;
 

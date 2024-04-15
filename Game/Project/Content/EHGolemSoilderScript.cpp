@@ -24,6 +24,7 @@ GolemSoilderScript::~GolemSoilderScript()
 
 void GolemSoilderScript::Start()
 {
+	EnemyScript::Start();
 	GetOwner()->GetComponent<Collider2D>(COMPONENT_TYPE::COLLIDER2D)->SetoffSetScale(Vec3(0.3f, 0.3f, 1.f));
 	m_pCollider = new GameObject;
 	Transform* _pColTr = m_pCollider->AddComponent<Transform>();

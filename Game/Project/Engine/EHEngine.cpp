@@ -99,13 +99,13 @@ void Engine::AwakeManager()
 	RecordManager::GetInst()->Awake();
 
 #ifdef _DEBUG
-	LevelMgr::GetInst()->SelectLevel(L"EnterScene");
+	LevelMgr::GetInst()->SelectLevel(L"TownScene");
 	if (FALSE == ImGUIMgr::GetInst()->Awake())
 	{
 		HandleError(MAIN_HWND, L"ImGUI InitailizeError", 1);
 	}
 #else
-	LevelMgr::GetInst()->SelectLevel(L"GolemDungeonBossScene");
+	LevelMgr::GetInst()->SelectLevel(L"DungeonEntranceScene");
 #endif
 
 #ifdef _DEBUG

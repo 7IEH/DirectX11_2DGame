@@ -42,6 +42,9 @@ private:
 	float		m_fChargeTime;
 	float		m_fAccTime;
 
+	bool		m_bDamaged;
+	float		m_fAccTime2;
+
 public:
 	virtual void Awake()override;
 	virtual void Start()override;

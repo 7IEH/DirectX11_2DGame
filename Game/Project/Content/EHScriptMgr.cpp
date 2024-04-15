@@ -31,6 +31,7 @@ Script* ScriptMgr::FindScript(wstring _name)
 void ScriptMgr::Awake()
 {
 	AddScript<BabySlimeScript>(L"BabySlimeScript");
+	AddScript<BannerScript>(L"BannerScript");
 	AddScript<BossUIScript>(L"BossUIScript");
 	AddScript<CameraScript>(L"CameraScript");
 	AddScript<CameraTargetScript>(L"CameraTargetScript");

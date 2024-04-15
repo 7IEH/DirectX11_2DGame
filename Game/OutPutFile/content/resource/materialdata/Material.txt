@@ -1,6 +1,12 @@
 BackGroundMaterial
 DefaultShader
 
+EnemyMaterial
+EnemyShader
+
+BossMaterial
+EnemyShader
+
 UIDefaultMat
 UIShader
 
@@ -367,3 +373,6 @@ HUD_BigSword_Icon_Sprite
 HUD_Selector_Circle_Mat
 UIShader
 HUD_Selector_Circle_Sprite
+FMOD_BANNER_Mat
+DefaultShader
+FMOD_BANNER_Sprite

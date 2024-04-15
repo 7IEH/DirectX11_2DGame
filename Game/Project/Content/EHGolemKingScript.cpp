@@ -33,6 +33,8 @@ GolemKingScript::GolemKingScript()
 	, m_pWaveObject(nullptr)
 	, m_pArmObject1(nullptr)
 	, m_bSpawnRocks(FALSE)
+	, m_bDamaged(FALSE)
+	, m_fAccTime(0.f)
 {
 	SetName(L"GolemKingScript");
 	SetHp(400);
@@ -44,6 +46,7 @@ GolemKingScript::~GolemKingScript()
 
 void GolemKingScript::Start()
 {
+	EnemyScript::Start();
 	m_pPlayer = FIND_OBJECT(L"Player");
 	m_pWaveObject = FIND_OBJECT(L"Object_Wave");
 	m_pArmObject1 = FIND_OBJECT(L"Object_ArmObject1");
@@ -76,6 +79,17 @@ void GolemKingScript::Update()
 		Object::Play2DSound(L"\\resource\\Audio\\BossKillStinger.wav", TRUE, 0.3f);
 		m_pWaveObject->Enabled(FALSE);
 		m_pArmObject1->Enabled(FALSE);
+	}
+
+	if (m_bDamaged)
+	{
+		m_fAccTime += DT;
+		if (m_fAccTime >= 0.5f)
+		{
+			m_bDamaged = FALSE;
+			GetOwner()->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(INT_0, 0);
+			m_fAccTime = 0.f;
+		}
 	}
 
 	switch (m_eState)
@@ -111,6 +125,7 @@ void GolemKingScript::LateUpdtae()
 
 void GolemKingScript::OnTriggerEnter(Collider* _other)
 {
+	m_bDamaged = TRUE;
 	EnemyScript::OnTriggerEnter(_other);
 	Object::Play2DSound(L"\\resource\\Audio\\golem_dungeon_king_golem_hit.wav", TRUE, 0.5f);
 	GetOwner()->GetScript<BossUIScript>()->SetAttack();
@@ -137,7 +152,7 @@ void GolemKingScript::Idle()
 	if (m_fAcctime >= m_fAttackTime)
 	{
 		int _iSoundRand = RandomManager::GetInst()->GenerateNumber(0, 2);
-		Object::Play2DSound(L"\\resource\\Audio\\golem_dungeon_king_golem_roar"+std::to_wstring(_iSoundRand)+L".wav", TRUE, 0.3f);
+		Object::Play2DSound(L"\\resource\\Audio\\golem_dungeon_king_golem_roar" + std::to_wstring(_iSoundRand) + L".wav", TRUE, 0.3f);
 
 		m_ePattern = Pattern(RandomManager::GetInst()->GenerateNumber(0, 1));
 		m_eState = BossState::Attack;

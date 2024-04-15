@@ -204,7 +204,8 @@ void GolemKingATK2Script::SpawnShadow(Vec4 _vPosition)
 	_pRender->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"DefaultRectMesh"));
 	_pRender->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"Boss_Golem_Attack_Punch_Shadow1_Mat"));
 
-	//_pCrack->AddComponent<SpawnEffectScript>();
+	SpawnEffectScript* _pScript = _pCrack->AddComponent<SpawnEffectScript>();
+	_pScript->SetDeleteTime(1.5f);
 
 	Object::Instantiate(_pCrack, int(LAYER_TYPE::BACKGROUND2));
 }
