@@ -47,6 +47,12 @@ using namespace Microsoft::WRL;
 #include <DirectXMath.h>
 using namespace DirectX;
 
+#ifdef _DEBUG
+#pragma comment(lib,"DirectXTex_debug")
+#else
+#pragma comment(lib,"DirectXTex")
+#endif
+
 #pragma comment(lib, "d3d11")
 #pragma comment(lib, "d3dcompiler")
 

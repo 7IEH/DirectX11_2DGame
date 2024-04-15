@@ -432,7 +432,7 @@ void PlayerScript::Invincibility()
 				GetOwner()->GetComponent<Collider2D>(COMPONENT_TYPE::COLLIDER2D)->Enabled(TRUE);
 				GetOwner()->GetComponent<Renderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(INT_2, 0);
 				GetOwner()->GetComponent<Renderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(INT_1, 0);
-				GetOwner()->GetComponent< Renderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(SPECULAR, Vec4(1.f, 1.f, 1.f, 1.f));
+				GetOwner()->GetComponent<Renderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(SPECULAR, Vec4(1.f, 1.f, 1.f, 1.f));
 			}
 		}
 	}

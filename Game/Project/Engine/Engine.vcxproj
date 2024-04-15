@@ -73,13 +73,16 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)External\Library\Engine\</OutDir>
     <TargetName>$(ProjectName)_Debug</TargetName>
-    <ExternalIncludePath>$(SolutionDir)External\Include\Content\;$(SolutionDir)External\Include\FontEngine\;$(SolutionDir)External\Include\MediaFoundation\;$(SolutionDir)External\Include\FMOD\;$(ExternalIncludePath);$(ExternalIncludePath)</ExternalIncludePath>
-    <LibraryPath>$(SolutionDir)External\Library\Content\;$(SolutionDir)External\Library\FontEngine\;$(SolutionDir)External\Library\MediaFoundation\;$(SolutionDir)External\Library\FMOD\;$(LibraryPath);$(LibraryPath)</LibraryPath>
+    <ExternalIncludePath>$(SolutionDir)External\Include\Content\;$(SolutionDir)External\Include\FontEngine\;$(SolutionDir)External\Include\FMOD\;$(SolutionDir)External\Include\DirectxTex\;$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>$(SolutionDir)External\Library\Content\;$(SolutionDir)External\Library\FontEngine\;$(SolutionDir)External\Library\FMOD\;$(SolutionDir)External\Library\DirectxTex\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)External\Library\Engine\</OutDir>
-    <ExternalIncludePath>$(SolutionDir)External\Include\Content\;$(SolutionDir)External\Include\FontEngine\;$(ExternalIncludePath);$(SolutionDir)External\Include\FMOD\;$(ExternalIncludePath)</ExternalIncludePath>
-    <LibraryPath>$(SolutionDir)External\Library\Content\;$(SolutionDir)External\Library\FontEngine\;$(LibraryPath);$(SolutionDir)External\Library\FMOD\;$(LibraryPath)</LibraryPath>
+    <ExternalIncludePath>$(SolutionDir)External\Include\Content\;$(SolutionDir)External\Include\FontEngine\;$(SolutionDir)External\Include\FMOD\;$(SolutionDir)External\Include\DirectxTex\;$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>$(SolutionDir)External\Library\Content\;$(SolutionDir)External\Library\FontEngine\;$(SolutionDir)External\Library\FMOD\;$(SolutionDir)External\Library\DirectxTex\;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg">
+    <VcpkgEnabled>false</VcpkgEnabled>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

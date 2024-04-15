@@ -7,13 +7,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Client", "Project\Client\Cl
 	ProjectSection(ProjectDependencies) = postProject
 		{153C828C-FC55-4439-B674-B7C2FAD93D78} = {153C828C-FC55-4439-B674-B7C2FAD93D78}
 		{2012A4EF-3824-4387-BDA3-0EAD38835A20} = {2012A4EF-3824-4387-BDA3-0EAD38835A20}
-		{52DFAACC-AE16-4183-828E-D0D6958FF567} = {52DFAACC-AE16-4183-828E-D0D6958FF567}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Project\Engine\Engine.vcxproj", "{153C828C-FC55-4439-B674-B7C2FAD93D78}"
-	ProjectSection(ProjectDependencies) = postProject
-		{52DFAACC-AE16-4183-828E-D0D6958FF567} = {52DFAACC-AE16-4183-828E-D0D6958FF567}
-	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Content", "Project\Content\Content.vcxproj", "{2012A4EF-3824-4387-BDA3-0EAD38835A20}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -21,8 +17,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Content", "Project\Content\
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ScriptGenerator", "Project\ScriptGenerator\ScriptGenerator.vcxproj", "{6BEE9675-B26D-4BB8-A9CC-4A345F242A4A}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaFoundation", "Project\MediaFoundation\MediaFoundation.vcxproj", "{52DFAACC-AE16-4183-828E-D0D6958FF567}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,14 +58,6 @@ Global
 		{6BEE9675-B26D-4BB8-A9CC-4A345F242A4A}.Release|x64.Build.0 = Release|x64
 		{6BEE9675-B26D-4BB8-A9CC-4A345F242A4A}.Release|x86.ActiveCfg = Release|Win32
 		{6BEE9675-B26D-4BB8-A9CC-4A345F242A4A}.Release|x86.Build.0 = Release|Win32
-		{52DFAACC-AE16-4183-828E-D0D6958FF567}.Debug|x64.ActiveCfg = Debug|x64
-		{52DFAACC-AE16-4183-828E-D0D6958FF567}.Debug|x64.Build.0 = Debug|x64
-		{52DFAACC-AE16-4183-828E-D0D6958FF567}.Debug|x86.ActiveCfg = Debug|Win32
-		{52DFAACC-AE16-4183-828E-D0D6958FF567}.Debug|x86.Build.0 = Debug|Win32
-		{52DFAACC-AE16-4183-828E-D0D6958FF567}.Release|x64.ActiveCfg = Release|x64
-		{52DFAACC-AE16-4183-828E-D0D6958FF567}.Release|x64.Build.0 = Release|x64
-		{52DFAACC-AE16-4183-828E-D0D6958FF567}.Release|x86.ActiveCfg = Release|Win32
-		{52DFAACC-AE16-4183-828E-D0D6958FF567}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
