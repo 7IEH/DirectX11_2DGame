@@ -82,7 +82,7 @@ void EnemyScript::OnTriggerEnter(Collider* _other)
 		Transform* _pTr = GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);
 		Vec4 _vPos = _pTr->GetRelativePosition();
 
-		m_iHp -= _fStrikingPower+50.f;
+		m_iHp -= _fStrikingPower;
 
 		switch (_ePlayerDir)
 		{

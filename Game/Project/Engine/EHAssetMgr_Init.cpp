@@ -436,6 +436,7 @@ void AssetMgr::CreateDefaultMaterial()
 					_wSpritePath = _line;
 
 					Material* _mat = new Material;
+
 					_mat->SetGraphicShader(AssetMgr::GetInst()->FindAsset<GraphicShader>(_WShader));
 					_mat->SetTexParam(TEX_0, AssetMgr::GetInst()->FindAsset<Sprite>(_wSpritePath));
 					AddAsset<Material>(_mat, _wName);

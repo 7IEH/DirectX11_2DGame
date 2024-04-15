@@ -38,12 +38,22 @@ void GolemDungeonScript::Start()
 	m_pScroll->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->Play(L"GUI_GolemDungeon_Scroll_Open_Anim", FALSE);
 	m_pIntroDoor->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->Play(L"Object_Intro_Door_Close_Anim", FALSE);
 
-	Object::Play2DBGM(L"\\resource\\Audio\\golem_dungeon_floor_variation_1", 0.5f);
-	Object::Play2DSound(L"\\resource\\Audio\\golem_dungeon_main_ambient", FALSE, 0.5f);
+	Object::Play2DBGM(L"\\resource\\Audio\\golem_dungeon_floor_variation_1.wav", 0.5f);
+	Object::Play2DSound(L"\\resource\\Audio\\golem_dungeon_main_ambient.wav", FALSE, 0.5f);
 }
 
 void GolemDungeonScript::Update()
 {
+	CollisionMgr::GetInst()->LayerCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::ENEMY_PROJECTILE);
+	CollisionMgr::GetInst()->LayerCheck(LAYER_TYPE::MONSTER, LAYER_TYPE::PLAYER_PROJECTILE);
+	CollisionMgr::GetInst()->LayerCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::MONSTER);
+	CollisionMgr::GetInst()->LayerCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::STRUCTURE_OBSTACLE_HOLE);
+
+	CollisionMgr::GetInst()->LayerCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::STRUCTURE_WALL_BOTTOM);
+	CollisionMgr::GetInst()->LayerCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::STRUCTURE_WALL_TOP);
+	CollisionMgr::GetInst()->LayerCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::STRUCTURE_WALL_LEFT);
+	CollisionMgr::GetInst()->LayerCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::STRUCTURE_WALL_RIGHT);
+
 	DungeonScript::Update();
 
 	Transform* _pScrollTr = m_pScroll->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM);

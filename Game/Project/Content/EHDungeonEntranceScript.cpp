@@ -18,8 +18,6 @@ DungeonEntranceScript::~DungeonEntranceScript()
 
 void DungeonEntranceScript::Start()
 {
-	FIND_OBJECT(L"MainLight")->GetComponent<LIght2D>(COMPONENT_TYPE::LIGHT2D)->SetAmbient(Vec4(1.f, 1.f, 1.f, 1.f));
-
 	m_pTownTrigger = FIND_OBJECT(L"Object_Trigger_Town");
 	m_pDungeonTrigger = FIND_OBJECT(L"Object_Trigger_GolemDungeon");
 

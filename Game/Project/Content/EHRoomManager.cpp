@@ -9,6 +9,14 @@
 #include <EHCollisionMgr.h>
 #include <EHLevelMgr.h>
 #include <EHAnimation2D.h>
+#include "EHEnemyScript.h"
+
+#include "EHGolemTurretScript.h"
+#include "EHBabySlimeScript.h"
+#include "EHTangleScript.h"
+#include "EHGolemSoilderScript.h"
+#include "EHSlimeHermitScript.h"
+
 
 RoomManager::RoomManager()
 	: m_vRoomRef{}
@@ -353,17 +361,104 @@ void RoomManager::LoadPrefab()
 					}
 				}
 
-				/*if (3 == _idx)
+				if (3 == _idx)
 				{
 					int _iMonsterCount = std::stoi(_line);
-
-					for (int i = 0;i <= _iMonsterCount;i++)
+					for (int i = 0;i < _iMonsterCount;i++)
 					{
-						GameObject* _pMonster = new GameObject;
-						m_vMapRoomInfo[i]._pMonster.push_back(_pMonster);
-					}
-				}*/
+						Vec4 _vPos = {};
+						Vec4 _vScale = {};
 
+						std::getline(_sStream, _line);
+						int _enemyType = std::stoi(_line);
+
+						GameObject* _pMonster = new GameObject;
+						Transform* _pTr = _pMonster->AddComponent<Transform>();
+						MeshRenderer* _pRender = _pMonster->AddComponent<MeshRenderer>();
+						Animator2D* _pAnim = _pMonster->AddComponent<Animator2D>();
+						Collider2D* _pCol = _pMonster->AddComponent<Collider2D>();
+
+						switch (_enemyType)
+						{
+						case 0:
+						{
+							_pTr->SetRelativeScale(Vec4(640.f, 640.f, 1.f, 1.f));
+							_pMonster->AddComponent<BabySlimeScript>();
+
+							_pAnim->AddAnimation2D(L"FSM_Enemy_Slime_Baby_Walk_Anim");
+						}
+						break;
+						case 1:
+						{
+							_pTr->SetRelativeScale(Vec4(640.f, 640.f, 1.f, 1.f));
+							_pMonster->AddComponent<TangleScript>();
+
+							_pAnim->AddAnimation2D(L"FSM_Enemy_Tangle_Cycle_Anim");
+						}
+						break;
+						case 2:
+						{
+							_pTr->SetRelativeScale(Vec4(640.f, 640.f, 1.f, 1.f));
+							_pMonster->AddComponent<GolemTurretScript>();
+
+							_pAnim->AddAnimation2D(L"FSM_Enemy_Golem_Turret_Attack_Down_Anim");
+							_pAnim->AddAnimation2D(L"FSM_Enemy_Golem_Turret_Attack_Up_Anim");
+							_pAnim->AddAnimation2D(L"FSM_Enemy_Golem_Turret_Attack_Left_Anim");
+							_pAnim->AddAnimation2D(L"FSM_Enemy_Golem_Turret_Attack_Right_Anim");
+						}
+						break;
+						case 3:
+						{
+							_pTr->SetRelativeScale(Vec4(275.f, 275.f, 1.f, 1.f));
+							_pMonster->AddComponent<GolemSoilderScript>();
+
+							_pAnim->AddAnimation2D(L"FSM_Enemy_GolemSoilder_Attack_Down_Anim");
+							_pAnim->AddAnimation2D(L"FSM_Enemy_GolemSoilder_Attack_Up_Anim");
+							_pAnim->AddAnimation2D(L"FSM_Enemy_GolemSoilder_Attack_Right_Anim");
+							_pAnim->AddAnimation2D(L"FSM_Enemy_GolemSoilder_Attack_Left_Anim");
+
+							_pAnim->AddAnimation2D(L"FSM_Enemy_GolemSoilder_Walk_Down_Anim");
+							_pAnim->AddAnimation2D(L"FSM_Enemy_GolemSoilder_Walk_Up_Anim");
+							_pAnim->AddAnimation2D(L"FSM_Enemy_GolemSoilder_Walk_Right_Anim");
+							_pAnim->AddAnimation2D(L"FSM_Enemy_GolemSoilder_Walk_Left_Anim");
+						}
+						break;
+						case 4:
+						{
+							_pTr->SetRelativeScale(Vec4(640.f, 640.f, 1.f, 1.f));
+							_pMonster->AddComponent<SlimeHermitScript>();
+
+							_pAnim->AddAnimation2D(L"FSM_Enemy_SlimeHermit_Attack_Down_Anim");
+							_pAnim->AddAnimation2D(L"FSM_Enemy_SlimeHermit_Attack_Up_Anim");
+							_pAnim->AddAnimation2D(L"FSM_Enemy_SlimeHermit_Attack_Right_Anim");
+							_pAnim->AddAnimation2D(L"FSM_Enemy_SlimeHermit_Attack_Left_Anim");
+
+							_pAnim->AddAnimation2D(L"FSM_Enemy_SlimeHermit_Walk_Down_Anim");
+							_pAnim->AddAnimation2D(L"FSM_Enemy_SlimeHermit_Walk_Up_Anim");
+							_pAnim->AddAnimation2D(L"FSM_Enemy_SlimeHermit_Walk_Right_Anim");
+							_pAnim->AddAnimation2D(L"FSM_Enemy_SlimeHermit_Walk_Left_Anim");
+						}
+						break;
+						default:
+							break;
+						}
+
+						_vStandardPos.z = 6000.f;
+
+						std::getline(_sStream, _line);
+						EH::InputVector4(_line, _vPos);
+
+						_vPos = _vStandardPos + _vPos;
+						_pTr->SetRelativePosition(_vPos);
+
+						_pRender->SetMaterial(AssetMgr::GetInst()->FindAsset<Material>(L"BackGroundMaterial"));
+						_pRender->SetMesh(AssetMgr::GetInst()->FindAsset<Mesh>(L"DefaultRectMesh"));
+
+						(*iter).second._pMonster.push_back(_pMonster);
+
+						LevelMgr::GetInst()->GetCurLevel()->AddObject(_pMonster, LAYER_TYPE::MONSTER);
+					}
+				}
 				_idx++;
 			}
 		}
@@ -658,6 +753,18 @@ void RoomManager::GolemDungeonUpdate()
 
 	Room _CurRoom = (*iter).second;
 	bool _flag = FALSE;
+
+	for (size_t i = 0;i < _CurRoom._pMonster.size();i++)
+	{
+		if (nullptr != _CurRoom._pMonster[i])
+		{
+			if (!_CurRoom._pMonster[i]->GetScript<EnemyScript>()->GetChase())
+			{
+				_CurRoom._pMonster[i]->GetScript<EnemyScript>()->SetChase(TRUE);
+			}
+		}
+	}
+
 	for (size_t i = 0;i < _CurRoom._pMonster.size();i++)
 	{
 		if (!_CurRoom._pMonster[i]->GetDead())

@@ -169,8 +169,11 @@
     <Filter Include="02. Script\13. UtilScript\TestScript">
       <UniqueIdentifier>{b8c1db21-9a97-48b3-a6fd-0c1d395b098b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Script\4. EnemyScript\MeleeEnemyScript\SuicideTurretScript">
-      <UniqueIdentifier>{f78e8968-bf3f-4822-8676-6b35426a9695}</UniqueIdentifier>
+    <Filter Include="02. Script\4. EnemyScript\MeleeEnemyScript\SlimeHermitScript">
+      <UniqueIdentifier>{c6134967-f508-43b5-98c0-f8c4d39ca8b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Script\4. EnemyScript\MeleeEnemyScript\GolemSoilderScript">
+      <UniqueIdentifier>{4de88cff-3f96-4921-af5e-a367bd208080}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -324,6 +327,12 @@
     <ClInclude Include="EHItemMgr.h">
       <Filter>03. Util\ItemManager</Filter>
     </ClInclude>
+    <ClInclude Include="EHSlimeHermitScript.h">
+      <Filter>02. Script\4. EnemyScript\MeleeEnemyScript\SlimeHermitScript</Filter>
+    </ClInclude>
+    <ClInclude Include="EHGolemSoilderScript.h">
+      <Filter>02. Script\4. EnemyScript\MeleeEnemyScript\GolemSoilderScript</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -463,6 +472,12 @@
     </ClCompile>
     <ClCompile Include="EHItemMgr.cpp">
       <Filter>03. Util\ItemManager</Filter>
+    </ClCompile>
+    <ClCompile Include="EHSlimeHermitScript.cpp">
+      <Filter>02. Script\4. EnemyScript\MeleeEnemyScript\SlimeHermitScript</Filter>
+    </ClCompile>
+    <ClCompile Include="EHGolemSoilderScript.cpp">
+      <Filter>02. Script\4. EnemyScript\MeleeEnemyScript\GolemSoilderScript</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

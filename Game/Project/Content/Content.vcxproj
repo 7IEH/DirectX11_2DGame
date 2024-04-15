@@ -182,6 +182,7 @@ call ScriptGenerator.exe</Command>
     <ClInclude Include="EHGolemKingATK3Script.h" />
     <ClInclude Include="EHGolemKingATK4Script.h" />
     <ClInclude Include="EHGolemKingScript.h" />
+    <ClInclude Include="EHGolemSoilderScript.h" />
     <ClInclude Include="EHGolemTurretScript.h" />
     <ClInclude Include="EHGUI_LineScript.h" />
     <ClInclude Include="EHIntroScene.h" />
@@ -199,6 +200,7 @@ call ScriptGenerator.exe</Command>
     <ClInclude Include="EHRecordManager.h" />
     <ClInclude Include="EHRoomManager.h" />
     <ClInclude Include="EHScriptMgr.h" />
+    <ClInclude Include="EHSlimeHermitScript.h" />
     <ClInclude Include="EHSlotScript.h" />
     <ClInclude Include="EHSpawnEffectScript.h" />
     <ClInclude Include="EHSpawnRockScript.h" />
@@ -235,6 +237,7 @@ call ScriptGenerator.exe</Command>
     <ClCompile Include="EHGolemKingATK3Script.cpp" />
     <ClCompile Include="EHGolemKingATK4Script.cpp" />
     <ClCompile Include="EHGolemKingScript.cpp" />
+    <ClCompile Include="EHGolemSoilderScript.cpp" />
     <ClCompile Include="EHGolemTurretScript.cpp" />
     <ClCompile Include="EHGUI_LineScript.cpp" />
     <ClCompile Include="EHIntroScene.cpp" />
@@ -252,6 +255,7 @@ call ScriptGenerator.exe</Command>
     <ClCompile Include="EHRecordManager.cpp" />
     <ClCompile Include="EHRoomManager.cpp" />
     <ClCompile Include="EHScriptMgr.cpp" />
+    <ClCompile Include="EHSlimeHermitScript.cpp" />
     <ClCompile Include="EHSlotScript.cpp" />
     <ClCompile Include="EHSpawnEffectScript.cpp" />
     <ClCompile Include="EHSpawnRockScript.cpp" />

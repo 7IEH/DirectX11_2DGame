@@ -218,6 +218,8 @@ void PlayerScript::Awake()
 
 	m_pUICurSor->Enabled(FALSE);
 	m_pSpearCollider->GetComponent<Collider2D>(COMPONENT_TYPE::COLLIDER2D)->Enabled(FALSE);
+	m_pTwoHandCollider->GetComponent<Collider2D>(COMPONENT_TYPE::COLLIDER2D)->Enabled(FALSE);
+
 
 	m_pPlayerPref = RecordManager::GetInst()->GetCurrentPlayerPref();
 	m_pObject_Village_Fade_BG->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(COLOR, Vec4(1.f, 1.f, 1.f, 0.5f));
@@ -616,10 +618,12 @@ void PlayerScript::Idle()
 		if (_iWeapon == ITEM::BROOM_STICK)
 		{
 			m_pTwoHandCollider->GetComponent<Collider2D>(COMPONENT_TYPE::COLLIDER2D)->Enabled(FALSE);
+			m_pPlayerPref->_iStrikingPower = 20.f;
 		}
 		else
 		{
 			m_pSpearCollider->GetComponent<Collider2D>(COMPONENT_TYPE::COLLIDER2D)->Enabled(FALSE);
+			m_pPlayerPref->_iStrikingPower = 30.f;
 		}
 	}
 	else if (KEY_TAP(KEY::E))
@@ -941,7 +945,35 @@ void PlayerScript::Move()
 		{
 		case ITEM::DOUBLE_HAND_SWORD:
 		{
-
+			Object::Play2DSound(L"\\resource\\Audio\\big_sword_main_attack_swing.wav", TRUE, 0.4f);
+			m_pTwoHandCollider->GetComponent<Collider2D>(COMPONENT_TYPE::COLLIDER2D)->Enabled(TRUE);
+			switch (m_eDir)
+			{
+			case Dir::UP:
+			{
+				_pAnim->Play(L"FSM_Player_Dungeon_Attack_Up_Anim1", FALSE);
+			}
+			break;
+			case Dir::DOWN:
+			{
+				_pAnim->Play(L"FSM_Player_Dungeon_Attack_TwoHand_Down_Anim1", FALSE);
+			}
+			break;
+			case Dir::LEFT:
+			{
+				_pAnim->Play(L"FSM_Player_Dungeon_Attack_TwoHand_Left_Anim1", FALSE);
+			}
+			break;
+			case Dir::RIGHT:
+			{
+				_pAnim->Play(L"FSM_Player_Dungeon_Attack_Right_Anim1", FALSE);
+			}
+			break;
+			case Dir::None:
+				break;
+			default:
+				break;
+			}
 		}
 		break;
 		case ITEM::BROOM_STICK:
@@ -1430,8 +1462,8 @@ void PlayerScript::SceneChange()
 			break;
 			case TRIGGER_TYPE::GOLEM_BOSS_MOVE_TRIGGER:
 			{
-				Object::Stop2DSound(L"\\resource\\Audio\\golem_dungeon_floor_variation_1");
-				Object::Stop2DSound(L"\\resource\\Audio\\golem_dungeon_main_ambient");
+				Object::Stop2DSound(L"\\resource\\Audio\\golem_dungeon_floor_variation_1.wav");
+				Object::Stop2DSound(L"\\resource\\Audio\\golem_dungeon_main_ambient.wav");
 
 				GetOwner()->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->SetRelativePosition(_vPos);
 				SceneManager::SelectScene(L"GolemDungeonBossScene");
@@ -1814,7 +1846,6 @@ void PlayerScript::DungeonEnter()
 
 void PlayerScript::CameraMove()
 {
-
 	if (L"TownScene" == LevelMgr::GetInst()->GetCurLevel()->GetName() || L"DungeonEntranceScene" == LevelMgr::GetInst()->GetCurLevel()->GetName())
 	{
 		Object::Stop2DSound(L"\\resource\\Audio\\will_step_town_dirt.wav");
@@ -1931,6 +1962,9 @@ void PlayerScript::CameraMove()
 	_pBottomWallTr->SetRelativePosition(_vBottomWallPos);
 	_pLeftWallTr->SetRelativePosition(_vLeftWallPos);
 	_pRightWallTr->SetRelativePosition(_vRightWallPos);
+
+	m_eState = State::Idle;
+	GetOwner()->GetComponent<Collider>(COMPONENT_TYPE::COLLIDER2D)->Enabled(TRUE);
 }
 
 void PlayerScript::Pause()

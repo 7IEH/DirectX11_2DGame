@@ -7,6 +7,7 @@ public:
     virtual void Update() override;
 
 public:
+    virtual void Start()override;
     virtual void Idle()override;
     virtual void Chase()override;
 

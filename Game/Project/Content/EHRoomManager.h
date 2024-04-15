@@ -29,6 +29,7 @@ public:
 
 	void		SetBossClose(bool _bBossClose) { m_bBossClose = m_bBossClose; }
 
+	bool			m_bEnter;
 private:
 	void	CreateRoomRef();
 	void	GolemDungeonStart();

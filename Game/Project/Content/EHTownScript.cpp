@@ -67,4 +67,6 @@ void TownScript::Start()
 
 void TownScript::Update()
 {
+	CollisionMgr::GetInst()->LayerCheck(LAYER_TYPE::PLAYER, LAYER_TYPE::ENEMY_PROJECTILE);
+	CollisionMgr::GetInst()->LayerCheck(LAYER_TYPE::PLAYER_PROJECTILE, LAYER_TYPE::MONSTER);
 }

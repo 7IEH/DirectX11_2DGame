@@ -45,6 +45,7 @@ void ScriptMgr::Awake()
 	AddScript<GolemKingATK3Script>(L"GolemKingATK3Script");
 	AddScript<GolemKingATK4Script>(L"GolemKingATK4Script");
 	AddScript<GolemKingScript>(L"GolemKingScript");
+	AddScript<GolemSoilderScript>(L"GolemSoilderScript");
 	AddScript<GolemTurretScript>(L"GolemTurretScript");
 	AddScript<GUI_LineScript>(L"GUI_LineScript");
 	AddScript<ItemScript>(L"ItemScript");
@@ -57,6 +58,7 @@ void ScriptMgr::Awake()
 	AddScript<ProjecTileScript>(L"ProjecTileScript");
 	AddScript<PUIScript>(L"PUIScript");
 	AddScript<RangedEnemyScript>(L"RangedEnemyScript");
+	AddScript<SlimeHermitScript>(L"SlimeHermitScript");
 	AddScript<SlotScript>(L"SlotScript");
 	AddScript<SpawnEffectScript>(L"SpawnEffectScript");
 	AddScript<SpawnRockScript>(L"SpawnRockScript");

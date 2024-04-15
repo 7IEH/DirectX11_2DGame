@@ -24,6 +24,9 @@ void LoadingSceneScript::Start()
 	assert(m_pLoadingUI);
 
 	m_pLoadingUI->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->Play(L"UI_Loading_Anim", TRUE);
+
+	Object::Stop2DSound(L"\\resource\\Audio\\will_step_town_dirt.wav");
+	Object::Stop2DSound(L"\\resource\\Audio\\will_step_golem_dungeon.wav");
 }
 
 void LoadingSceneScript::Update()

@@ -13,6 +13,7 @@ EHGolemKingATK2Script
 EHGolemKingATK3Script
 EHGolemKingATK4Script
 EHGolemKingScript
+EHGolemSoilderScript
 EHGolemTurretScript
 EHGUI_LineScript
 EHItemScript
@@ -25,6 +26,7 @@ EHPortionScript
 EHProjecTileScript
 EHPUIScript
 EHRangedEnemyScript
+EHSlimeHermitScript
 EHSlotScript
 EHSpawnEffectScript
 EHSpawnRockScript

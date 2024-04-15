@@ -22,6 +22,11 @@ void TangleScript::Update()
 	EnemyScript::Update();
 }
 
+void TangleScript::Start()
+{
+	GetOwner()->GetComponent<Collider2D>(COMPONENT_TYPE::COLLIDER2D)->SetoffSetScale(Vec3(0.07f, 0.07f, 1.f));
+}
+
 void TangleScript::Idle()
 {
 	if (GetChase())
