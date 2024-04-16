@@ -315,11 +315,17 @@ void SlotScript::Update()
 		}
 		else
 		{
-			if (_pref->_ePlace == PLACE::TOWN)
+			if (PLACE::TOWN == _pref->_ePlace)
 			{
 				Object::Stop2DSound(L"\\resource\\Audio\\main_menu_door_opened_loop.wav");
 				Object::Stop2DSound(L"\\resource\\Audio\\main_menu_wind.wav");
 				SceneManager::SelectScene(L"TownScene");
+			}
+			else if (PLACE::DUNGEONENTRANCE == _pref->_ePlace)
+			{
+				Object::Stop2DSound(L"\\resource\\Audio\\main_menu_door_opened_loop.wav");
+				Object::Stop2DSound(L"\\resource\\Audio\\main_menu_wind.wav");
+				SceneManager::SelectScene(L"DungeonEntranceScene");
 			}
 		}
 	}

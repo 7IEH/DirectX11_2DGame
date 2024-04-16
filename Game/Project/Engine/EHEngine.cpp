@@ -105,7 +105,7 @@ void Engine::AwakeManager()
 		HandleError(MAIN_HWND, L"ImGUI InitailizeError", 1);
 	}
 #else
-	LevelMgr::GetInst()->SelectLevel(L"DungeonEntranceScene");
+	LevelMgr::GetInst()->SelectLevel(L"BannerScene");
 #endif
 
 #ifdef _DEBUG

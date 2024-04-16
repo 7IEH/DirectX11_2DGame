@@ -533,6 +533,12 @@ void TitleScript::ContinueGame()
 			Object::Stop2DSound(L"\\resource\\Audio\\main_menu_wind.wav");
 			SceneManager::SelectScene(L"TownScene");
 		}
+		else if (PLACE::DUNGEONENTRANCE == _pPlayerPref->_ePlace)
+		{
+			Object::Stop2DSound(L"\\resource\\Audio\\main_menu_door_opened_loop.wav");
+			Object::Stop2DSound(L"\\resource\\Audio\\main_menu_wind.wav");
+			SceneManager::SelectScene(L"DungeonEntranceScene");
+		}
 	}
 }
 

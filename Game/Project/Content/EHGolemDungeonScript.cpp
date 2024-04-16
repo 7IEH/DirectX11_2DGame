@@ -28,7 +28,9 @@ void GolemDungeonScript::Start()
 	m_pScroll = FIND_OBJECT(L"GUI_GolemDungeon_Scroll");
 	m_pIntroText = FIND_OBJECT(L"GUI_IntroText");
 	m_pIntroDoor = FIND_OBJECT(L"Object_Intro_Door");
+	m_pPostProcessing = FIND_OBJECT(L"Object_Mozaic_Panel");
 
+	assert(m_pPostProcessing);
 	assert(m_pScroll);
 	assert(m_pIntroText);
 	assert(m_pIntroDoor);
@@ -72,6 +74,7 @@ void GolemDungeonScript::Update()
 	if (L"GUI_GolemDungeon_Scroll_Open_Anim" == m_pScroll->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->GetCurAnimation2D()->GetName() &&
 		m_pScroll->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->GetCurAnimation2D()->IsFinish())
 	{
+		m_pPostProcessing->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(INT_1, 1);
 		m_pScroll->GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->Play(L"GUI_GolemDungeon_Scroll_Close_Anim", FALSE);
 	}
 
@@ -89,6 +92,7 @@ void GolemDungeonScript::Update()
 	if (_vScrollPos.y >= -101.f)
 	{
 		Object::MoveDown(m_pScroll, -600.f, 2000.f);
+		m_pPostProcessing->GetComponent<MeshRenderer>(COMPONENT_TYPE::RENDERER)->GetMaterial()->SetMaterialParam(INT_1, 0);
 	}
 }
 

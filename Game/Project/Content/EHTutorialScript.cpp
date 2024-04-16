@@ -27,7 +27,7 @@ TutorialScript::TutorialScript()
 	, m_bTutorialAwake(FALSE)
 	, m_bLoading(FALSE)
 	, m_fAcctime(0.f)
-	, m_bSkip(FALSE)
+	, m_bSkip(TRUE)
 	, m_bFirstScene(FALSE)
 	, m_bStart(FALSE)
 	, m_mDoorObjects{}
@@ -38,7 +38,8 @@ TutorialScript::TutorialScript()
 	, m_pTangle(nullptr)
 	, m_bSecond(FALSE)
 	, m_pUICamera(nullptr)
-	, m_bFinsihed(FALSE)
+	, m_bFinsihed(TRUE)
+	, m_fAccTime2(0.f)
 {
 	SetName(L"TutorialScript");
 
@@ -396,7 +397,7 @@ void TutorialScript::Update()
 					Object::FadeIn(m_pContinueButtonObject, 1.5f);
 					Object::FadeInText(m_pIntroText, 1.5f);
 					m_pIntroText->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetFontSize(18.f);
-					m_pIntroText->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->SetRelativePosition(Vec4(-600.f, -356.f, -5.f, 0.f));
+					m_pIntroText->GetComponent<Transform>(COMPONENT_TYPE::TRANSFORM)->SetRelativePosition(Vec4(-650.f, -356.f, -5.f, 0.f));
 					m_pIntroText->GetComponent<Text>(COMPONENT_TYPE::TEXT)->SetText(L"계속하기");
 					_pAnimator->Play(L"IntroSceneAnim7-1", FALSE);
 					Object::Stop2DSound(L"\\resource\\Audio\\intro.wav");
@@ -493,8 +494,8 @@ void TutorialScript::Update()
 			m_mDoorObjects.find(L"Structure_Tutorial_Room1_Door_Right")->second->
 				GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->Play(L"Structure_Door_Open_Tutorial_Anim", FALSE);
 
-			Object::Play2DSound(L"\\resource\\Audio\\golem_dungeon_normal_door_opening.wav", FALSE, 0.5f);
-			Object::Play2DSound(L"\\resource\\Audio\\golem_dungeon_normal_door_closing.wav", FALSE, 0.5f);
+			Object::Play2DSound(L"\\resource\\Audio\\golem_dungeon_normal_door_opening.wav", TRUE, 0.5f);
+			Object::Play2DSound(L"\\resource\\Audio\\golem_dungeon_normal_door_closing.wav", TRUE, 0.5f);
 
 			m_bStart = TRUE;
 			m_pUICamera->GetComponent<Camera>(COMPONENT_TYPE::CAMERA)->LayerVisibleSet(LAYER_TYPE::UI, TRUE);
@@ -759,6 +760,12 @@ void TutorialScript::RoomOpen()
 	}
 	else if (m_iCurRoom == 7)
 	{
+		m_fAccTime2 += DT;
+		if (m_fAccTime2 >= 5.f && m_bFinsihed)
+		{
+			m_fAccTime2 = 0.f;
+			m_bFinsihed = FALSE;
+		}
 		/*if (m_mDoorObjects.find(L"Structure_Tutorial_Room8_Door_Left")->second->
 			GetComponent<Animator2D>(COMPONENT_TYPE::ANIMATOR2D)->GetCurAnimation2D()->GetName() != L"Structure_Door_Close_Tutorial_Anim")
 		{

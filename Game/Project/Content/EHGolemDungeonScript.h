@@ -13,6 +13,8 @@ private:
     GameObject* m_pIntroBG;
     GameObject* m_pIntroText;
     GameObject* m_pIntroDoor;
+    GameObject* m_pPostProcessing;
+
 public:
     virtual void Start()override;
     virtual void Update()override;

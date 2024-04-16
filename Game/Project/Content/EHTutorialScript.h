@@ -33,6 +33,7 @@ private:
 	bool					m_bStart;
 
 	float					m_fAcctime;
+	float					m_fAccTime2;
 
 	bool					m_bSkip;
 

@@ -276,6 +276,7 @@ FSM_Player_Tutorial_Scene0_Anim
 MESHRENDERER
 DefaultRectMesh
 PlayerShader2
+RIGIDBODY
 Script
 2
 PlayerScript

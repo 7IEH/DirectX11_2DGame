@@ -100,6 +100,11 @@ private:
 	GameObject*			m_pSelectItemIcon;
 	ITEM				m_iSelectItem;
 
+	/******************
+	| Prsentation
+	******************/
+	bool				m_pCameraConvert;
+
 
 	/**************************
 	|	Interface Key

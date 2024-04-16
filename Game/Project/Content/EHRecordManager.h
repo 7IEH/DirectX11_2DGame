@@ -6,6 +6,7 @@ enum class PLACE
 {
 	TUTORIAL,
 	TOWN,
+	DUNGEONENTRANCE,
 	None,
 };
 

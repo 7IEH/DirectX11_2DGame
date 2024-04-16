@@ -94,6 +94,7 @@ PlayerScript::PlayerScript()
 	, m_pSelectItemIcon(nullptr)
 	, m_iSelectItem(ITEM::NO_ITEM)
 	, m_bLowHPFlag(FALSE)
+	, m_pCameraConvert(FALSE)
 {
 	SetName(L"PlayerScript");
 }
@@ -268,8 +269,6 @@ void PlayerScript::Awake()
 		}
 	}
 
-	GetOwner()->AddComponent<RigidBody>();
-
 	m_pSelectCircle->Enabled(FALSE);
 	m_pSelectItemIcon->Enabled(FALSE);
 }
@@ -284,6 +283,36 @@ void PlayerScript::Update()
 {
 	if (nullptr == m_pPlayerPref)
 		return;
+
+
+	if (KEY_TAP(KEY::M))
+	{
+		if (m_pPlayerCam->GetComponent<Camera>(COMPONENT_TYPE::CAMERA)->GetProjectionType() == PROJECTION_TYPE::PERSPECTIVE)
+		{
+			m_pPlayerCam->GetComponent<Camera>(COMPONENT_TYPE::CAMERA)->SetProjectionType(PROJECTION_TYPE::ORTHOGRAPHIC);
+			m_pCameraConvert = FALSE;
+		}
+		else
+		{
+			m_pPlayerCam->GetComponent<Camera>(COMPONENT_TYPE::CAMERA)->SetProjectionType(PROJECTION_TYPE::PERSPECTIVE);
+			m_pCameraConvert = TRUE;
+		}
+	}
+
+	if (m_pCameraConvert)
+	{
+		return;
+	}
+
+
+	if (LevelMgr::GetInst()->GetCurLevel()->GetName() == L"DungeonEntranceScene")
+	{
+		m_pPlayerPref->_ePlace = PLACE::DUNGEONENTRANCE;
+	}
+	else if (LevelMgr::GetInst()->GetCurLevel()->GetName() == L"TownScene")
+	{
+		m_pPlayerPref->_ePlace = PLACE::TOWN;
+	}
 
 	if (m_pPlayerPref->_iCurHp <= m_pPlayerPref->_iMaxHp * 0.2f && m_eState != State::Dead)
 	{
@@ -1951,7 +1980,7 @@ void PlayerScript::CameraMove()
 	{
 		_vDestPos.x -= 1600.f;
 		_vPlayerPos.x = _vDestPos.x;
-		_vPlayerPos.x += 600.f;
+		_vPlayerPos.x += 550.f;
 
 		_vTopWallPos.x -= 1600.f;
 		_vBottomWallPos.x -= 1600.f;
@@ -1969,7 +1998,7 @@ void PlayerScript::CameraMove()
 	{
 		_vDestPos.x += 1600.f;
 		_vPlayerPos.x = _vDestPos.x;
-		_vPlayerPos.x -= 600.f;
+		_vPlayerPos.x -= 550.f;
 
 		_vTopWallPos.x += 1600.f;
 		_vBottomWallPos.x += 1600.f;
@@ -2128,7 +2157,25 @@ void PlayerScript::ESC()
 		}
 		else if (2 == m_iCurButton)
 		{
+			Object::Stop2DSound(L"\\resource\\Audio\\will_step_golem_dungeon.wav");
+			Object::Stop2DSound(L"\\resource\\Audio\\will_step_town_dirt.wav");
+
+			Object::Stop2DSound(L"\\resource\\Audio\\dungeon_entrance_wind_ambient.wav");
+			Object::Stop2DSound(L"\\resource\\Audio\\dungeon_entrance_fabric.wav");
+
+			Object::Stop2DSound(L"\\resource\\Audio\\rynoka_night.wav");
+			Object::Stop2DSound(L"\\resource\\Audio\\dungeon_entrance_fabric.wav");
+			Object::Stop2DSound(L"\\resource\\Audio\\town_night_ambient.wav");
+			Object::Stop2DSound(L"\\resource\\Audio\\town_night_wind_ambient.wav");
+
+			Object::Stop2DSound(L"\\resource\\Audio\\golem_boss_track.wav");
+
+			Object::Stop2DSound(L"\\resource\\Audio\\golem_dungeon_floor_variation_1.wav");
+			Object::Stop2DSound(L"\\resource\\Audio\\golem_dungeon_main_ambient.wav");
+
 			LevelMgr::GetInst()->SelectLevel(L"EnterScene");
+
+			RecordManager::GetInst()->SaveFile();
 		}
 		else if (3 == m_iCurButton)
 		{
@@ -2653,7 +2700,7 @@ void PlayerScript::OnTriggerStay(Collider* _other)
 			if (m_fTriggerTime >= 1.f)
 			{
 				m_fTriggerTime = 0.f;
-				m_fPauseTime = 1.5f;
+				m_fPauseTime = 2.5f;
 				GetOwner()->GetComponent<Collider>(COMPONENT_TYPE::COLLIDER2D)->Enabled(FALSE);
 				m_eState = State::CameraMove;
 			}

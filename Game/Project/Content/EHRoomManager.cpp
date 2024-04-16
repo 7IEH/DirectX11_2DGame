@@ -751,6 +751,9 @@ void RoomManager::GolemDungeonUpdate()
 	_key = std::to_wstring(m_vCurPos.y) + L"_" + std::to_wstring(m_vCurPos.x);
 	map<wstring, Room>::iterator iter = m_mMapRoomInfo.find(_key);
 
+	if (iter == m_mMapRoomInfo.end())
+		return;
+
 	Room _CurRoom = (*iter).second;
 	bool _flag = FALSE;
 

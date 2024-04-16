@@ -383,6 +383,11 @@ void GameObject::Load(std::wifstream* _file, Level* _level, bool _bParent)
 			_comp = AddComponent<CanvasRenderer>();
 		}
 
+		if (_line.find(L"RIGIDBODY") != string::npos)
+		{
+			_comp = AddComponent<RigidBody>();
+		}
+
 		if (_line.find(L"PARTICLESYSTEM") != string::npos)
 		{
 			_comp = AddComponent<ParticleSystem>();
